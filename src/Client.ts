@@ -30,10 +30,11 @@ import { Users } from "./api/resources/users/client/Client";
 
 export declare namespace SquidexClient {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
         clientId: string;
         clientSecret: string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
+        environment?: environments.SquidexEnvironment | string;
     }
 }
 
@@ -42,6 +43,7 @@ export class SquidexClient {
 
     constructor(private readonly options: SquidexClient.Options) {
         this.options = {
+            app: options.app,
             environment: options.environment,
             clientId: options.clientId,
             clientSecret: options.clientSecret,
