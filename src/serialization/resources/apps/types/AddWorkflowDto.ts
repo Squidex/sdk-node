@@ -3,15 +3,13 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const AddWorkflowDto: core.serialization.ObjectSchema<
-    serializers.AddWorkflowDto.Raw,
-    SquidexApi.AddWorkflowDto
-> = core.serialization.object({
-    name: core.serialization.string(),
-});
+export const AddWorkflowDto: core.serialization.ObjectSchema<serializers.AddWorkflowDto.Raw, Squidex.AddWorkflowDto> =
+    core.serialization.object({
+        name: core.serialization.string(),
+    });
 
 export declare namespace AddWorkflowDto {
     interface Raw {

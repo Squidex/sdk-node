@@ -6,12 +6,12 @@ import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as serializers from "../../../../serialization";
 
 export declare namespace Backups {
     interface Options {
-        environment?: environments.SquidexApiEnvironment | string;
+        environment?: environments.SquidexEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -22,7 +22,7 @@ export class Backups {
     public async get(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/backups/${id}`
             ),
             method: "GET",
@@ -36,7 +36,7 @@ export class Backups {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -44,14 +44,14 @@ export class Backups {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -60,7 +60,7 @@ export class Backups {
     public async delete(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/backups/${id}`
             ),
             method: "DELETE",
@@ -74,7 +74,7 @@ export class Backups {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -82,20 +82,20 @@ export class Backups {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async getBackupContent(id: string, request: SquidexApi.GetBackUpContentRequest = {}): Promise<void> {
+    public async getBackupContent(id: string, request: Squidex.GetBackUpContentRequest = {}): Promise<void> {
         const { appId, app } = request;
         const _queryParams = new URLSearchParams();
         if (appId != null) {
@@ -108,7 +108,7 @@ export class Backups {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/backups/${id}`
             ),
             method: "GET",
@@ -123,7 +123,7 @@ export class Backups {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -131,23 +131,23 @@ export class Backups {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async getAll(app: string): Promise<SquidexApi.BackupJobsDto> {
+    public async getAll(app: string): Promise<Squidex.BackupJobsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/backups`
             ),
             method: "GET",
@@ -165,7 +165,7 @@ export class Backups {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -173,14 +173,14 @@ export class Backups {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -189,7 +189,7 @@ export class Backups {
     public async start(app: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/backups`
             ),
             method: "POST",
@@ -203,7 +203,7 @@ export class Backups {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -211,25 +211,22 @@ export class Backups {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async getRestoreJob(): Promise<SquidexApi.RestoreJobDto> {
+    public async getRestoreJob(): Promise<Squidex.RestoreJobDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
-                "/api/apps/restore"
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/apps/restore"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -245,7 +242,7 @@ export class Backups {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -253,25 +250,22 @@ export class Backups {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async restore(request: SquidexApi.RestoreRequestDto): Promise<void> {
+    public async restore(request: Squidex.RestoreRequestDto): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
-                "/api/apps/restore"
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/apps/restore"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -284,7 +278,7 @@ export class Backups {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -292,14 +286,14 @@ export class Backups {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }

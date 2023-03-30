@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Templates {
     interface Options {
-        environment?: environments.SquidexApiEnvironment | string;
+        environment?: environments.SquidexEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -19,9 +19,9 @@ export declare namespace Templates {
 export class Templates {
     constructor(private readonly options: Templates.Options) {}
 
-    public async getAll(): Promise<SquidexApi.TemplatesDto> {
+    public async getAll(): Promise<Squidex.TemplatesDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexApiEnvironment.Production, "/api/templates"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/templates"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -37,7 +37,7 @@ export class Templates {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -45,23 +45,23 @@ export class Templates {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async get(name: string): Promise<SquidexApi.TemplateDetailsDto> {
+    public async get(name: string): Promise<Squidex.TemplateDetailsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/templates/${name}`
             ),
             method: "GET",
@@ -79,7 +79,7 @@ export class Templates {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -87,14 +87,14 @@ export class Templates {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }

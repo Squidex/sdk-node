@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const CreateSchemaDto: core.serialization.ObjectSchema<
     serializers.CreateSchemaDto.Raw,
-    SquidexApi.CreateSchemaDto
+    Squidex.CreateSchemaDto
 > = core.serialization
     .object({
         name: core.serialization.string(),

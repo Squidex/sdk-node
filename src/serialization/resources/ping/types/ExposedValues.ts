@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const ExposedValues: core.serialization.Schema<serializers.ExposedValues.Raw, SquidexApi.ExposedValues> =
+export const ExposedValues: core.serialization.Schema<serializers.ExposedValues.Raw, Squidex.ExposedValues> =
     core.serialization.record(core.serialization.string(), core.serialization.string());
 
 export declare namespace ExposedValues {

@@ -3,24 +3,23 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const FieldDto: core.serialization.ObjectSchema<serializers.FieldDto.Raw, SquidexApi.FieldDto> =
-    core.serialization
-        .object({
-            fieldId: core.serialization.number().optional(),
-            name: core.serialization.string(),
-            isHidden: core.serialization.boolean().optional(),
-            isLocked: core.serialization.boolean().optional(),
-            isDisabled: core.serialization.boolean().optional(),
-            partitioning: core.serialization.string(),
-            properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
-            nested: core.serialization
-                .list(core.serialization.lazyObject(async () => (await import("../../..")).NestedFieldDto))
-                .optional(),
-        })
-        .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
+export const FieldDto: core.serialization.ObjectSchema<serializers.FieldDto.Raw, Squidex.FieldDto> = core.serialization
+    .object({
+        fieldId: core.serialization.number().optional(),
+        name: core.serialization.string(),
+        isHidden: core.serialization.boolean().optional(),
+        isLocked: core.serialization.boolean().optional(),
+        isDisabled: core.serialization.boolean().optional(),
+        partitioning: core.serialization.string(),
+        properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
+        nested: core.serialization
+            .list(core.serialization.lazyObject(async () => (await import("../../..")).NestedFieldDto))
+            .optional(),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
 
 export declare namespace FieldDto {
     interface Raw extends serializers.Resource.Raw {

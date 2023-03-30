@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const Response: core.serialization.Schema<serializers.teams.getAll.Response.Raw, SquidexApi.TeamDto[]> =
+export const Response: core.serialization.Schema<serializers.teams.getAll.Response.Raw, Squidex.TeamDto[]> =
     core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).TeamDto));
 
 export declare namespace Response {

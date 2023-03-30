@@ -3,20 +3,18 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const AssetFolderDto: core.serialization.ObjectSchema<
-    serializers.AssetFolderDto.Raw,
-    SquidexApi.AssetFolderDto
-> = core.serialization
-    .object({
-        id: core.serialization.string().optional(),
-        parentId: core.serialization.string().optional(),
-        folderName: core.serialization.string(),
-        version: core.serialization.number().optional(),
-    })
-    .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
+export const AssetFolderDto: core.serialization.ObjectSchema<serializers.AssetFolderDto.Raw, Squidex.AssetFolderDto> =
+    core.serialization
+        .object({
+            id: core.serialization.string().optional(),
+            parentId: core.serialization.string().optional(),
+            folderName: core.serialization.string(),
+            version: core.serialization.number().optional(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
 
 export declare namespace AssetFolderDto {
     interface Raw extends serializers.Resource.Raw {

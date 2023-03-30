@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const RenameTagDto: core.serialization.ObjectSchema<serializers.RenameTagDto.Raw, SquidexApi.RenameTagDto> =
+export const RenameTagDto: core.serialization.ObjectSchema<serializers.RenameTagDto.Raw, Squidex.RenameTagDto> =
     core.serialization.object({
         tagName: core.serialization.string(),
     });

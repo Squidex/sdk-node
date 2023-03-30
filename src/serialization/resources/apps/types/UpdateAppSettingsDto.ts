@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const UpdateAppSettingsDto: core.serialization.ObjectSchema<
     serializers.UpdateAppSettingsDto.Raw,
-    SquidexApi.UpdateAppSettingsDto
+    Squidex.UpdateAppSettingsDto
 > = core.serialization.object({
     patterns: core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).PatternDto)),
     editors: core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).EditorDto)),

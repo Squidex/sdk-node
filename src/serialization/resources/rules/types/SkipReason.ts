@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const SkipReason: core.serialization.Schema<serializers.SkipReason.Raw, SquidexApi.SkipReason> =
+export const SkipReason: core.serialization.Schema<serializers.SkipReason.Raw, Squidex.SkipReason> =
     core.serialization.enum_([
         "None",
         "ConditionDoesNotMatch",

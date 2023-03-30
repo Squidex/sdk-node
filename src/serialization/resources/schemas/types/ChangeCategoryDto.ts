@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const ChangeCategoryDto: core.serialization.ObjectSchema<
     serializers.ChangeCategoryDto.Raw,
-    SquidexApi.ChangeCategoryDto
+    Squidex.ChangeCategoryDto
 > = core.serialization.object({
     name: core.serialization.string().optional(),
 });

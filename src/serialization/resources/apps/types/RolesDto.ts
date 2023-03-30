@@ -3,17 +3,14 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const RolesDto: core.serialization.ObjectSchema<serializers.RolesDto.Raw, SquidexApi.RolesDto> =
-    core.serialization
-        .object({
-            items: core.serialization.list(
-                core.serialization.lazyObject(async () => (await import("../../..")).RoleDto)
-            ),
-        })
-        .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
+export const RolesDto: core.serialization.ObjectSchema<serializers.RolesDto.Raw, Squidex.RolesDto> = core.serialization
+    .object({
+        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).RoleDto)),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
 
 export declare namespace RolesDto {
     interface Raw extends serializers.Resource.Raw {

@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const WorkflowStepDto: core.serialization.ObjectSchema<
     serializers.WorkflowStepDto.Raw,
-    SquidexApi.WorkflowStepDto
+    Squidex.WorkflowStepDto
 > = core.serialization.object({
     transitions: core.serialization.record(
         core.serialization.string(),

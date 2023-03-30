@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const CommentsDto: core.serialization.ObjectSchema<serializers.CommentsDto.Raw, SquidexApi.CommentsDto> =
+export const CommentsDto: core.serialization.ObjectSchema<serializers.CommentsDto.Raw, Squidex.CommentsDto> =
     core.serialization.object({
         createdComments: core.serialization
             .list(core.serialization.lazyObject(async () => (await import("../../..")).CommentDto))

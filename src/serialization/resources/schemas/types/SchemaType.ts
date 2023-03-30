@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const SchemaType: core.serialization.Schema<serializers.SchemaType.Raw, SquidexApi.SchemaType> =
+export const SchemaType: core.serialization.Schema<serializers.SchemaType.Raw, Squidex.SchemaType> =
     core.serialization.enum_(["Default", "Singleton", "Component"]);
 
 export declare namespace SchemaType {

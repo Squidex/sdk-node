@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors";
 import * as serializers from "../../../../serialization";
 
 export declare namespace Assets {
     interface Options {
-        environment?: environments.SquidexApiEnvironment | string;
+        environment?: environments.SquidexEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -23,7 +23,7 @@ export class Assets {
         app: string,
         idOrSlug: string,
         more: string,
-        request: SquidexApi.GetAssetContentBySlugRequest = {}
+        request: Squidex.GetAssetContentBySlugRequest = {}
     ): Promise<void> {
         const {
             version,
@@ -100,7 +100,7 @@ export class Assets {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/assets/${app}/${idOrSlug}/${more}`
             ),
             method: "GET",
@@ -115,7 +115,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -123,20 +123,20 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async get(id: string, request: SquidexApi.GetAssetContentRequest = {}): Promise<void> {
+    public async get(id: string, request: Squidex.GetAssetContentRequest = {}): Promise<void> {
         const {
             version,
             cache,
@@ -211,10 +211,7 @@ export class Assets {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
-                `/api/assets/${id}`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, `/api/assets/${id}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -227,7 +224,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -235,14 +232,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -253,8 +250,8 @@ export class Assets {
      */
     public async getAssetFolders(
         app: string,
-        request: SquidexApi.GetAssetFoldersRequest = {}
-    ): Promise<SquidexApi.AssetFoldersDto> {
+        request: Squidex.GetAssetFoldersRequest = {}
+    ): Promise<Squidex.AssetFoldersDto> {
         const { parentId, scope } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -267,7 +264,7 @@ export class Assets {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/folders`
             ),
             method: "GET",
@@ -286,7 +283,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -294,23 +291,23 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async createAssetFolder(app: string, request: SquidexApi.CreateAssetFolderDto): Promise<void> {
+    public async createAssetFolder(app: string, request: Squidex.CreateAssetFolderDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/folders`
             ),
             method: "POST",
@@ -325,7 +322,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -333,14 +330,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -349,11 +346,11 @@ export class Assets {
     public async updateAssetFolder(
         app: string,
         id: string,
-        request: SquidexApi.RenameAssetFolderDto
-    ): Promise<SquidexApi.AssetFolderDto> {
+        request: Squidex.RenameAssetFolderDto
+    ): Promise<Squidex.AssetFolderDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/folders/${id}`
             ),
             method: "PUT",
@@ -372,7 +369,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -380,14 +377,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -396,7 +393,7 @@ export class Assets {
     public async deleteAssetFolder(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/folders/${id}`
             ),
             method: "DELETE",
@@ -410,7 +407,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -418,14 +415,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -434,11 +431,11 @@ export class Assets {
     public async moveAssetFolder(
         app: string,
         id: string,
-        request: SquidexApi.MoveAssetFolderDto
-    ): Promise<SquidexApi.AssetFolderDto> {
+        request: Squidex.MoveAssetFolderDto
+    ): Promise<Squidex.AssetFolderDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/folders/${id}/parent`
             ),
             method: "PUT",
@@ -457,7 +454,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -465,14 +462,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -484,7 +481,7 @@ export class Assets {
     public async getTags(app: string): Promise<Record<string, number>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/tags`
             ),
             method: "GET",
@@ -502,7 +499,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -510,27 +507,23 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async renameTag(
-        app: string,
-        name: string,
-        request: SquidexApi.RenameTagDto
-    ): Promise<Record<string, number>> {
+    public async renameTag(app: string, name: string, request: Squidex.RenameTagDto): Promise<Record<string, number>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/tags/${name}`
             ),
             method: "PUT",
@@ -549,7 +542,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -557,14 +550,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -573,7 +566,7 @@ export class Assets {
     /**
      * Get all assets for the app.
      */
-    public async getAll(app: string, request: SquidexApi.GetAllAssetsRequest = {}): Promise<SquidexApi.AssetsDto> {
+    public async getAll(app: string, request: Squidex.GetAllAssetsRequest = {}): Promise<Squidex.AssetsDto> {
         const { parentId, ids, q, top, skip, orderby, filter } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -606,7 +599,7 @@ export class Assets {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets`
             ),
             method: "GET",
@@ -625,7 +618,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -633,14 +626,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -649,7 +642,7 @@ export class Assets {
     /**
      * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
      */
-    public async upload(app: string, request: SquidexApi.UploadAssetsRequest = {}): Promise<void> {
+    public async upload(app: string, request: Squidex.UploadAssetsRequest = {}): Promise<void> {
         const { parentId, id, duplicate } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -666,7 +659,7 @@ export class Assets {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets`
             ),
             method: "POST",
@@ -681,7 +674,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -689,14 +682,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -705,10 +698,10 @@ export class Assets {
     /**
      * Get all assets for the app.
      */
-    public async getAllAssetsPost(app: string, request: SquidexApi.QueryDto): Promise<SquidexApi.AssetsDto> {
+    public async getAllAssetsPost(app: string, request: Squidex.QueryDto): Promise<Squidex.AssetsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/query`
             ),
             method: "POST",
@@ -727,7 +720,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -735,23 +728,23 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async getById(app: string, id: string): Promise<SquidexApi.AssetDto> {
+    public async getById(app: string, id: string): Promise<Squidex.AssetDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/${id}`
             ),
             method: "GET",
@@ -769,7 +762,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -777,23 +770,23 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async update(app: string, id: string, request: SquidexApi.AnnotateAssetDto): Promise<SquidexApi.AssetDto> {
+    public async update(app: string, id: string, request: Squidex.AnnotateAssetDto): Promise<Squidex.AssetDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/${id}`
             ),
             method: "PUT",
@@ -812,7 +805,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -820,14 +813,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -836,11 +829,7 @@ export class Assets {
     /**
      * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
      */
-    public async upsert(
-        app: string,
-        id: string,
-        request: SquidexApi.UpsertAssetRequest = {}
-    ): Promise<SquidexApi.AssetDto> {
+    public async upsert(app: string, id: string, request: Squidex.UpsertAssetRequest = {}): Promise<Squidex.AssetDto> {
         const { parentId, duplicate } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -853,7 +842,7 @@ export class Assets {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/${id}`
             ),
             method: "POST",
@@ -872,7 +861,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -880,20 +869,20 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async delete(app: string, id: string, request: SquidexApi.DeleteAssetRequest = {}): Promise<void> {
+    public async delete(app: string, id: string, request: Squidex.DeleteAssetRequest = {}): Promise<void> {
         const { checkReferrers, permanent } = request;
         const _queryParams = new URLSearchParams();
         if (checkReferrers != null) {
@@ -906,7 +895,7 @@ export class Assets {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/${id}`
             ),
             method: "DELETE",
@@ -921,7 +910,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -929,26 +918,23 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async updateBulkAssets(
-        app: string,
-        request: SquidexApi.BulkUpdateAssetsDto
-    ): Promise<SquidexApi.BulkResultDto[]> {
+    public async updateBulkAssets(app: string, request: Squidex.BulkUpdateAssetsDto): Promise<Squidex.BulkResultDto[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/bulk`
             ),
             method: "POST",
@@ -967,7 +953,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -975,14 +961,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -991,10 +977,10 @@ export class Assets {
     /**
      * Use multipart request to upload an asset.
      */
-    public async replace(app: string, id: string): Promise<SquidexApi.AssetDto> {
+    public async replace(app: string, id: string): Promise<Squidex.AssetDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/${id}/content`
             ),
             method: "PUT",
@@ -1012,7 +998,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1020,23 +1006,23 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async move(app: string, id: string, request: SquidexApi.MoveAssetDto): Promise<SquidexApi.AssetDto> {
+    public async move(app: string, id: string, request: Squidex.MoveAssetDto): Promise<Squidex.AssetDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/assets/${id}/parent`
             ),
             method: "PUT",
@@ -1055,7 +1041,7 @@ export class Assets {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1063,14 +1049,14 @@ export class Assets {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }

@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace EventConsumers {
     interface Options {
-        environment?: environments.SquidexApiEnvironment | string;
+        environment?: environments.SquidexEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -19,10 +19,10 @@ export declare namespace EventConsumers {
 export class EventConsumers {
     constructor(private readonly options: EventConsumers.Options) {}
 
-    public async get(): Promise<SquidexApi.EventConsumersDto> {
+    public async get(): Promise<Squidex.EventConsumersDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 "/api/event-consumers"
             ),
             method: "GET",
@@ -40,7 +40,7 @@ export class EventConsumers {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -48,23 +48,23 @@ export class EventConsumers {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async start(consumerName: string): Promise<SquidexApi.EventConsumerDto> {
+    public async start(consumerName: string): Promise<Squidex.EventConsumerDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/event-consumers/${consumerName}/start`
             ),
             method: "PUT",
@@ -82,7 +82,7 @@ export class EventConsumers {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -90,23 +90,23 @@ export class EventConsumers {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async stop(consumerName: string): Promise<SquidexApi.EventConsumerDto> {
+    public async stop(consumerName: string): Promise<Squidex.EventConsumerDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/event-consumers/${consumerName}/stop`
             ),
             method: "PUT",
@@ -124,7 +124,7 @@ export class EventConsumers {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -132,23 +132,23 @@ export class EventConsumers {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async reset(consumerName: string): Promise<SquidexApi.EventConsumerDto> {
+    public async reset(consumerName: string): Promise<Squidex.EventConsumerDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/event-consumers/${consumerName}/reset`
             ),
             method: "PUT",
@@ -166,7 +166,7 @@ export class EventConsumers {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -174,14 +174,14 @@ export class EventConsumers {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }

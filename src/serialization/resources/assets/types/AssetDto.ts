@@ -3,41 +3,40 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const AssetDto: core.serialization.ObjectSchema<serializers.AssetDto.Raw, SquidexApi.AssetDto> =
-    core.serialization
-        .object({
-            id: core.serialization.string().optional(),
-            parentId: core.serialization.string().optional(),
-            fileName: core.serialization.string(),
-            fileHash: core.serialization.string().optional(),
-            isProtected: core.serialization.boolean().optional(),
-            slug: core.serialization.string(),
-            mimeType: core.serialization.string(),
-            fileType: core.serialization.string(),
-            metadataText: core.serialization.string(),
-            editToken: core.serialization.string().optional(),
-            metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
-            tags: core.serialization.list(core.serialization.string()),
-            fileSize: core.serialization.number().optional(),
-            fileVersion: core.serialization.number().optional(),
-            type: core.serialization.lazy(async () => (await import("../../..")).AssetType).optional(),
-            createdBy: core.serialization.string(),
-            lastModifiedBy: core.serialization.string(),
-            created: core.serialization.string().optional(),
-            lastModified: core.serialization.string().optional(),
-            version: core.serialization.number().optional(),
-            meta: core.serialization.property(
-                "_meta",
-                core.serialization.lazyObject(async () => (await import("../../..")).AssetMeta).optional()
-            ),
-            isImage: core.serialization.boolean().optional(),
-            pixelWidth: core.serialization.number().optional(),
-            pixelHeight: core.serialization.number().optional(),
-        })
-        .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
+export const AssetDto: core.serialization.ObjectSchema<serializers.AssetDto.Raw, Squidex.AssetDto> = core.serialization
+    .object({
+        id: core.serialization.string().optional(),
+        parentId: core.serialization.string().optional(),
+        fileName: core.serialization.string(),
+        fileHash: core.serialization.string().optional(),
+        isProtected: core.serialization.boolean().optional(),
+        slug: core.serialization.string(),
+        mimeType: core.serialization.string(),
+        fileType: core.serialization.string(),
+        metadataText: core.serialization.string(),
+        editToken: core.serialization.string().optional(),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
+        tags: core.serialization.list(core.serialization.string()),
+        fileSize: core.serialization.number().optional(),
+        fileVersion: core.serialization.number().optional(),
+        type: core.serialization.lazy(async () => (await import("../../..")).AssetType).optional(),
+        createdBy: core.serialization.string(),
+        lastModifiedBy: core.serialization.string(),
+        created: core.serialization.string().optional(),
+        lastModified: core.serialization.string().optional(),
+        version: core.serialization.number().optional(),
+        meta: core.serialization.property(
+            "_meta",
+            core.serialization.lazyObject(async () => (await import("../../..")).AssetMeta).optional()
+        ),
+        isImage: core.serialization.boolean().optional(),
+        pixelWidth: core.serialization.number().optional(),
+        pixelHeight: core.serialization.number().optional(),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
 
 export declare namespace AssetDto {
     interface Raw extends serializers.Resource.Raw {

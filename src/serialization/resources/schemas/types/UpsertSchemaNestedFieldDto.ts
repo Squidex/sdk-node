@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const UpsertSchemaNestedFieldDto: core.serialization.ObjectSchema<
     serializers.UpsertSchemaNestedFieldDto.Raw,
-    SquidexApi.UpsertSchemaNestedFieldDto
+    Squidex.UpsertSchemaNestedFieldDto
 > = core.serialization.object({
     name: core.serialization.string(),
     isHidden: core.serialization.boolean().optional(),

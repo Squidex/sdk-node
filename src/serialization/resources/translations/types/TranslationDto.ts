@@ -3,16 +3,14 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const TranslationDto: core.serialization.ObjectSchema<
-    serializers.TranslationDto.Raw,
-    SquidexApi.TranslationDto
-> = core.serialization.object({
-    result: core.serialization.lazy(async () => (await import("../../..")).TranslationResultCode).optional(),
-    text: core.serialization.string().optional(),
-});
+export const TranslationDto: core.serialization.ObjectSchema<serializers.TranslationDto.Raw, Squidex.TranslationDto> =
+    core.serialization.object({
+        result: core.serialization.lazy(async () => (await import("../../..")).TranslationResultCode).optional(),
+        text: core.serialization.string().optional(),
+    });
 
 export declare namespace TranslationDto {
     interface Raw {

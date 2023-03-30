@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Languages {
     interface Options {
-        environment?: environments.SquidexApiEnvironment | string;
+        environment?: environments.SquidexEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -22,9 +22,9 @@ export class Languages {
     /**
      * Provide a list of supported language codes, following the ISO2Code standard.
      */
-    public async get(): Promise<SquidexApi.LanguageDto[]> {
+    public async get(): Promise<Squidex.LanguageDto[]> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexApiEnvironment.Production, "/api/languages"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/languages"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -40,7 +40,7 @@ export class Languages {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -48,14 +48,14 @@ export class Languages {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }

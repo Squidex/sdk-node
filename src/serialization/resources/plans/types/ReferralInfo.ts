@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const ReferralInfo: core.serialization.ObjectSchema<serializers.ReferralInfo.Raw, SquidexApi.ReferralInfo> =
+export const ReferralInfo: core.serialization.ObjectSchema<serializers.ReferralInfo.Raw, Squidex.ReferralInfo> =
     core.serialization.object({
         code: core.serialization.string().optional(),
         earned: core.serialization.string().optional(),

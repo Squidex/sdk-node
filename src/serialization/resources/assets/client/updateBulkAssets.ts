@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const Response: core.serialization.Schema<
     serializers.assets.updateBulkAssets.Response.Raw,
-    SquidexApi.BulkResultDto[]
+    Squidex.BulkResultDto[]
 > = core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).BulkResultDto));
 
 export declare namespace Response {

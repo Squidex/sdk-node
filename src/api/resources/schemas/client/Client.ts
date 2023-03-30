@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Schemas {
     interface Options {
-        environment?: environments.SquidexApiEnvironment | string;
+        environment?: environments.SquidexEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -19,10 +19,10 @@ export declare namespace Schemas {
 export class Schemas {
     constructor(private readonly options: Schemas.Options) {}
 
-    public async addField(app: string, schema: string, request: SquidexApi.AddFieldDto): Promise<void> {
+    public async addField(app: string, schema: string, request: Squidex.AddFieldDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields`
             ),
             method: "POST",
@@ -37,7 +37,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -45,14 +45,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -62,11 +62,11 @@ export class Schemas {
         app: string,
         schema: string,
         parentId: number,
-        request: SquidexApi.AddFieldDto
+        request: Squidex.AddFieldDto
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested`
             ),
             method: "POST",
@@ -81,7 +81,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -89,14 +89,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -105,11 +105,11 @@ export class Schemas {
     public async configureUiFields(
         app: string,
         schema: string,
-        request: SquidexApi.ConfigureUiFieldsDto
-    ): Promise<SquidexApi.SchemaDto> {
+        request: Squidex.ConfigureUiFieldsDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/ui`
             ),
             method: "PUT",
@@ -128,7 +128,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -136,14 +136,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -152,11 +152,11 @@ export class Schemas {
     public async reorderFields(
         app: string,
         schema: string,
-        request: SquidexApi.ReorderFieldsDto
-    ): Promise<SquidexApi.SchemaDto> {
+        request: Squidex.ReorderFieldsDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/ordering`
             ),
             method: "PUT",
@@ -175,7 +175,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -183,14 +183,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -200,11 +200,11 @@ export class Schemas {
         app: string,
         schema: string,
         parentId: number,
-        request: SquidexApi.ReorderFieldsDto
-    ): Promise<SquidexApi.SchemaDto> {
+        request: Squidex.ReorderFieldsDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/ordering`
             ),
             method: "PUT",
@@ -223,7 +223,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -231,14 +231,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -248,11 +248,11 @@ export class Schemas {
         app: string,
         schema: string,
         id: number,
-        request: SquidexApi.UpdateFieldDto
-    ): Promise<SquidexApi.SchemaDto> {
+        request: Squidex.UpdateFieldDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${id}`
             ),
             method: "PUT",
@@ -271,7 +271,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -279,23 +279,23 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async deleteField(app: string, schema: string, id: number): Promise<SquidexApi.SchemaDto> {
+    public async deleteField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${id}`
             ),
             method: "DELETE",
@@ -313,7 +313,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -321,14 +321,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -339,11 +339,11 @@ export class Schemas {
         schema: string,
         parentId: number,
         id: number,
-        request: SquidexApi.UpdateFieldDto
-    ): Promise<SquidexApi.SchemaDto> {
+        request: Squidex.UpdateFieldDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}`
             ),
             method: "PUT",
@@ -362,7 +362,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -370,14 +370,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -388,10 +388,10 @@ export class Schemas {
         schema: string,
         parentId: number,
         id: number
-    ): Promise<SquidexApi.SchemaDto> {
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}`
             ),
             method: "DELETE",
@@ -409,7 +409,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -417,14 +417,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -433,10 +433,10 @@ export class Schemas {
     /**
      * A locked field cannot be updated or deleted.
      */
-    public async lockField(app: string, schema: string, id: number): Promise<SquidexApi.SchemaDto> {
+    public async lockField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${id}/lock`
             ),
             method: "PUT",
@@ -454,7 +454,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -462,14 +462,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -483,10 +483,10 @@ export class Schemas {
         schema: string,
         parentId: number,
         id: number
-    ): Promise<SquidexApi.SchemaDto> {
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/lock`
             ),
             method: "PUT",
@@ -504,7 +504,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -512,14 +512,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -528,10 +528,10 @@ export class Schemas {
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
      */
-    public async hideField(app: string, schema: string, id: number): Promise<SquidexApi.SchemaDto> {
+    public async hideField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${id}/hide`
             ),
             method: "PUT",
@@ -549,7 +549,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -557,14 +557,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -578,10 +578,10 @@ export class Schemas {
         schema: string,
         parentId: number,
         id: number
-    ): Promise<SquidexApi.SchemaDto> {
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/hide`
             ),
             method: "PUT",
@@ -599,7 +599,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -607,14 +607,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -623,10 +623,10 @@ export class Schemas {
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
      */
-    public async showField(app: string, schema: string, id: number): Promise<SquidexApi.SchemaDto> {
+    public async showField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${id}/show`
             ),
             method: "PUT",
@@ -644,7 +644,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -652,14 +652,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -673,10 +673,10 @@ export class Schemas {
         schema: string,
         parentId: number,
         id: number
-    ): Promise<SquidexApi.SchemaDto> {
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/show`
             ),
             method: "PUT",
@@ -694,7 +694,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -702,14 +702,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -718,10 +718,10 @@ export class Schemas {
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      */
-    public async enableField(app: string, schema: string, id: number): Promise<SquidexApi.SchemaDto> {
+    public async enableField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${id}/enable`
             ),
             method: "PUT",
@@ -739,7 +739,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -747,14 +747,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -768,10 +768,10 @@ export class Schemas {
         schema: string,
         parentId: number,
         id: number
-    ): Promise<SquidexApi.SchemaDto> {
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/enable`
             ),
             method: "PUT",
@@ -789,7 +789,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -797,14 +797,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -813,10 +813,10 @@ export class Schemas {
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      */
-    public async disableField(app: string, schema: string, id: number): Promise<SquidexApi.SchemaDto> {
+    public async disableField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${id}/disable`
             ),
             method: "PUT",
@@ -834,7 +834,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -842,14 +842,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -863,10 +863,10 @@ export class Schemas {
         schema: string,
         parentId: number,
         id: number
-    ): Promise<SquidexApi.SchemaDto> {
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/disable`
             ),
             method: "PUT",
@@ -884,7 +884,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -892,23 +892,23 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async getAll(app: string): Promise<SquidexApi.SchemasDto> {
+    public async getAll(app: string): Promise<Squidex.SchemasDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas`
             ),
             method: "GET",
@@ -926,7 +926,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -934,23 +934,23 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async create(app: string, request: SquidexApi.CreateSchemaDto): Promise<void> {
+    public async create(app: string, request: Squidex.CreateSchemaDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas`
             ),
             method: "POST",
@@ -965,7 +965,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -973,23 +973,23 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async get(app: string, schema: string): Promise<SquidexApi.SchemaDto> {
+    public async get(app: string, schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}`
             ),
             method: "GET",
@@ -1007,7 +1007,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1015,27 +1015,23 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async update(
-        app: string,
-        schema: string,
-        request: SquidexApi.UpdateSchemaDto
-    ): Promise<SquidexApi.SchemaDto> {
+    public async update(app: string, schema: string, request: Squidex.UpdateSchemaDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}`
             ),
             method: "PUT",
@@ -1054,7 +1050,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1062,14 +1058,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -1078,7 +1074,7 @@ export class Schemas {
     public async delete(app: string, schema: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}`
             ),
             method: "DELETE",
@@ -1092,7 +1088,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1100,27 +1096,23 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async sync(
-        app: string,
-        schema: string,
-        request: SquidexApi.SynchronizeSchemaDto
-    ): Promise<SquidexApi.SchemaDto> {
+    public async sync(app: string, schema: string, request: Squidex.SynchronizeSchemaDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/sync`
             ),
             method: "PUT",
@@ -1139,7 +1131,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1147,14 +1139,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -1163,11 +1155,11 @@ export class Schemas {
     public async updateCategory(
         app: string,
         schema: string,
-        request: SquidexApi.ChangeCategoryDto
-    ): Promise<SquidexApi.SchemaDto> {
+        request: Squidex.ChangeCategoryDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/category`
             ),
             method: "PUT",
@@ -1186,7 +1178,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1194,14 +1186,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -1210,11 +1202,11 @@ export class Schemas {
     public async updatePreviewUrls(
         app: string,
         schema: string,
-        request: SquidexApi.ConfigurePreviewUrlsDto
-    ): Promise<SquidexApi.SchemaDto> {
+        request: Squidex.ConfigurePreviewUrlsDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/preview-urls`
             ),
             method: "PUT",
@@ -1233,7 +1225,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1241,14 +1233,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -1257,11 +1249,11 @@ export class Schemas {
     public async updateScripts(
         app: string,
         schema: string,
-        request: SquidexApi.SchemaScriptsDto
-    ): Promise<SquidexApi.SchemaDto> {
+        request: Squidex.SchemaScriptsDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/scripts`
             ),
             method: "PUT",
@@ -1280,7 +1272,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1288,14 +1280,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -1304,11 +1296,11 @@ export class Schemas {
     public async updateRules(
         app: string,
         schema: string,
-        request: SquidexApi.ConfigureFieldRulesDto
-    ): Promise<SquidexApi.SchemaDto> {
+        request: Squidex.ConfigureFieldRulesDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/rules`
             ),
             method: "PUT",
@@ -1327,7 +1319,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1335,23 +1327,23 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async publish(app: string, schema: string): Promise<SquidexApi.SchemaDto> {
+    public async publish(app: string, schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/publish`
             ),
             method: "PUT",
@@ -1369,7 +1361,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1377,23 +1369,23 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async unpublishSchema(app: string, schema: string): Promise<SquidexApi.SchemaDto> {
+    public async unpublishSchema(app: string, schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/apps/${app}/schemas/${schema}/unpublish`
             ),
             method: "PUT",
@@ -1411,7 +1403,7 @@ export class Schemas {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -1419,14 +1411,14 @@ export class Schemas {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }

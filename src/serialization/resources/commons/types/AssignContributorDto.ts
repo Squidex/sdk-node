@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const AssignContributorDto: core.serialization.ObjectSchema<
     serializers.AssignContributorDto.Raw,
-    SquidexApi.AssignContributorDto
+    Squidex.AssignContributorDto
 > = core.serialization.object({
     contributorId: core.serialization.string(),
     role: core.serialization.string().optional(),

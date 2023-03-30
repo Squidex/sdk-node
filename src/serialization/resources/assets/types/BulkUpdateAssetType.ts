@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const BulkUpdateAssetType: core.serialization.Schema<
     serializers.BulkUpdateAssetType.Raw,
-    SquidexApi.BulkUpdateAssetType
+    Squidex.BulkUpdateAssetType
 > = core.serialization.enum_(["Annotate", "Move", "Delete"]);
 
 export declare namespace BulkUpdateAssetType {

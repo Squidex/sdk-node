@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const TransferToTeamDto: core.serialization.ObjectSchema<
     serializers.TransferToTeamDto.Raw,
-    SquidexApi.TransferToTeamDto
+    Squidex.TransferToTeamDto
 > = core.serialization.object({
     teamId: core.serialization.string().optional(),
 });

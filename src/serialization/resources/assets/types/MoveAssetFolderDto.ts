@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const MoveAssetFolderDto: core.serialization.ObjectSchema<
     serializers.MoveAssetFolderDto.Raw,
-    SquidexApi.MoveAssetFolderDto
+    Squidex.MoveAssetFolderDto
 > = core.serialization.object({
     parentId: core.serialization.string().optional(),
 });

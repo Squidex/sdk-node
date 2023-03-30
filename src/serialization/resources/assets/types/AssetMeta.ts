@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const AssetMeta: core.serialization.ObjectSchema<serializers.AssetMeta.Raw, SquidexApi.AssetMeta> =
+export const AssetMeta: core.serialization.ObjectSchema<serializers.AssetMeta.Raw, Squidex.AssetMeta> =
     core.serialization.object({
         isDuplicate: core.serialization.string().optional(),
     });

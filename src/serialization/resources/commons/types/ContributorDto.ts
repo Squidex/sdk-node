@@ -3,20 +3,18 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const ContributorDto: core.serialization.ObjectSchema<
-    serializers.ContributorDto.Raw,
-    SquidexApi.ContributorDto
-> = core.serialization
-    .object({
-        contributorId: core.serialization.string(),
-        contributorName: core.serialization.string(),
-        contributorEmail: core.serialization.string(),
-        role: core.serialization.string().optional(),
-    })
-    .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
+export const ContributorDto: core.serialization.ObjectSchema<serializers.ContributorDto.Raw, Squidex.ContributorDto> =
+    core.serialization
+        .object({
+            contributorId: core.serialization.string(),
+            contributorName: core.serialization.string(),
+            contributorEmail: core.serialization.string(),
+            role: core.serialization.string().optional(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
 
 export declare namespace ContributorDto {
     interface Raw extends serializers.Resource.Raw {

@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const AnnotateAssetDto: core.serialization.ObjectSchema<
     serializers.AnnotateAssetDto.Raw,
-    SquidexApi.AnnotateAssetDto
+    Squidex.AnnotateAssetDto
 > = core.serialization.object({
     fileName: core.serialization.string().optional(),
     slug: core.serialization.string().optional(),

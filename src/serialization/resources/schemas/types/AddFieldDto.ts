@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const AddFieldDto: core.serialization.ObjectSchema<serializers.AddFieldDto.Raw, SquidexApi.AddFieldDto> =
+export const AddFieldDto: core.serialization.ObjectSchema<serializers.AddFieldDto.Raw, Squidex.AddFieldDto> =
     core.serialization.object({
         name: core.serialization.string(),
         partitioning: core.serialization.string().optional(),

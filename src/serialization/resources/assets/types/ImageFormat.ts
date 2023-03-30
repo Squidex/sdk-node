@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const ImageFormat: core.serialization.Schema<serializers.ImageFormat.Raw, SquidexApi.ImageFormat> =
+export const ImageFormat: core.serialization.Schema<serializers.ImageFormat.Raw, Squidex.ImageFormat> =
     core.serialization.enum_(["AVIF", "BMP", "GIF", "JPEG", "PNG", "TGA", "TIFF", "WEBP"]);
 
 export declare namespace ImageFormat {

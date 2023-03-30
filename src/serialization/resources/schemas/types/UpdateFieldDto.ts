@@ -3,15 +3,13 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const UpdateFieldDto: core.serialization.ObjectSchema<
-    serializers.UpdateFieldDto.Raw,
-    SquidexApi.UpdateFieldDto
-> = core.serialization.object({
-    properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
-});
+export const UpdateFieldDto: core.serialization.ObjectSchema<serializers.UpdateFieldDto.Raw, Squidex.UpdateFieldDto> =
+    core.serialization.object({
+        properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
+    });
 
 export declare namespace UpdateFieldDto {
     interface Raw {

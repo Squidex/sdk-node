@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const ConfigurePreviewUrlsDto: core.serialization.Schema<
     serializers.ConfigurePreviewUrlsDto.Raw,
-    SquidexApi.ConfigurePreviewUrlsDto
+    Squidex.ConfigurePreviewUrlsDto
 > = core.serialization.record(core.serialization.string(), core.serialization.string());
 
 export declare namespace ConfigurePreviewUrlsDto {

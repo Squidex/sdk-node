@@ -3,15 +3,13 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const LogDownloadDto: core.serialization.ObjectSchema<
-    serializers.LogDownloadDto.Raw,
-    SquidexApi.LogDownloadDto
-> = core.serialization.object({
-    downloadUrl: core.serialization.string().optional(),
-});
+export const LogDownloadDto: core.serialization.ObjectSchema<serializers.LogDownloadDto.Raw, Squidex.LogDownloadDto> =
+    core.serialization.object({
+        downloadUrl: core.serialization.string().optional(),
+    });
 
 export declare namespace LogDownloadDto {
     interface Raw {

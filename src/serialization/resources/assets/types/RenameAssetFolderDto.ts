@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const RenameAssetFolderDto: core.serialization.ObjectSchema<
     serializers.RenameAssetFolderDto.Raw,
-    SquidexApi.RenameAssetFolderDto
+    Squidex.RenameAssetFolderDto
 > = core.serialization.object({
     folderName: core.serialization.string(),
 });

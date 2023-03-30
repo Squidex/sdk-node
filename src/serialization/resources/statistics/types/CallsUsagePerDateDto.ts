@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const CallsUsagePerDateDto: core.serialization.ObjectSchema<
     serializers.CallsUsagePerDateDto.Raw,
-    SquidexApi.CallsUsagePerDateDto
+    Squidex.CallsUsagePerDateDto
 > = core.serialization.object({
     date: core.serialization.string(),
     totalCalls: core.serialization.number(),

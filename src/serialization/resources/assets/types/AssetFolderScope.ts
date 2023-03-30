@@ -3,13 +3,11 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const AssetFolderScope: core.serialization.Schema<
-    serializers.AssetFolderScope.Raw,
-    SquidexApi.AssetFolderScope
-> = core.serialization.enum_(["PathAndItems", "Path", "Items"]);
+export const AssetFolderScope: core.serialization.Schema<serializers.AssetFolderScope.Raw, Squidex.AssetFolderScope> =
+    core.serialization.enum_(["PathAndItems", "Path", "Items"]);
 
 export declare namespace AssetFolderScope {
     type Raw = "PathAndItems" | "Path" | "Items";

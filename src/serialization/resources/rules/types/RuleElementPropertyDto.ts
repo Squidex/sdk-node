@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const RuleElementPropertyDto: core.serialization.ObjectSchema<
     serializers.RuleElementPropertyDto.Raw,
-    SquidexApi.RuleElementPropertyDto
+    Squidex.RuleElementPropertyDto
 > = core.serialization.object({
     editor: core.serialization.lazy(async () => (await import("../../..")).RuleFieldEditor),
     name: core.serialization.string(),

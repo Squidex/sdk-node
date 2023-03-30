@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const CurrentStorageDto: core.serialization.ObjectSchema<
     serializers.CurrentStorageDto.Raw,
-    SquidexApi.CurrentStorageDto
+    Squidex.CurrentStorageDto
 > = core.serialization.object({
     size: core.serialization.number().optional(),
     maxAllowed: core.serialization.number().optional(),

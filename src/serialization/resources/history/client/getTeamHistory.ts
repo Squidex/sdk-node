@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const Response: core.serialization.Schema<
     serializers.history.getTeamHistory.Response.Raw,
-    SquidexApi.HistoryEventDto[]
+    Squidex.HistoryEventDto[]
 > = core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).HistoryEventDto));
 
 export declare namespace Response {

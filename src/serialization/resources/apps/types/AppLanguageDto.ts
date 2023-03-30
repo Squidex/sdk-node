@@ -3,21 +3,19 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const AppLanguageDto: core.serialization.ObjectSchema<
-    serializers.AppLanguageDto.Raw,
-    SquidexApi.AppLanguageDto
-> = core.serialization
-    .object({
-        iso2Code: core.serialization.string(),
-        englishName: core.serialization.string(),
-        fallback: core.serialization.list(core.serialization.string()),
-        isMaster: core.serialization.boolean().optional(),
-        isOptional: core.serialization.boolean().optional(),
-    })
-    .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
+export const AppLanguageDto: core.serialization.ObjectSchema<serializers.AppLanguageDto.Raw, Squidex.AppLanguageDto> =
+    core.serialization
+        .object({
+            iso2Code: core.serialization.string(),
+            englishName: core.serialization.string(),
+            fallback: core.serialization.list(core.serialization.string()),
+            isMaster: core.serialization.boolean().optional(),
+            isOptional: core.serialization.boolean().optional(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
 
 export declare namespace AppLanguageDto {
     interface Raw extends serializers.Resource.Raw {

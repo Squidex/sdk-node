@@ -3,15 +3,13 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const PlanChangedDto: core.serialization.ObjectSchema<
-    serializers.PlanChangedDto.Raw,
-    SquidexApi.PlanChangedDto
-> = core.serialization.object({
-    redirectUri: core.serialization.string().optional(),
-});
+export const PlanChangedDto: core.serialization.ObjectSchema<serializers.PlanChangedDto.Raw, Squidex.PlanChangedDto> =
+    core.serialization.object({
+        redirectUri: core.serialization.string().optional(),
+    });
 
 export declare namespace PlanChangedDto {
     interface Raw {

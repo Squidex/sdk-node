@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Ping {
     interface Options {
-        environment?: environments.SquidexApiEnvironment | string;
+        environment?: environments.SquidexEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -19,9 +19,9 @@ export declare namespace Ping {
 export class Ping {
     constructor(private readonly options: Ping.Options) {}
 
-    public async getInfo(): Promise<SquidexApi.ExposedValues> {
+    public async getInfo(): Promise<Squidex.ExposedValues> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexApiEnvironment.Production, "/api/info"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/info"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -37,7 +37,7 @@ export class Ping {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -45,14 +45,14 @@ export class Ping {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -63,7 +63,7 @@ export class Ping {
      */
     public async get(): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexApiEnvironment.Production, "/api/ping"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/ping"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -75,7 +75,7 @@ export class Ping {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -83,14 +83,14 @@ export class Ping {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -101,7 +101,7 @@ export class Ping {
      */
     public async getAppPing(app: string): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexApiEnvironment.Production, `/api/ping/${app}`),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, `/api/ping/${app}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -113,7 +113,7 @@ export class Ping {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -121,14 +121,14 @@ export class Ping {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }

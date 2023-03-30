@@ -1,2 +1,2 @@
-export { SquidexApiError } from "./SquidexApiError";
-export { SquidexApiTimeoutError } from "./SquidexApiTimeoutError";
+export { SquidexError } from "./SquidexError";
+export { SquidexTimeoutError } from "./SquidexTimeoutError";

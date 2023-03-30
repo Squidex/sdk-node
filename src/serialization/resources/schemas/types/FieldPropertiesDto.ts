@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const FieldPropertiesDto: core.serialization.ObjectSchema<
     serializers.FieldPropertiesDto.Raw,
-    SquidexApi.FieldPropertiesDto
+    Squidex.FieldPropertiesDto
 > = core.serialization.object({
     label: core.serialization.string().optional(),
     hints: core.serialization.string().optional(),

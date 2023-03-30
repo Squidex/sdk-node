@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const SimulatedRuleEventsDto: core.serialization.ObjectSchema<
     serializers.SimulatedRuleEventsDto.Raw,
-    SquidexApi.SimulatedRuleEventsDto
+    Squidex.SimulatedRuleEventsDto
 > = core.serialization
     .object({
         items: core.serialization.list(

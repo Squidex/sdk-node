@@ -3,13 +3,11 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const SearchResultType: core.serialization.Schema<
-    serializers.SearchResultType.Raw,
-    SquidexApi.SearchResultType
-> = core.serialization.enum_(["Asset", "Content", "Dashboard", "Setting", "Rule", "Schema"]);
+export const SearchResultType: core.serialization.Schema<serializers.SearchResultType.Raw, Squidex.SearchResultType> =
+    core.serialization.enum_(["Asset", "Content", "Dashboard", "Setting", "Rule", "Schema"]);
 
 export declare namespace SearchResultType {
     type Raw = "Asset" | "Content" | "Dashboard" | "Setting" | "Rule" | "Schema";

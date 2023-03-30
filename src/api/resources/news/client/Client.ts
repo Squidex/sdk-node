@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace News {
     interface Options {
-        environment?: environments.SquidexApiEnvironment | string;
+        environment?: environments.SquidexEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -19,7 +19,7 @@ export declare namespace News {
 export class News {
     constructor(private readonly options: News.Options) {}
 
-    public async get(request: SquidexApi.GetFeaturesRequest = {}): Promise<SquidexApi.FeaturesDto> {
+    public async get(request: Squidex.GetFeaturesRequest = {}): Promise<Squidex.FeaturesDto> {
         const { version } = request;
         const _queryParams = new URLSearchParams();
         if (version != null) {
@@ -27,10 +27,7 @@ export class News {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
-                "/api/news/features"
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/news/features"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -47,7 +44,7 @@ export class News {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -55,14 +52,14 @@ export class News {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }

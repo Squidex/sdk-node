@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const ResizeMode: core.serialization.Schema<serializers.ResizeMode.Raw, SquidexApi.ResizeMode> =
+export const ResizeMode: core.serialization.Schema<serializers.ResizeMode.Raw, Squidex.ResizeMode> =
     core.serialization.enum_(["Crop", "CropUpsize", "Pad", "BoxPad", "Max", "Min", "Stretch"]);
 
 export declare namespace ResizeMode {

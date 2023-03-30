@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Teams {
     interface Options {
-        environment?: environments.SquidexApiEnvironment | string;
+        environment?: environments.SquidexEnvironment | string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -19,10 +19,10 @@ export declare namespace Teams {
 export class Teams {
     constructor(private readonly options: Teams.Options) {}
 
-    public async getContributors(team: string): Promise<SquidexApi.ContributorsDto> {
+    public async getContributors(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/teams/${team}/contributors`
             ),
             method: "GET",
@@ -40,7 +40,7 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -48,23 +48,23 @@ export class Teams {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async assignContributor(team: string, request: SquidexApi.AssignContributorDto): Promise<void> {
+    public async assignContributor(team: string, request: Squidex.AssignContributorDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/teams/${team}/contributors`
             ),
             method: "POST",
@@ -79,7 +79,7 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -87,23 +87,23 @@ export class Teams {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async deleteSelf(team: string): Promise<SquidexApi.ContributorsDto> {
+    public async deleteSelf(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/teams/${team}/contributors/me`
             ),
             method: "DELETE",
@@ -121,7 +121,7 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -129,23 +129,23 @@ export class Teams {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async deleteContributor(team: string, id: string): Promise<SquidexApi.ContributorsDto> {
+    public async deleteContributor(team: string, id: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                this.options.environment ?? environments.SquidexEnvironment.Production,
                 `/api/teams/${team}/contributors/${id}`
             ),
             method: "DELETE",
@@ -163,7 +163,7 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -171,14 +171,14 @@ export class Teams {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -187,9 +187,9 @@ export class Teams {
     /**
      * You can only retrieve the list of teams when you are authenticated as a user (OpenID implicit flow). You will retrieve all teams, where you are assigned as a contributor.
      */
-    public async getAll(): Promise<SquidexApi.TeamDto[]> {
+    public async getAll(): Promise<Squidex.TeamDto[]> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexApiEnvironment.Production, "/api/teams"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/teams"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -205,7 +205,7 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -213,14 +213,14 @@ export class Teams {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -229,9 +229,9 @@ export class Teams {
     /**
      * You can only create an team when you are authenticated as a user (OpenID implicit flow). You will be assigned as owner of the new team automatically.
      */
-    public async create(request: SquidexApi.CreateTeamDto): Promise<void> {
+    public async create(request: Squidex.CreateTeamDto): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexApiEnvironment.Production, "/api/teams"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/teams"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -244,7 +244,7 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -252,25 +252,22 @@ export class Teams {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async get(team: string): Promise<SquidexApi.TeamDto> {
+    public async get(team: string): Promise<Squidex.TeamDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
-                `/api/teams/${team}`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, `/api/teams/${team}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -286,7 +283,7 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -294,25 +291,22 @@ export class Teams {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }
     }
 
-    public async update(team: string, request: SquidexApi.UpdateTeamDto): Promise<SquidexApi.TeamDto> {
+    public async update(team: string, request: Squidex.UpdateTeamDto): Promise<Squidex.TeamDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexApiEnvironment.Production,
-                `/api/teams/${team}`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, `/api/teams/${team}`),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -329,7 +323,7 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexApiError({
+            throw new errors.SquidexError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -337,14 +331,14 @@ export class Teams {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.SquidexApiTimeoutError();
+                throw new errors.SquidexTimeoutError();
             case "unknown":
-                throw new errors.SquidexApiError({
+                throw new errors.SquidexError({
                     message: _response.error.errorMessage,
                 });
         }

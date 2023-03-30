@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const UpsertCommentDto: core.serialization.ObjectSchema<
     serializers.UpsertCommentDto.Raw,
-    SquidexApi.UpsertCommentDto
+    Squidex.UpsertCommentDto
 > = core.serialization.object({
     text: core.serialization.string(),
     url: core.serialization.string().optional(),

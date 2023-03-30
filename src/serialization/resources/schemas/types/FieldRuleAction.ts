@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const FieldRuleAction: core.serialization.Schema<serializers.FieldRuleAction.Raw, SquidexApi.FieldRuleAction> =
+export const FieldRuleAction: core.serialization.Schema<serializers.FieldRuleAction.Raw, Squidex.FieldRuleAction> =
     core.serialization.enum_(["Disable", "Hide", "Require"]);
 
 export declare namespace FieldRuleAction {

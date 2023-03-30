@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const UpdateRuleDto: core.serialization.ObjectSchema<serializers.UpdateRuleDto.Raw, SquidexApi.UpdateRuleDto> =
+export const UpdateRuleDto: core.serialization.ObjectSchema<serializers.UpdateRuleDto.Raw, Squidex.UpdateRuleDto> =
     core.serialization.object({
         name: core.serialization.string().optional(),
         trigger: core.serialization.lazyObject(async () => (await import("../../..")).RuleTriggerDto).optional(),

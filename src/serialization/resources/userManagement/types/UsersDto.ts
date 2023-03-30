@@ -3,18 +3,15 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const UsersDto: core.serialization.ObjectSchema<serializers.UsersDto.Raw, SquidexApi.UsersDto> =
-    core.serialization
-        .object({
-            total: core.serialization.number().optional(),
-            items: core.serialization.list(
-                core.serialization.lazyObject(async () => (await import("../../..")).UserDto)
-            ),
-        })
-        .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
+export const UsersDto: core.serialization.ObjectSchema<serializers.UsersDto.Raw, Squidex.UsersDto> = core.serialization
+    .object({
+        total: core.serialization.number().optional(),
+        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).UserDto)),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
 
 export declare namespace UsersDto {
     interface Raw extends serializers.Resource.Raw {

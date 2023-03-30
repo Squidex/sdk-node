@@ -3,15 +3,13 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const AddLanguageDto: core.serialization.ObjectSchema<
-    serializers.AddLanguageDto.Raw,
-    SquidexApi.AddLanguageDto
-> = core.serialization.object({
-    language: core.serialization.string(),
-});
+export const AddLanguageDto: core.serialization.ObjectSchema<serializers.AddLanguageDto.Raw, Squidex.AddLanguageDto> =
+    core.serialization.object({
+        language: core.serialization.string(),
+    });
 
 export declare namespace AddLanguageDto {
     interface Raw {

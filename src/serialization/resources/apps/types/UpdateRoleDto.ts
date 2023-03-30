@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const UpdateRoleDto: core.serialization.ObjectSchema<serializers.UpdateRoleDto.Raw, SquidexApi.UpdateRoleDto> =
+export const UpdateRoleDto: core.serialization.ObjectSchema<serializers.UpdateRoleDto.Raw, Squidex.UpdateRoleDto> =
     core.serialization.object({
         permissions: core.serialization.list(core.serialization.string()),
         properties: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),

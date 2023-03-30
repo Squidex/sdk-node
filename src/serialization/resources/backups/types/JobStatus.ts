@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const JobStatus: core.serialization.Schema<serializers.JobStatus.Raw, SquidexApi.JobStatus> =
+export const JobStatus: core.serialization.Schema<serializers.JobStatus.Raw, Squidex.JobStatus> =
     core.serialization.enum_(["Created", "Started", "Completed", "Failed"]);
 
 export declare namespace JobStatus {

@@ -3,22 +3,20 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const NestedFieldDto: core.serialization.ObjectSchema<
-    serializers.NestedFieldDto.Raw,
-    SquidexApi.NestedFieldDto
-> = core.serialization
-    .object({
-        fieldId: core.serialization.number().optional(),
-        name: core.serialization.string(),
-        isHidden: core.serialization.boolean().optional(),
-        isLocked: core.serialization.boolean().optional(),
-        isDisabled: core.serialization.boolean().optional(),
-        properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
-    })
-    .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
+export const NestedFieldDto: core.serialization.ObjectSchema<serializers.NestedFieldDto.Raw, Squidex.NestedFieldDto> =
+    core.serialization
+        .object({
+            fieldId: core.serialization.number().optional(),
+            name: core.serialization.string(),
+            isHidden: core.serialization.boolean().optional(),
+            isLocked: core.serialization.boolean().optional(),
+            isDisabled: core.serialization.boolean().optional(),
+            properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
 
 export declare namespace NestedFieldDto {
     interface Raw extends serializers.Resource.Raw {

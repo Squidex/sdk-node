@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const Response: core.serialization.Schema<
     serializers.rules.getActions.Response.Raw,
-    Record<string, SquidexApi.RuleElementDto>
+    Record<string, Squidex.RuleElementDto>
 > = core.serialization.record(
     core.serialization.string(),
     core.serialization.lazyObject(async () => (await import("../../..")).RuleElementDto)

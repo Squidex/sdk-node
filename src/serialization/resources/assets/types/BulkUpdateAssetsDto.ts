@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const BulkUpdateAssetsDto: core.serialization.ObjectSchema<
     serializers.BulkUpdateAssetsDto.Raw,
-    SquidexApi.BulkUpdateAssetsDto
+    Squidex.BulkUpdateAssetsDto
 > = core.serialization.object({
     jobs: core.serialization.list(
         core.serialization.lazyObject(async () => (await import("../../..")).BulkUpdateAssetsJobDto)

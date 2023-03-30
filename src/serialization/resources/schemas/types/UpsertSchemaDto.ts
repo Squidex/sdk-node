@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const UpsertSchemaDto: core.serialization.ObjectSchema<
     serializers.UpsertSchemaDto.Raw,
-    SquidexApi.UpsertSchemaDto
+    Squidex.UpsertSchemaDto
 > = core.serialization.object({
     properties: core.serialization.lazyObject(async () => (await import("../../..")).SchemaPropertiesDto).optional(),
     scripts: core.serialization.lazyObject(async () => (await import("../../..")).SchemaScriptsDto).optional(),

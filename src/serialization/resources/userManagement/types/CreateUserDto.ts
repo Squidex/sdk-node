@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const CreateUserDto: core.serialization.ObjectSchema<serializers.CreateUserDto.Raw, SquidexApi.CreateUserDto> =
+export const CreateUserDto: core.serialization.ObjectSchema<serializers.CreateUserDto.Raw, Squidex.CreateUserDto> =
     core.serialization.object({
         email: core.serialization.string(),
         displayName: core.serialization.string(),

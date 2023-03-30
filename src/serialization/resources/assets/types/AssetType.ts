@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const AssetType: core.serialization.Schema<serializers.AssetType.Raw, SquidexApi.AssetType> =
+export const AssetType: core.serialization.Schema<serializers.AssetType.Raw, Squidex.AssetType> =
     core.serialization.enum_(["Unknown", "Image", "Audio", "Video"]);
 
 export declare namespace AssetType {

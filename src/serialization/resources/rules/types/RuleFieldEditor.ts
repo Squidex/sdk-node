@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const RuleFieldEditor: core.serialization.Schema<serializers.RuleFieldEditor.Raw, SquidexApi.RuleFieldEditor> =
+export const RuleFieldEditor: core.serialization.Schema<serializers.RuleFieldEditor.Raw, Squidex.RuleFieldEditor> =
     core.serialization.enum_([
         "Checkbox",
         "Dropdown",

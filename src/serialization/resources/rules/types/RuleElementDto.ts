@@ -3,23 +3,21 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const RuleElementDto: core.serialization.ObjectSchema<
-    serializers.RuleElementDto.Raw,
-    SquidexApi.RuleElementDto
-> = core.serialization.object({
-    description: core.serialization.string(),
-    display: core.serialization.string(),
-    title: core.serialization.string().optional(),
-    iconColor: core.serialization.string().optional(),
-    iconImage: core.serialization.string().optional(),
-    readMore: core.serialization.string().optional(),
-    properties: core.serialization.list(
-        core.serialization.lazyObject(async () => (await import("../../..")).RuleElementPropertyDto)
-    ),
-});
+export const RuleElementDto: core.serialization.ObjectSchema<serializers.RuleElementDto.Raw, Squidex.RuleElementDto> =
+    core.serialization.object({
+        description: core.serialization.string(),
+        display: core.serialization.string(),
+        title: core.serialization.string().optional(),
+        iconColor: core.serialization.string().optional(),
+        iconImage: core.serialization.string().optional(),
+        readMore: core.serialization.string().optional(),
+        properties: core.serialization.list(
+            core.serialization.lazyObject(async () => (await import("../../..")).RuleElementPropertyDto)
+        ),
+    });
 
 export declare namespace RuleElementDto {
     interface Raw {

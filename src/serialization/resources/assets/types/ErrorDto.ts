@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const ErrorDto: core.serialization.ObjectSchema<serializers.ErrorDto.Raw, SquidexApi.ErrorDto> =
+export const ErrorDto: core.serialization.ObjectSchema<serializers.ErrorDto.Raw, Squidex.ErrorDto> =
     core.serialization.object({
         message: core.serialization.string(),
         errorCode: core.serialization.string().optional(),

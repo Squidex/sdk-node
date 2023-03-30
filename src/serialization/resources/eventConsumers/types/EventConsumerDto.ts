@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const EventConsumerDto: core.serialization.ObjectSchema<
     serializers.EventConsumerDto.Raw,
-    SquidexApi.EventConsumerDto
+    Squidex.EventConsumerDto
 > = core.serialization
     .object({
         isStopped: core.serialization.boolean().optional(),

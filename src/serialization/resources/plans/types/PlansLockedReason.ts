@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { SquidexApi } from "@fern-api/squidex";
+import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
 export const PlansLockedReason: core.serialization.Schema<
     serializers.PlansLockedReason.Raw,
-    SquidexApi.PlansLockedReason
+    Squidex.PlansLockedReason
 > = core.serialization.enum_(["None", "NotOwner", "NoPermission", "ManagedByTeam"]);
 
 export declare namespace PlansLockedReason {
