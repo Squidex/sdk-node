@@ -1,8 +1,8 @@
-# {Squidex} Node Library
+# Squidex Node Library
 
-[![npm shield](https://img.shields.io/npm/v/@fern-api/{squidex})](https://www.npmjs.com/package/@fern-api/{squidex})
+[![npm shield](https://img.shields.io/npm/v/@fern-api/squidex)](https://www.npmjs.com/package/@fern-api/squidex)
 
-The {Squidex} Node.js library provides access to the {Squidex} API from JavaScript/TypeScript.
+The Squidex Node.js library provides access to the Squidex API from JavaScript/TypeScript.
 
 ## Documentation
 
