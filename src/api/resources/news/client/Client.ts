@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace News {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }

@@ -12,6 +12,7 @@ import * as serializers from "../../../../serialization";
 export declare namespace Backups {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -19,11 +20,11 @@ export declare namespace Backups {
 export class Backups {
     constructor(private readonly options: Backups.Options) {}
 
-    public async get(app: string, id: string): Promise<void> {
+    public async get(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/backups/${id}`
+                `/api/apps/${this.options.app}/backups/${id}`
             ),
             method: "GET",
             headers: {
@@ -57,11 +58,11 @@ export class Backups {
         }
     }
 
-    public async delete(app: string, id: string): Promise<void> {
+    public async delete(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/backups/${id}`
+                `/api/apps/${this.options.app}/backups/${id}`
             ),
             method: "DELETE",
             headers: {
@@ -144,11 +145,11 @@ export class Backups {
         }
     }
 
-    public async getAll(app: string): Promise<Squidex.BackupJobsDto> {
+    public async getAll(): Promise<Squidex.BackupJobsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/backups`
+                `/api/apps/${this.options.app}/backups`
             ),
             method: "GET",
             headers: {
@@ -186,11 +187,11 @@ export class Backups {
         }
     }
 
-    public async start(app: string): Promise<void> {
+    public async start(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/backups`
+                `/api/apps/${this.options.app}/backups`
             ),
             method: "POST",
             headers: {

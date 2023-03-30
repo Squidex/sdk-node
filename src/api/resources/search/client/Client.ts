@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace Search {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }

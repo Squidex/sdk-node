@@ -12,6 +12,7 @@ import { Squidex } from "@fern-api/squidex";
 export declare namespace Comments {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }

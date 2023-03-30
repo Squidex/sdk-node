@@ -10,6 +10,7 @@ import * as errors from "../../../../errors";
 export declare namespace Diagnostics {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }

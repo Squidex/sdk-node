@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace Rules {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -58,11 +59,11 @@ export class Rules {
         }
     }
 
-    public async getRules(app: string): Promise<Squidex.RulesDto> {
+    public async getRules(): Promise<Squidex.RulesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules`
+                `/api/apps/${this.options.app}/rules`
             ),
             method: "GET",
             headers: {
@@ -100,11 +101,11 @@ export class Rules {
         }
     }
 
-    public async createRule(app: string, request: Squidex.CreateRuleDto): Promise<void> {
+    public async createRule(request: Squidex.CreateRuleDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules`
+                `/api/apps/${this.options.app}/rules`
             ),
             method: "POST",
             headers: {
@@ -139,11 +140,11 @@ export class Rules {
         }
     }
 
-    public async cancelRun(app: string): Promise<void> {
+    public async cancelRun(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/run`
+                `/api/apps/${this.options.app}/rules/run`
             ),
             method: "DELETE",
             headers: {
@@ -177,11 +178,11 @@ export class Rules {
         }
     }
 
-    public async updateRule(app: string, id: string, request: Squidex.UpdateRuleDto): Promise<Squidex.RuleDto> {
+    public async updateRule(id: string, request: Squidex.UpdateRuleDto): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/${id}`
+                `/api/apps/${this.options.app}/rules/${id}`
             ),
             method: "PUT",
             headers: {
@@ -220,11 +221,11 @@ export class Rules {
         }
     }
 
-    public async deleteRule(app: string, id: string): Promise<void> {
+    public async deleteRule(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/${id}`
+                `/api/apps/${this.options.app}/rules/${id}`
             ),
             method: "DELETE",
             headers: {
@@ -258,11 +259,11 @@ export class Rules {
         }
     }
 
-    public async enableRule(app: string, id: string): Promise<Squidex.RuleDto> {
+    public async enableRule(id: string): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/${id}/enable`
+                `/api/apps/${this.options.app}/rules/${id}/enable`
             ),
             method: "PUT",
             headers: {
@@ -300,11 +301,11 @@ export class Rules {
         }
     }
 
-    public async disableRule(app: string, id: string): Promise<Squidex.RuleDto> {
+    public async disableRule(id: string): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/${id}/disable`
+                `/api/apps/${this.options.app}/rules/${id}/disable`
             ),
             method: "PUT",
             headers: {
@@ -342,11 +343,11 @@ export class Rules {
         }
     }
 
-    public async triggerRule(app: string, id: string): Promise<void> {
+    public async triggerRule(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/${id}/trigger`
+                `/api/apps/${this.options.app}/rules/${id}/trigger`
             ),
             method: "PUT",
             headers: {
@@ -380,7 +381,7 @@ export class Rules {
         }
     }
 
-    public async runRule(app: string, id: string, request: Squidex.RunRuleRequest = {}): Promise<void> {
+    public async runRule(id: string, request: Squidex.RunRuleRequest = {}): Promise<void> {
         const { fromSnapshots } = request;
         const _queryParams = new URLSearchParams();
         if (fromSnapshots != null) {
@@ -390,7 +391,7 @@ export class Rules {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/${id}/run`
+                `/api/apps/${this.options.app}/rules/${id}/run`
             ),
             method: "PUT",
             headers: {
@@ -425,11 +426,11 @@ export class Rules {
         }
     }
 
-    public async cancelRuleEvents(app: string, id: string): Promise<void> {
+    public async cancelRuleEvents(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/${id}/events`
+                `/api/apps/${this.options.app}/rules/${id}/events`
             ),
             method: "DELETE",
             headers: {
@@ -463,14 +464,11 @@ export class Rules {
         }
     }
 
-    public async createRuleSimulation(
-        app: string,
-        request: Squidex.CreateRuleDto
-    ): Promise<Squidex.SimulatedRuleEventsDto> {
+    public async createRuleSimulation(request: Squidex.CreateRuleDto): Promise<Squidex.SimulatedRuleEventsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/simulate`
+                `/api/apps/${this.options.app}/rules/simulate`
             ),
             method: "POST",
             headers: {
@@ -509,11 +507,11 @@ export class Rules {
         }
     }
 
-    public async getRuleSimulation(app: string, id: string): Promise<Squidex.SimulatedRuleEventsDto> {
+    public async getRuleSimulation(id: string): Promise<Squidex.SimulatedRuleEventsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/${id}/simulate`
+                `/api/apps/${this.options.app}/rules/${id}/simulate`
             ),
             method: "GET",
             headers: {
@@ -551,10 +549,7 @@ export class Rules {
         }
     }
 
-    public async getRuleEvents(
-        app: string,
-        request: Squidex.GetRuleEventsRequest = {}
-    ): Promise<Squidex.RuleEventsDto> {
+    public async getRuleEvents(request: Squidex.GetRuleEventsRequest = {}): Promise<Squidex.RuleEventsDto> {
         const { ruleId, skip, take } = request;
         const _queryParams = new URLSearchParams();
         if (ruleId != null) {
@@ -572,7 +567,7 @@ export class Rules {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/events`
+                `/api/apps/${this.options.app}/rules/events`
             ),
             method: "GET",
             headers: {
@@ -611,11 +606,11 @@ export class Rules {
         }
     }
 
-    public async cancelAllEvents(app: string): Promise<void> {
+    public async cancelAllEvents(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/events`
+                `/api/apps/${this.options.app}/rules/events`
             ),
             method: "DELETE",
             headers: {
@@ -649,11 +644,11 @@ export class Rules {
         }
     }
 
-    public async retryEvent(app: string, id: string): Promise<void> {
+    public async retryEvent(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/events/${id}`
+                `/api/apps/${this.options.app}/rules/events/${id}`
             ),
             method: "PUT",
             headers: {
@@ -687,11 +682,11 @@ export class Rules {
         }
     }
 
-    public async cancelEvent(app: string, id: string): Promise<void> {
+    public async cancelEvent(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/rules/events/${id}`
+                `/api/apps/${this.options.app}/rules/events/${id}`
             ),
             method: "DELETE",
             headers: {

@@ -12,6 +12,7 @@ import * as serializers from "../../../../serialization";
 export declare namespace Assets {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -20,7 +21,6 @@ export class Assets {
     constructor(private readonly options: Assets.Options) {}
 
     public async getAssetBySlug(
-        app: string,
         idOrSlug: string,
         more: string,
         request: Squidex.GetAssetContentBySlugRequest = {}
@@ -101,7 +101,7 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/assets/${app}/${idOrSlug}/${more}`
+                `/api/assets/${this.options.app}/${idOrSlug}/${more}`
             ),
             method: "GET",
             headers: {
@@ -248,10 +248,7 @@ export class Assets {
     /**
      * Get all asset folders for the app.
      */
-    public async getAssetFolders(
-        app: string,
-        request: Squidex.GetAssetFoldersRequest = {}
-    ): Promise<Squidex.AssetFoldersDto> {
+    public async getAssetFolders(request: Squidex.GetAssetFoldersRequest = {}): Promise<Squidex.AssetFoldersDto> {
         const { parentId, scope } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -265,7 +262,7 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/folders`
+                `/api/apps/${this.options.app}/assets/folders`
             ),
             method: "GET",
             headers: {
@@ -304,11 +301,11 @@ export class Assets {
         }
     }
 
-    public async createAssetFolder(app: string, request: Squidex.CreateAssetFolderDto): Promise<void> {
+    public async createAssetFolder(request: Squidex.CreateAssetFolderDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/folders`
+                `/api/apps/${this.options.app}/assets/folders`
             ),
             method: "POST",
             headers: {
@@ -343,15 +340,11 @@ export class Assets {
         }
     }
 
-    public async updateAssetFolder(
-        app: string,
-        id: string,
-        request: Squidex.RenameAssetFolderDto
-    ): Promise<Squidex.AssetFolderDto> {
+    public async updateAssetFolder(id: string, request: Squidex.RenameAssetFolderDto): Promise<Squidex.AssetFolderDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/folders/${id}`
+                `/api/apps/${this.options.app}/assets/folders/${id}`
             ),
             method: "PUT",
             headers: {
@@ -390,11 +383,11 @@ export class Assets {
         }
     }
 
-    public async deleteAssetFolder(app: string, id: string): Promise<void> {
+    public async deleteAssetFolder(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/folders/${id}`
+                `/api/apps/${this.options.app}/assets/folders/${id}`
             ),
             method: "DELETE",
             headers: {
@@ -428,15 +421,11 @@ export class Assets {
         }
     }
 
-    public async moveAssetFolder(
-        app: string,
-        id: string,
-        request: Squidex.MoveAssetFolderDto
-    ): Promise<Squidex.AssetFolderDto> {
+    public async moveAssetFolder(id: string, request: Squidex.MoveAssetFolderDto): Promise<Squidex.AssetFolderDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/folders/${id}/parent`
+                `/api/apps/${this.options.app}/assets/folders/${id}/parent`
             ),
             method: "PUT",
             headers: {
@@ -478,11 +467,11 @@ export class Assets {
     /**
      * Get all tags for assets.
      */
-    public async getTags(app: string): Promise<Record<string, number>> {
+    public async getTags(): Promise<Record<string, number>> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/tags`
+                `/api/apps/${this.options.app}/assets/tags`
             ),
             method: "GET",
             headers: {
@@ -520,11 +509,11 @@ export class Assets {
         }
     }
 
-    public async renameTag(app: string, name: string, request: Squidex.RenameTagDto): Promise<Record<string, number>> {
+    public async renameTag(name: string, request: Squidex.RenameTagDto): Promise<Record<string, number>> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/tags/${name}`
+                `/api/apps/${this.options.app}/assets/tags/${name}`
             ),
             method: "PUT",
             headers: {
@@ -566,7 +555,7 @@ export class Assets {
     /**
      * Get all assets for the app.
      */
-    public async getAll(app: string, request: Squidex.GetAllAssetsRequest = {}): Promise<Squidex.AssetsDto> {
+    public async getAll(request: Squidex.GetAllAssetsRequest = {}): Promise<Squidex.AssetsDto> {
         const { parentId, ids, q, top, skip, orderby, filter } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -600,7 +589,7 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets`
+                `/api/apps/${this.options.app}/assets`
             ),
             method: "GET",
             headers: {
@@ -642,7 +631,7 @@ export class Assets {
     /**
      * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
      */
-    public async upload(app: string, request: Squidex.UploadAssetsRequest = {}): Promise<void> {
+    public async upload(request: Squidex.UploadAssetsRequest = {}): Promise<void> {
         const { parentId, id, duplicate } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -660,7 +649,7 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets`
+                `/api/apps/${this.options.app}/assets`
             ),
             method: "POST",
             headers: {
@@ -698,11 +687,11 @@ export class Assets {
     /**
      * Get all assets for the app.
      */
-    public async getAllAssetsPost(app: string, request: Squidex.QueryDto): Promise<Squidex.AssetsDto> {
+    public async getAllAssetsPost(request: Squidex.QueryDto): Promise<Squidex.AssetsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/query`
+                `/api/apps/${this.options.app}/assets/query`
             ),
             method: "POST",
             headers: {
@@ -741,11 +730,11 @@ export class Assets {
         }
     }
 
-    public async getById(app: string, id: string): Promise<Squidex.AssetDto> {
+    public async getById(id: string): Promise<Squidex.AssetDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/${id}`
+                `/api/apps/${this.options.app}/assets/${id}`
             ),
             method: "GET",
             headers: {
@@ -783,11 +772,11 @@ export class Assets {
         }
     }
 
-    public async update(app: string, id: string, request: Squidex.AnnotateAssetDto): Promise<Squidex.AssetDto> {
+    public async update(id: string, request: Squidex.AnnotateAssetDto): Promise<Squidex.AssetDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/${id}`
+                `/api/apps/${this.options.app}/assets/${id}`
             ),
             method: "PUT",
             headers: {
@@ -829,7 +818,7 @@ export class Assets {
     /**
      * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
      */
-    public async upsert(app: string, id: string, request: Squidex.UpsertAssetRequest = {}): Promise<Squidex.AssetDto> {
+    public async upsert(id: string, request: Squidex.UpsertAssetRequest = {}): Promise<Squidex.AssetDto> {
         const { parentId, duplicate } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -843,7 +832,7 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/${id}`
+                `/api/apps/${this.options.app}/assets/${id}`
             ),
             method: "POST",
             headers: {
@@ -882,7 +871,7 @@ export class Assets {
         }
     }
 
-    public async delete(app: string, id: string, request: Squidex.DeleteAssetRequest = {}): Promise<void> {
+    public async delete(id: string, request: Squidex.DeleteAssetRequest = {}): Promise<void> {
         const { checkReferrers, permanent } = request;
         const _queryParams = new URLSearchParams();
         if (checkReferrers != null) {
@@ -896,7 +885,7 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/${id}`
+                `/api/apps/${this.options.app}/assets/${id}`
             ),
             method: "DELETE",
             headers: {
@@ -931,11 +920,11 @@ export class Assets {
         }
     }
 
-    public async updateBulkAssets(app: string, request: Squidex.BulkUpdateAssetsDto): Promise<Squidex.BulkResultDto[]> {
+    public async updateBulkAssets(request: Squidex.BulkUpdateAssetsDto): Promise<Squidex.BulkResultDto[]> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/bulk`
+                `/api/apps/${this.options.app}/assets/bulk`
             ),
             method: "POST",
             headers: {
@@ -977,11 +966,11 @@ export class Assets {
     /**
      * Use multipart request to upload an asset.
      */
-    public async replace(app: string, id: string): Promise<Squidex.AssetDto> {
+    public async replace(id: string): Promise<Squidex.AssetDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/${id}/content`
+                `/api/apps/${this.options.app}/assets/${id}/content`
             ),
             method: "PUT",
             headers: {
@@ -1019,11 +1008,11 @@ export class Assets {
         }
     }
 
-    public async move(app: string, id: string, request: Squidex.MoveAssetDto): Promise<Squidex.AssetDto> {
+    public async move(id: string, request: Squidex.MoveAssetDto): Promise<Squidex.AssetDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/assets/${id}/parent`
+                `/api/apps/${this.options.app}/assets/${id}/parent`
             ),
             method: "PUT",
             headers: {

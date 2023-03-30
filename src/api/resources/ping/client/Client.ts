@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace Ping {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -99,9 +100,12 @@ export class Ping {
     /**
      * Can be used to test, if the Squidex API is alive and responding.
      */
-    public async getAppPing(app: string): Promise<void> {
+    public async getAppPing(): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, `/api/ping/${app}`),
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Production,
+                `/api/ping/${this.options.app}`
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

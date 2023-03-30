@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace History {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -19,10 +20,7 @@ export declare namespace History {
 export class History {
     constructor(private readonly options: History.Options) {}
 
-    public async get(
-        app: string,
-        request: Squidex.GetHistoricalEventsRequest = {}
-    ): Promise<Squidex.HistoryEventDto[]> {
+    public async get(request: Squidex.GetHistoricalEventsRequest = {}): Promise<Squidex.HistoryEventDto[]> {
         const { channel } = request;
         const _queryParams = new URLSearchParams();
         if (channel != null) {
@@ -32,7 +30,7 @@ export class History {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/history`
+                `/api/apps/${this.options.app}/history`
             ),
             method: "GET",
             headers: {

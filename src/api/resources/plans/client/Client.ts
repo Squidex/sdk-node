@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace Plans {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -19,11 +20,11 @@ export declare namespace Plans {
 export class Plans {
     constructor(private readonly options: Plans.Options) {}
 
-    public async get(app: string): Promise<Squidex.PlansDto> {
+    public async get(): Promise<Squidex.PlansDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/plans`
+                `/api/apps/${this.options.app}/plans`
             ),
             method: "GET",
             headers: {
@@ -61,11 +62,11 @@ export class Plans {
         }
     }
 
-    public async update(app: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
+    public async update(request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/plan`
+                `/api/apps/${this.options.app}/plan`
             ),
             method: "PUT",
             headers: {

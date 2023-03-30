@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace Statistics {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
@@ -19,11 +20,11 @@ export declare namespace Statistics {
 export class Statistics {
     constructor(private readonly options: Statistics.Options) {}
 
-    public async getUsageLogFile(app: string): Promise<Squidex.LogDownloadDto> {
+    public async getUsageLogFile(): Promise<Squidex.LogDownloadDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/usages/log`
+                `/api/apps/${this.options.app}/usages/log`
             ),
             method: "GET",
             headers: {
@@ -61,11 +62,11 @@ export class Statistics {
         }
     }
 
-    public async getUsageByDate(app: string, fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
+    public async getUsageByDate(fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/usages/calls/${fromDate}/${toDate}`
+                `/api/apps/${this.options.app}/usages/calls/${fromDate}/${toDate}`
             ),
             method: "GET",
             headers: {
@@ -145,11 +146,11 @@ export class Statistics {
         }
     }
 
-    public async getStorageSize(app: string): Promise<Squidex.CurrentStorageDto> {
+    public async getStorageSize(): Promise<Squidex.CurrentStorageDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/usages/storage/today`
+                `/api/apps/${this.options.app}/usages/storage/today`
             ),
             method: "GET",
             headers: {
@@ -229,15 +230,11 @@ export class Statistics {
         }
     }
 
-    public async getStorageSizeByDate(
-        app: string,
-        fromDate: string,
-        toDate: string
-    ): Promise<Squidex.StorageUsagePerDateDto[]> {
+    public async getStorageSizeByDate(fromDate: string, toDate: string): Promise<Squidex.StorageUsagePerDateDto[]> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/usages/storage/${fromDate}/${toDate}`
+                `/api/apps/${this.options.app}/usages/storage/${fromDate}/${toDate}`
             ),
             method: "GET",
             headers: {

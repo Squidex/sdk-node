@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace Languages {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        app: string;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
