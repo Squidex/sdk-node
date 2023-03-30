@@ -18,7 +18,7 @@ yarn add @fern-api/squidex
 
 ## Usage
 
-[![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](TODO)
+[![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/squidex-typescript-sdk?file=app.ts&view=editor)
 
 ```typescript
 import { SquidexClient } from '@fern-api/squidex';
