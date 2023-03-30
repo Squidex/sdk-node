@@ -28,7 +28,7 @@ import { Translations } from "./api/resources/translations/client/Client";
 import { UserManagement } from "./api/resources/userManagement/client/Client";
 import { Users } from "./api/resources/users/client/Client";
 
-export declare namespace SquidexApiClient {
+export declare namespace SquidexClient {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
         clientId: string;
@@ -37,10 +37,10 @@ export declare namespace SquidexApiClient {
     }
 }
 
-export class SquidexApiClient {
+export class SquidexClient {
     private token: string | undefined;
 
-    constructor(private readonly options: SquidexApiClient.Options) {
+    constructor(private readonly options: SquidexClient.Options) {
         this.options = {
             environment: options.environment,
             clientId: options.clientId,
