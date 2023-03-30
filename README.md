@@ -6,16 +6,34 @@ The Squidex Node.js library provides access to the Squidex API from JavaScript/T
 
 ## Documentation
 
-API reference documentation is available [here](docs_url).
+API reference documentation is available [here](https://cloud.squidex.io/api/docs).
+
+## Installation
+
+```bash
+npm install @fern-api/squidex
+# or
+yarn add @fern-api/squidex
+```
 
 ## Usage
 
 [![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](TODO)
 
 ```typescript
-import { TODO } from "TODO";
+import { SquidexClient } from '@fern-api/squidex';
 
-const TODO
+const client = new SquidexClient({
+  clientId: 'client-id',
+  clientSecret: 'client-secret',
+  app: 'my-app',
+});
+
+const response = await client.rules.runRule('rule-id', {
+  fromSnapshots: true,
+});
+
+console.log('Received response from Squidex!', response);
 ```
 
 ## Beta status
