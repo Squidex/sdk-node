@@ -30,7 +30,7 @@ import { Users } from "./api/resources/users/client/Client";
 
 export declare namespace SquidexApiClient {
     interface Options {
-        environment?: environments.SquidexApiEnvironment | string;
+        environment?: environments.SquidexEnvironment | string;
         clientId: string;
         clientSecret: string;
         token?: core.Supplier<core.BearerToken | undefined>;
@@ -49,7 +49,7 @@ export class SquidexApiClient {
                 if (this.token == null) {
                     const response = await core.fetcher({
                         url: urlJoin(
-                            this.options.environment ?? environments.SquidexApiEnvironment.Production,
+                            this.options.environment ?? environments.SquidexEnvironment.Production,
                             "/identity-server/connect/token"
                         ),
                         contentType: "application/x-www-form-urlencoded",
@@ -63,7 +63,7 @@ export class SquidexApiClient {
                     });
                     if (response.ok) {
                         if (typeof response.body !== "string") {
-                            throw new errors.SquidexApiError({
+                            throw new errors.SquidexError({
                                 message: "Token is not a string",
                             });
                         }
@@ -71,14 +71,14 @@ export class SquidexApiClient {
                     } else {
                         switch (response.error.reason) {
                             case "non-json":
-                                throw new errors.SquidexApiError({
+                                throw new errors.SquidexError({
                                     statusCode: response.error.statusCode,
                                     body: response.error.rawBody,
                                 });
                             case "timeout":
-                                throw new errors.SquidexApiTimeoutError();
+                                throw new errors.SquidexTimeoutError();
                             case "unknown":
-                                throw new errors.SquidexApiError({
+                                throw new errors.SquidexError({
                                     message: response.error.errorMessage,
                                 });
                         }
