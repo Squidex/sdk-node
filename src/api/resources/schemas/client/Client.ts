@@ -20,11 +20,11 @@ export declare namespace Schemas {
 export class Schemas {
     constructor(private readonly options: Schemas.Options) {}
 
-    public async addField(app: string, schema: string, request: Squidex.AddFieldDto): Promise<void> {
+    public async addField(schema: string, request: Squidex.AddFieldDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields`
             ),
             method: "POST",
             headers: {
@@ -59,16 +59,11 @@ export class Schemas {
         }
     }
 
-    public async addNestedField(
-        app: string,
-        schema: string,
-        parentId: number,
-        request: Squidex.AddFieldDto
-    ): Promise<void> {
+    public async addNestedField(schema: string, parentId: number, request: Squidex.AddFieldDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested`
             ),
             method: "POST",
             headers: {
@@ -103,15 +98,11 @@ export class Schemas {
         }
     }
 
-    public async configureUiFields(
-        app: string,
-        schema: string,
-        request: Squidex.ConfigureUiFieldsDto
-    ): Promise<Squidex.SchemaDto> {
+    public async configureUiFields(schema: string, request: Squidex.ConfigureUiFieldsDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/ui`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/ui`
             ),
             method: "PUT",
             headers: {
@@ -150,15 +141,11 @@ export class Schemas {
         }
     }
 
-    public async reorderFields(
-        app: string,
-        schema: string,
-        request: Squidex.ReorderFieldsDto
-    ): Promise<Squidex.SchemaDto> {
+    public async reorderFields(schema: string, request: Squidex.ReorderFieldsDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/ordering`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/ordering`
             ),
             method: "PUT",
             headers: {
@@ -198,7 +185,6 @@ export class Schemas {
     }
 
     public async reorderNestedFields(
-        app: string,
         schema: string,
         parentId: number,
         request: Squidex.ReorderFieldsDto
@@ -206,7 +192,7 @@ export class Schemas {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/ordering`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/ordering`
             ),
             method: "PUT",
             headers: {
@@ -245,16 +231,11 @@ export class Schemas {
         }
     }
 
-    public async updateField(
-        app: string,
-        schema: string,
-        id: number,
-        request: Squidex.UpdateFieldDto
-    ): Promise<Squidex.SchemaDto> {
+    public async updateField(schema: string, id: number, request: Squidex.UpdateFieldDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${id}`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}`
             ),
             method: "PUT",
             headers: {
@@ -293,11 +274,11 @@ export class Schemas {
         }
     }
 
-    public async deleteField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async deleteField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${id}`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}`
             ),
             method: "DELETE",
             headers: {
@@ -336,7 +317,6 @@ export class Schemas {
     }
 
     public async updateNestedField(
-        app: string,
         schema: string,
         parentId: number,
         id: number,
@@ -345,7 +325,7 @@ export class Schemas {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}`
             ),
             method: "PUT",
             headers: {
@@ -384,16 +364,11 @@ export class Schemas {
         }
     }
 
-    public async deleteNestedField(
-        app: string,
-        schema: string,
-        parentId: number,
-        id: number
-    ): Promise<Squidex.SchemaDto> {
+    public async deleteNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}`
             ),
             method: "DELETE",
             headers: {
@@ -434,11 +409,11 @@ export class Schemas {
     /**
      * A locked field cannot be updated or deleted.
      */
-    public async lockField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async lockField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${id}/lock`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}/lock`
             ),
             method: "PUT",
             headers: {
@@ -479,16 +454,11 @@ export class Schemas {
     /**
      * A locked field cannot be edited or deleted.
      */
-    public async lockNestedField(
-        app: string,
-        schema: string,
-        parentId: number,
-        id: number
-    ): Promise<Squidex.SchemaDto> {
+    public async lockNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/lock`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}/lock`
             ),
             method: "PUT",
             headers: {
@@ -529,11 +499,11 @@ export class Schemas {
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
      */
-    public async hideField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async hideField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${id}/hide`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}/hide`
             ),
             method: "PUT",
             headers: {
@@ -574,16 +544,11 @@ export class Schemas {
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
      */
-    public async hideNestedField(
-        app: string,
-        schema: string,
-        parentId: number,
-        id: number
-    ): Promise<Squidex.SchemaDto> {
+    public async hideNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/hide`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}/hide`
             ),
             method: "PUT",
             headers: {
@@ -624,11 +589,11 @@ export class Schemas {
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
      */
-    public async showField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async showField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${id}/show`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}/show`
             ),
             method: "PUT",
             headers: {
@@ -669,16 +634,11 @@ export class Schemas {
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
      */
-    public async showNestedField(
-        app: string,
-        schema: string,
-        parentId: number,
-        id: number
-    ): Promise<Squidex.SchemaDto> {
+    public async showNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/show`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}/show`
             ),
             method: "PUT",
             headers: {
@@ -719,11 +679,11 @@ export class Schemas {
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      */
-    public async enableField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async enableField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${id}/enable`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}/enable`
             ),
             method: "PUT",
             headers: {
@@ -764,16 +724,11 @@ export class Schemas {
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      */
-    public async enableNestedField(
-        app: string,
-        schema: string,
-        parentId: number,
-        id: number
-    ): Promise<Squidex.SchemaDto> {
+    public async enableNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/enable`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}/enable`
             ),
             method: "PUT",
             headers: {
@@ -814,11 +769,11 @@ export class Schemas {
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      */
-    public async disableField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async disableField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${id}/disable`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}/disable`
             ),
             method: "PUT",
             headers: {
@@ -859,16 +814,11 @@ export class Schemas {
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      */
-    public async disableNestedField(
-        app: string,
-        schema: string,
-        parentId: number,
-        id: number
-    ): Promise<Squidex.SchemaDto> {
+    public async disableNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/disable`
+                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}/disable`
             ),
             method: "PUT",
             headers: {
@@ -906,11 +856,11 @@ export class Schemas {
         }
     }
 
-    public async getAll(app: string): Promise<Squidex.SchemasDto> {
+    public async getAll(): Promise<Squidex.SchemasDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas`
+                `/api/apps/${this.options.app}/schemas`
             ),
             method: "GET",
             headers: {
@@ -948,11 +898,11 @@ export class Schemas {
         }
     }
 
-    public async create(app: string, request: Squidex.CreateSchemaDto): Promise<void> {
+    public async create(request: Squidex.CreateSchemaDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas`
+                `/api/apps/${this.options.app}/schemas`
             ),
             method: "POST",
             headers: {
@@ -987,11 +937,11 @@ export class Schemas {
         }
     }
 
-    public async get(app: string, schema: string): Promise<Squidex.SchemaDto> {
+    public async get(schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}`
+                `/api/apps/${this.options.app}/schemas/${schema}`
             ),
             method: "GET",
             headers: {
@@ -1029,11 +979,11 @@ export class Schemas {
         }
     }
 
-    public async update(app: string, schema: string, request: Squidex.UpdateSchemaDto): Promise<Squidex.SchemaDto> {
+    public async update(schema: string, request: Squidex.UpdateSchemaDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}`
+                `/api/apps/${this.options.app}/schemas/${schema}`
             ),
             method: "PUT",
             headers: {
@@ -1072,11 +1022,11 @@ export class Schemas {
         }
     }
 
-    public async delete(app: string, schema: string): Promise<void> {
+    public async delete(schema: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}`
+                `/api/apps/${this.options.app}/schemas/${schema}`
             ),
             method: "DELETE",
             headers: {
@@ -1110,11 +1060,11 @@ export class Schemas {
         }
     }
 
-    public async sync(app: string, schema: string, request: Squidex.SynchronizeSchemaDto): Promise<Squidex.SchemaDto> {
+    public async sync(schema: string, request: Squidex.SynchronizeSchemaDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/sync`
+                `/api/apps/${this.options.app}/schemas/${schema}/sync`
             ),
             method: "PUT",
             headers: {
@@ -1153,15 +1103,11 @@ export class Schemas {
         }
     }
 
-    public async updateCategory(
-        app: string,
-        schema: string,
-        request: Squidex.ChangeCategoryDto
-    ): Promise<Squidex.SchemaDto> {
+    public async updateCategory(schema: string, request: Squidex.ChangeCategoryDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/category`
+                `/api/apps/${this.options.app}/schemas/${schema}/category`
             ),
             method: "PUT",
             headers: {
@@ -1201,14 +1147,13 @@ export class Schemas {
     }
 
     public async updatePreviewUrls(
-        app: string,
         schema: string,
         request: Squidex.ConfigurePreviewUrlsDto
     ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/preview-urls`
+                `/api/apps/${this.options.app}/schemas/${schema}/preview-urls`
             ),
             method: "PUT",
             headers: {
@@ -1247,15 +1192,11 @@ export class Schemas {
         }
     }
 
-    public async updateScripts(
-        app: string,
-        schema: string,
-        request: Squidex.SchemaScriptsDto
-    ): Promise<Squidex.SchemaDto> {
+    public async updateScripts(schema: string, request: Squidex.SchemaScriptsDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/scripts`
+                `/api/apps/${this.options.app}/schemas/${schema}/scripts`
             ),
             method: "PUT",
             headers: {
@@ -1294,15 +1235,11 @@ export class Schemas {
         }
     }
 
-    public async updateRules(
-        app: string,
-        schema: string,
-        request: Squidex.ConfigureFieldRulesDto
-    ): Promise<Squidex.SchemaDto> {
+    public async updateRules(schema: string, request: Squidex.ConfigureFieldRulesDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/rules`
+                `/api/apps/${this.options.app}/schemas/${schema}/rules`
             ),
             method: "PUT",
             headers: {
@@ -1341,11 +1278,11 @@ export class Schemas {
         }
     }
 
-    public async publish(app: string, schema: string): Promise<Squidex.SchemaDto> {
+    public async publish(schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/publish`
+                `/api/apps/${this.options.app}/schemas/${schema}/publish`
             ),
             method: "PUT",
             headers: {
@@ -1383,11 +1320,11 @@ export class Schemas {
         }
     }
 
-    public async unpublishSchema(app: string, schema: string): Promise<Squidex.SchemaDto> {
+    public async unpublishSchema(schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/schemas/${schema}/unpublish`
+                `/api/apps/${this.options.app}/schemas/${schema}/unpublish`
             ),
             method: "PUT",
             headers: {
