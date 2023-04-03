@@ -9,14 +9,12 @@ import * as core from "../../../../core";
 export const GeolocationFieldPropertiesDto: core.serialization.ObjectSchema<
     serializers.GeolocationFieldPropertiesDto.Raw,
     Squidex.GeolocationFieldPropertiesDto
-> = core.serialization
-    .object({
-        editor: core.serialization.lazy(async () => (await import("../../..")).GeolocationFieldEditor).optional(),
-    })
-    .extend(core.serialization.lazy(async () => (await import("../../..")).FieldPropertiesDto));
+> = core.serialization.object({
+    editor: core.serialization.lazy(async () => (await import("../../..")).GeolocationFieldEditor).optional(),
+});
 
 export declare namespace GeolocationFieldPropertiesDto {
-    interface Raw extends serializers.FieldPropertiesDto.Raw {
+    interface Raw {
         editor?: serializers.GeolocationFieldEditor.Raw | null;
     }
 }

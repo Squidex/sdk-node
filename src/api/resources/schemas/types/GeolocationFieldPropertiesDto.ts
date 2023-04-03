@@ -4,6 +4,6 @@
 
 import { Squidex } from "@fern-api/squidex";
 
-export interface GeolocationFieldPropertiesDto extends Squidex.FieldPropertiesDto {
+export interface GeolocationFieldPropertiesDto {
     editor?: Squidex.GeolocationFieldEditor;
 }

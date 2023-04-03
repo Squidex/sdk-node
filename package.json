@@ -1,6 +1,6 @@
 {
     "name": "@fern-api/squidex",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "private": false,
     "repository": "https://github.com/fern-squidex/squidex-node",
     "main": "./index.js",
