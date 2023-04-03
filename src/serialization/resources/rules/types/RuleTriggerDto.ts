@@ -6,13 +6,57 @@ import * as serializers from "../../..";
 import { Squidex } from "@fern-api/squidex";
 import * as core from "../../../../core";
 
-export const RuleTriggerDto: core.serialization.ObjectSchema<serializers.RuleTriggerDto.Raw, Squidex.RuleTriggerDto> =
-    core.serialization.object({
-        triggerType: core.serialization.string(),
-    });
+export const RuleTriggerDto: core.serialization.Schema<serializers.RuleTriggerDto.Raw, Squidex.RuleTriggerDto> =
+    core.serialization
+        .union("triggerType", {
+            AssetChanged: core.serialization.lazyObject(
+                async () => (await import("../../..")).AssetChangedRuleTriggerDto
+            ),
+            Comment: core.serialization.lazyObject(async () => (await import("../../..")).CommentRuleTriggerDto),
+            ContentChanged: core.serialization.lazyObject(
+                async () => (await import("../../..")).ContentChangedRuleTriggerDto
+            ),
+            Manual: core.serialization.lazyObject(async () => (await import("../../..")).ManualRuleTriggerDto),
+            SchemaChanged: core.serialization.lazyObject(
+                async () => (await import("../../..")).SchemaChangedRuleTriggerDto
+            ),
+            Usage: core.serialization.lazyObject(async () => (await import("../../..")).UsageRuleTriggerDto),
+        })
+        .transform<Squidex.RuleTriggerDto>({
+            transform: (value) => value,
+            untransform: (value) => value,
+        });
 
 export declare namespace RuleTriggerDto {
-    interface Raw {
-        triggerType: string;
+    type Raw =
+        | RuleTriggerDto.AssetChanged
+        | RuleTriggerDto.Comment
+        | RuleTriggerDto.ContentChanged
+        | RuleTriggerDto.Manual
+        | RuleTriggerDto.SchemaChanged
+        | RuleTriggerDto.Usage;
+
+    interface AssetChanged extends serializers.AssetChangedRuleTriggerDto.Raw {
+        triggerType: "AssetChanged";
+    }
+
+    interface Comment extends serializers.CommentRuleTriggerDto.Raw {
+        triggerType: "Comment";
+    }
+
+    interface ContentChanged extends serializers.ContentChangedRuleTriggerDto.Raw {
+        triggerType: "ContentChanged";
+    }
+
+    interface Manual extends serializers.ManualRuleTriggerDto.Raw {
+        triggerType: "Manual";
+    }
+
+    interface SchemaChanged extends serializers.SchemaChangedRuleTriggerDto.Raw {
+        triggerType: "SchemaChanged";
+    }
+
+    interface Usage extends serializers.UsageRuleTriggerDto.Raw {
+        triggerType: "Usage";
     }
 }

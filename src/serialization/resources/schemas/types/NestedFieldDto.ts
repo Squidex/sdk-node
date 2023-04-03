@@ -14,7 +14,7 @@ export const NestedFieldDto: core.serialization.ObjectSchema<serializers.NestedF
             isHidden: core.serialization.boolean().optional(),
             isLocked: core.serialization.boolean().optional(),
             isDisabled: core.serialization.boolean().optional(),
-            properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
+            properties: core.serialization.lazy(async () => (await import("../../..")).FieldPropertiesDto),
         })
         .extend(core.serialization.lazyObject(async () => (await import("../../..")).Resource));
 

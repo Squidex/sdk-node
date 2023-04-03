@@ -14,7 +14,7 @@ export const FieldDto: core.serialization.ObjectSchema<serializers.FieldDto.Raw,
         isLocked: core.serialization.boolean().optional(),
         isDisabled: core.serialization.boolean().optional(),
         partitioning: core.serialization.string(),
-        properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
+        properties: core.serialization.lazy(async () => (await import("../../..")).FieldPropertiesDto),
         nested: core.serialization
             .list(core.serialization.lazyObject(async () => (await import("../../..")).NestedFieldDto))
             .optional(),

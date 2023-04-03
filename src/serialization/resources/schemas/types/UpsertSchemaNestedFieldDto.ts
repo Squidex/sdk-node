@@ -14,7 +14,7 @@ export const UpsertSchemaNestedFieldDto: core.serialization.ObjectSchema<
     isHidden: core.serialization.boolean().optional(),
     isLocked: core.serialization.boolean().optional(),
     isDisabled: core.serialization.boolean().optional(),
-    properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
+    properties: core.serialization.lazy(async () => (await import("../../..")).FieldPropertiesDto),
 });
 
 export declare namespace UpsertSchemaNestedFieldDto {

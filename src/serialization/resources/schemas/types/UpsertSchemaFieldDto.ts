@@ -15,7 +15,7 @@ export const UpsertSchemaFieldDto: core.serialization.ObjectSchema<
     isLocked: core.serialization.boolean().optional(),
     isDisabled: core.serialization.boolean().optional(),
     partitioning: core.serialization.string().optional(),
-    properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
+    properties: core.serialization.lazy(async () => (await import("../../..")).FieldPropertiesDto),
     nested: core.serialization
         .list(core.serialization.lazyObject(async () => (await import("../../..")).UpsertSchemaNestedFieldDto))
         .optional(),

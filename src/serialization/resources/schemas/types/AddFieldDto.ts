@@ -10,7 +10,7 @@ export const AddFieldDto: core.serialization.ObjectSchema<serializers.AddFieldDt
     core.serialization.object({
         name: core.serialization.string(),
         partitioning: core.serialization.string().optional(),
-        properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
+        properties: core.serialization.lazy(async () => (await import("../../..")).FieldPropertiesDto),
     });
 
 export declare namespace AddFieldDto {

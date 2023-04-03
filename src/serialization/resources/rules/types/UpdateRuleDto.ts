@@ -9,8 +9,8 @@ import * as core from "../../../../core";
 export const UpdateRuleDto: core.serialization.ObjectSchema<serializers.UpdateRuleDto.Raw, Squidex.UpdateRuleDto> =
     core.serialization.object({
         name: core.serialization.string().optional(),
-        trigger: core.serialization.lazyObject(async () => (await import("../../..")).RuleTriggerDto).optional(),
-        action: core.serialization.lazyObject(async () => (await import("../../..")).RuleActionDto).optional(),
+        trigger: core.serialization.lazy(async () => (await import("../../..")).RuleTriggerDto).optional(),
+        action: core.serialization.lazy(async () => (await import("../../..")).RuleActionDto).optional(),
         isEnabled: core.serialization.boolean().optional(),
     });
 

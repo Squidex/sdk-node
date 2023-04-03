@@ -8,8 +8,8 @@ import * as core from "../../../../core";
 
 export const CreateRuleDto: core.serialization.ObjectSchema<serializers.CreateRuleDto.Raw, Squidex.CreateRuleDto> =
     core.serialization.object({
-        trigger: core.serialization.lazyObject(async () => (await import("../../..")).RuleTriggerDto),
-        action: core.serialization.lazyObject(async () => (await import("../../..")).RuleActionDto),
+        trigger: core.serialization.lazy(async () => (await import("../../..")).RuleTriggerDto),
+        action: core.serialization.lazy(async () => (await import("../../..")).RuleActionDto),
     });
 
 export declare namespace CreateRuleDto {

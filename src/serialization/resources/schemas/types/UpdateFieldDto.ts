@@ -8,7 +8,7 @@ import * as core from "../../../../core";
 
 export const UpdateFieldDto: core.serialization.ObjectSchema<serializers.UpdateFieldDto.Raw, Squidex.UpdateFieldDto> =
     core.serialization.object({
-        properties: core.serialization.lazyObject(async () => (await import("../../..")).FieldPropertiesDto),
+        properties: core.serialization.lazy(async () => (await import("../../..")).FieldPropertiesDto),
     });
 
 export declare namespace UpdateFieldDto {
