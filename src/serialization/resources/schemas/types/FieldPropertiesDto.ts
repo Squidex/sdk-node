@@ -4,7 +4,7 @@
 
 import * as core from "../../../../core";
 import * as serializers from "../../..";
-import { Squidex } from "@fern-api/squidex";
+import { Squidex } from "@squidex/squidex";
 
 const _Base = core.serialization.object({
     label: core.serialization.string().optional(),

@@ -1,8 +1,8 @@
 {
-    "name": "@fern-api/squidex",
-    "version": "0.0.12",
+    "name": "@squidex/squidex",
+    "version": "0.0.13",
     "private": false,
-    "repository": "https://github.com/fern-squidex/squidex-node",
+    "repository": "https://github.com/squidex/sdk-node",
     "main": "./index.js",
     "types": "./index.d.ts",
     "scripts": {

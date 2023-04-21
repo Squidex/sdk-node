@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../..";
-import { Squidex } from "@fern-api/squidex";
+import { Squidex } from "@squidex/squidex";
 import * as core from "../../../../core";
 
 export const AssetFolderScope: core.serialization.Schema<serializers.AssetFolderScope.Raw, Squidex.AssetFolderScope> =

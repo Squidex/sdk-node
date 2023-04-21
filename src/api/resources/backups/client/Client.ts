@@ -6,7 +6,7 @@ import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors";
-import { Squidex } from "@fern-api/squidex";
+import { Squidex } from "@squidex/squidex";
 import * as serializers from "../../../../serialization";
 
 export declare namespace Backups {

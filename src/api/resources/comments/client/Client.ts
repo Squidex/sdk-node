@@ -7,7 +7,7 @@ import * as core from "../../../../core";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
-import { Squidex } from "@fern-api/squidex";
+import { Squidex } from "@squidex/squidex";
 
 export declare namespace Comments {
     interface Options {

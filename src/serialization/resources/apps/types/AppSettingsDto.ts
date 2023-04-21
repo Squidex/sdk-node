@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../..";
-import { Squidex } from "@fern-api/squidex";
+import { Squidex } from "@squidex/squidex";
 import * as core from "../../../../core";
 
 export const AppSettingsDto: core.serialization.ObjectSchema<serializers.AppSettingsDto.Raw, Squidex.AppSettingsDto> =
