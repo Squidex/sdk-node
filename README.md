@@ -1,6 +1,6 @@
 # Squidex Node Library
 
-[![npm shield](https://img.shields.io/npm/v/@squidex/squidex)](https://www.npmjs.com/package/@fern-api/squidex)
+[![npm shield](https://img.shields.io/npm/v/@squidex/squidex)](https://www.npmjs.com/package/@squidex/squidex)
 
 The Squidex Node.js library provides access to the Squidex API from JavaScript/TypeScript.
 
@@ -11,9 +11,9 @@ API reference documentation is available [here](https://cloud.squidex.io/api/doc
 ## Installation
 
 ```bash
-npm install @fern-api/squidex
+npm install @squidex/squidex
 # or
-yarn add @fern-api/squidex
+yarn add @squidex/squidex
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ yarn add @fern-api/squidex
 [![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/squidex-typescript-sdk-hg1o4f?file=app.ts&view=editor)
 
 ```typescript
-import { SquidexClient } from '@fern-api/squidex';
+import { SquidexClient } from '@squidex/squidex';
 
 const client = new SquidexClient({
   clientId: 'client-id',
