@@ -10,6 +10,9 @@ describe('Schemas', () => {
 
     it('should create schema', async () => {
         const schemaId = `schema-${guid()}`;
-        const schema = await client.
+        const schema = await client.schemas.create({ name: schemaId });
+
+        // Should not return void.
+        expect(schema.name).toBe(schemaId);
     })
 });
