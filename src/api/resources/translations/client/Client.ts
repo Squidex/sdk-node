@@ -4,7 +4,7 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
@@ -12,19 +12,18 @@ import * as errors from "../../../../errors";
 export declare namespace Translations {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Translations {
-    constructor(private readonly options: Translations.Options) {}
+    constructor(protected readonly options: Translations.Options) {}
 
-    public async translate(app: string, request: Squidex.TranslateDto): Promise<Squidex.TranslationDto> {
+    public async postTranslation(app: string, request: Squidex.TranslateDto): Promise<Squidex.TranslationDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${app}/translations`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/translations`
             ),
             method: "POST",
             headers: {
@@ -32,6 +31,7 @@ export class Translations {
             },
             contentType: "application/json",
             body: await serializers.TranslateDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.TranslationDto.parseOrThrow(_response.body, {
@@ -63,7 +63,7 @@ export class Translations {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

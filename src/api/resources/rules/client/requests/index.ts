@@ -1,2 +1,3 @@
-export { RunRuleRequest } from "./RunRuleRequest";
-export { GetRuleEventsRequest } from "./GetRuleEventsRequest";
+export { UpdateRuleDto } from "./UpdateRuleDto";
+export { RulesPutRuleRunRequest } from "./RulesPutRuleRunRequest";
+export { RulesGetEventsRequest } from "./RulesGetEventsRequest";

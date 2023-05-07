@@ -4,7 +4,7 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
@@ -12,25 +12,22 @@ import * as errors from "../../../../errors";
 export declare namespace Plans {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Plans {
-    constructor(private readonly options: Plans.Options) {}
+    constructor(protected readonly options: Plans.Options) {}
 
-    public async get(): Promise<Squidex.PlansDto> {
+    public async appPlansGetPlans(app: string): Promise<Squidex.PlansDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/plans`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/plans`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.PlansDto.parseOrThrow(_response.body, {
@@ -62,18 +59,16 @@ export class Plans {
         }
     }
 
-    public async update(request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
+    public async appPlansPutPlan(app: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/plan`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/plan`),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.ChangePlanDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.PlanChangedDto.parseOrThrow(_response.body, {
@@ -105,17 +100,18 @@ export class Plans {
         }
     }
 
-    public async getTeamPlan(team: string): Promise<Squidex.PlansDto> {
+    public async teamPlansGetTeamPlans(team: string): Promise<Squidex.PlansDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/teams/${team}/plans`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}/plans`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.PlansDto.parseOrThrow(_response.body, {
@@ -147,18 +143,16 @@ export class Plans {
         }
     }
 
-    public async updateTeamPlan(team: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
+    public async teamPlansPutTeamPlan(team: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/teams/${team}/plan`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}/plan`),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.ChangePlanDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.PlanChangedDto.parseOrThrow(_response.body, {
@@ -190,7 +184,7 @@ export class Plans {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

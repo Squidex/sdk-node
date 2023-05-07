@@ -1,2 +1,2 @@
-export { GetHistoricalEventsRequest } from "./GetHistoricalEventsRequest";
-export { GetTeamHistoryRequest } from "./GetTeamHistoryRequest";
+export { HistoryGetAppHistoryRequest } from "./HistoryGetAppHistoryRequest";
+export { HistoryGetTeamHistoryRequest } from "./HistoryGetTeamHistoryRequest";

@@ -4,7 +4,7 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
@@ -12,19 +12,22 @@ import * as errors from "../../../../errors";
 export declare namespace Schemas {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Schemas {
-    constructor(private readonly options: Schemas.Options) {}
+    constructor(protected readonly options: Schemas.Options) {}
 
-    public async addField(schema: string, request: Squidex.AddFieldDto): Promise<void> {
+    public async schemaFieldsPostField(
+        app: string,
+        schema: string,
+        request: Squidex.AddFieldDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields`
             ),
             method: "POST",
             headers: {
@@ -32,9 +35,14 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.AddFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return;
+            return await serializers.SchemaDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -59,11 +67,16 @@ export class Schemas {
         }
     }
 
-    public async addNestedField(schema: string, parentId: number, request: Squidex.AddFieldDto): Promise<void> {
+    public async schemaFieldsPostNestedField(
+        app: string,
+        schema: string,
+        parentId: number,
+        request: Squidex.AddFieldDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${parentId}/nested`
             ),
             method: "POST",
             headers: {
@@ -71,9 +84,14 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.AddFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return;
+            return await serializers.SchemaDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -98,11 +116,15 @@ export class Schemas {
         }
     }
 
-    public async configureUiFields(schema: string, request: Squidex.ConfigureUiFieldsDto): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsPutSchemaUiFields(
+        app: string,
+        schema: string,
+        request: Squidex.ConfigureUiFieldsDto = {}
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/ui`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/ui`
             ),
             method: "PUT",
             headers: {
@@ -110,6 +132,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.ConfigureUiFieldsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -141,11 +164,15 @@ export class Schemas {
         }
     }
 
-    public async reorderFields(schema: string, request: Squidex.ReorderFieldsDto): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsPutSchemaFieldOrdering(
+        app: string,
+        schema: string,
+        request: Squidex.ReorderFieldsDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/ordering`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/ordering`
             ),
             method: "PUT",
             headers: {
@@ -153,6 +180,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.ReorderFieldsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -184,15 +212,16 @@ export class Schemas {
         }
     }
 
-    public async reorderNestedFields(
+    public async schemaFieldsPutNestedFieldOrdering(
+        app: string,
         schema: string,
         parentId: number,
         request: Squidex.ReorderFieldsDto
     ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/ordering`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/ordering`
             ),
             method: "PUT",
             headers: {
@@ -200,6 +229,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.ReorderFieldsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -231,11 +261,16 @@ export class Schemas {
         }
     }
 
-    public async updateField(schema: string, id: number, request: Squidex.UpdateFieldDto): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsPutField(
+        app: string,
+        schema: string,
+        id: number,
+        request: Squidex.UpdateFieldDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${id}`
             ),
             method: "PUT",
             headers: {
@@ -243,6 +278,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.UpdateFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -274,17 +310,18 @@ export class Schemas {
         }
     }
 
-    public async deleteField(schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsDeleteField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${id}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -316,7 +353,8 @@ export class Schemas {
         }
     }
 
-    public async updateNestedField(
+    public async schemaFieldsPutNestedField(
+        app: string,
         schema: string,
         parentId: number,
         id: number,
@@ -324,8 +362,8 @@ export class Schemas {
     ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}`
             ),
             method: "PUT",
             headers: {
@@ -333,6 +371,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.UpdateFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -364,17 +403,23 @@ export class Schemas {
         }
     }
 
-    public async deleteNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsDeleteNestedField(
+        app: string,
+        schema: string,
+        parentId: number,
+        id: number
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -406,65 +451,18 @@ export class Schemas {
         }
     }
 
-    /**
-     * A locked field cannot be updated or deleted.
-     */
-    public async lockField(schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsLockField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}/lock`
-            ),
-            method: "PUT",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-            },
-            contentType: "application/json",
-        });
-        if (_response.ok) {
-            return await serializers.SchemaDto.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.SquidexError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.SquidexTimeoutError();
-            case "unknown":
-                throw new errors.SquidexError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * A locked field cannot be edited or deleted.
-     */
-    public async lockNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}/lock`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${id}/lock`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -496,20 +494,23 @@ export class Schemas {
         }
     }
 
-    /**
-     * A hidden field is not part of the API response, but can still be edited in the portal.
-     */
-    public async hideField(schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsLockNestedField(
+        app: string,
+        schema: string,
+        parentId: number,
+        id: number
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}/hide`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/lock`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -541,20 +542,18 @@ export class Schemas {
         }
     }
 
-    /**
-     * A hidden field is not part of the API response, but can still be edited in the portal.
-     */
-    public async hideNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsHideField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}/hide`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${id}/hide`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -586,20 +585,23 @@ export class Schemas {
         }
     }
 
-    /**
-     * A hidden field is not part of the API response, but can still be edited in the portal.
-     */
-    public async showField(schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsHideNestedField(
+        app: string,
+        schema: string,
+        parentId: number,
+        id: number
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}/show`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/hide`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -631,20 +633,18 @@ export class Schemas {
         }
     }
 
-    /**
-     * A hidden field is not part of the API response, but can still be edited in the portal.
-     */
-    public async showNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsShowField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}/show`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${id}/show`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -676,20 +676,23 @@ export class Schemas {
         }
     }
 
-    /**
-     * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
-     */
-    public async enableField(schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsShowNestedField(
+        app: string,
+        schema: string,
+        parentId: number,
+        id: number
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}/enable`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/show`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -721,20 +724,18 @@ export class Schemas {
         }
     }
 
-    /**
-     * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
-     */
-    public async enableNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsEnableField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}/enable`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${id}/enable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -766,20 +767,23 @@ export class Schemas {
         }
     }
 
-    /**
-     * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
-     */
-    public async disableField(schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsEnableNestedField(
+        app: string,
+        schema: string,
+        parentId: number,
+        id: number
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${id}/disable`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/enable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -811,20 +815,18 @@ export class Schemas {
         }
     }
 
-    /**
-     * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
-     */
-    public async disableNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
+    public async schemaFieldsDisableField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/fields/${parentId}/nested/${id}/disable`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${id}/disable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -856,17 +858,66 @@ export class Schemas {
         }
     }
 
-    public async getAll(): Promise<Squidex.SchemasDto> {
+    public async schemaFieldsDisableNestedField(
+        app: string,
+        schema: string,
+        parentId: number,
+        id: number
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/fields/${parentId}/nested/${id}/disable`
+            ),
+            method: "PUT",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+            },
+            contentType: "application/json",
+            timeoutMs: 60000,
+        });
+        if (_response.ok) {
+            return await serializers.SchemaDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.SquidexError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async getSchemas(app: string): Promise<Squidex.SchemasDto> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemasDto.parseOrThrow(_response.body, {
@@ -898,11 +949,11 @@ export class Schemas {
         }
     }
 
-    public async create(request: Squidex.CreateSchemaDto): Promise<void> {
+    public async postSchema(app: string, request: Squidex.CreateSchemaDto = {}): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas`
             ),
             method: "POST",
             headers: {
@@ -910,44 +961,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.CreateSchemaDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.SquidexError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.SquidexTimeoutError();
-            case "unknown":
-                throw new errors.SquidexError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    public async get(schema: string): Promise<Squidex.SchemaDto> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}`
-            ),
-            method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-            },
-            contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -979,11 +993,54 @@ export class Schemas {
         }
     }
 
-    public async update(schema: string, request: Squidex.UpdateSchemaDto): Promise<Squidex.SchemaDto> {
+    public async getSchema(app: string, schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+            },
+            contentType: "application/json",
+            timeoutMs: 60000,
+        });
+        if (_response.ok) {
+            return await serializers.SchemaDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.SquidexError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async putSchema(app: string, schema: string, request: Squidex.UpdateSchemaDto): Promise<Squidex.SchemaDto> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}`
             ),
             method: "PUT",
             headers: {
@@ -991,6 +1048,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.UpdateSchemaDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1022,17 +1080,18 @@ export class Schemas {
         }
     }
 
-    public async delete(schema: string): Promise<void> {
+    public async deleteSchema(app: string, schema: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -1060,11 +1119,15 @@ export class Schemas {
         }
     }
 
-    public async sync(schema: string, request: Squidex.SynchronizeSchemaDto): Promise<Squidex.SchemaDto> {
+    public async putSchemaSync(
+        app: string,
+        schema: string,
+        request: Squidex.SynchronizeSchemaDto = {}
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/sync`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/sync`
             ),
             method: "PUT",
             headers: {
@@ -1072,6 +1135,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.SynchronizeSchemaDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1103,11 +1167,15 @@ export class Schemas {
         }
     }
 
-    public async updateCategory(schema: string, request: Squidex.ChangeCategoryDto): Promise<Squidex.SchemaDto> {
+    public async putCategory(
+        app: string,
+        schema: string,
+        request: Squidex.ChangeCategoryDto = {}
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/category`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/category`
             ),
             method: "PUT",
             headers: {
@@ -1115,6 +1183,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.ChangeCategoryDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1146,21 +1215,25 @@ export class Schemas {
         }
     }
 
-    public async updatePreviewUrls(
+    public async putPreviewUrls(
+        app: string,
         schema: string,
-        request: Squidex.ConfigurePreviewUrlsDto
+        request: Record<string, string>
     ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/preview-urls`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/preview-urls`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
-            body: await serializers.ConfigurePreviewUrlsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.schemas.putPreviewUrls.Request.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1192,11 +1265,15 @@ export class Schemas {
         }
     }
 
-    public async updateScripts(schema: string, request: Squidex.SchemaScriptsDto): Promise<Squidex.SchemaDto> {
+    public async putScripts(
+        app: string,
+        schema: string,
+        request: Squidex.SchemaScriptsDto
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/scripts`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/scripts`
             ),
             method: "PUT",
             headers: {
@@ -1204,6 +1281,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.SchemaScriptsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1235,11 +1313,15 @@ export class Schemas {
         }
     }
 
-    public async updateRules(schema: string, request: Squidex.ConfigureFieldRulesDto): Promise<Squidex.SchemaDto> {
+    public async putRules(
+        app: string,
+        schema: string,
+        request: Squidex.ConfigureFieldRulesDto = {}
+    ): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/rules`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/rules`
             ),
             method: "PUT",
             headers: {
@@ -1247,6 +1329,7 @@ export class Schemas {
             },
             contentType: "application/json",
             body: await serializers.ConfigureFieldRulesDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1278,17 +1361,18 @@ export class Schemas {
         }
     }
 
-    public async publish(schema: string): Promise<Squidex.SchemaDto> {
+    public async publishSchema(app: string, schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/publish`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/publish`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1320,17 +1404,18 @@ export class Schemas {
         }
     }
 
-    public async unpublishSchema(schema: string): Promise<Squidex.SchemaDto> {
+    public async unpublishSchema(app: string, schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/schemas/${schema}/unpublish`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/schemas/${schema}/unpublish`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1362,7 +1447,7 @@ export class Schemas {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

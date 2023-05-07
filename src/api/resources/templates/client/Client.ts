@@ -4,7 +4,7 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
@@ -12,22 +12,22 @@ import * as errors from "../../../../errors";
 export declare namespace Templates {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Templates {
-    constructor(private readonly options: Templates.Options) {}
+    constructor(protected readonly options: Templates.Options) {}
 
-    public async getAll(): Promise<Squidex.TemplatesDto> {
+    public async getTemplates(): Promise<Squidex.TemplatesDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/templates"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/templates"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.TemplatesDto.parseOrThrow(_response.body, {
@@ -59,17 +59,15 @@ export class Templates {
         }
     }
 
-    public async get(name: string): Promise<Squidex.TemplateDetailsDto> {
+    public async getTemplate(name: string): Promise<Squidex.TemplateDetailsDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/templates/${name}`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/templates/${name}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.TemplateDetailsDto.parseOrThrow(_response.body, {
@@ -101,7 +99,7 @@ export class Templates {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

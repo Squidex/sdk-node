@@ -4,33 +4,34 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
+import URLSearchParams from "@ungap/url-search-params";
 
 export declare namespace Users {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Users {
-    constructor(private readonly options: Users.Options) {}
+    constructor(protected readonly options: Users.Options) {}
 
-    public async getUserResources(): Promise<Squidex.Resource> {
+    public async getUserResources(): Promise<Squidex.ResourcesDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.Resource.parseOrThrow(_response.body, {
+            return await serializers.ResourcesDto.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -59,10 +60,7 @@ export class Users {
         }
     }
 
-    /**
-     * Search the user by query that contains the email address or the part of the email address.
-     */
-    public async getAll(request: Squidex.GetAllUsersRequest = {}): Promise<Squidex.UserDto[]> {
+    public async getUsers(request: Squidex.UsersGetUsersRequest = {}): Promise<Squidex.UserDto[]> {
         const { query } = request;
         const _queryParams = new URLSearchParams();
         if (query != null) {
@@ -70,16 +68,17 @@ export class Users {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/users"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/users"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.users.getAll.Response.parseOrThrow(_response.body, {
+            return await serializers.users.getUsers.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -108,14 +107,15 @@ export class Users {
         }
     }
 
-    public async get(id: string): Promise<Squidex.UserDto> {
+    public async getUser(id: string): Promise<Squidex.UserDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, `/api/users/${id}`),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/users/${id}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.UserDto.parseOrThrow(_response.body, {
@@ -150,14 +150,15 @@ export class Users {
     public async getUserPicture(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/users/${id}/picture`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/users/${id}/picture`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -185,7 +186,7 @@ export class Users {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

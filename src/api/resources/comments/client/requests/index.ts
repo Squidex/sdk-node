@@ -1,1 +1,1 @@
-export { GetAllCommentsRequest } from "./GetAllCommentsRequest";
+export { CommentsGetCommentsRequest } from "./CommentsGetCommentsRequest";

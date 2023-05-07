@@ -1,1 +1,1 @@
-export * as getResults from "./getResults";
+export * as getSearchResults from "./getSearchResults";

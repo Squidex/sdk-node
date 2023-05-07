@@ -4,33 +4,35 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
+import * as fs from "fs";
+import FormData from "form-data";
 
 export declare namespace Apps {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Apps {
-    constructor(private readonly options: Apps.Options) {}
+    constructor(protected readonly options: Apps.Options) {}
 
-    public async getAssetScripts(): Promise<Squidex.AssetScriptsDto> {
+    public async appAssetsGetAssetScripts(app: string): Promise<Squidex.AssetScriptsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/scripts`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/scripts`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetScriptsDto.parseOrThrow(_response.body, {
@@ -62,11 +64,14 @@ export class Apps {
         }
     }
 
-    public async updateAssetScripts(request: Squidex.UpdateAssetScriptsDto): Promise<Squidex.AssetScriptsDto> {
+    public async appAssetsPutAssetScripts(
+        app: string,
+        request: Squidex.UpdateAssetScriptsDto = {}
+    ): Promise<Squidex.AssetScriptsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/scripts`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/scripts`
             ),
             method: "PUT",
             headers: {
@@ -74,6 +79,7 @@ export class Apps {
             },
             contentType: "application/json",
             body: await serializers.UpdateAssetScriptsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetScriptsDto.parseOrThrow(_response.body, {
@@ -105,20 +111,18 @@ export class Apps {
         }
     }
 
-    /**
-     * Gets all configured clients for the app with the specified name.
-     */
-    public async getClients(): Promise<Squidex.ClientsDto> {
+    public async appClientsGetClients(app: string): Promise<Squidex.ClientsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/clients`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/clients`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.ClientsDto.parseOrThrow(_response.body, {
@@ -150,14 +154,11 @@ export class Apps {
         }
     }
 
-    /**
-     * Create a new client for the app with the specified name. The client secret is auto generated on the server and returned. The client does not expire, the access token is valid for 30 days.
-     */
-    public async createClient(request: Squidex.CreateClientDto): Promise<void> {
+    public async appClientsPostClient(app: string, request: Squidex.CreateClientDto): Promise<Squidex.ClientsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/clients`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/clients`
             ),
             method: "POST",
             headers: {
@@ -165,9 +166,14 @@ export class Apps {
             },
             contentType: "application/json",
             body: await serializers.CreateClientDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return;
+            return await serializers.ClientsDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -192,14 +198,15 @@ export class Apps {
         }
     }
 
-    /**
-     * Only the display name can be changed, create a new client if necessary.
-     */
-    public async updateClient(id: string, request: Squidex.UpdateClientDto): Promise<Squidex.ClientsDto> {
+    public async appClientsPutClient(
+        app: string,
+        id: string,
+        request: Squidex.UpdateClientDto = {}
+    ): Promise<Squidex.ClientsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/clients/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/clients/${id}`
             ),
             method: "PUT",
             headers: {
@@ -207,6 +214,7 @@ export class Apps {
             },
             contentType: "application/json",
             body: await serializers.UpdateClientDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.ClientsDto.parseOrThrow(_response.body, {
@@ -238,20 +246,18 @@ export class Apps {
         }
     }
 
-    /**
-     * The application that uses this client credentials cannot access the API after it has been revoked.
-     */
-    public async deleteClient(id: string): Promise<Squidex.ClientsDto> {
+    public async appClientsDeleteClient(app: string, id: string): Promise<Squidex.ClientsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/clients/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/clients/${id}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.ClientsDto.parseOrThrow(_response.body, {
@@ -283,17 +289,18 @@ export class Apps {
         }
     }
 
-    public async getContributors(): Promise<Squidex.ContributorsDto> {
+    public async appContributorsGetContributors(app: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/contributors`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/contributors`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.ContributorsDto.parseOrThrow(_response.body, {
@@ -325,11 +332,14 @@ export class Apps {
         }
     }
 
-    public async assignContributor(request: Squidex.AssignContributorDto): Promise<void> {
+    public async appContributorsPostContributor(
+        app: string,
+        request: Squidex.AssignContributorDto
+    ): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/contributors`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/contributors`
             ),
             method: "POST",
             headers: {
@@ -337,44 +347,7 @@ export class Apps {
             },
             contentType: "application/json",
             body: await serializers.AssignContributorDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.SquidexError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.SquidexTimeoutError();
-            case "unknown":
-                throw new errors.SquidexError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    public async deleteSelf(): Promise<Squidex.ContributorsDto> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/contributors/me`
-            ),
-            method: "DELETE",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-            },
-            contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.ContributorsDto.parseOrThrow(_response.body, {
@@ -406,17 +379,18 @@ export class Apps {
         }
     }
 
-    public async deleteContributor(id: string): Promise<Squidex.ContributorsDto> {
+    public async appContributorsDeleteMyself(app: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/contributors/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/contributors/me`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.ContributorsDto.parseOrThrow(_response.body, {
@@ -448,17 +422,58 @@ export class Apps {
         }
     }
 
-    public async getImage(): Promise<void> {
+    public async appContributorsDeleteContributor(app: string, id: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/image`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/contributors/${id}`
             ),
+            method: "PATCH",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+            },
+            contentType: "application/json",
+            timeoutMs: 60000,
+        });
+        if (_response.ok) {
+            return await serializers.ContributorsDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.SquidexError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async appImageGetImage(app: string): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/image`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -486,17 +501,19 @@ export class Apps {
         }
     }
 
-    public async uploadImage(): Promise<Squidex.AppDto> {
+    public async uploadImage(file: File | fs.ReadStream, app: string): Promise<Squidex.AppDto> {
+        const _request = new FormData();
+        _request.append("file", file);
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/image`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/image`),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
-            contentType: "application/json",
+            contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
+            body: _request,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AppDto.parseOrThrow(_response.body, {
@@ -528,17 +545,15 @@ export class Apps {
         }
     }
 
-    public async deleteImage(): Promise<Squidex.AppDto> {
+    public async deleteImage(app: string): Promise<Squidex.AppDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/image`
-            ),
-            method: "DELETE",
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/image`),
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AppDto.parseOrThrow(_response.body, {
@@ -570,17 +585,18 @@ export class Apps {
         }
     }
 
-    public async getLanguages(): Promise<Squidex.AppLanguagesDto> {
+    public async appLanguagesGetLanguages(app: string): Promise<Squidex.AppLanguagesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/languages`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/languages`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AppLanguagesDto.parseOrThrow(_response.body, {
@@ -612,11 +628,14 @@ export class Apps {
         }
     }
 
-    public async addLanguage(request: Squidex.AddLanguageDto): Promise<void> {
+    public async appLanguagesPostLanguage(
+        app: string,
+        request: Squidex.AddLanguageDto
+    ): Promise<Squidex.AppLanguagesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/languages`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/languages`
             ),
             method: "POST",
             headers: {
@@ -624,9 +643,14 @@ export class Apps {
             },
             contentType: "application/json",
             body: await serializers.AddLanguageDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return;
+            return await serializers.AppLanguagesDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -651,14 +675,15 @@ export class Apps {
         }
     }
 
-    public async updateLanguage(
+    public async appLanguagesPutLanguage(
+        app: string,
         language: string,
-        request: Squidex.UpdateLanguageDto
+        request: Squidex.UpdateLanguageDto = {}
     ): Promise<Squidex.AppLanguagesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/languages/${language}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/languages/${language}`
             ),
             method: "PUT",
             headers: {
@@ -666,6 +691,7 @@ export class Apps {
             },
             contentType: "application/json",
             body: await serializers.UpdateLanguageDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AppLanguagesDto.parseOrThrow(_response.body, {
@@ -697,17 +723,18 @@ export class Apps {
         }
     }
 
-    public async deleteLanguage(language: string): Promise<Squidex.AppLanguagesDto> {
+    public async appLanguagesDeleteLanguage(app: string, language: string): Promise<Squidex.AppLanguagesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/languages/${language}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/languages/${language}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AppLanguagesDto.parseOrThrow(_response.body, {
@@ -739,17 +766,15 @@ export class Apps {
         }
     }
 
-    public async getRoles(): Promise<Squidex.RolesDto> {
+    public async appRolesGetRoles(app: string): Promise<Squidex.RolesDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/roles`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/roles`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.RolesDto.parseOrThrow(_response.body, {
@@ -781,59 +806,19 @@ export class Apps {
         }
     }
 
-    public async createRole(request: Squidex.AddRoleDto): Promise<void> {
+    public async appRolesPostRole(app: string, request: Squidex.AddRoleDto): Promise<Squidex.RolesDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/roles`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/roles`),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.AddRoleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.SquidexError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.SquidexTimeoutError();
-            case "unknown":
-                throw new errors.SquidexError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    public async getPermissions(): Promise<string[]> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/roles/permissions`
-            ),
-            method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-            },
-            contentType: "application/json",
-        });
-        if (_response.ok) {
-            return await serializers.apps.getPermissions.Response.parseOrThrow(_response.body, {
+            return await serializers.RolesDto.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -862,11 +847,58 @@ export class Apps {
         }
     }
 
-    public async updateRole(roleName: string, request: Squidex.UpdateRoleDto): Promise<Squidex.RolesDto> {
+    public async appRolesGetPermissions(app: string): Promise<string[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/roles/${roleName}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/roles/permissions`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+            },
+            contentType: "application/json",
+            timeoutMs: 60000,
+        });
+        if (_response.ok) {
+            return await serializers.apps.appRolesGetPermissions.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.SquidexError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async appRolesPutRole(
+        app: string,
+        roleName: string,
+        request: Squidex.UpdateRoleDto
+    ): Promise<Squidex.RolesDto> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/roles/${roleName}`
             ),
             method: "PUT",
             headers: {
@@ -874,6 +906,7 @@ export class Apps {
             },
             contentType: "application/json",
             body: await serializers.UpdateRoleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.RolesDto.parseOrThrow(_response.body, {
@@ -905,17 +938,18 @@ export class Apps {
         }
     }
 
-    public async deleteRole(roleName: string): Promise<Squidex.RolesDto> {
+    public async appRolesDeleteRole(app: string, roleName: string): Promise<Squidex.RolesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/roles/${roleName}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/roles/${roleName}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.RolesDto.parseOrThrow(_response.body, {
@@ -947,20 +981,18 @@ export class Apps {
         }
     }
 
-    /**
-     * You can only retrieve the list of apps when you are authenticated as a user (OpenID implicit flow). You will retrieve all apps, where you are assigned as a contributor.
-     */
-    public async getAll(): Promise<Squidex.AppDto[]> {
+    public async getApps(): Promise<Squidex.AppDto[]> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/apps"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.apps.getAll.Response.parseOrThrow(_response.body, {
+            return await serializers.apps.getApps.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -989,21 +1021,23 @@ export class Apps {
         }
     }
 
-    /**
-     * You can only create an app when you are authenticated as a user (OpenID implicit flow). You will be assigned as owner of the new app automatically.
-     */
-    public async create(request: Squidex.CreateAppDto): Promise<void> {
+    public async postApp(request: Squidex.CreateAppDto): Promise<Squidex.AppDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/apps"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.CreateAppDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return;
+            return await serializers.AppDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -1028,20 +1062,15 @@ export class Apps {
         }
     }
 
-    /**
-     * You can only retrieve the list of apps when you are authenticated as a user (OpenID implicit flow). You will retrieve all apps, where you are assigned as a contributor.
-     */
     public async getTeamApps(team: string): Promise<Squidex.AppDto[]> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/teams/${team}/apps`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}/apps`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.apps.getTeamApps.Response.parseOrThrow(_response.body, {
@@ -1073,17 +1102,15 @@ export class Apps {
         }
     }
 
-    public async get(): Promise<Squidex.AppDto> {
+    public async getApp(app: string): Promise<Squidex.AppDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AppDto.parseOrThrow(_response.body, {
@@ -1115,18 +1142,16 @@ export class Apps {
         }
     }
 
-    public async update(request: Squidex.UpdateAppDto): Promise<Squidex.AppDto> {
+    public async putApp(app: string, request: Squidex.UpdateAppDto = {}): Promise<Squidex.AppDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}`),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.UpdateAppDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AppDto.parseOrThrow(_response.body, {
@@ -1158,17 +1183,15 @@ export class Apps {
         }
     }
 
-    public async delete(): Promise<void> {
+    public async deleteApp(app: string): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}`
-            ),
-            method: "DELETE",
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}`),
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -1196,18 +1219,16 @@ export class Apps {
         }
     }
 
-    public async transfer(request: Squidex.TransferToTeamDto): Promise<Squidex.AppDto> {
+    public async putAppTeam(app: string, request: Squidex.TransferToTeamDto = {}): Promise<Squidex.AppDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/team`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/team`),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.TransferToTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AppDto.parseOrThrow(_response.body, {
@@ -1239,17 +1260,18 @@ export class Apps {
         }
     }
 
-    public async getSettings(): Promise<Squidex.AppSettingsDto> {
+    public async appSettingsGetSettings(app: string): Promise<Squidex.AppSettingsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/settings`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/settings`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AppSettingsDto.parseOrThrow(_response.body, {
@@ -1281,11 +1303,14 @@ export class Apps {
         }
     }
 
-    public async updateSettings(request: Squidex.UpdateAppSettingsDto): Promise<Squidex.AppSettingsDto> {
+    public async appSettingsPutSettings(
+        app: string,
+        request: Squidex.UpdateAppSettingsDto
+    ): Promise<Squidex.AppSettingsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/settings`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/settings`
             ),
             method: "PUT",
             headers: {
@@ -1293,6 +1318,7 @@ export class Apps {
             },
             contentType: "application/json",
             body: await serializers.UpdateAppSettingsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AppSettingsDto.parseOrThrow(_response.body, {
@@ -1324,17 +1350,18 @@ export class Apps {
         }
     }
 
-    public async getWorkflows(): Promise<Squidex.WorkflowsDto> {
+    public async appWorkflowsGetWorkflows(app: string): Promise<Squidex.WorkflowsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/workflows`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/workflows`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.WorkflowsDto.parseOrThrow(_response.body, {
@@ -1366,11 +1393,11 @@ export class Apps {
         }
     }
 
-    public async createWorkflow(request: Squidex.AddWorkflowDto): Promise<Squidex.WorkflowsDto> {
+    public async appWorkflowsPostWorkflow(app: string, request: Squidex.AddWorkflowDto): Promise<Squidex.WorkflowsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/workflows`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/workflows`
             ),
             method: "POST",
             headers: {
@@ -1378,6 +1405,7 @@ export class Apps {
             },
             contentType: "application/json",
             body: await serializers.AddWorkflowDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.WorkflowsDto.parseOrThrow(_response.body, {
@@ -1409,11 +1437,15 @@ export class Apps {
         }
     }
 
-    public async updateWorkflow(id: string, request: Squidex.UpdateWorkflowDto): Promise<Squidex.WorkflowsDto> {
+    public async appWorkflowsPutWorkflow(
+        app: string,
+        id: string,
+        request: Squidex.UpdateWorkflowDto
+    ): Promise<Squidex.WorkflowsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/workflows/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/workflows/${id}`
             ),
             method: "PUT",
             headers: {
@@ -1421,6 +1453,7 @@ export class Apps {
             },
             contentType: "application/json",
             body: await serializers.UpdateWorkflowDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.WorkflowsDto.parseOrThrow(_response.body, {
@@ -1452,17 +1485,18 @@ export class Apps {
         }
     }
 
-    public async deleteWorkflow(id: string): Promise<Squidex.WorkflowsDto> {
+    public async appWorkflowsDeleteWorkflow(app: string, id: string): Promise<Squidex.WorkflowsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/workflows/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/workflows/${id}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.WorkflowsDto.parseOrThrow(_response.body, {
@@ -1494,7 +1528,7 @@ export class Apps {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

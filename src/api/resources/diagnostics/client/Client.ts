@@ -10,25 +10,22 @@ import * as errors from "../../../../errors";
 export declare namespace Diagnostics {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Diagnostics {
-    constructor(private readonly options: Diagnostics.Options) {}
+    constructor(protected readonly options: Diagnostics.Options) {}
 
     public async getDump(): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                "/api/diagnostics/dump"
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/diagnostics/dump"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -58,15 +55,13 @@ export class Diagnostics {
 
     public async getGcDump(): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                "/api/diagnostics/gcdump"
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/diagnostics/gcdump"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -94,7 +89,7 @@ export class Diagnostics {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

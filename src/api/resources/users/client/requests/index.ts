@@ -1,1 +1,1 @@
-export { GetAllUsersRequest } from "./GetAllUsersRequest";
+export { UsersGetUsersRequest } from "./UsersGetUsersRequest";

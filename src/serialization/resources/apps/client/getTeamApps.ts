@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../..";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../../../api";
 import * as core from "../../../../core";
 
 export const Response: core.serialization.Schema<serializers.apps.getTeamApps.Response.Raw, Squidex.AppDto[]> =

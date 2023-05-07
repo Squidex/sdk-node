@@ -1,1 +1,1 @@
-export * as get from "./get";
+export * as getLanguages from "./getLanguages";

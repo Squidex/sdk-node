@@ -4,7 +4,7 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
@@ -12,25 +12,25 @@ import * as errors from "../../../../errors";
 export declare namespace Teams {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Teams {
-    constructor(private readonly options: Teams.Options) {}
+    constructor(protected readonly options: Teams.Options) {}
 
-    public async getContributors(team: string): Promise<Squidex.ContributorsDto> {
+    public async teamContributorsGetContributors(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/teams/${team}/contributors`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}/contributors`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.ContributorsDto.parseOrThrow(_response.body, {
@@ -62,11 +62,14 @@ export class Teams {
         }
     }
 
-    public async assignContributor(team: string, request: Squidex.AssignContributorDto): Promise<void> {
+    public async teamContributorsPostContributor(
+        team: string,
+        request: Squidex.AssignContributorDto
+    ): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/teams/${team}/contributors`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}/contributors`
             ),
             method: "POST",
             headers: {
@@ -74,44 +77,7 @@ export class Teams {
             },
             contentType: "application/json",
             body: await serializers.AssignContributorDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.SquidexError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.SquidexTimeoutError();
-            case "unknown":
-                throw new errors.SquidexError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    public async deleteSelf(team: string): Promise<Squidex.ContributorsDto> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/teams/${team}/contributors/me`
-            ),
-            method: "DELETE",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-            },
-            contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.ContributorsDto.parseOrThrow(_response.body, {
@@ -143,17 +109,18 @@ export class Teams {
         }
     }
 
-    public async deleteContributor(team: string, id: string): Promise<Squidex.ContributorsDto> {
+    public async teamContributorsDeleteMyself(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/teams/${team}/contributors/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}/contributors/me`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.ContributorsDto.parseOrThrow(_response.body, {
@@ -185,20 +152,61 @@ export class Teams {
         }
     }
 
-    /**
-     * You can only retrieve the list of teams when you are authenticated as a user (OpenID implicit flow). You will retrieve all teams, where you are assigned as a contributor.
-     */
-    public async getAll(): Promise<Squidex.TeamDto[]> {
+    public async teamContributorsDeleteContributor(team: string, id: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/teams"),
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}/contributors/${id}`
+            ),
+            method: "PATCH",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+            },
+            contentType: "application/json",
+            timeoutMs: 60000,
+        });
+        if (_response.ok) {
+            return await serializers.ContributorsDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.SquidexError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async getTeams(): Promise<Squidex.TeamDto[]> {
+        const _response = await core.fetcher({
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/teams"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.teams.getAll.Response.parseOrThrow(_response.body, {
+            return await serializers.teams.getTeams.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -227,53 +235,16 @@ export class Teams {
         }
     }
 
-    /**
-     * You can only create an team when you are authenticated as a user (OpenID implicit flow). You will be assigned as owner of the new team automatically.
-     */
-    public async create(request: Squidex.CreateTeamDto): Promise<void> {
+    public async postTeam(request: Squidex.CreateTeamDto): Promise<Squidex.TeamDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/teams"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/teams"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.CreateTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.SquidexError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.SquidexTimeoutError();
-            case "unknown":
-                throw new errors.SquidexError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    public async get(team: string): Promise<Squidex.TeamDto> {
-        const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, `/api/teams/${team}`),
-            method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-            },
-            contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.TeamDto.parseOrThrow(_response.body, {
@@ -305,15 +276,56 @@ export class Teams {
         }
     }
 
-    public async update(team: string, request: Squidex.UpdateTeamDto): Promise<Squidex.TeamDto> {
+    public async getTeam(team: string): Promise<Squidex.TeamDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, `/api/teams/${team}`),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}`),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+            },
+            contentType: "application/json",
+            timeoutMs: 60000,
+        });
+        if (_response.ok) {
+            return await serializers.TeamDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.SquidexError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async putTeam(team: string, request: Squidex.UpdateTeamDto): Promise<Squidex.TeamDto> {
+        const _response = await core.fetcher({
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}`),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.UpdateTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.TeamDto.parseOrThrow(_response.body, {
@@ -345,7 +357,7 @@ export class Teams {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

@@ -6,31 +6,32 @@ import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
+import URLSearchParams from "@ungap/url-search-params";
 import * as serializers from "../../../../serialization";
 
 export declare namespace Backups {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Backups {
-    constructor(private readonly options: Backups.Options) {}
+    constructor(protected readonly options: Backups.Options) {}
 
-    public async get(id: string): Promise<void> {
+    public async backupContentGetBackupContent(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/backups/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/backups/${id}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -58,17 +59,18 @@ export class Backups {
         }
     }
 
-    public async delete(id: string): Promise<void> {
+    public async deleteBackup(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/backups/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/backups/${id}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -96,7 +98,10 @@ export class Backups {
         }
     }
 
-    public async getBackupContent(id: string, request: Squidex.GetBackUpContentRequest = {}): Promise<void> {
+    public async backupContentGetBackupContentV2(
+        id: string,
+        request: Squidex.BackupContentGetBackupContentV2Request = {}
+    ): Promise<void> {
         const { appId, app } = request;
         const _queryParams = new URLSearchParams();
         if (appId != null) {
@@ -108,16 +113,14 @@ export class Backups {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/backups/${id}`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/backups/${id}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -145,17 +148,18 @@ export class Backups {
         }
     }
 
-    public async getAll(): Promise<Squidex.BackupJobsDto> {
+    public async getBackups(app: string): Promise<Squidex.BackupJobsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/backups`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/backups`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.BackupJobsDto.parseOrThrow(_response.body, {
@@ -187,17 +191,18 @@ export class Backups {
         }
     }
 
-    public async start(): Promise<void> {
+    public async postBackup(app: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/backups`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/backups`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -225,14 +230,15 @@ export class Backups {
         }
     }
 
-    public async getRestoreJob(): Promise<Squidex.RestoreJobDto> {
+    public async restoreGetRestoreJob(): Promise<Squidex.RestoreJobDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/apps/restore"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps/restore"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.RestoreJobDto.parseOrThrow(_response.body, {
@@ -264,15 +270,16 @@ export class Backups {
         }
     }
 
-    public async restore(request: Squidex.RestoreRequestDto): Promise<void> {
+    public async restorePostRestoreJob(request: Squidex.RestoreRequestDto): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/apps/restore"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps/restore"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.RestoreRequestDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -300,7 +307,7 @@ export class Backups {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

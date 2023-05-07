@@ -3,7 +3,7 @@
  */
 
 export const SquidexEnvironment = {
-    Production: "https://cloud.squidex.io",
+    Default: "https://localhost:5001",
 } as const;
 
-export type SquidexEnvironment = typeof SquidexEnvironment.Production;
+export type SquidexEnvironment = typeof SquidexEnvironment.Default;
