@@ -35,12 +35,13 @@ export class SquidexClient extends FernClient {
                         },
                     });
                     if (response.ok) {
-                        if (typeof response.body !== "string") {
+                        const accessToken = (response.body as any)?.["access_token"];
+                        if (typeof accessToken !== "string") {
                             throw new errors.SquidexError({
                                 message: "Token is not a string",
                             });
                         }
-                        this.token = response.body;
+                        this.token = accessToken;
                     } else {
                         switch (response.error.reason) {
                             case "non-json":
