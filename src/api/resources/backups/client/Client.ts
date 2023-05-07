@@ -20,7 +20,7 @@ export declare namespace Backups {
 export class Backups {
     constructor(protected readonly options: Backups.Options) {}
 
-    public async backupContentGetBackupContent(app: string, id: string): Promise<void> {
+    public async getBackupContent(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -98,7 +98,7 @@ export class Backups {
         }
     }
 
-    public async backupContentGetBackupContentV2(
+    public async getBackupContentV2(
         id: string,
         request: Squidex.BackupContentGetBackupContentV2Request = {}
     ): Promise<void> {
@@ -230,7 +230,7 @@ export class Backups {
         }
     }
 
-    public async restoreGetRestoreJob(): Promise<Squidex.RestoreJobDto> {
+    public async getRestoreJob(): Promise<Squidex.RestoreJobDto> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps/restore"),
             method: "GET",
@@ -270,7 +270,7 @@ export class Backups {
         }
     }
 
-    public async restorePostRestoreJob(request: Squidex.RestoreRequestDto): Promise<void> {
+    public async postRestoreJob(request: Squidex.RestoreRequestDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps/restore"),
             method: "POST",

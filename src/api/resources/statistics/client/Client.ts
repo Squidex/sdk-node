@@ -19,7 +19,7 @@ export declare namespace Statistics {
 export class Statistics {
     constructor(protected readonly options: Statistics.Options) {}
 
-    public async usagesGetLog(app: string): Promise<Squidex.LogDownloadDto> {
+    public async getLog(app: string): Promise<Squidex.LogDownloadDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -62,7 +62,7 @@ export class Statistics {
         }
     }
 
-    public async usagesGetUsages(app: string, fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
+    public async getUsages(app: string, fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -105,11 +105,7 @@ export class Statistics {
         }
     }
 
-    public async usagesGetUsagesForTeam(
-        team: string,
-        fromDate: string,
-        toDate: string
-    ): Promise<Squidex.CallsUsageDtoDto> {
+    public async getUsagesForTeam(team: string, fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -152,7 +148,7 @@ export class Statistics {
         }
     }
 
-    public async usagesGetCurrentStorageSize(app: string): Promise<Squidex.CurrentStorageDto> {
+    public async getCurrentStorageSize(app: string): Promise<Squidex.CurrentStorageDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -195,7 +191,7 @@ export class Statistics {
         }
     }
 
-    public async usagesGetTeamCurrentStorageSizeForTeam(team: string): Promise<Squidex.CurrentStorageDto> {
+    public async getTeamCurrentStorageSizeForTeam(team: string): Promise<Squidex.CurrentStorageDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -238,7 +234,7 @@ export class Statistics {
         }
     }
 
-    public async usagesGetStorageSizes(
+    public async getStorageSizes(
         app: string,
         fromDate: string,
         toDate: string
@@ -256,7 +252,7 @@ export class Statistics {
             timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.statistics.usagesGetStorageSizes.Response.parseOrThrow(_response.body, {
+            return await serializers.statistics.getStorageSizes.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -285,7 +281,7 @@ export class Statistics {
         }
     }
 
-    public async usagesGetStorageSizesForTeam(
+    public async getStorageSizesForTeam(
         team: string,
         fromDate: string,
         toDate: string
@@ -303,7 +299,7 @@ export class Statistics {
             timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.statistics.usagesGetStorageSizesForTeam.Response.parseOrThrow(_response.body, {
+            return await serializers.statistics.getStorageSizesForTeam.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

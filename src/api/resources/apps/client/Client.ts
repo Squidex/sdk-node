@@ -21,7 +21,7 @@ export declare namespace Apps {
 export class Apps {
     constructor(protected readonly options: Apps.Options) {}
 
-    public async appAssetsGetAssetScripts(app: string): Promise<Squidex.AssetScriptsDto> {
+    public async getAssetScripts(app: string): Promise<Squidex.AssetScriptsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -64,7 +64,7 @@ export class Apps {
         }
     }
 
-    public async appAssetsPutAssetScripts(
+    public async putAssetScripts(
         app: string,
         request: Squidex.UpdateAssetScriptsDto = {}
     ): Promise<Squidex.AssetScriptsDto> {
@@ -111,7 +111,7 @@ export class Apps {
         }
     }
 
-    public async appClientsGetClients(app: string): Promise<Squidex.ClientsDto> {
+    public async getClients(app: string): Promise<Squidex.ClientsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -154,7 +154,7 @@ export class Apps {
         }
     }
 
-    public async appClientsPostClient(app: string, request: Squidex.CreateClientDto): Promise<Squidex.ClientsDto> {
+    public async postClient(app: string, request: Squidex.CreateClientDto): Promise<Squidex.ClientsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -198,7 +198,7 @@ export class Apps {
         }
     }
 
-    public async appClientsPutClient(
+    public async putClient(
         app: string,
         id: string,
         request: Squidex.UpdateClientDto = {}
@@ -246,7 +246,7 @@ export class Apps {
         }
     }
 
-    public async appClientsDeleteClient(app: string, id: string): Promise<Squidex.ClientsDto> {
+    public async deleteClient(app: string, id: string): Promise<Squidex.ClientsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -289,7 +289,7 @@ export class Apps {
         }
     }
 
-    public async appContributorsGetContributors(app: string): Promise<Squidex.ContributorsDto> {
+    public async getContributors(app: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -332,10 +332,7 @@ export class Apps {
         }
     }
 
-    public async appContributorsPostContributor(
-        app: string,
-        request: Squidex.AssignContributorDto
-    ): Promise<Squidex.ContributorsDto> {
+    public async postContributor(app: string, request: Squidex.AssignContributorDto): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -379,7 +376,7 @@ export class Apps {
         }
     }
 
-    public async appContributorsDeleteMyself(app: string): Promise<Squidex.ContributorsDto> {
+    public async deleteMyself(app: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -422,7 +419,7 @@ export class Apps {
         }
     }
 
-    public async appContributorsDeleteContributor(app: string, id: string): Promise<Squidex.ContributorsDto> {
+    public async deleteContributor(app: string, id: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -465,7 +462,7 @@ export class Apps {
         }
     }
 
-    public async appImageGetImage(app: string): Promise<void> {
+    public async getImage(app: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/image`),
             method: "GET",
@@ -585,7 +582,7 @@ export class Apps {
         }
     }
 
-    public async appLanguagesGetLanguages(app: string): Promise<Squidex.AppLanguagesDto> {
+    public async getLanguages(app: string): Promise<Squidex.AppLanguagesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -628,10 +625,7 @@ export class Apps {
         }
     }
 
-    public async appLanguagesPostLanguage(
-        app: string,
-        request: Squidex.AddLanguageDto
-    ): Promise<Squidex.AppLanguagesDto> {
+    public async postLanguage(app: string, request: Squidex.AddLanguageDto): Promise<Squidex.AppLanguagesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -675,7 +669,7 @@ export class Apps {
         }
     }
 
-    public async appLanguagesPutLanguage(
+    public async putLanguage(
         app: string,
         language: string,
         request: Squidex.UpdateLanguageDto = {}
@@ -723,7 +717,7 @@ export class Apps {
         }
     }
 
-    public async appLanguagesDeleteLanguage(app: string, language: string): Promise<Squidex.AppLanguagesDto> {
+    public async deleteLanguage(app: string, language: string): Promise<Squidex.AppLanguagesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -766,7 +760,7 @@ export class Apps {
         }
     }
 
-    public async appRolesGetRoles(app: string): Promise<Squidex.RolesDto> {
+    public async getRoles(app: string): Promise<Squidex.RolesDto> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/roles`),
             method: "GET",
@@ -806,7 +800,7 @@ export class Apps {
         }
     }
 
-    public async appRolesPostRole(app: string, request: Squidex.AddRoleDto): Promise<Squidex.RolesDto> {
+    public async postRole(app: string, request: Squidex.AddRoleDto): Promise<Squidex.RolesDto> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/roles`),
             method: "POST",
@@ -847,7 +841,7 @@ export class Apps {
         }
     }
 
-    public async appRolesGetPermissions(app: string): Promise<string[]> {
+    public async getPermissions(app: string): Promise<string[]> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -861,7 +855,7 @@ export class Apps {
             timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.apps.appRolesGetPermissions.Response.parseOrThrow(_response.body, {
+            return await serializers.apps.getPermissions.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -890,11 +884,7 @@ export class Apps {
         }
     }
 
-    public async appRolesPutRole(
-        app: string,
-        roleName: string,
-        request: Squidex.UpdateRoleDto
-    ): Promise<Squidex.RolesDto> {
+    public async putRole(app: string, roleName: string, request: Squidex.UpdateRoleDto): Promise<Squidex.RolesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -938,7 +928,7 @@ export class Apps {
         }
     }
 
-    public async appRolesDeleteRole(app: string, roleName: string): Promise<Squidex.RolesDto> {
+    public async deleteRole(app: string, roleName: string): Promise<Squidex.RolesDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1260,7 +1250,7 @@ export class Apps {
         }
     }
 
-    public async appSettingsGetSettings(app: string): Promise<Squidex.AppSettingsDto> {
+    public async getSettings(app: string): Promise<Squidex.AppSettingsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1303,10 +1293,7 @@ export class Apps {
         }
     }
 
-    public async appSettingsPutSettings(
-        app: string,
-        request: Squidex.UpdateAppSettingsDto
-    ): Promise<Squidex.AppSettingsDto> {
+    public async putSettings(app: string, request: Squidex.UpdateAppSettingsDto): Promise<Squidex.AppSettingsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1350,7 +1337,7 @@ export class Apps {
         }
     }
 
-    public async appWorkflowsGetWorkflows(app: string): Promise<Squidex.WorkflowsDto> {
+    public async getWorkflows(app: string): Promise<Squidex.WorkflowsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1393,7 +1380,7 @@ export class Apps {
         }
     }
 
-    public async appWorkflowsPostWorkflow(app: string, request: Squidex.AddWorkflowDto): Promise<Squidex.WorkflowsDto> {
+    public async postWorkflow(app: string, request: Squidex.AddWorkflowDto): Promise<Squidex.WorkflowsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1437,7 +1424,7 @@ export class Apps {
         }
     }
 
-    public async appWorkflowsPutWorkflow(
+    public async putWorkflow(
         app: string,
         id: string,
         request: Squidex.UpdateWorkflowDto
@@ -1485,7 +1472,7 @@ export class Apps {
         }
     }
 
-    public async appWorkflowsDeleteWorkflow(app: string, id: string): Promise<Squidex.WorkflowsDto> {
+    public async deleteWorkflow(app: string, id: string): Promise<Squidex.WorkflowsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,

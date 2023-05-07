@@ -19,11 +19,7 @@ export declare namespace Schemas {
 export class Schemas {
     constructor(protected readonly options: Schemas.Options) {}
 
-    public async schemaFieldsPostField(
-        app: string,
-        schema: string,
-        request: Squidex.AddFieldDto
-    ): Promise<Squidex.SchemaDto> {
+    public async postField(app: string, schema: string, request: Squidex.AddFieldDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -67,7 +63,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsPostNestedField(
+    public async postNestedField(
         app: string,
         schema: string,
         parentId: number,
@@ -116,7 +112,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsPutSchemaUiFields(
+    public async putSchemaUiFields(
         app: string,
         schema: string,
         request: Squidex.ConfigureUiFieldsDto = {}
@@ -164,7 +160,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsPutSchemaFieldOrdering(
+    public async putSchemaFieldOrdering(
         app: string,
         schema: string,
         request: Squidex.ReorderFieldsDto
@@ -212,7 +208,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsPutNestedFieldOrdering(
+    public async putNestedFieldOrdering(
         app: string,
         schema: string,
         parentId: number,
@@ -261,7 +257,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsPutField(
+    public async putField(
         app: string,
         schema: string,
         id: number,
@@ -310,7 +306,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsDeleteField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async deleteField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -353,7 +349,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsPutNestedField(
+    public async putNestedField(
         app: string,
         schema: string,
         parentId: number,
@@ -403,7 +399,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsDeleteNestedField(
+    public async deleteNestedField(
         app: string,
         schema: string,
         parentId: number,
@@ -451,7 +447,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsLockField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async lockField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -494,7 +490,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsLockNestedField(
+    public async lockNestedField(
         app: string,
         schema: string,
         parentId: number,
@@ -542,7 +538,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsHideField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async hideField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -585,7 +581,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsHideNestedField(
+    public async hideNestedField(
         app: string,
         schema: string,
         parentId: number,
@@ -633,7 +629,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsShowField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async showField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -676,7 +672,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsShowNestedField(
+    public async showNestedField(
         app: string,
         schema: string,
         parentId: number,
@@ -724,7 +720,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsEnableField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async enableField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -767,7 +763,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsEnableNestedField(
+    public async enableNestedField(
         app: string,
         schema: string,
         parentId: number,
@@ -815,7 +811,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsDisableField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
+    public async disableField(app: string, schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -858,7 +854,7 @@ export class Schemas {
         }
     }
 
-    public async schemaFieldsDisableNestedField(
+    public async disableNestedField(
         app: string,
         schema: string,
         parentId: number,

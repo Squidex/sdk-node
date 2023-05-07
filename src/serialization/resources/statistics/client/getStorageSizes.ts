@@ -7,7 +7,7 @@ import * as Squidex from "../../../../api";
 import * as core from "../../../../core";
 
 export const Response: core.serialization.Schema<
-    serializers.statistics.usagesGetStorageSizes.Response.Raw,
+    serializers.statistics.getStorageSizes.Response.Raw,
     Squidex.StorageUsagePerDateDto[]
 > = core.serialization.list(
     core.serialization.lazyObject(async () => (await import("../../..")).StorageUsagePerDateDto)

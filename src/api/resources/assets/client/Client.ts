@@ -22,7 +22,7 @@ export declare namespace Assets {
 export class Assets {
     constructor(protected readonly options: Assets.Options) {}
 
-    public async assetContentGetAssetContentBySlug(
+    public async getAssetContentBySlug(
         app: string,
         idOrSlug: string,
         more: string | undefined,
@@ -140,10 +140,7 @@ export class Assets {
         }
     }
 
-    public async assetContentGetAssetContent(
-        id: string,
-        request: Squidex.AssetContentGetAssetContentRequest = {}
-    ): Promise<void> {
+    public async getAssetContent(id: string, request: Squidex.AssetContentGetAssetContentRequest = {}): Promise<void> {
         const {
             version,
             cache,
@@ -253,7 +250,7 @@ export class Assets {
         }
     }
 
-    public async assetFoldersGetAssetFolders(
+    public async getAssetFolders(
         app: string,
         request: Squidex.AssetFoldersGetAssetFoldersRequest = {}
     ): Promise<Squidex.AssetFoldersDto> {
@@ -310,10 +307,7 @@ export class Assets {
         }
     }
 
-    public async assetFoldersPostAssetFolder(
-        app: string,
-        request: Squidex.CreateAssetFolderDto
-    ): Promise<Squidex.AssetFolderDto> {
+    public async postAssetFolder(app: string, request: Squidex.CreateAssetFolderDto): Promise<Squidex.AssetFolderDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -357,7 +351,7 @@ export class Assets {
         }
     }
 
-    public async assetFoldersPutAssetFolder(
+    public async putAssetFolder(
         app: string,
         id: string,
         request: Squidex.RenameAssetFolderDto
@@ -405,7 +399,7 @@ export class Assets {
         }
     }
 
-    public async assetFoldersDeleteAssetFolder(app: string, id: string): Promise<void> {
+    public async deleteAssetFolder(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -444,7 +438,7 @@ export class Assets {
         }
     }
 
-    public async assetFoldersPutAssetFolderParent(
+    public async putAssetFolderParent(
         app: string,
         id: string,
         request: Squidex.MoveAssetFolderDto = {}

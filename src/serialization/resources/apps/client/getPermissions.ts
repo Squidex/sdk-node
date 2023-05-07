@@ -5,7 +5,7 @@
 import * as serializers from "../../..";
 import * as core from "../../../../core";
 
-export const Response: core.serialization.Schema<serializers.apps.appRolesGetPermissions.Response.Raw, string[]> =
+export const Response: core.serialization.Schema<serializers.apps.getPermissions.Response.Raw, string[]> =
     core.serialization.list(core.serialization.string());
 
 export declare namespace Response {

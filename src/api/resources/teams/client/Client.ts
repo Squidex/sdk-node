@@ -19,7 +19,7 @@ export declare namespace Teams {
 export class Teams {
     constructor(protected readonly options: Teams.Options) {}
 
-    public async teamContributorsGetContributors(team: string): Promise<Squidex.ContributorsDto> {
+    public async getContributors(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -62,7 +62,7 @@ export class Teams {
         }
     }
 
-    public async teamContributorsPostContributor(
+    public async postContributor(
         team: string,
         request: Squidex.AssignContributorDto
     ): Promise<Squidex.ContributorsDto> {
@@ -109,7 +109,7 @@ export class Teams {
         }
     }
 
-    public async teamContributorsDeleteMyself(team: string): Promise<Squidex.ContributorsDto> {
+    public async deleteMyself(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -152,7 +152,7 @@ export class Teams {
         }
     }
 
-    public async teamContributorsDeleteContributor(team: string, id: string): Promise<Squidex.ContributorsDto> {
+    public async deleteContributor(team: string, id: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,

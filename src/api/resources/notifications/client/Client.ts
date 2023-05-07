@@ -20,7 +20,7 @@ export declare namespace Notifications {
 export class Notifications {
     constructor(protected readonly options: Notifications.Options) {}
 
-    public async userNotificationsGetNotifications(
+    public async getNotifications(
         userId: string,
         request: Squidex.UserNotificationsGetNotificationsRequest = {}
     ): Promise<Squidex.CommentsDto> {
@@ -73,7 +73,7 @@ export class Notifications {
         }
     }
 
-    public async userNotificationsDeleteComment(userId: string, commentId: string): Promise<void> {
+    public async deleteComment(userId: string, commentId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,

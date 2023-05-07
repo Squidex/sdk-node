@@ -19,7 +19,7 @@ export declare namespace Plans {
 export class Plans {
     constructor(protected readonly options: Plans.Options) {}
 
-    public async appPlansGetPlans(app: string): Promise<Squidex.PlansDto> {
+    public async getPlans(app: string): Promise<Squidex.PlansDto> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/plans`),
             method: "GET",
@@ -59,7 +59,7 @@ export class Plans {
         }
     }
 
-    public async appPlansPutPlan(app: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
+    public async putPlan(app: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/plan`),
             method: "PUT",
@@ -100,7 +100,7 @@ export class Plans {
         }
     }
 
-    public async teamPlansGetTeamPlans(team: string): Promise<Squidex.PlansDto> {
+    public async getTeamPlans(team: string): Promise<Squidex.PlansDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -143,7 +143,7 @@ export class Plans {
         }
     }
 
-    public async teamPlansPutTeamPlan(team: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
+    public async putTeamPlan(team: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}/plan`),
             method: "PUT",
