@@ -4,7 +4,7 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
@@ -12,28 +12,25 @@ import * as errors from "../../../../errors";
 export declare namespace Languages {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Languages {
-    constructor(private readonly options: Languages.Options) {}
+    constructor(protected readonly options: Languages.Options) {}
 
-    /**
-     * Provide a list of supported language codes, following the ISO2Code standard.
-     */
-    public async get(): Promise<Squidex.LanguageDto[]> {
+    public async getLanguages(): Promise<Squidex.LanguageDto[]> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/languages"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/languages"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.languages.get.Response.parseOrThrow(_response.body, {
+            return await serializers.languages.getLanguages.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -62,7 +59,7 @@ export class Languages {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

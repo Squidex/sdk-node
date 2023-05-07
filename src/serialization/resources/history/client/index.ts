@@ -1,2 +1,2 @@
-export * as get from "./get";
+export * as getAppHistory from "./getAppHistory";
 export * as getTeamHistory from "./getTeamHistory";

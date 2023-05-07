@@ -1,0 +1,1 @@
+export { UpdateRuleDto } from "./UpdateRuleDto";

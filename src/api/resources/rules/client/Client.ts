@@ -4,30 +4,31 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
+import URLSearchParams from "@ungap/url-search-params";
 
 export declare namespace Rules {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Rules {
-    constructor(private readonly options: Rules.Options) {}
+    constructor(protected readonly options: Rules.Options) {}
 
     public async getActions(): Promise<Record<string, Squidex.RuleElementDto>> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, "/api/rules/actions"),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/rules/actions"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.rules.getActions.Response.parseOrThrow(_response.body, {
@@ -59,17 +60,15 @@ export class Rules {
         }
     }
 
-    public async getRules(): Promise<Squidex.RulesDto> {
+    public async getRules(app: string): Promise<Squidex.RulesDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/rules`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.RulesDto.parseOrThrow(_response.body, {
@@ -101,21 +100,23 @@ export class Rules {
         }
     }
 
-    public async createRule(request: Squidex.CreateRuleDto): Promise<void> {
+    public async postRule(app: string, request: Squidex.CreateRuleDto): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/rules`),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.CreateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return;
+            return await serializers.RuleDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -140,17 +141,18 @@ export class Rules {
         }
     }
 
-    public async cancelRun(): Promise<void> {
+    public async deleteRuleRun(app: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/run`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/run`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -178,11 +180,11 @@ export class Rules {
         }
     }
 
-    public async updateRule(id: string, request: Squidex.UpdateRuleDto): Promise<Squidex.RuleDto> {
+    public async putRule(app: string, id: string, request: Squidex.UpdateRuleDto = {}): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/${id}`
             ),
             method: "PUT",
             headers: {
@@ -190,6 +192,7 @@ export class Rules {
             },
             contentType: "application/json",
             body: await serializers.UpdateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.RuleDto.parseOrThrow(_response.body, {
@@ -221,17 +224,18 @@ export class Rules {
         }
     }
 
-    public async deleteRule(id: string): Promise<void> {
+    public async deleteRule(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/${id}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -259,17 +263,18 @@ export class Rules {
         }
     }
 
-    public async enableRule(id: string): Promise<Squidex.RuleDto> {
+    public async enableRule(app: string, id: string): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/${id}/enable`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/${id}/enable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.RuleDto.parseOrThrow(_response.body, {
@@ -301,17 +306,18 @@ export class Rules {
         }
     }
 
-    public async disableRule(id: string): Promise<Squidex.RuleDto> {
+    public async disableRule(app: string, id: string): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/${id}/disable`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/${id}/disable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.RuleDto.parseOrThrow(_response.body, {
@@ -343,17 +349,18 @@ export class Rules {
         }
     }
 
-    public async triggerRule(id: string): Promise<void> {
+    public async triggerRule(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/${id}/trigger`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/${id}/trigger`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -381,7 +388,7 @@ export class Rules {
         }
     }
 
-    public async runRule(id: string, request: Squidex.RunRuleRequest = {}): Promise<void> {
+    public async putRuleRun(app: string, id: string, request: Squidex.RulesPutRuleRunRequest = {}): Promise<void> {
         const { fromSnapshots } = request;
         const _queryParams = new URLSearchParams();
         if (fromSnapshots != null) {
@@ -390,8 +397,8 @@ export class Rules {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/${id}/run`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/${id}/run`
             ),
             method: "PUT",
             headers: {
@@ -399,6 +406,7 @@ export class Rules {
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -426,17 +434,18 @@ export class Rules {
         }
     }
 
-    public async cancelRuleEvents(id: string): Promise<void> {
+    public async deleteRuleEvents(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/${id}/events`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/${id}/events`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -464,11 +473,11 @@ export class Rules {
         }
     }
 
-    public async createRuleSimulation(request: Squidex.CreateRuleDto): Promise<Squidex.SimulatedRuleEventsDto> {
+    public async simulatePost(app: string, request: Squidex.CreateRuleDto): Promise<Squidex.SimulatedRuleEventsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/simulate`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/simulate`
             ),
             method: "POST",
             headers: {
@@ -476,6 +485,7 @@ export class Rules {
             },
             contentType: "application/json",
             body: await serializers.CreateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SimulatedRuleEventsDto.parseOrThrow(_response.body, {
@@ -507,17 +517,18 @@ export class Rules {
         }
     }
 
-    public async getRuleSimulation(id: string): Promise<Squidex.SimulatedRuleEventsDto> {
+    public async simulateGet(app: string, id: string): Promise<Squidex.SimulatedRuleEventsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/${id}/simulate`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/${id}/simulate`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.SimulatedRuleEventsDto.parseOrThrow(_response.body, {
@@ -549,7 +560,7 @@ export class Rules {
         }
     }
 
-    public async getRuleEvents(request: Squidex.GetRuleEventsRequest = {}): Promise<Squidex.RuleEventsDto> {
+    public async getEvents(app: string, request: Squidex.RulesGetEventsRequest = {}): Promise<Squidex.RuleEventsDto> {
         const { ruleId, skip, take } = request;
         const _queryParams = new URLSearchParams();
         if (ruleId != null) {
@@ -566,8 +577,8 @@ export class Rules {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/events`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/events`
             ),
             method: "GET",
             headers: {
@@ -575,6 +586,7 @@ export class Rules {
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.RuleEventsDto.parseOrThrow(_response.body, {
@@ -606,17 +618,18 @@ export class Rules {
         }
     }
 
-    public async cancelAllEvents(): Promise<void> {
+    public async deleteEvents(app: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/events`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/events`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -644,17 +657,18 @@ export class Rules {
         }
     }
 
-    public async retryEvent(id: string): Promise<void> {
+    public async putEvent(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/events/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/events/${id}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -682,17 +696,18 @@ export class Rules {
         }
     }
 
-    public async cancelEvent(id: string): Promise<void> {
+    public async deleteEvent(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/rules/events/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/rules/events/${id}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -720,20 +735,18 @@ export class Rules {
         }
     }
 
-    public async getEvents(): Promise<string[]> {
+    public async getEventTypes(): Promise<string[]> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                "/api/rules/eventtypes"
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/rules/eventtypes"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.rules.getEvents.Response.parseOrThrow(_response.body, {
+            return await serializers.rules.getEventTypes.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -762,17 +775,18 @@ export class Rules {
         }
     }
 
-    public async getEvent(type: string): Promise<unknown> {
+    public async getEventSchema(type: string): Promise<unknown> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/rules/eventtypes/${type}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/rules/eventtypes/${type}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return _response.body;
@@ -800,7 +814,7 @@ export class Rules {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

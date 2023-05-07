@@ -4,7 +4,8 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
+import URLSearchParams from "@ungap/url-search-params";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
@@ -12,15 +13,14 @@ import * as errors from "../../../../errors";
 export declare namespace UserManagement {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class UserManagement {
-    constructor(private readonly options: UserManagement.Options) {}
+    constructor(protected readonly options: UserManagement.Options) {}
 
-    public async getUsers(request: Squidex.GetUsersRequest = {}): Promise<Squidex.UsersDto> {
+    public async getUsers(request: Squidex.UserManagementGetUsersRequest = {}): Promise<Squidex.UsersDto> {
         const { query, skip, take } = request;
         const _queryParams = new URLSearchParams();
         if (query != null) {
@@ -36,16 +36,14 @@ export class UserManagement {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                "/api/user-management"
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/user-management"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.UsersDto.parseOrThrow(_response.body, {
@@ -77,56 +75,16 @@ export class UserManagement {
         }
     }
 
-    public async createUser(request: Squidex.CreateUserDto): Promise<void> {
+    public async postUser(request: Squidex.CreateUserDto): Promise<Squidex.UserDto> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                "/api/user-management"
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/user-management"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             body: await serializers.CreateUserDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.SquidexError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.SquidexTimeoutError();
-            case "unknown":
-                throw new errors.SquidexError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    public async getUser(id: string): Promise<Squidex.UserDto> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/user-management/${id}`
-            ),
-            method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-            },
-            contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.UserDto.parseOrThrow(_response.body, {
@@ -158,11 +116,54 @@ export class UserManagement {
         }
     }
 
-    public async updateUser(id: string, request: Squidex.UpdateUserDto): Promise<Squidex.UserDto> {
+    public async getUser(id: string): Promise<Squidex.UserDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/user-management/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/user-management/${id}`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+            },
+            contentType: "application/json",
+            timeoutMs: 60000,
+        });
+        if (_response.ok) {
+            return await serializers.UserDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.SquidexError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async putUser(id: string, request: Squidex.UpdateUserDto): Promise<Squidex.UserDto> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/user-management/${id}`
             ),
             method: "PUT",
             headers: {
@@ -170,6 +171,7 @@ export class UserManagement {
             },
             contentType: "application/json",
             body: await serializers.UpdateUserDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.UserDto.parseOrThrow(_response.body, {
@@ -204,14 +206,15 @@ export class UserManagement {
     public async deleteUser(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/user-management/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/user-management/${id}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -242,14 +245,15 @@ export class UserManagement {
     public async lockUser(id: string): Promise<Squidex.UserDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/user-management/${id}/lock`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/user-management/${id}/lock`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.UserDto.parseOrThrow(_response.body, {
@@ -284,14 +288,15 @@ export class UserManagement {
     public async unlockUser(id: string): Promise<Squidex.UserDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/user-management/${id}/unlock`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/user-management/${id}/unlock`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.UserDto.parseOrThrow(_response.body, {
@@ -323,7 +328,7 @@ export class UserManagement {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

@@ -1,1 +1,1 @@
-export { GetSearchResultsRequests } from "./GetSearchResultsRequests";
+export { SearchGetSearchResultsRequest } from "./SearchGetSearchResultsRequest";

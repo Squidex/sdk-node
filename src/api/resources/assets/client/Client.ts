@@ -4,26 +4,29 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
+import URLSearchParams from "@ungap/url-search-params";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors";
 import * as serializers from "../../../../serialization";
+import * as fs from "fs";
+import FormData from "form-data";
 
 export declare namespace Assets {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Assets {
-    constructor(private readonly options: Assets.Options) {}
+    constructor(protected readonly options: Assets.Options) {}
 
-    public async getAssetBySlug(
+    public async assetContentGetAssetContentBySlug(
+        app: string,
         idOrSlug: string,
-        more: string,
-        request: Squidex.GetAssetContentBySlugRequest = {}
+        more: string | undefined,
+        request: Squidex.AssetContentGetAssetContentBySlugRequest = {}
     ): Promise<void> {
         const {
             version,
@@ -100,8 +103,8 @@ export class Assets {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/assets/${this.options.app}/${idOrSlug}/${more}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/assets/${app}/${idOrSlug}/${more}`
             ),
             method: "GET",
             headers: {
@@ -109,6 +112,7 @@ export class Assets {
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -136,7 +140,10 @@ export class Assets {
         }
     }
 
-    public async get(id: string, request: Squidex.GetAssetContentRequest = {}): Promise<void> {
+    public async assetContentGetAssetContent(
+        id: string,
+        request: Squidex.AssetContentGetAssetContentRequest = {}
+    ): Promise<void> {
         const {
             version,
             cache,
@@ -211,13 +218,14 @@ export class Assets {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Production, `/api/assets/${id}`),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/assets/${id}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -245,10 +253,10 @@ export class Assets {
         }
     }
 
-    /**
-     * Get all asset folders for the app.
-     */
-    public async getAssetFolders(request: Squidex.GetAssetFoldersRequest = {}): Promise<Squidex.AssetFoldersDto> {
+    public async assetFoldersGetAssetFolders(
+        app: string,
+        request: Squidex.AssetFoldersGetAssetFoldersRequest = {}
+    ): Promise<Squidex.AssetFoldersDto> {
         const { parentId, scope } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -261,8 +269,8 @@ export class Assets {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/folders`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/folders`
             ),
             method: "GET",
             headers: {
@@ -270,6 +278,7 @@ export class Assets {
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetFoldersDto.parseOrThrow(_response.body, {
@@ -301,11 +310,14 @@ export class Assets {
         }
     }
 
-    public async createAssetFolder(request: Squidex.CreateAssetFolderDto): Promise<void> {
+    public async assetFoldersPostAssetFolder(
+        app: string,
+        request: Squidex.CreateAssetFolderDto
+    ): Promise<Squidex.AssetFolderDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/folders`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/folders`
             ),
             method: "POST",
             headers: {
@@ -313,9 +325,14 @@ export class Assets {
             },
             contentType: "application/json",
             body: await serializers.CreateAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return;
+            return await serializers.AssetFolderDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -340,11 +357,15 @@ export class Assets {
         }
     }
 
-    public async updateAssetFolder(id: string, request: Squidex.RenameAssetFolderDto): Promise<Squidex.AssetFolderDto> {
+    public async assetFoldersPutAssetFolder(
+        app: string,
+        id: string,
+        request: Squidex.RenameAssetFolderDto
+    ): Promise<Squidex.AssetFolderDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/folders/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/folders/${id}`
             ),
             method: "PUT",
             headers: {
@@ -352,6 +373,7 @@ export class Assets {
             },
             contentType: "application/json",
             body: await serializers.RenameAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetFolderDto.parseOrThrow(_response.body, {
@@ -383,17 +405,18 @@ export class Assets {
         }
     }
 
-    public async deleteAssetFolder(id: string): Promise<void> {
+    public async assetFoldersDeleteAssetFolder(app: string, id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/folders/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/folders/${id}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -421,11 +444,15 @@ export class Assets {
         }
     }
 
-    public async moveAssetFolder(id: string, request: Squidex.MoveAssetFolderDto): Promise<Squidex.AssetFolderDto> {
+    public async assetFoldersPutAssetFolderParent(
+        app: string,
+        id: string,
+        request: Squidex.MoveAssetFolderDto = {}
+    ): Promise<Squidex.AssetFolderDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/folders/${id}/parent`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/folders/${id}/parent`
             ),
             method: "PUT",
             headers: {
@@ -433,6 +460,7 @@ export class Assets {
             },
             contentType: "application/json",
             body: await serializers.MoveAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetFolderDto.parseOrThrow(_response.body, {
@@ -464,20 +492,18 @@ export class Assets {
         }
     }
 
-    /**
-     * Get all tags for assets.
-     */
-    public async getTags(): Promise<Record<string, number>> {
+    public async getTags(app: string): Promise<Record<string, number>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/tags`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/tags`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.assets.getTags.Response.parseOrThrow(_response.body, {
@@ -509,11 +535,11 @@ export class Assets {
         }
     }
 
-    public async renameTag(name: string, request: Squidex.RenameTagDto): Promise<Record<string, number>> {
+    public async putTag(app: string, name: string, request: Squidex.RenameTagDto): Promise<Record<string, number>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/tags/${name}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/tags/${name}`
             ),
             method: "PUT",
             headers: {
@@ -521,9 +547,10 @@ export class Assets {
             },
             contentType: "application/json",
             body: await serializers.RenameTagDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.assets.renameTag.Response.parseOrThrow(_response.body, {
+            return await serializers.assets.putTag.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -552,10 +579,7 @@ export class Assets {
         }
     }
 
-    /**
-     * Get all assets for the app.
-     */
-    public async getAll(request: Squidex.GetAllAssetsRequest = {}): Promise<Squidex.AssetsDto> {
+    public async getAssets(app: string, request: Squidex.AssetsGetAssetsRequest = {}): Promise<Squidex.AssetsDto> {
         const { parentId, ids, q, top, skip, orderby, filter } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -587,16 +611,14 @@ export class Assets {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/assets`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetsDto.parseOrThrow(_response.body, {
@@ -628,38 +650,26 @@ export class Assets {
         }
     }
 
-    /**
-     * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
-     */
-    public async upload(request: Squidex.UploadAssetsRequest = {}): Promise<void> {
-        const { parentId, id, duplicate } = request;
-        const _queryParams = new URLSearchParams();
-        if (parentId != null) {
-            _queryParams.append("ParentId", parentId);
-        }
-
-        if (id != null) {
-            _queryParams.append("Id", id);
-        }
-
-        if (duplicate != null) {
-            _queryParams.append("Duplicate", duplicate.toString());
-        }
-
+    public async postAsset(file: File | fs.ReadStream, app: string): Promise<Squidex.AssetDto> {
+        const _request = new FormData();
+        _request.append("File", file);
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets`
-            ),
+            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/assets`),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
-            contentType: "application/json",
-            queryParameters: _queryParams,
+            contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
+            body: _request,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return;
+            return await serializers.AssetDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -684,14 +694,11 @@ export class Assets {
         }
     }
 
-    /**
-     * Get all assets for the app.
-     */
-    public async getAllAssetsPost(request: Squidex.QueryDto): Promise<Squidex.AssetsDto> {
+    public async getAssetsPost(app: string, request: Squidex.QueryDto): Promise<Squidex.AssetsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/query`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/query`
             ),
             method: "POST",
             headers: {
@@ -699,6 +706,7 @@ export class Assets {
             },
             contentType: "application/json",
             body: await serializers.QueryDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetsDto.parseOrThrow(_response.body, {
@@ -730,17 +738,18 @@ export class Assets {
         }
     }
 
-    public async getById(id: string): Promise<Squidex.AssetDto> {
+    public async getAsset(app: string, id: string): Promise<Squidex.AssetDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/${id}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -772,11 +781,58 @@ export class Assets {
         }
     }
 
-    public async update(id: string, request: Squidex.AnnotateAssetDto): Promise<Squidex.AssetDto> {
+    public async postUpsertAsset(file: File | fs.ReadStream, app: string, id: string): Promise<Squidex.AssetDto> {
+        const _request = new FormData();
+        _request.append("File", file);
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/${id}`
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
+            },
+            contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
+            body: _request,
+            timeoutMs: 60000,
+        });
+        if (_response.ok) {
+            return await serializers.AssetDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.SquidexError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    public async putAsset(app: string, id: string, request: Squidex.AnnotateAssetDto = {}): Promise<Squidex.AssetDto> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/${id}`
             ),
             method: "PUT",
             headers: {
@@ -784,6 +840,7 @@ export class Assets {
             },
             contentType: "application/json",
             body: await serializers.AnnotateAssetDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -815,63 +872,7 @@ export class Assets {
         }
     }
 
-    /**
-     * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
-     */
-    public async upsert(id: string, request: Squidex.UpsertAssetRequest = {}): Promise<Squidex.AssetDto> {
-        const { parentId, duplicate } = request;
-        const _queryParams = new URLSearchParams();
-        if (parentId != null) {
-            _queryParams.append("ParentId", parentId);
-        }
-
-        if (duplicate != null) {
-            _queryParams.append("Duplicate", duplicate.toString());
-        }
-
-        const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/${id}`
-            ),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-        });
-        if (_response.ok) {
-            return await serializers.AssetDto.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.SquidexError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.SquidexTimeoutError();
-            case "unknown":
-                throw new errors.SquidexError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    public async delete(id: string, request: Squidex.DeleteAssetRequest = {}): Promise<void> {
+    public async deleteAsset(app: string, id: string, request: Squidex.AssetsDeleteAssetRequest = {}): Promise<void> {
         const { checkReferrers, permanent } = request;
         const _queryParams = new URLSearchParams();
         if (checkReferrers != null) {
@@ -884,15 +885,16 @@ export class Assets {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/${id}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/${id}`
             ),
-            method: "DELETE",
+            method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return;
@@ -920,11 +922,14 @@ export class Assets {
         }
     }
 
-    public async updateBulkAssets(request: Squidex.BulkUpdateAssetsDto): Promise<Squidex.BulkResultDto[]> {
+    public async bulkUpdateAssets(
+        app: string,
+        request: Squidex.BulkUpdateAssetsDto = {}
+    ): Promise<Squidex.BulkResultDto[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/bulk`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/bulk`
             ),
             method: "POST",
             headers: {
@@ -932,9 +937,10 @@ export class Assets {
             },
             contentType: "application/json",
             body: await serializers.BulkUpdateAssetsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.assets.updateBulkAssets.Response.parseOrThrow(_response.body, {
+            return await serializers.assets.bulkUpdateAssets.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -963,20 +969,22 @@ export class Assets {
         }
     }
 
-    /**
-     * Use multipart request to upload an asset.
-     */
-    public async replace(id: string): Promise<Squidex.AssetDto> {
+    public async putAssetContent(file: File | fs.ReadStream, app: string, id: string): Promise<Squidex.AssetDto> {
+        const _request = new FormData();
+        _request.append("file", file);
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/${id}/content`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/${id}/content`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
-            contentType: "application/json",
+            contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
+            body: _request,
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -1008,11 +1016,15 @@ export class Assets {
         }
     }
 
-    public async move(id: string, request: Squidex.MoveAssetDto): Promise<Squidex.AssetDto> {
+    public async putAssetParent(
+        app: string,
+        id: string,
+        request: Squidex.MoveAssetDto = {}
+    ): Promise<Squidex.AssetDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/assets/${id}/parent`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/assets/${id}/parent`
             ),
             method: "PUT",
             headers: {
@@ -1020,6 +1032,7 @@ export class Assets {
             },
             contentType: "application/json",
             body: await serializers.MoveAssetDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -1051,7 +1064,7 @@ export class Assets {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

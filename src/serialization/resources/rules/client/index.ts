@@ -1,2 +1,3 @@
 export * as getActions from "./getActions";
-export * as getEvents from "./getEvents";
+export * as getEventTypes from "./getEventTypes";
+export * from "./requests";

@@ -11,12 +11,7 @@
         "noUnusedParameters": true,
         "outDir": "dist",
         "rootDir": "src",
-        "baseUrl": "src",
-        "paths": {
-            "@squidex/squidex": [
-                "."
-            ]
-        }
+        "baseUrl": "src"
     },
     "include": [
         "src"

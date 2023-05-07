@@ -1,2 +1,2 @@
-export * as getStorageSizeByDate from "./getStorageSizeByDate";
-export * as getTeamStorageSizeByDate from "./getTeamStorageSizeByDate";
+export * as usagesGetStorageSizes from "./usagesGetStorageSizes";
+export * as usagesGetStorageSizesForTeam from "./usagesGetStorageSizesForTeam";

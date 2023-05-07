@@ -1,0 +1,1 @@
+export { TranslateDto } from "./TranslateDto";

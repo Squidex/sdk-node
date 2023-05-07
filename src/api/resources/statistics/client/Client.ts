@@ -4,7 +4,7 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Squidex } from "@squidex/squidex";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
@@ -12,25 +12,25 @@ import * as errors from "../../../../errors";
 export declare namespace Statistics {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
-        app: string;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
     }
 }
 
 export class Statistics {
-    constructor(private readonly options: Statistics.Options) {}
+    constructor(protected readonly options: Statistics.Options) {}
 
-    public async getUsageLogFile(): Promise<Squidex.LogDownloadDto> {
+    public async usagesGetLog(app: string): Promise<Squidex.LogDownloadDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/usages/log`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/usages/log`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.LogDownloadDto.parseOrThrow(_response.body, {
@@ -62,17 +62,18 @@ export class Statistics {
         }
     }
 
-    public async getUsageByDate(fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
+    public async usagesGetUsages(app: string, fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/usages/calls/${fromDate}/${toDate}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/usages/calls/${fromDate}/${toDate}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.CallsUsageDtoDto.parseOrThrow(_response.body, {
@@ -104,17 +105,22 @@ export class Statistics {
         }
     }
 
-    public async getTeamUsageByDate(team: string, fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
+    public async usagesGetUsagesForTeam(
+        team: string,
+        fromDate: string,
+        toDate: string
+    ): Promise<Squidex.CallsUsageDtoDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/teams/${team}/usages/calls/${fromDate}/${toDate}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}/usages/calls/${fromDate}/${toDate}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.CallsUsageDtoDto.parseOrThrow(_response.body, {
@@ -146,17 +152,18 @@ export class Statistics {
         }
     }
 
-    public async getStorageSize(): Promise<Squidex.CurrentStorageDto> {
+    public async usagesGetCurrentStorageSize(app: string): Promise<Squidex.CurrentStorageDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/usages/storage/today`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/usages/storage/today`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.CurrentStorageDto.parseOrThrow(_response.body, {
@@ -188,17 +195,18 @@ export class Statistics {
         }
     }
 
-    public async getCurrentTeamStorageSize(team: string): Promise<Squidex.CurrentStorageDto> {
+    public async usagesGetTeamCurrentStorageSizeForTeam(team: string): Promise<Squidex.CurrentStorageDto> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/teams/${team}/usages/storage/today`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}/usages/storage/today`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
             return await serializers.CurrentStorageDto.parseOrThrow(_response.body, {
@@ -230,20 +238,25 @@ export class Statistics {
         }
     }
 
-    public async getStorageSizeByDate(fromDate: string, toDate: string): Promise<Squidex.StorageUsagePerDateDto[]> {
+    public async usagesGetStorageSizes(
+        app: string,
+        fromDate: string,
+        toDate: string
+    ): Promise<Squidex.StorageUsagePerDateDto[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/apps/${this.options.app}/usages/storage/${fromDate}/${toDate}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${app}/usages/storage/${fromDate}/${toDate}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.statistics.getStorageSizeByDate.Response.parseOrThrow(_response.body, {
+            return await serializers.statistics.usagesGetStorageSizes.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -272,24 +285,25 @@ export class Statistics {
         }
     }
 
-    public async getTeamStorageSizeByDate(
+    public async usagesGetStorageSizesForTeam(
         team: string,
         fromDate: string,
         toDate: string
     ): Promise<Squidex.StorageUsagePerDateDto[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Production,
-                `/api/teams/${team}/usages/storage/${fromDate}/${toDate}`
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}/usages/storage/${fromDate}/${toDate}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
             },
             contentType: "application/json",
+            timeoutMs: 60000,
         });
         if (_response.ok) {
-            return await serializers.statistics.getTeamStorageSizeByDate.Response.parseOrThrow(_response.body, {
+            return await serializers.statistics.usagesGetStorageSizesForTeam.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -318,7 +332,7 @@ export class Statistics {
         }
     }
 
-    private async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader() {
         const bearer = await core.Supplier.get(this.options.token);
         if (bearer != null) {
             return `Bearer ${bearer}`;

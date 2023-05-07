@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import URLSearchParams from "@ungap/url-search-params";
+import axios, { AxiosAdapter, AxiosError } from "axios";
 import { APIResponse } from "./APIResponse";
 
 export type FetchFunction = (args: Fetcher.Args) => Promise<APIResponse<unknown, Fetcher.Error>>;
@@ -13,6 +14,7 @@ export declare namespace Fetcher {
         body?: unknown;
         timeoutMs?: number;
         withCredentials?: boolean;
+        adapter?: AxiosAdapter;
     }
 
     export type Error = FailedStatusCodeError | NonJsonError | TimeoutError | UnknownError;
@@ -41,9 +43,10 @@ export declare namespace Fetcher {
 
 export const fetcher: FetchFunction = async (args) => {
     const headers: Record<string, string> = {};
-    if (args.contentType != null) {
+    if (args.body !== undefined && args.contentType != null) {
         headers["Content-Type"] = args.contentType;
     }
+
     if (args.headers != null) {
         for (const [key, value] of Object.entries(args.headers)) {
             if (value != null) {
@@ -61,11 +64,12 @@ export const fetcher: FetchFunction = async (args) => {
             data: args.body,
             validateStatus: () => true,
             transformResponse: (response) => response,
-            timeout: args.timeoutMs ?? 60_000,
+            timeout: args.timeoutMs,
             transitional: {
                 clarifyTimeoutError: true,
             },
             withCredentials: args.withCredentials,
+            adapter: args.adapter,
         });
 
         let body: unknown;

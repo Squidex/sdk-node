@@ -1,1 +1,1 @@
-export { GetFeaturesRequest } from "./GetFeaturesRequest";
+export { NewsGetNewsRequest } from "./NewsGetNewsRequest";
