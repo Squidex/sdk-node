@@ -25,6 +25,9 @@ export class Plans {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -65,6 +68,9 @@ export class Plans {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             body: await serializers.ChangePlanDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -109,6 +115,9 @@ export class Plans {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -149,6 +158,9 @@ export class Plans {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             body: await serializers.ChangePlanDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

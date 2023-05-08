@@ -40,6 +40,9 @@ export class UserManagement {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -81,6 +84,9 @@ export class UserManagement {
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             body: await serializers.CreateUserDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -125,6 +131,9 @@ export class UserManagement {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -168,6 +177,9 @@ export class UserManagement {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             body: await serializers.UpdateUserDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -209,9 +221,12 @@ export class UserManagement {
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}`
             ),
-            method: "PATCH",
+            method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -251,6 +266,9 @@ export class UserManagement {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -294,6 +312,9 @@ export class UserManagement {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,

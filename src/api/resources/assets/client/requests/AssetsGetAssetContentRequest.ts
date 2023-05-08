@@ -4,7 +4,7 @@
 
 import * as Squidex from "../../../..";
 
-export interface AssetContentGetAssetContentBySlugRequest {
+export interface AssetsGetAssetContentRequest {
     version?: number;
     cache?: number;
     download?: number;

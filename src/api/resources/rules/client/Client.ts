@@ -26,6 +26,9 @@ export class Rules {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -66,6 +69,9 @@ export class Rules {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -106,6 +112,9 @@ export class Rules {
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             body: await serializers.CreateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -147,9 +156,12 @@ export class Rules {
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${app}/rules/run`
             ),
-            method: "PATCH",
+            method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -189,6 +201,9 @@ export class Rules {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             body: await serializers.UpdateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -230,9 +245,12 @@ export class Rules {
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${app}/rules/${id}`
             ),
-            method: "PATCH",
+            method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -272,6 +290,9 @@ export class Rules {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -315,6 +336,9 @@ export class Rules {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -358,6 +382,9 @@ export class Rules {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -403,6 +430,9 @@ export class Rules {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -440,9 +470,12 @@ export class Rules {
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${app}/rules/${id}/events`
             ),
-            method: "PATCH",
+            method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -482,6 +515,9 @@ export class Rules {
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             body: await serializers.CreateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -526,6 +562,9 @@ export class Rules {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -583,6 +622,9 @@ export class Rules {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -624,9 +666,12 @@ export class Rules {
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${app}/rules/events`
             ),
-            method: "PATCH",
+            method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -666,6 +711,9 @@ export class Rules {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -702,9 +750,12 @@ export class Rules {
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${app}/rules/events/${id}`
             ),
-            method: "PATCH",
+            method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -741,6 +792,9 @@ export class Rules {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -784,6 +838,9 @@ export class Rules {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,

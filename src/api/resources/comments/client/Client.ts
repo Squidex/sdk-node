@@ -29,6 +29,9 @@ export class Comments {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -82,6 +85,9 @@ export class Comments {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -130,6 +136,9 @@ export class Comments {
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             body: await serializers.UpsertCommentDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -179,6 +188,9 @@ export class Comments {
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             body: await serializers.UpsertCommentDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -216,9 +228,12 @@ export class Comments {
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${app}/comments/${commentsId}/${commentId}`
             ),
-            method: "PATCH",
+            method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,

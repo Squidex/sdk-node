@@ -22,7 +22,7 @@ export class Notifications {
 
     public async getNotifications(
         userId: string,
-        request: Squidex.UserNotificationsGetNotificationsRequest = {}
+        request: Squidex.NotificationsGetNotificationsRequest = {}
     ): Promise<Squidex.CommentsDto> {
         const { version } = request;
         const _queryParams = new URLSearchParams();
@@ -38,6 +38,9 @@ export class Notifications {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -79,9 +82,12 @@ export class Notifications {
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/users/${userId}/notifications/${commentId}`
             ),
-            method: "PATCH",
+            method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.20",
             },
             contentType: "application/json",
             timeoutMs: 60000,

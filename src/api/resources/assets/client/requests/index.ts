@@ -1,6 +1,6 @@
-export { AssetContentGetAssetContentBySlugRequest } from "./AssetContentGetAssetContentBySlugRequest";
-export { AssetContentGetAssetContentRequest } from "./AssetContentGetAssetContentRequest";
-export { AssetFoldersGetAssetFoldersRequest } from "./AssetFoldersGetAssetFoldersRequest";
+export { AssetsGetAssetContentBySlugRequest } from "./AssetsGetAssetContentBySlugRequest";
+export { AssetsGetAssetContentRequest } from "./AssetsGetAssetContentRequest";
+export { AssetsGetAssetFoldersRequest } from "./AssetsGetAssetFoldersRequest";
 export { CreateAssetFolderDto } from "./CreateAssetFolderDto";
 export { RenameAssetFolderDto } from "./RenameAssetFolderDto";
 export { MoveAssetFolderDto } from "./MoveAssetFolderDto";

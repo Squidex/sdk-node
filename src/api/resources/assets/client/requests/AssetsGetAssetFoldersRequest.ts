@@ -4,7 +4,7 @@
 
 import * as Squidex from "../../../..";
 
-export interface AssetFoldersGetAssetFoldersRequest {
+export interface AssetsGetAssetFoldersRequest {
     parentId?: string;
     scope?: Squidex.AssetFolderScope;
 }

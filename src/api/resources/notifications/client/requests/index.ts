@@ -1,1 +1,1 @@
-export { UserNotificationsGetNotificationsRequest } from "./UserNotificationsGetNotificationsRequest";
+export { NotificationsGetNotificationsRequest } from "./NotificationsGetNotificationsRequest";

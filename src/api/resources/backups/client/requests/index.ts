@@ -1,2 +1,2 @@
-export { BackupContentGetBackupContentV2Request } from "./BackupContentGetBackupContentV2Request";
+export { BackupsGetBackupContentV2Request } from "./BackupsGetBackupContentV2Request";
 export { RestoreRequestDto } from "./RestoreRequestDto";
