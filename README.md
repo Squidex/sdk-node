@@ -37,6 +37,38 @@ const response = await client.rules.runRule("rule-id", {
 console.log("Received response from Squidex!", response);
 ```
 
+## Handling errors
+
+When the API returns a non-success status code (4xx or 5xx response), a subclass of [SquidexError](https://github.com/Squidex/sdk-node/blob/main/src/errors/SquidexError.ts) will be thrown:
+
+```ts
+import { Squidex } from "@squidex/squidex";
+
+try {
+    const response = await client.rules.runRule("rule-id", {
+        fromSnapshots: true,
+    });
+} catch (err) {
+  if (err instanceof Squidex.BadRequestError) {
+    console.log(err.statusCode);
+    console.log(err.message);
+    console.log(err.body); 
+  }
+}
+```
+
+Error codes are as followed:
+
+| Status Code | Error Type                 |
+| ----------- | -------------------------- |
+| 400         | `BadRequestError`          |
+| 403         | `ForbiddenError`           |
+| 404         | `NotFoundError`            |
+| 409         | `ConflictError`            |
+| 413         | `ContentTooLargeError`     |
+| 500         | `InternalServerError`      |
+| 501         | `NotImplementedError`      |
+
 ## Beta status
 
 This SDK is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning the package version to a specific version in your package.json file. This way, you can install the same version each time without breaking changes unless you are intentionally looking for the latest version.
