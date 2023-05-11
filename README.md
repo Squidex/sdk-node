@@ -22,19 +22,19 @@ yarn add @squidex/squidex
 [![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/squidex-typescript-sdk-hg1o4f?file=app.ts&view=editor)
 
 ```typescript
-import { SquidexClient } from '@squidex/squidex';
+import { SquidexClient } from "@squidex/squidex";
 
 const client = new SquidexClient({
-  clientId: 'client-id',
-  clientSecret: 'client-secret',
-  app: 'my-app',
+    clientId: "client-id",
+    clientSecret: "client-secret",
+    appName: "my-app",
 });
 
-const response = await client.rules.runRule('rule-id', {
-  fromSnapshots: true,
+const response = await client.rules.runRule("rule-id", {
+    fromSnapshots: true,
 });
 
-console.log('Received response from Squidex!', response);
+console.log("Received response from Squidex!", response);
 ```
 
 ## Beta status

@@ -9,6 +9,7 @@ export declare namespace SquidexClient {
         clientId: string;
         clientSecret: string;
         environment?: environments.SquidexEnvironment | string;
+        appName: string;
     }
 }
 
@@ -18,6 +19,7 @@ export class SquidexClient extends FernClient {
     constructor(options: SquidexClient.Options) {
         super({
             environment: options.environment,
+            appName: options.appName,
             token: async () => {
                 if (this.token == null) {
                     const response = await core.fetcher({
