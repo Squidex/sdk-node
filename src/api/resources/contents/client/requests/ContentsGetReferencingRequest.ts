@@ -3,5 +3,8 @@
  */
 
 export interface ContentsGetReferencingRequest {
+    /**
+     * The optional json query.
+     */
     q?: string;
 }

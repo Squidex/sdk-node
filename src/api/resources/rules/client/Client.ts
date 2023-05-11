@@ -13,6 +13,7 @@ import URLSearchParams from "@ungap/url-search-params";
 export declare namespace Rules {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        appName: string;
         token: core.Supplier<core.BearerToken>;
     }
 }
@@ -20,6 +21,9 @@ export declare namespace Rules {
 export class Rules {
     constructor(protected readonly options: Rules.Options) {}
 
+    /**
+     * @throws {Squidex.InternalServerError}
+     */
     public async getActions(): Promise<Record<string, Squidex.RuleElementDto>> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/rules/actions"),
@@ -28,7 +32,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -42,10 +46,21 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -63,15 +78,22 @@ export class Rules {
         }
     }
 
-    public async getRules(app: string): Promise<Squidex.RulesDto> {
+    /**
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async getRules(): Promise<Squidex.RulesDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/rules`),
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this.options.appName}/rules`
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -85,10 +107,23 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -106,15 +141,23 @@ export class Rules {
         }
     }
 
-    public async postRule(app: string, request: Squidex.CreateRuleDto): Promise<Squidex.RuleDto> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async postRule(request: Squidex.CreateRuleDto): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/rules`),
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this.options.appName}/rules`
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             body: await serializers.CreateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -129,10 +172,31 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -150,18 +214,22 @@ export class Rules {
         }
     }
 
-    public async deleteRuleRun(app: string): Promise<void> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async deleteRuleRun(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/run`
+                `api/apps/${this.options.appName}/rules/run`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -171,10 +239,29 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -192,18 +279,23 @@ export class Rules {
         }
     }
 
-    public async putRule(app: string, id: string, request: Squidex.UpdateRuleDto = {}): Promise<Squidex.RuleDto> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async putRule(id: string, request: Squidex.UpdateRuleDto = {}): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/${id}`
+                `api/apps/${this.options.appName}/rules/${id}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             body: await serializers.UpdateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -218,10 +310,31 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -239,18 +352,23 @@ export class Rules {
         }
     }
 
-    public async deleteRule(app: string, id: string): Promise<void> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async deleteRule(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/${id}`
+                `api/apps/${this.options.appName}/rules/${id}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -260,10 +378,31 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -281,18 +420,23 @@ export class Rules {
         }
     }
 
-    public async enableRule(app: string, id: string): Promise<Squidex.RuleDto> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async enableRule(id: string): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/${id}/enable`
+                `api/apps/${this.options.appName}/rules/${id}/enable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -306,10 +450,31 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -327,18 +492,23 @@ export class Rules {
         }
     }
 
-    public async disableRule(app: string, id: string): Promise<Squidex.RuleDto> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async disableRule(id: string): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/${id}/disable`
+                `api/apps/${this.options.appName}/rules/${id}/disable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -352,10 +522,31 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -373,18 +564,23 @@ export class Rules {
         }
     }
 
-    public async triggerRule(app: string, id: string): Promise<void> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async triggerRule(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/${id}/trigger`
+                `api/apps/${this.options.appName}/rules/${id}/trigger`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -394,10 +590,31 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -415,7 +632,11 @@ export class Rules {
         }
     }
 
-    public async putRuleRun(app: string, id: string, request: Squidex.RulesPutRuleRunRequest = {}): Promise<void> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async putRuleRun(id: string, request: Squidex.RulesPutRuleRunRequest = {}): Promise<void> {
         const { fromSnapshots } = request;
         const _queryParams = new URLSearchParams();
         if (fromSnapshots != null) {
@@ -425,14 +646,14 @@ export class Rules {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/${id}/run`
+                `api/apps/${this.options.appName}/rules/${id}/run`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -443,10 +664,29 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -464,18 +704,22 @@ export class Rules {
         }
     }
 
-    public async deleteRuleEvents(app: string, id: string): Promise<void> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async deleteRuleEvents(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/${id}/events`
+                `api/apps/${this.options.appName}/rules/${id}/events`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -485,10 +729,29 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -506,18 +769,23 @@ export class Rules {
         }
     }
 
-    public async simulatePost(app: string, request: Squidex.CreateRuleDto): Promise<Squidex.SimulatedRuleEventsDto> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async simulatePost(request: Squidex.CreateRuleDto): Promise<Squidex.SimulatedRuleEventsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/simulate`
+                `api/apps/${this.options.appName}/rules/simulate`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             body: await serializers.CreateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -532,10 +800,31 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -553,18 +842,22 @@ export class Rules {
         }
     }
 
-    public async simulateGet(app: string, id: string): Promise<Squidex.SimulatedRuleEventsDto> {
+    /**
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async simulateGet(id: string): Promise<Squidex.SimulatedRuleEventsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/${id}/simulate`
+                `api/apps/${this.options.appName}/rules/${id}/simulate`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -578,10 +871,23 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -599,7 +905,11 @@ export class Rules {
         }
     }
 
-    public async getEvents(app: string, request: Squidex.RulesGetEventsRequest = {}): Promise<Squidex.RuleEventsDto> {
+    /**
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async getEvents(request: Squidex.RulesGetEventsRequest = {}): Promise<Squidex.RuleEventsDto> {
         const { ruleId, skip, take } = request;
         const _queryParams = new URLSearchParams();
         if (ruleId != null) {
@@ -617,14 +927,14 @@ export class Rules {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/events`
+                `api/apps/${this.options.appName}/rules/events`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -639,10 +949,23 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -660,18 +983,22 @@ export class Rules {
         }
     }
 
-    public async deleteEvents(app: string): Promise<void> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async deleteEvents(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/events`
+                `api/apps/${this.options.appName}/rules/events`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -681,10 +1008,29 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -702,18 +1048,23 @@ export class Rules {
         }
     }
 
-    public async putEvent(app: string, id: string): Promise<void> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async putEvent(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/events/${id}`
+                `api/apps/${this.options.appName}/rules/events/${id}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -723,10 +1074,31 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -744,18 +1116,23 @@ export class Rules {
         }
     }
 
-    public async deleteEvent(app: string, id: string): Promise<void> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async deleteEvent(id: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/rules/events/${id}`
+                `api/apps/${this.options.appName}/rules/events/${id}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -765,10 +1142,31 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -786,6 +1184,9 @@ export class Rules {
         }
     }
 
+    /**
+     * @throws {Squidex.InternalServerError}
+     */
     public async getEventTypes(): Promise<string[]> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/rules/eventtypes"),
@@ -794,7 +1195,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -808,10 +1209,21 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -829,6 +1241,10 @@ export class Rules {
         }
     }
 
+    /**
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
     public async getEventSchema(type: string): Promise<unknown> {
         const _response = await core.fetcher({
             url: urlJoin(
@@ -840,7 +1256,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -850,10 +1266,23 @@ export class Rules {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

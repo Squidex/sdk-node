@@ -13,6 +13,7 @@ import URLSearchParams from "@ungap/url-search-params";
 export declare namespace Comments {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        appName: string;
         token: core.Supplier<core.BearerToken>;
     }
 }
@@ -20,18 +21,22 @@ export declare namespace Comments {
 export class Comments {
     constructor(protected readonly options: Comments.Options) {}
 
-    public async getWatchingUsers(app: string, resource: string | undefined): Promise<string[]> {
+    /**
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async getWatchingUsers(resource: string | undefined): Promise<string[]> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/watching/${resource}`
+                `api/apps/${this.options.appName}/watching/${resource}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -45,10 +50,23 @@ export class Comments {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -66,8 +84,12 @@ export class Comments {
         }
     }
 
+    /**
+     * When passing in a version you can retrieve all updates since then.
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
     public async getComments(
-        app: string,
         commentsId: string,
         request: Squidex.CommentsGetCommentsRequest = {}
     ): Promise<Squidex.CommentsDto> {
@@ -80,14 +102,14 @@ export class Comments {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/comments/${commentsId}`
+                `api/apps/${this.options.appName}/comments/${commentsId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -102,10 +124,23 @@ export class Comments {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -123,22 +158,23 @@ export class Comments {
         }
     }
 
-    public async postComment(
-        app: string,
-        commentsId: string,
-        request: Squidex.UpsertCommentDto
-    ): Promise<Squidex.CommentDto> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async postComment(commentsId: string, request: Squidex.UpsertCommentDto): Promise<Squidex.CommentDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/comments/${commentsId}`
+                `api/apps/${this.options.appName}/comments/${commentsId}`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             body: await serializers.UpsertCommentDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -153,10 +189,31 @@ export class Comments {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -174,23 +231,23 @@ export class Comments {
         }
     }
 
-    public async putComment(
-        app: string,
-        commentsId: string,
-        commentId: string,
-        request: Squidex.UpsertCommentDto
-    ): Promise<void> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async putComment(commentsId: string, commentId: string, request: Squidex.UpsertCommentDto): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/comments/${commentsId}/${commentId}`
+                `api/apps/${this.options.appName}/comments/${commentsId}/${commentId}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             body: await serializers.UpsertCommentDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -201,10 +258,31 @@ export class Comments {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -222,18 +300,23 @@ export class Comments {
         }
     }
 
-    public async deleteComment(app: string, commentsId: string, commentId: string): Promise<void> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async deleteComment(commentsId: string, commentId: string): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/comments/${commentsId}/${commentId}`
+                `api/apps/${this.options.appName}/comments/${commentsId}/${commentId}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -243,10 +326,31 @@ export class Comments {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

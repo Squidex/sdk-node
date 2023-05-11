@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace Languages {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        appName: string;
         token: core.Supplier<core.BearerToken>;
     }
 }
@@ -19,6 +20,10 @@ export declare namespace Languages {
 export class Languages {
     constructor(protected readonly options: Languages.Options) {}
 
+    /**
+     * Provide a list of supported language codes, following the ISO2Code standard.
+     * @throws {Squidex.InternalServerError}
+     */
     public async getLanguages(): Promise<Squidex.LanguageDto[]> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/languages"),
@@ -27,7 +32,7 @@ export class Languages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -41,10 +46,21 @@ export class Languages {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

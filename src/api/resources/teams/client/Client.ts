@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace Teams {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        appName: string;
         token: core.Supplier<core.BearerToken>;
     }
 }
@@ -19,6 +20,10 @@ export declare namespace Teams {
 export class Teams {
     constructor(protected readonly options: Teams.Options) {}
 
+    /**
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
     public async getContributors(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
@@ -30,7 +35,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -44,10 +49,23 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -65,6 +83,11 @@ export class Teams {
         }
     }
 
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
     public async postContributor(
         team: string,
         request: Squidex.AssignContributorDto
@@ -79,7 +102,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             body: await serializers.AssignContributorDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -94,10 +117,31 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -115,6 +159,11 @@ export class Teams {
         }
     }
 
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
     public async deleteMyself(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
@@ -126,7 +175,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -140,10 +189,31 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -161,6 +231,11 @@ export class Teams {
         }
     }
 
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
     public async deleteContributor(team: string, id: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
             url: urlJoin(
@@ -172,7 +247,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -186,10 +261,31 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -207,6 +303,11 @@ export class Teams {
         }
     }
 
+    /**
+     * You can only retrieve the list of teams when you are authenticated as a user (OpenID implicit flow).
+     * You will retrieve all teams, where you are assigned as a contributor.
+     * @throws {Squidex.InternalServerError}
+     */
     public async getTeams(): Promise<Squidex.TeamDto[]> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/teams"),
@@ -215,7 +316,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -229,10 +330,21 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -250,6 +362,13 @@ export class Teams {
         }
     }
 
+    /**
+     * You can only create an team when you are authenticated as a user (OpenID implicit flow).
+     * You will be assigned as owner of the new team automatically.
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.ConflictError}
+     * @throws {Squidex.InternalServerError}
+     */
     public async postTeam(request: Squidex.CreateTeamDto): Promise<Squidex.TeamDto> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/teams"),
@@ -258,7 +377,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             body: await serializers.CreateTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -273,10 +392,37 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 409:
+                    throw new Squidex.ConflictError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -294,6 +440,10 @@ export class Teams {
         }
     }
 
+    /**
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
     public async getTeam(team: string): Promise<Squidex.TeamDto> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}`),
@@ -302,7 +452,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -316,10 +466,23 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -337,6 +500,11 @@ export class Teams {
         }
     }
 
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
     public async putTeam(team: string, request: Squidex.UpdateTeamDto): Promise<Squidex.TeamDto> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}`),
@@ -345,7 +513,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             body: await serializers.UpdateTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -360,10 +528,31 @@ export class Teams {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

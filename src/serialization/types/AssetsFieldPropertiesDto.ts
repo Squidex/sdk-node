@@ -16,6 +16,7 @@ export const AssetsFieldPropertiesDto: core.serialization.ObjectSchema<
         .optional(),
     defaultValue: core.serialization.list(core.serialization.string()).optional(),
     folderId: core.serialization.string().optional(),
+    previewFormat: core.serialization.string().optional(),
     minItems: core.serialization.number().optional(),
     maxItems: core.serialization.number().optional(),
     minSize: core.serialization.number().optional(),
@@ -40,6 +41,7 @@ export declare namespace AssetsFieldPropertiesDto {
         defaultValues?: serializers.LocalizedValueOfReadonlyListOfString.Raw | null;
         defaultValue?: string[] | null;
         folderId?: string | null;
+        previewFormat?: string | null;
         minItems?: number | null;
         maxItems?: number | null;
         minSize?: number | null;

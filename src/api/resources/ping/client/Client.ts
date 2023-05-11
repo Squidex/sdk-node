@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace Ping {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        appName: string;
         token: core.Supplier<core.BearerToken>;
     }
 }
@@ -19,6 +20,9 @@ export declare namespace Ping {
 export class Ping {
     constructor(protected readonly options: Ping.Options) {}
 
+    /**
+     * @throws {Squidex.InternalServerError}
+     */
     public async getInfo(): Promise<Squidex.ExposedValues> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/info"),
@@ -27,7 +31,7 @@ export class Ping {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -41,10 +45,21 @@ export class Ping {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -62,6 +77,10 @@ export class Ping {
         }
     }
 
+    /**
+     * Can be used to test, if the Squidex API is alive and responding.
+     * @throws {Squidex.InternalServerError}
+     */
     public async getPing(): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/ping"),
@@ -70,7 +89,7 @@ export class Ping {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -80,10 +99,21 @@ export class Ping {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -101,15 +131,22 @@ export class Ping {
         }
     }
 
-    public async getAppPing(app: string): Promise<void> {
+    /**
+     * Can be used to test, if the Squidex API is alive and responding.
+     * @throws {Squidex.InternalServerError}
+     */
+    public async getAppPing(): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/ping/${app}`),
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/ping/${this.options.appName}`
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -119,10 +156,21 @@ export class Ping {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

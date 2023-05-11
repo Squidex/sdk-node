@@ -3,6 +3,12 @@
  */
 
 export interface ContentsGetContentsRequest {
+    /**
+     * The optional ids of the content to fetch.
+     */
     ids?: string;
+    /**
+     * The optional json query.
+     */
     q?: string;
 }

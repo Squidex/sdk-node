@@ -3,5 +3,8 @@
  */
 
 export interface UsersGetUsersRequest {
+    /**
+     * The query to search the user by email address. Case invariant.
+     */
     query?: string;
 }

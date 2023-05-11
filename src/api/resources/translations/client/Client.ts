@@ -12,6 +12,7 @@ import * as errors from "../../../../errors";
 export declare namespace Translations {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        appName: string;
         token: core.Supplier<core.BearerToken>;
     }
 }
@@ -19,18 +20,22 @@ export declare namespace Translations {
 export class Translations {
     constructor(protected readonly options: Translations.Options) {}
 
-    public async postTranslation(app: string, request: Squidex.TranslateDto): Promise<Squidex.TranslationDto> {
+    /**
+     * @throws {Squidex.BadRequestError}
+     * @throws {Squidex.InternalServerError}
+     */
+    public async postTranslation(request: Squidex.TranslateDto): Promise<Squidex.TranslationDto> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/apps/${app}/translations`
+                `api/apps/${this.options.appName}/translations`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             body: await serializers.TranslateDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -45,10 +50,29 @@ export class Translations {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

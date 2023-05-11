@@ -13,6 +13,7 @@ import * as errors from "../../../../errors";
 export declare namespace Search {
     interface Options {
         environment?: environments.SquidexEnvironment | string;
+        appName: string;
         token: core.Supplier<core.BearerToken>;
     }
 }
@@ -20,8 +21,11 @@ export declare namespace Search {
 export class Search {
     constructor(protected readonly options: Search.Options) {}
 
+    /**
+     * @throws {Squidex.NotFoundError}
+     * @throws {Squidex.InternalServerError}
+     */
     public async getSearchResults(
-        app: string,
         request: Squidex.SearchGetSearchResultsRequest = {}
     ): Promise<Squidex.SearchResultDto[]> {
         const { query } = request;
@@ -31,13 +35,16 @@ export class Search {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/${app}/search`),
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this.options.appName}/search`
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.20",
+                "X-Fern-SDK-Version": "0.0.21",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -52,10 +59,23 @@ export class Search {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.SquidexError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

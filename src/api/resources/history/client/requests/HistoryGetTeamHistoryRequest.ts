@@ -3,5 +3,8 @@
  */
 
 export interface HistoryGetTeamHistoryRequest {
+    /**
+     * The name of the channel.
+     */
     channel?: string;
 }

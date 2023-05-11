@@ -3,7 +3,16 @@
  */
 
 export interface RulesGetEventsRequest {
+    /**
+     * The optional rule id to filter to events.
+     */
     ruleId?: string;
+    /**
+     * The number of events to skip.
+     */
     skip?: number;
+    /**
+     * The number of events to take.
+     */
     take?: number;
 }

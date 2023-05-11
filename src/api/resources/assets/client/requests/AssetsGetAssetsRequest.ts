@@ -3,11 +3,32 @@
  */
 
 export interface AssetsGetAssetsRequest {
+    /**
+     * The optional parent folder id.
+     */
     parentId?: string;
+    /**
+     * The optional asset ids.
+     */
     ids?: string;
+    /**
+     * The optional json query.
+     */
     q?: string;
+    /**
+     * Optional number of items to take.
+     */
     top?: number;
+    /**
+     * Optional number of items to skip.
+     */
     skip?: number;
+    /**
+     * Optional OData order definition.
+     */
     orderby?: string;
+    /**
+     * Optional OData filter.
+     */
     filter?: string;
 }

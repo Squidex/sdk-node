@@ -3,5 +3,8 @@
  */
 
 export interface HistoryGetAppHistoryRequest {
+    /**
+     * The name of the channel.
+     */
     channel?: string;
 }

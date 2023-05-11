@@ -89,6 +89,5 @@ export declare namespace FieldPropertiesDto {
         editorUrl?: string;
         /** Tags for automation processes. */
         tags?: string[];
-        fieldType: string;
     }
 }

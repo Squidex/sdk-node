@@ -3,5 +3,8 @@
  */
 
 export interface CommentsGetCommentsRequest {
+    /**
+     * The current version.
+     */
     version?: number;
 }

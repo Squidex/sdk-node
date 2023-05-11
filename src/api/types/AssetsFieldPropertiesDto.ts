@@ -11,6 +11,8 @@ export interface AssetsFieldPropertiesDto {
     defaultValue?: string[];
     /** The initial id to the folder. */
     folderId?: string;
+    /** The preview format. */
+    previewFormat?: string;
     /** The minimum allowed items for the field value. */
     minItems?: number;
     /** The maximum allowed items for the field value. */

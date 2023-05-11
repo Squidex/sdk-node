@@ -3,5 +3,8 @@
  */
 
 export interface SearchGetSearchResultsRequest {
+    /**
+     * The search query.
+     */
     query?: string;
 }

@@ -3,5 +3,8 @@
  */
 
 export interface NotificationsGetNotificationsRequest {
+    /**
+     * The current version.
+     */
     version?: number;
 }

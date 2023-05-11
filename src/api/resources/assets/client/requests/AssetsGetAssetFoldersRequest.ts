@@ -5,6 +5,12 @@
 import * as Squidex from "../../../..";
 
 export interface AssetsGetAssetFoldersRequest {
+    /**
+     * The optional parent folder id.
+     */
     parentId?: string;
+    /**
+     * The scope of the query.
+     */
     scope?: Squidex.AssetFolderScope;
 }

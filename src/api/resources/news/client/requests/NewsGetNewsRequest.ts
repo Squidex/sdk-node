@@ -3,5 +3,8 @@
  */
 
 export interface NewsGetNewsRequest {
+    /**
+     * The latest received version.
+     */
     version?: number;
 }

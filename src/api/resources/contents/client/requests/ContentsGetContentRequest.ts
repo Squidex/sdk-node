@@ -3,5 +3,8 @@
  */
 
 export interface ContentsGetContentRequest {
+    /**
+     * The optional version.
+     */
     version?: number;
 }

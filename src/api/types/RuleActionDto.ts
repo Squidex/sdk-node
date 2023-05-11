@@ -25,79 +25,75 @@ export type RuleActionDto =
     | Squidex.RuleActionDto.Webhook;
 
 export declare namespace RuleActionDto {
-    interface Algolia extends Squidex.AlgoliaRuleActionDto, _Base {
+    interface Algolia extends Squidex.AlgoliaRuleActionDto {
         type: "Algolia";
     }
 
-    interface AzureQueue extends Squidex.AzureQueueRuleActionDto, _Base {
+    interface AzureQueue extends Squidex.AzureQueueRuleActionDto {
         type: "AzureQueue";
     }
 
-    interface Comment extends Squidex.CommentRuleActionDto, _Base {
+    interface Comment extends Squidex.CommentRuleActionDto {
         type: "Comment";
     }
 
-    interface CreateContent extends Squidex.CreateContentRuleActionDto, _Base {
+    interface CreateContent extends Squidex.CreateContentRuleActionDto {
         type: "CreateContent";
     }
 
-    interface Discourse extends Squidex.DiscourseRuleActionDto, _Base {
+    interface Discourse extends Squidex.DiscourseRuleActionDto {
         type: "Discourse";
     }
 
-    interface ElasticSearch extends Squidex.ElasticSearchRuleActionDto, _Base {
+    interface ElasticSearch extends Squidex.ElasticSearchRuleActionDto {
         type: "ElasticSearch";
     }
 
-    interface Email extends Squidex.EmailRuleActionDto, _Base {
+    interface Email extends Squidex.EmailRuleActionDto {
         type: "Email";
     }
 
-    interface Fastly extends Squidex.FastlyRuleActionDto, _Base {
+    interface Fastly extends Squidex.FastlyRuleActionDto {
         type: "Fastly";
     }
 
-    interface Medium extends Squidex.MediumRuleActionDto, _Base {
+    interface Medium extends Squidex.MediumRuleActionDto {
         type: "Medium";
     }
 
-    interface Notification extends Squidex.NotificationRuleActionDto, _Base {
+    interface Notification extends Squidex.NotificationRuleActionDto {
         type: "Notification";
     }
 
-    interface OpenSearch extends Squidex.OpenSearchRuleActionDto, _Base {
+    interface OpenSearch extends Squidex.OpenSearchRuleActionDto {
         type: "OpenSearch";
     }
 
-    interface Prerender extends Squidex.PrerenderRuleActionDto, _Base {
+    interface Prerender extends Squidex.PrerenderRuleActionDto {
         type: "Prerender";
     }
 
-    interface Script extends Squidex.ScriptRuleActionDto, _Base {
+    interface Script extends Squidex.ScriptRuleActionDto {
         type: "Script";
     }
 
-    interface SignalR extends Squidex.SignalRRuleActionDto, _Base {
+    interface SignalR extends Squidex.SignalRRuleActionDto {
         type: "SignalR";
     }
 
-    interface Slack extends Squidex.SlackRuleActionDto, _Base {
+    interface Slack extends Squidex.SlackRuleActionDto {
         type: "Slack";
     }
 
-    interface Tweet extends Squidex.TweetRuleActionDto, _Base {
+    interface Tweet extends Squidex.TweetRuleActionDto {
         type: "Tweet";
     }
 
-    interface Typesense extends Squidex.TypesenseRuleActionDto, _Base {
+    interface Typesense extends Squidex.TypesenseRuleActionDto {
         type: "Typesense";
     }
 
-    interface Webhook extends Squidex.WebhookRuleActionDto, _Base {
+    interface Webhook extends Squidex.WebhookRuleActionDto {
         type: "Webhook";
-    }
-
-    interface _Base {
-        actionType: string;
     }
 }

@@ -15,7 +15,6 @@ const _Base = core.serialization.object({
     isHalfWidth: core.serialization.boolean(),
     editorUrl: core.serialization.string().optional(),
     tags: core.serialization.list(core.serialization.string()).optional(),
-    fieldType: core.serialization.string(),
 });
 export const FieldPropertiesDto: core.serialization.Schema<
     serializers.FieldPropertiesDto.Raw,
@@ -130,6 +129,5 @@ export declare namespace FieldPropertiesDto {
         isHalfWidth: boolean;
         editorUrl?: string | null;
         tags?: string[] | null;
-        fieldType: string;
     }
 }

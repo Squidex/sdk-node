@@ -3,5 +3,8 @@
  */
 
 export interface RulesPutRuleRunRequest {
+    /**
+     * Runs the rule from snapeshots if possible.
+     */
     fromSnapshots?: boolean;
 }

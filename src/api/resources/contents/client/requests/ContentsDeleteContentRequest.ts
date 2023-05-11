@@ -3,6 +3,12 @@
  */
 
 export interface ContentsDeleteContentRequest {
+    /**
+     * True to check referrers of this content.
+     */
     checkReferrers?: boolean;
+    /**
+     * True to delete the content permanently.
+     */
     permanent?: boolean;
 }

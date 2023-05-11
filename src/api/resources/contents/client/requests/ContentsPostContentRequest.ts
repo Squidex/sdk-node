@@ -5,8 +5,17 @@
 import * as Squidex from "../../../..";
 
 export interface ContentsPostContentRequest {
+    /**
+     * The initial status.
+     */
     status?: string;
+    /**
+     * The optional custom content id.
+     */
     id?: string;
+    /**
+     * True to automatically publish the content.
+     */
     publish?: boolean;
     body: Record<string, Squidex.ContentFieldData>;
 }

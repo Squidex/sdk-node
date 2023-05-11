@@ -3,7 +3,16 @@
  */
 
 export interface AssetsPostAssetRequest {
+    /**
+     * The optional parent folder id.
+     */
     parentId?: string;
+    /**
+     * The optional custom asset id.
+     */
     id?: string;
+    /**
+     * True to duplicate the asset, event if the file has been uploaded.
+     */
     duplicate?: boolean;
 }

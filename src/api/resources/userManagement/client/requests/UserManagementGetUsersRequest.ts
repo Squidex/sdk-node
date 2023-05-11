@@ -3,7 +3,16 @@
  */
 
 export interface UserManagementGetUsersRequest {
+    /**
+     * Optional query to search by email address or username.
+     */
     query?: string;
+    /**
+     * The number of users to skip.
+     */
     skip?: number;
+    /**
+     * The number of users to return.
+     */
     take?: number;
 }

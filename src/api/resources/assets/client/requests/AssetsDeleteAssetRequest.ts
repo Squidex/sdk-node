@@ -3,6 +3,12 @@
  */
 
 export interface AssetsDeleteAssetRequest {
+    /**
+     * True to check referrers of this asset.
+     */
     checkReferrers?: boolean;
+    /**
+     * True to delete the asset permanently.
+     */
     permanent?: boolean;
 }

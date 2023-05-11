@@ -5,8 +5,17 @@
 import * as Squidex from "../../../..";
 
 export interface ContentsPostUpsertContentRequest {
+    /**
+     * The initial status.
+     */
     status?: string;
+    /**
+     * Makes the update as patch.
+     */
     patch?: boolean;
+    /**
+     * True to automatically publish the content.
+     */
     publish?: boolean;
     body: Record<string, Squidex.ContentFieldData>;
 }
