@@ -1,4 +1,4 @@
-import { SquidexClient } from '@squidex/squidex';
+import { SquidexClient } from './../../dist';
 
 let CLIENTS: { [name: string]: SquidexClient } = {};
 
