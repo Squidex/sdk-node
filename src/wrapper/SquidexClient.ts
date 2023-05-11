@@ -29,12 +29,12 @@ export class SquidexClient extends FernClient {
                         ),
                         contentType: "application/x-www-form-urlencoded",
                         method: "POST",
-                        body: {
+                        body: new URLSearchParams({
                             grant_type: "client_credentials",
                             client_id: options.clientId,
                             client_secret: options.clientSecret,
                             scope: "squidex-api",
-                        },
+                        }),
                     });
                     if (response.ok) {
                         const accessToken = (response.body as any)?.["access_token"];
@@ -48,15 +48,22 @@ export class SquidexClient extends FernClient {
                         switch (response.error.reason) {
                             case "non-json":
                                 throw new errors.SquidexError({
+                                    message: 'Token request does not return a valid JSON object.',
                                     statusCode: response.error.statusCode,
                                     body: response.error.rawBody,
                                 });
-                            case "timeout":
-                                throw new errors.SquidexTimeoutError();
+                            case "status-code":
+                                throw new errors.SquidexError({
+                                    message: `Token request returns invalid status code: ${response.error.statusCode}.`,
+                                    statusCode: response.error.statusCode,
+                                    body: response.error['body'],
+                                });
                             case "unknown":
                                 throw new errors.SquidexError({
                                     message: response.error.errorMessage,
                                 });
+                            case "timeout":
+                                throw new errors.SquidexTimeoutError();
                         }
                     }
                 }
