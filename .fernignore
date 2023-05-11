@@ -8,3 +8,6 @@ src/wrapper
 src/tests
 babel.config.js
 test.sh
+test.ps
+test-only.sh
+test-only.ps
