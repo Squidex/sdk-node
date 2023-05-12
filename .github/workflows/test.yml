@@ -16,21 +16,6 @@ jobs:
       - name: Prepare - Checkout
         uses: actions/checkout@v3.4.0
 
-      - name: Test - RUN
-        uses: kohlerdominik/docker-run-action@v1.1.0
-        with:
-          image: node
-          environment: |
-            CONFIG__WAIT=60
-            CONFIG__SERVER__URL=http://localhost:8080
-          default_network: host
-          options: --name test1
-          volumes: ${{ github.workspace }}:/src
-          run: |
-            cd /src
-            yarn install
-            ./test.sh
-
       - name: Test - Start Compose
         run: docker-compose up -d
         working-directory: tests
@@ -45,7 +30,10 @@ jobs:
           default_network: host
           options: --name test1
           volumes: ${{ github.workspace }}:/src
-          run: ./src/test.sh
+          run: |
+            cd /src
+            yarn install
+            ./test.sh
        
       - name: Test - Dump docker logs on failure
         if: failure()
