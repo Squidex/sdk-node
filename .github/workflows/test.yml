@@ -27,8 +27,7 @@ jobs:
           options: --name test1
           volumes: ${{ github.workspace }}:/src
           run: |
-            npm install --global yarn
-            cd src
+            cd /src
             yarn install
             ./test.sh
 
