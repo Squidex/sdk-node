@@ -30,7 +30,7 @@ jobs:
           default_network: host
           options: --name test1
           volumes: ${{ github.workspace }}:/src
-          run: .\test.sh
+          run: ./test.sh
        
       - name: Test - Dump docker logs on failure
         if: failure()
