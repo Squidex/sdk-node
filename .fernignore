@@ -3,10 +3,12 @@
 README.md
 src/index.ts
 src/wrapper
+.github
 
 # tests
 tests
 babel.config.js
+jest.config.js
 test.sh
 test.ps1
 test-only.sh
