@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 yarn add -D jest @types/jest @babel/preset-typescript @babel/preset-env
-yarn jest src/tests
+yarn jest tests

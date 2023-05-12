@@ -16,10 +16,26 @@ export declare namespace SquidexClient {
 export class SquidexClient extends FernClient {
     private token: string | undefined;
 
-    constructor(options: SquidexClient.Options) {
+    public get appName() {
+        return this.options.appName;
+    }
+
+    public get clientId() {
+        return this.clientOptions.clientId;
+    }
+    
+    public get clientSecret() {
+        return this.clientOptions.clientSecret;
+    }
+    
+    public get environment() {
+        return this.clientOptions.environment || environments.SquidexEnvironment.Default;
+    }
+    
+    constructor(readonly clientOptions: SquidexClient.Options) {
         super({
-            environment: options.environment,
-            appName: options.appName,
+            environment: clientOptions.environment,
+            appName: clientOptions.appName,
             token: async () => {
                 if (this.token == null) {
                     const response = await core.fetcher({
@@ -31,8 +47,8 @@ export class SquidexClient extends FernClient {
                         method: "POST",
                         body: new URLSearchParams({
                             grant_type: "client_credentials",
-                            client_id: options.clientId,
-                            client_secret: options.clientSecret,
+                            client_id: clientOptions.clientId,
+                            client_secret: clientOptions.clientSecret,
                             scope: "squidex-api",
                         }),
                     });
