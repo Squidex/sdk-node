@@ -10,19 +10,19 @@ export const TypesenseRuleActionDto: core.serialization.ObjectSchema<
     serializers.TypesenseRuleActionDto.Raw,
     Squidex.TypesenseRuleActionDto
 > = core.serialization.object({
-    host: core.serialization.string().optional(),
-    indexName: core.serialization.string().optional(),
-    apiKey: core.serialization.string().optional(),
-    document: core.serialization.string().optional(),
-    delete: core.serialization.string().optional(),
+    host: core.serialization.string(),
+    indexName: core.serialization.string(),
+    apiKey: core.serialization.string(),
+    document: core.serialization.string(),
+    delete: core.serialization.string(),
 });
 
 export declare namespace TypesenseRuleActionDto {
     interface Raw {
-        host?: string | null;
-        indexName?: string | null;
-        apiKey?: string | null;
-        document?: string | null;
-        delete?: string | null;
+        host: string;
+        indexName: string;
+        apiKey: string;
+        document: string;
+        delete: string;
     }
 }

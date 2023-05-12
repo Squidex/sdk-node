@@ -4,11 +4,11 @@
 
 export interface CreateContentRuleActionDto {
     /** The content data. */
-    data?: string;
+    data: string;
     /** The name of the schema. */
-    schema?: string;
+    schema: string;
     /** An optional client name. */
-    client?: string;
+    client: string;
     /** Publish the content. */
-    publish?: boolean;
+    publish: boolean;
 }

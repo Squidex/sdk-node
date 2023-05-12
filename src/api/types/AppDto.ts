@@ -4,29 +4,29 @@
 
 export interface AppDto {
     /** The ID of the app. */
-    id?: string;
+    id: string;
     /** The name of the app. */
-    name?: string;
+    name: string;
     /** The optional label of the app. */
     label?: string;
     /** The optional description of the app. */
     description?: string;
     /** The version of the app. */
-    version?: number;
+    version: number;
     /** The timestamp when the app has been created. */
-    created?: string;
+    created: string;
     /** The timestamp when the app has been modified last. */
-    lastModified?: string;
+    lastModified: string;
     /** The ID of the team. */
     teamId?: string;
     /** The permission level of the user. */
-    permissions?: string[];
+    permissions: string[];
     /** Indicates if the user can access the api. */
-    canAccessApi?: boolean;
+    canAccessApi: boolean;
     /** Indicates if the user can access at least one content. */
-    canAccessContent?: boolean;
+    canAccessContent: boolean;
     /** The role name of the user. */
     roleName?: string;
     /** The properties from the role. */
-    roleProperties?: Record<string, unknown>;
+    roleProperties: Record<string, unknown>;
 }

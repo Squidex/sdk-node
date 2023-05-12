@@ -8,17 +8,17 @@ import * as core from "../../core";
 
 export const AssetFolderDto: core.serialization.ObjectSchema<serializers.AssetFolderDto.Raw, Squidex.AssetFolderDto> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        parentId: core.serialization.string().optional(),
-        folderName: core.serialization.string().optional(),
-        version: core.serialization.number().optional(),
+        id: core.serialization.string(),
+        parentId: core.serialization.string(),
+        folderName: core.serialization.string(),
+        version: core.serialization.number(),
     });
 
 export declare namespace AssetFolderDto {
     interface Raw {
-        id?: string | null;
-        parentId?: string | null;
-        folderName?: string | null;
-        version?: number | null;
+        id: string;
+        parentId: string;
+        folderName: string;
+        version: number;
     }
 }

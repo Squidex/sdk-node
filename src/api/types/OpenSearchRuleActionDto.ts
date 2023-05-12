@@ -4,15 +4,15 @@
 
 export interface OpenSearchRuleActionDto {
     /** The url to the instance or cluster. */
-    host?: string;
+    host: string;
     /** The name of the index. */
-    indexName?: string;
+    indexName: string;
     /** The optional username. */
-    username?: string;
+    username: string;
     /** The optional password. */
-    password?: string;
+    password: string;
     /** The optional custom document. */
-    document?: string;
+    document: string;
     /** The condition when to delete the document. */
-    delete?: string;
+    delete: string;
 }

@@ -16,13 +16,13 @@ export const ContentChangedRuleTriggerDto: core.serialization.ObjectSchema<
     referencedSchemas: core.serialization
         .list(core.serialization.lazyObject(async () => (await import("..")).SchemaCondition))
         .optional(),
-    handleAll: core.serialization.boolean().optional(),
+    handleAll: core.serialization.boolean(),
 });
 
 export declare namespace ContentChangedRuleTriggerDto {
     interface Raw {
         schemas?: serializers.SchemaCondition.Raw[] | null;
         referencedSchemas?: serializers.SchemaCondition.Raw[] | null;
-        handleAll?: boolean | null;
+        handleAll: boolean;
     }
 }

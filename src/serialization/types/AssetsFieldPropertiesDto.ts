@@ -10,7 +10,7 @@ export const AssetsFieldPropertiesDto: core.serialization.ObjectSchema<
     serializers.AssetsFieldPropertiesDto.Raw,
     Squidex.AssetsFieldPropertiesDto
 > = core.serialization.object({
-    previewMode: core.serialization.lazy(async () => (await import("..")).AssetPreviewMode).optional(),
+    previewMode: core.serialization.lazy(async () => (await import("..")).AssetPreviewMode),
     defaultValues: core.serialization
         .lazy(async () => (await import("..")).LocalizedValueOfReadonlyListOfString)
         .optional(),
@@ -28,16 +28,16 @@ export const AssetsFieldPropertiesDto: core.serialization.ObjectSchema<
     aspectWidth: core.serialization.number().optional(),
     aspectHeight: core.serialization.number().optional(),
     expectedType: core.serialization.lazy(async () => (await import("..")).AssetType).optional(),
-    resolveFirst: core.serialization.boolean().optional(),
-    mustBeImage: core.serialization.boolean().optional(),
-    resolveImage: core.serialization.boolean().optional(),
+    resolveFirst: core.serialization.boolean(),
+    mustBeImage: core.serialization.boolean(),
+    resolveImage: core.serialization.boolean(),
     allowedExtensions: core.serialization.list(core.serialization.string()).optional(),
-    allowDuplicates: core.serialization.boolean().optional(),
+    allowDuplicates: core.serialization.boolean(),
 });
 
 export declare namespace AssetsFieldPropertiesDto {
     interface Raw {
-        previewMode?: serializers.AssetPreviewMode.Raw | null;
+        previewMode: serializers.AssetPreviewMode.Raw;
         defaultValues?: serializers.LocalizedValueOfReadonlyListOfString.Raw | null;
         defaultValue?: string[] | null;
         folderId?: string | null;
@@ -53,10 +53,10 @@ export declare namespace AssetsFieldPropertiesDto {
         aspectWidth?: number | null;
         aspectHeight?: number | null;
         expectedType?: serializers.AssetType.Raw | null;
-        resolveFirst?: boolean | null;
-        mustBeImage?: boolean | null;
-        resolveImage?: boolean | null;
+        resolveFirst: boolean;
+        mustBeImage: boolean;
+        resolveImage: boolean;
         allowedExtensions?: string[] | null;
-        allowDuplicates?: boolean | null;
+        allowDuplicates: boolean;
     }
 }

@@ -8,21 +8,21 @@ import * as core from "../../core";
 
 export const TeamDto: core.serialization.ObjectSchema<serializers.TeamDto.Raw, Squidex.TeamDto> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        name: core.serialization.string().optional(),
-        version: core.serialization.number().optional(),
-        created: core.serialization.string().optional(),
-        lastModified: core.serialization.string().optional(),
+        id: core.serialization.string(),
+        name: core.serialization.string(),
+        version: core.serialization.number(),
+        created: core.serialization.string(),
+        lastModified: core.serialization.string(),
         roleName: core.serialization.string().optional(),
     });
 
 export declare namespace TeamDto {
     interface Raw {
-        id?: string | null;
-        name?: string | null;
-        version?: number | null;
-        created?: string | null;
-        lastModified?: string | null;
+        id: string;
+        name: string;
+        version: number;
+        created: string;
+        lastModified: string;
         roleName?: string | null;
     }
 }

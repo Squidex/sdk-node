@@ -23,12 +23,12 @@ export const StringFieldPropertiesDto: core.serialization.ObjectSchema<
     maxWords: core.serialization.number().optional(),
     allowedValues: core.serialization.list(core.serialization.string()).optional(),
     schemaIds: core.serialization.list(core.serialization.string()).optional(),
-    isUnique: core.serialization.boolean().optional(),
-    isEmbeddable: core.serialization.boolean().optional(),
-    inlineEditable: core.serialization.boolean().optional(),
-    createEnum: core.serialization.boolean().optional(),
-    contentType: core.serialization.lazy(async () => (await import("..")).StringContentType).optional(),
-    editor: core.serialization.lazy(async () => (await import("..")).StringFieldEditor).optional(),
+    isUnique: core.serialization.boolean(),
+    isEmbeddable: core.serialization.boolean(),
+    inlineEditable: core.serialization.boolean(),
+    createEnum: core.serialization.boolean(),
+    contentType: core.serialization.lazy(async () => (await import("..")).StringContentType),
+    editor: core.serialization.lazy(async () => (await import("..")).StringFieldEditor),
 });
 
 export declare namespace StringFieldPropertiesDto {
@@ -46,11 +46,11 @@ export declare namespace StringFieldPropertiesDto {
         maxWords?: number | null;
         allowedValues?: string[] | null;
         schemaIds?: string[] | null;
-        isUnique?: boolean | null;
-        isEmbeddable?: boolean | null;
-        inlineEditable?: boolean | null;
-        createEnum?: boolean | null;
-        contentType?: serializers.StringContentType.Raw | null;
-        editor?: serializers.StringFieldEditor.Raw | null;
+        isUnique: boolean;
+        isEmbeddable: boolean;
+        inlineEditable: boolean;
+        createEnum: boolean;
+        contentType: serializers.StringContentType.Raw;
+        editor: serializers.StringFieldEditor.Raw;
     }
 }

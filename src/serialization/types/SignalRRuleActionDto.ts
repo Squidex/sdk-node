@@ -10,21 +10,21 @@ export const SignalRRuleActionDto: core.serialization.ObjectSchema<
     serializers.SignalRRuleActionDto.Raw,
     Squidex.SignalRRuleActionDto
 > = core.serialization.object({
-    connectionString: core.serialization.string().optional(),
-    hubName: core.serialization.string().optional(),
-    action: core.serialization.lazy(async () => (await import("..")).ActionTypeEnum).optional(),
-    methodName: core.serialization.string().optional(),
-    target: core.serialization.string().optional(),
-    payload: core.serialization.string().optional(),
+    connectionString: core.serialization.string(),
+    hubName: core.serialization.string(),
+    action: core.serialization.lazy(async () => (await import("..")).ActionTypeEnum),
+    methodName: core.serialization.string(),
+    target: core.serialization.string(),
+    payload: core.serialization.string(),
 });
 
 export declare namespace SignalRRuleActionDto {
     interface Raw {
-        connectionString?: string | null;
-        hubName?: string | null;
-        action?: serializers.ActionTypeEnum.Raw | null;
-        methodName?: string | null;
-        target?: string | null;
-        payload?: string | null;
+        connectionString: string;
+        hubName: string;
+        action: serializers.ActionTypeEnum.Raw;
+        methodName: string;
+        target: string;
+        payload: string;
     }
 }

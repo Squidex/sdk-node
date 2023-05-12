@@ -10,15 +10,15 @@ export const SimulatedRuleEventsDto: core.serialization.ObjectSchema<
     serializers.SimulatedRuleEventsDto.Raw,
     Squidex.SimulatedRuleEventsDto
 > = core.serialization.object({
-    total: core.serialization.number().optional(),
-    items: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).SimulatedRuleEventDto))
-        .optional(),
+    total: core.serialization.number(),
+    items: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("..")).SimulatedRuleEventDto)
+    ),
 });
 
 export declare namespace SimulatedRuleEventsDto {
     interface Raw {
-        total?: number | null;
-        items?: serializers.SimulatedRuleEventDto.Raw[] | null;
+        total: number;
+        items: serializers.SimulatedRuleEventDto.Raw[];
     }
 }

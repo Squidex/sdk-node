@@ -6,19 +6,19 @@ import * as Squidex from "..";
 
 export interface RuleEventDto {
     /** The ID of the event. */
-    id?: string;
+    id: string;
     /** The time when the event has been created. */
-    created?: string;
+    created: string;
     /** The description. */
-    description?: string;
+    description: string;
     /** The name of the event. */
-    eventName?: string;
+    eventName: string;
     /** The last dump. */
     lastDump?: string;
     /** The number of calls. */
-    numCalls?: number;
+    numCalls: number;
     /** The next attempt. */
     nextAttempt?: string;
-    result?: Squidex.RuleResult;
-    jobResult?: Squidex.RuleJobResult;
+    result: Squidex.RuleResult;
+    jobResult: Squidex.RuleJobResult;
 }

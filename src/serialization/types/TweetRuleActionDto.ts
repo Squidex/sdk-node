@@ -10,15 +10,15 @@ export const TweetRuleActionDto: core.serialization.ObjectSchema<
     serializers.TweetRuleActionDto.Raw,
     Squidex.TweetRuleActionDto
 > = core.serialization.object({
-    accessToken: core.serialization.string().optional(),
-    accessSecret: core.serialization.string().optional(),
-    text: core.serialization.string().optional(),
+    accessToken: core.serialization.string(),
+    accessSecret: core.serialization.string(),
+    text: core.serialization.string(),
 });
 
 export declare namespace TweetRuleActionDto {
     interface Raw {
-        accessToken?: string | null;
-        accessSecret?: string | null;
-        text?: string | null;
+        accessToken: string;
+        accessSecret: string;
+        text: string;
     }
 }

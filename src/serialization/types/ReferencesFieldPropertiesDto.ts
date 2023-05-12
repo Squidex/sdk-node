@@ -16,10 +16,10 @@ export const ReferencesFieldPropertiesDto: core.serialization.ObjectSchema<
     defaultValue: core.serialization.list(core.serialization.string()).optional(),
     minItems: core.serialization.number().optional(),
     maxItems: core.serialization.number().optional(),
-    allowDuplicates: core.serialization.boolean().optional(),
-    resolveReference: core.serialization.boolean().optional(),
-    mustBePublished: core.serialization.boolean().optional(),
-    editor: core.serialization.lazy(async () => (await import("..")).ReferencesFieldEditor).optional(),
+    allowDuplicates: core.serialization.boolean(),
+    resolveReference: core.serialization.boolean(),
+    mustBePublished: core.serialization.boolean(),
+    editor: core.serialization.lazy(async () => (await import("..")).ReferencesFieldEditor),
     schemaIds: core.serialization.list(core.serialization.string()).optional(),
 });
 
@@ -29,10 +29,10 @@ export declare namespace ReferencesFieldPropertiesDto {
         defaultValue?: string[] | null;
         minItems?: number | null;
         maxItems?: number | null;
-        allowDuplicates?: boolean | null;
-        resolveReference?: boolean | null;
-        mustBePublished?: boolean | null;
-        editor?: serializers.ReferencesFieldEditor.Raw | null;
+        allowDuplicates: boolean;
+        resolveReference: boolean;
+        mustBePublished: boolean;
+        editor: serializers.ReferencesFieldEditor.Raw;
         schemaIds?: string[] | null;
     }
 }

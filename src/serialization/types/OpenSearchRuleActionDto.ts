@@ -10,21 +10,21 @@ export const OpenSearchRuleActionDto: core.serialization.ObjectSchema<
     serializers.OpenSearchRuleActionDto.Raw,
     Squidex.OpenSearchRuleActionDto
 > = core.serialization.object({
-    host: core.serialization.string().optional(),
-    indexName: core.serialization.string().optional(),
-    username: core.serialization.string().optional(),
-    password: core.serialization.string().optional(),
-    document: core.serialization.string().optional(),
-    delete: core.serialization.string().optional(),
+    host: core.serialization.string(),
+    indexName: core.serialization.string(),
+    username: core.serialization.string(),
+    password: core.serialization.string(),
+    document: core.serialization.string(),
+    delete: core.serialization.string(),
 });
 
 export declare namespace OpenSearchRuleActionDto {
     interface Raw {
-        host?: string | null;
-        indexName?: string | null;
-        username?: string | null;
-        password?: string | null;
-        document?: string | null;
-        delete?: string | null;
+        host: string;
+        indexName: string;
+        username: string;
+        password: string;
+        document: string;
+        delete: string;
     }
 }

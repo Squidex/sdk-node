@@ -8,17 +8,17 @@ import * as core from "../../core";
 
 export const TemplateDto: core.serialization.ObjectSchema<serializers.TemplateDto.Raw, Squidex.TemplateDto> =
     core.serialization.object({
-        name: core.serialization.string().optional(),
-        title: core.serialization.string().optional(),
-        description: core.serialization.string().optional(),
-        isStarter: core.serialization.boolean().optional(),
+        name: core.serialization.string(),
+        title: core.serialization.string(),
+        description: core.serialization.string(),
+        isStarter: core.serialization.boolean(),
     });
 
 export declare namespace TemplateDto {
     interface Raw {
-        name?: string | null;
-        title?: string | null;
-        description?: string | null;
-        isStarter?: boolean | null;
+        name: string;
+        title: string;
+        description: string;
+        isStarter: boolean;
     }
 }

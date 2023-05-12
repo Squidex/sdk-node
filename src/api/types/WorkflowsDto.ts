@@ -6,7 +6,7 @@ import * as Squidex from "..";
 
 export interface WorkflowsDto {
     /** The workflow. */
-    items?: Squidex.WorkflowDto[];
+    items: Squidex.WorkflowDto[];
     /** The errros that should be fixed. */
-    errors?: string[];
+    errors: string[];
 }

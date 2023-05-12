@@ -10,15 +10,15 @@ export const AzureQueueRuleActionDto: core.serialization.ObjectSchema<
     serializers.AzureQueueRuleActionDto.Raw,
     Squidex.AzureQueueRuleActionDto
 > = core.serialization.object({
-    connectionString: core.serialization.string().optional(),
-    queue: core.serialization.string().optional(),
-    payload: core.serialization.string().optional(),
+    connectionString: core.serialization.string(),
+    queue: core.serialization.string(),
+    payload: core.serialization.string(),
 });
 
 export declare namespace AzureQueueRuleActionDto {
     interface Raw {
-        connectionString?: string | null;
-        queue?: string | null;
-        payload?: string | null;
+        connectionString: string;
+        queue: string;
+        payload: string;
     }
 }

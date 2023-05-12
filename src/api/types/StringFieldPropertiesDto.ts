@@ -31,13 +31,13 @@ export interface StringFieldPropertiesDto {
     /** The allowed schema ids that can be embedded. */
     schemaIds?: string[];
     /** Indicates if the field value must be unique. Ignored for nested fields and localized fields. */
-    isUnique?: boolean;
+    isUnique: boolean;
     /** Indicates that other content items or references are embedded. */
-    isEmbeddable?: boolean;
+    isEmbeddable: boolean;
     /** Indicates that the inline editor is enabled for this field. */
-    inlineEditable?: boolean;
+    inlineEditable: boolean;
     /** Indicates whether GraphQL Enum should be created. */
-    createEnum?: boolean;
-    contentType?: Squidex.StringContentType;
-    editor?: Squidex.StringFieldEditor;
+    createEnum: boolean;
+    contentType: Squidex.StringContentType;
+    editor: Squidex.StringFieldEditor;
 }

@@ -8,23 +8,23 @@ import * as core from "../../core";
 
 export const ClientDto: core.serialization.ObjectSchema<serializers.ClientDto.Raw, Squidex.ClientDto> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        secret: core.serialization.string().optional(),
-        name: core.serialization.string().optional(),
+        id: core.serialization.string(),
+        secret: core.serialization.string(),
+        name: core.serialization.string(),
         role: core.serialization.string().optional(),
-        apiCallsLimit: core.serialization.number().optional(),
-        apiTrafficLimit: core.serialization.number().optional(),
-        allowAnonymous: core.serialization.boolean().optional(),
+        apiCallsLimit: core.serialization.number(),
+        apiTrafficLimit: core.serialization.number(),
+        allowAnonymous: core.serialization.boolean(),
     });
 
 export declare namespace ClientDto {
     interface Raw {
-        id?: string | null;
-        secret?: string | null;
-        name?: string | null;
+        id: string;
+        secret: string;
+        name: string;
         role?: string | null;
-        apiCallsLimit?: number | null;
-        apiTrafficLimit?: number | null;
-        allowAnonymous?: boolean | null;
+        apiCallsLimit: number;
+        apiTrafficLimit: number;
+        allowAnonymous: boolean;
     }
 }

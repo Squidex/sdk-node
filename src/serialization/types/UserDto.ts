@@ -8,19 +8,19 @@ import * as core from "../../core";
 
 export const UserDto: core.serialization.ObjectSchema<serializers.UserDto.Raw, Squidex.UserDto> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        email: core.serialization.string().optional(),
-        displayName: core.serialization.string().optional(),
-        isLocked: core.serialization.boolean().optional(),
-        permissions: core.serialization.list(core.serialization.string()).optional(),
+        id: core.serialization.string(),
+        email: core.serialization.string(),
+        displayName: core.serialization.string(),
+        isLocked: core.serialization.boolean(),
+        permissions: core.serialization.list(core.serialization.string()),
     });
 
 export declare namespace UserDto {
     interface Raw {
-        id?: string | null;
-        email?: string | null;
-        displayName?: string | null;
-        isLocked?: boolean | null;
-        permissions?: string[] | null;
+        id: string;
+        email: string;
+        displayName: string;
+        isLocked: boolean;
+        permissions: string[];
     }
 }

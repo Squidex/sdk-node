@@ -4,7 +4,7 @@
 
 export interface UsageRuleTriggerDto {
     /** The number of monthly api calls. */
-    limit?: number;
+    limit: number;
     /** The number of days to check or null for the current month. */
     numDays?: number;
 }

@@ -12,15 +12,15 @@ export const BooleanFieldPropertiesDto: core.serialization.ObjectSchema<
 > = core.serialization.object({
     defaultValues: core.serialization.lazy(async () => (await import("..")).LocalizedValueOfNullableBoolean).optional(),
     defaultValue: core.serialization.boolean().optional(),
-    inlineEditable: core.serialization.boolean().optional(),
-    editor: core.serialization.lazy(async () => (await import("..")).BooleanFieldEditor).optional(),
+    inlineEditable: core.serialization.boolean(),
+    editor: core.serialization.lazy(async () => (await import("..")).BooleanFieldEditor),
 });
 
 export declare namespace BooleanFieldPropertiesDto {
     interface Raw {
         defaultValues?: serializers.LocalizedValueOfNullableBoolean.Raw | null;
         defaultValue?: boolean | null;
-        inlineEditable?: boolean | null;
-        editor?: serializers.BooleanFieldEditor.Raw | null;
+        inlineEditable: boolean;
+        editor: serializers.BooleanFieldEditor.Raw;
     }
 }

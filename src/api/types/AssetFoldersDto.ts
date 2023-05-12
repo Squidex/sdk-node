@@ -6,9 +6,9 @@ import * as Squidex from "..";
 
 export interface AssetFoldersDto {
     /** The total number of assets. */
-    total?: number;
+    total: number;
     /** The assets folders. */
-    items?: Squidex.AssetFolderDto[];
+    items: Squidex.AssetFolderDto[];
     /** The path to the current folder. */
-    path?: Squidex.AssetFolderDto[];
+    path: Squidex.AssetFolderDto[];
 }

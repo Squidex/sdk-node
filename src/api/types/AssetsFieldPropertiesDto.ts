@@ -5,7 +5,7 @@
 import * as Squidex from "..";
 
 export interface AssetsFieldPropertiesDto {
-    previewMode?: Squidex.AssetPreviewMode;
+    previewMode: Squidex.AssetPreviewMode;
     defaultValues?: Squidex.LocalizedValueOfReadonlyListOfString;
     /** The default value as a list of asset ids. */
     defaultValue?: string[];
@@ -35,13 +35,13 @@ export interface AssetsFieldPropertiesDto {
     aspectHeight?: number;
     expectedType?: Squidex.AssetType;
     /** True to resolve first asset in the content list. */
-    resolveFirst?: boolean;
+    resolveFirst: boolean;
     /** True to resolve first image in the content list. */
-    mustBeImage?: boolean;
+    mustBeImage: boolean;
     /** True to resolve first image in the content list. */
-    resolveImage?: boolean;
+    resolveImage: boolean;
     /** The allowed file extensions. */
     allowedExtensions?: string[];
     /** True, if duplicate values are allowed. */
-    allowDuplicates?: boolean;
+    allowDuplicates: boolean;
 }

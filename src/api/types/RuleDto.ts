@@ -6,27 +6,27 @@ import * as Squidex from "..";
 
 export interface RuleDto {
     /** The ID of the rule. */
-    id?: string;
+    id: string;
     /** The user that has created the rule. */
-    createdBy?: string;
+    createdBy: string;
     /** The user that has updated the rule. */
-    lastModifiedBy?: string;
+    lastModifiedBy: string;
     /** The date and time when the rule has been created. */
-    created?: string;
+    created: string;
     /** The date and time when the rule has been modified last. */
-    lastModified?: string;
+    lastModified: string;
     /** The version of the rule. */
-    version?: number;
+    version: number;
     /** Determines if the rule is enabled. */
-    isEnabled?: boolean;
+    isEnabled: boolean;
     /** Optional rule name. */
     name?: string;
-    trigger?: Squidex.RuleTriggerDto;
-    action?: Squidex.RuleActionDto;
+    trigger: Squidex.RuleTriggerDto;
+    action: Squidex.RuleActionDto;
     /** The number of completed executions. */
-    numSucceeded?: number;
+    numSucceeded: number;
     /** The number of failed executions. */
-    numFailed?: number;
+    numFailed: number;
     /** The date and time when the rule was executed the last time. */
     lastExecuted?: string;
 }

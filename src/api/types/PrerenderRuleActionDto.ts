@@ -4,7 +4,7 @@
 
 export interface PrerenderRuleActionDto {
     /** The prerender token from your account. */
-    token?: string;
+    token: string;
     /** The url to recache. */
-    url?: string;
+    url: string;
 }

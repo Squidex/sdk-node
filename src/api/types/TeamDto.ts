@@ -4,15 +4,15 @@
 
 export interface TeamDto {
     /** The ID of the team. */
-    id?: string;
+    id: string;
     /** The name of the team. */
-    name?: string;
+    name: string;
     /** The version of the team. */
-    version?: number;
+    version: number;
     /** The timestamp when the team has been created. */
-    created?: string;
+    created: string;
     /** The timestamp when the team has been modified last. */
-    lastModified?: string;
+    lastModified: string;
     /** The role name of the user. */
     roleName?: string;
 }

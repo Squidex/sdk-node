@@ -6,9 +6,9 @@ import * as Squidex from "..";
 
 export interface ContentsDto {
     /** The total number of content items. */
-    total?: number;
+    total: number;
     /** The content items. */
-    items?: Squidex.ContentDto[];
+    items: Squidex.ContentDto[];
     /** The possible statuses. */
-    statuses?: Squidex.StatusInfoDto[];
+    statuses: Squidex.StatusInfoDto[];
 }

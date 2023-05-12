@@ -8,17 +8,17 @@ import * as core from "../../core";
 
 export const ContributorDto: core.serialization.ObjectSchema<serializers.ContributorDto.Raw, Squidex.ContributorDto> =
     core.serialization.object({
-        contributorId: core.serialization.string().optional(),
-        contributorName: core.serialization.string().optional(),
-        contributorEmail: core.serialization.string().optional(),
+        contributorId: core.serialization.string(),
+        contributorName: core.serialization.string(),
+        contributorEmail: core.serialization.string(),
         role: core.serialization.string().optional(),
     });
 
 export declare namespace ContributorDto {
     interface Raw {
-        contributorId?: string | null;
-        contributorName?: string | null;
-        contributorEmail?: string | null;
+        contributorId: string;
+        contributorName: string;
+        contributorEmail: string;
         role?: string | null;
     }
 }

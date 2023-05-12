@@ -10,13 +10,11 @@ export const AppLanguagesDto: core.serialization.ObjectSchema<
     serializers.AppLanguagesDto.Raw,
     Squidex.AppLanguagesDto
 > = core.serialization.object({
-    items: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).AppLanguageDto))
-        .optional(),
+    items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).AppLanguageDto)),
 });
 
 export declare namespace AppLanguagesDto {
     interface Raw {
-        items?: serializers.AppLanguageDto.Raw[] | null;
+        items: serializers.AppLanguageDto.Raw[];
     }
 }

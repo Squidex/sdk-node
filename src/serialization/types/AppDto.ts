@@ -8,35 +8,35 @@ import * as core from "../../core";
 
 export const AppDto: core.serialization.ObjectSchema<serializers.AppDto.Raw, Squidex.AppDto> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        name: core.serialization.string().optional(),
+        id: core.serialization.string(),
+        name: core.serialization.string(),
         label: core.serialization.string().optional(),
         description: core.serialization.string().optional(),
-        version: core.serialization.number().optional(),
-        created: core.serialization.string().optional(),
-        lastModified: core.serialization.string().optional(),
+        version: core.serialization.number(),
+        created: core.serialization.string(),
+        lastModified: core.serialization.string(),
         teamId: core.serialization.string().optional(),
-        permissions: core.serialization.list(core.serialization.string()).optional(),
-        canAccessApi: core.serialization.boolean().optional(),
-        canAccessContent: core.serialization.boolean().optional(),
+        permissions: core.serialization.list(core.serialization.string()),
+        canAccessApi: core.serialization.boolean(),
+        canAccessContent: core.serialization.boolean(),
         roleName: core.serialization.string().optional(),
-        roleProperties: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        roleProperties: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
     });
 
 export declare namespace AppDto {
     interface Raw {
-        id?: string | null;
-        name?: string | null;
+        id: string;
+        name: string;
         label?: string | null;
         description?: string | null;
-        version?: number | null;
-        created?: string | null;
-        lastModified?: string | null;
+        version: number;
+        created: string;
+        lastModified: string;
         teamId?: string | null;
-        permissions?: string[] | null;
-        canAccessApi?: boolean | null;
-        canAccessContent?: boolean | null;
+        permissions: string[];
+        canAccessApi: boolean;
+        canAccessContent: boolean;
         roleName?: string | null;
-        roleProperties?: Record<string, unknown> | null;
+        roleProperties: Record<string, unknown>;
     }
 }

@@ -5,5 +5,5 @@
 import * as Squidex from "..";
 
 export interface UiFieldPropertiesDto {
-    editor?: Squidex.UiFieldEditor;
+    editor: Squidex.UiFieldEditor;
 }

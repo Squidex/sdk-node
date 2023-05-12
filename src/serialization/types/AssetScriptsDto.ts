@@ -17,7 +17,7 @@ export const AssetScriptsDto: core.serialization.ObjectSchema<
     annotate: core.serialization.string().optional(),
     move: core.serialization.string().optional(),
     delete: core.serialization.string().optional(),
-    version: core.serialization.number().optional(),
+    version: core.serialization.number(),
 });
 
 export declare namespace AssetScriptsDto {
@@ -29,6 +29,6 @@ export declare namespace AssetScriptsDto {
         annotate?: string | null;
         move?: string | null;
         delete?: string | null;
-        version?: number | null;
+        version: number;
     }
 }

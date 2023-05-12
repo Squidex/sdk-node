@@ -15,7 +15,7 @@ export const DateTimeFieldPropertiesDto: core.serialization.ObjectSchema<
     maxValue: core.serialization.string().optional(),
     minValue: core.serialization.string().optional(),
     format: core.serialization.string().optional(),
-    editor: core.serialization.lazy(async () => (await import("..")).DateTimeFieldEditor).optional(),
+    editor: core.serialization.lazy(async () => (await import("..")).DateTimeFieldEditor),
     calculatedDefaultValue: core.serialization
         .lazy(async () => (await import("..")).DateTimeCalculatedDefaultValue)
         .optional(),
@@ -28,7 +28,7 @@ export declare namespace DateTimeFieldPropertiesDto {
         maxValue?: string | null;
         minValue?: string | null;
         format?: string | null;
-        editor?: serializers.DateTimeFieldEditor.Raw | null;
+        editor: serializers.DateTimeFieldEditor.Raw;
         calculatedDefaultValue?: serializers.DateTimeCalculatedDefaultValue.Raw | null;
     }
 }

@@ -4,13 +4,13 @@
 
 export interface EventConsumerDto {
     /** Indicates if the event consumer has been started. */
-    isStopped?: boolean;
+    isStopped: boolean;
     /** Indicates if the event consumer is resetting at the moment. */
-    isResetting?: boolean;
+    isResetting: boolean;
     /** The number of handled events. */
-    count?: number;
+    count: number;
     /** The name of the event consumer. */
-    name?: string;
+    name: string;
     /** The error details if the event consumer has been stopped after a failure. */
     error?: string;
     /** The position within the vent stream. */

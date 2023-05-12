@@ -6,8 +6,8 @@ import * as Squidex from "../../../..";
 
 export interface CreateSchemaDto {
     /** The name of the schema. */
-    name?: string;
-    type?: Squidex.SchemaType;
+    name: string;
+    type: Squidex.SchemaType;
     /** Set to true to allow a single content item only. */
-    isSingleton?: boolean;
+    isSingleton: boolean;
 }

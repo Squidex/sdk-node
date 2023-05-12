@@ -10,15 +10,15 @@ export const SearchResultDto: core.serialization.ObjectSchema<
     serializers.SearchResultDto.Raw,
     Squidex.SearchResultDto
 > = core.serialization.object({
-    name: core.serialization.string().optional(),
-    type: core.serialization.lazy(async () => (await import("..")).SearchResultType).optional(),
+    name: core.serialization.string(),
+    type: core.serialization.lazy(async () => (await import("..")).SearchResultType),
     label: core.serialization.string().optional(),
 });
 
 export declare namespace SearchResultDto {
     interface Raw {
-        name?: string | null;
-        type?: serializers.SearchResultType.Raw | null;
+        name: string;
+        type: serializers.SearchResultType.Raw;
         label?: string | null;
     }
 }

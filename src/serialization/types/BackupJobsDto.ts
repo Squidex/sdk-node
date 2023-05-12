@@ -8,13 +8,11 @@ import * as core from "../../core";
 
 export const BackupJobsDto: core.serialization.ObjectSchema<serializers.BackupJobsDto.Raw, Squidex.BackupJobsDto> =
     core.serialization.object({
-        items: core.serialization
-            .list(core.serialization.lazyObject(async () => (await import("..")).BackupJobDto))
-            .optional(),
+        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).BackupJobDto)),
     });
 
 export declare namespace BackupJobsDto {
     interface Raw {
-        items?: serializers.BackupJobDto.Raw[] | null;
+        items: serializers.BackupJobDto.Raw[];
     }
 }

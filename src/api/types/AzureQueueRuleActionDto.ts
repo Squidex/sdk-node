@@ -4,9 +4,9 @@
 
 export interface AzureQueueRuleActionDto {
     /** The connection string to the storage account. */
-    connectionString?: string;
+    connectionString: string;
     /** The name of the queue. */
-    queue?: string;
+    queue: string;
     /** Leave it empty to use the full event as body. */
-    payload?: string;
+    payload: string;
 }

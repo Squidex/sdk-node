@@ -6,7 +6,7 @@ import * as Squidex from "..";
 
 export interface RuleEventsDto {
     /** The total number of rule events. */
-    total?: number;
+    total: number;
     /** The rule events. */
-    items?: Squidex.RuleEventDto[];
+    items: Squidex.RuleEventDto[];
 }

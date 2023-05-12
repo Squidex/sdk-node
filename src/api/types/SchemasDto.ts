@@ -6,5 +6,5 @@ import * as Squidex from "..";
 
 export interface SchemasDto {
     /** The schemas. */
-    items?: Squidex.SchemaDto[];
+    items: Squidex.SchemaDto[];
 }

@@ -6,14 +6,14 @@ import * as Squidex from "..";
 
 export interface NestedFieldDto {
     /** The ID of the field. */
-    fieldId?: number;
+    fieldId: number;
     /** The name of the field. Must be unique within the schema. */
-    name?: string;
+    name: string;
     /** Defines if the field is hidden. */
-    isHidden?: boolean;
+    isHidden: boolean;
     /** Defines if the field is locked. */
-    isLocked?: boolean;
+    isLocked: boolean;
     /** Defines if the field is disabled. */
-    isDisabled?: boolean;
-    properties?: Squidex.FieldPropertiesDto;
+    isDisabled: boolean;
+    properties: Squidex.FieldPropertiesDto;
 }

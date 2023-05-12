@@ -8,19 +8,19 @@ import * as core from "../../core";
 
 export const AppLanguageDto: core.serialization.ObjectSchema<serializers.AppLanguageDto.Raw, Squidex.AppLanguageDto> =
     core.serialization.object({
-        iso2Code: core.serialization.string().optional(),
-        englishName: core.serialization.string().optional(),
-        fallback: core.serialization.list(core.serialization.string()).optional(),
-        isMaster: core.serialization.boolean().optional(),
-        isOptional: core.serialization.boolean().optional(),
+        iso2Code: core.serialization.string(),
+        englishName: core.serialization.string(),
+        fallback: core.serialization.list(core.serialization.string()),
+        isMaster: core.serialization.boolean(),
+        isOptional: core.serialization.boolean(),
     });
 
 export declare namespace AppLanguageDto {
     interface Raw {
-        iso2Code?: string | null;
-        englishName?: string | null;
-        fallback?: string[] | null;
-        isMaster?: boolean | null;
-        isOptional?: boolean | null;
+        iso2Code: string;
+        englishName: string;
+        fallback: string[];
+        isMaster: boolean;
+        isOptional: boolean;
     }
 }

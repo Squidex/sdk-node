@@ -10,17 +10,17 @@ export const CreateContentRuleActionDto: core.serialization.ObjectSchema<
     serializers.CreateContentRuleActionDto.Raw,
     Squidex.CreateContentRuleActionDto
 > = core.serialization.object({
-    data: core.serialization.string().optional(),
-    schema: core.serialization.string().optional(),
-    client: core.serialization.string().optional(),
-    publish: core.serialization.boolean().optional(),
+    data: core.serialization.string(),
+    schema: core.serialization.string(),
+    client: core.serialization.string(),
+    publish: core.serialization.boolean(),
 });
 
 export declare namespace CreateContentRuleActionDto {
     interface Raw {
-        data?: string | null;
-        schema?: string | null;
-        client?: string | null;
-        publish?: boolean | null;
+        data: string;
+        schema: string;
+        client: string;
+        publish: boolean;
     }
 }

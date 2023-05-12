@@ -6,5 +6,5 @@ import * as Squidex from "..";
 
 export interface TemplatesDto {
     /** The event consumers. */
-    items?: Squidex.TemplateDto[];
+    items: Squidex.TemplateDto[];
 }

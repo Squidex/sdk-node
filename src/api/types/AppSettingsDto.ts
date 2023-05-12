@@ -6,13 +6,13 @@ import * as Squidex from "..";
 
 export interface AppSettingsDto {
     /** The configured app patterns. */
-    patterns?: Squidex.PatternDto[];
+    patterns: Squidex.PatternDto[];
     /** The configured UI editors. */
-    editors?: Squidex.EditorDto[];
+    editors: Squidex.EditorDto[];
     /** Hide the scheduler for content items. */
-    hideScheduler?: boolean;
+    hideScheduler: boolean;
     /** Hide the datetime mode button. */
-    hideDateTimeModeButton?: boolean;
+    hideDateTimeModeButton: boolean;
     /** The version of the app. */
-    version?: number;
+    version: number;
 }

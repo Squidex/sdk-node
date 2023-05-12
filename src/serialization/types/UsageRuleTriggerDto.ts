@@ -10,13 +10,13 @@ export const UsageRuleTriggerDto: core.serialization.ObjectSchema<
     serializers.UsageRuleTriggerDto.Raw,
     Squidex.UsageRuleTriggerDto
 > = core.serialization.object({
-    limit: core.serialization.number().optional(),
+    limit: core.serialization.number(),
     numDays: core.serialization.number().optional(),
 });
 
 export declare namespace UsageRuleTriggerDto {
     interface Raw {
-        limit?: number | null;
+        limit: number;
         numDays?: number | null;
     }
 }

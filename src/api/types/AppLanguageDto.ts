@@ -4,13 +4,13 @@
 
 export interface AppLanguageDto {
     /** The iso code of the language. */
-    iso2Code?: string;
+    iso2Code: string;
     /** The english name of the language. */
-    englishName?: string;
+    englishName: string;
     /** The fallback languages. */
-    fallback?: string[];
+    fallback: string[];
     /** Indicates if the language is the master language. */
-    isMaster?: boolean;
+    isMaster: boolean;
     /** Indicates if the language is optional. */
-    isOptional?: boolean;
+    isOptional: boolean;
 }

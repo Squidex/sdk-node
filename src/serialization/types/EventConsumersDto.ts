@@ -10,13 +10,11 @@ export const EventConsumersDto: core.serialization.ObjectSchema<
     serializers.EventConsumersDto.Raw,
     Squidex.EventConsumersDto
 > = core.serialization.object({
-    items: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).EventConsumerDto))
-        .optional(),
+    items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EventConsumerDto)),
 });
 
 export declare namespace EventConsumersDto {
     interface Raw {
-        items?: serializers.EventConsumerDto.Raw[] | null;
+        items: serializers.EventConsumerDto.Raw[];
     }
 }

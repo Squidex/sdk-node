@@ -10,13 +10,13 @@ export const SlackRuleActionDto: core.serialization.ObjectSchema<
     serializers.SlackRuleActionDto.Raw,
     Squidex.SlackRuleActionDto
 > = core.serialization.object({
-    webhookUrl: core.serialization.string().optional(),
-    text: core.serialization.string().optional(),
+    webhookUrl: core.serialization.string(),
+    text: core.serialization.string(),
 });
 
 export declare namespace SlackRuleActionDto {
     interface Raw {
-        webhookUrl?: string | null;
-        text?: string | null;
+        webhookUrl: string;
+        text: string;
     }
 }

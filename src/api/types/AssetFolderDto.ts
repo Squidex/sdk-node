@@ -4,11 +4,11 @@
 
 export interface AssetFolderDto {
     /** The ID of the asset. */
-    id?: string;
+    id: string;
     /** The ID of the parent folder. Empty for files without parent. */
-    parentId?: string;
+    parentId: string;
     /** The folder name. */
-    folderName?: string;
+    folderName: string;
     /** The version of the asset folder. */
-    version?: number;
+    version: number;
 }
