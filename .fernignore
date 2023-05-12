@@ -3,7 +3,7 @@
 README.md
 src/index.ts
 src/wrapper
-.github
+.github/test.yml
 
 # tests
 tests
