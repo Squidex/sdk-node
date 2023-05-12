@@ -26,7 +26,6 @@ describe("Assets", () => {
         const createdAsset = await client.assets.postAsset(fileStream);
 
         const asset = await client.assets.getAssetContent(createdAsset.id!);
-
         const tempDir = os.tmpdir();
         const tempFile = path.join(tempDir, guid());
         const tempStream = fs.createWriteStream(tempFile);
