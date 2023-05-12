@@ -26,7 +26,7 @@ jobs:
           default_network: host
           options: --name test1
           volumes: ${{ github.workspace }}:/src
-          run: ls
+          run: ./src/test.sh
 
       - name: Test - Start Compose
         run: docker-compose up -d
@@ -42,7 +42,7 @@ jobs:
           default_network: host
           options: --name test1
           volumes: ${{ github.workspace }}:/src
-          run: ./test.sh
+          run: ./src/test.sh
        
       - name: Test - Dump docker logs on failure
         if: failure()
