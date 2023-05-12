@@ -13,7 +13,7 @@ describe("User management", () => {
             permissions: [],
         });
 
-        const user = await client.userManagement.getUser(createdUser.id!);
+        const user = await client.userManagement.getUser(createdUser.id);
         expect(user.email).toEqual(email);
         expect(user.displayName).toEqual("Jane Smith");
     });
