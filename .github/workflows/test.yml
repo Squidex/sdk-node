@@ -16,6 +16,18 @@ jobs:
       - name: Prepare - Checkout
         uses: actions/checkout@v3.4.0
 
+      - name: Test - RUN
+        uses: kohlerdominik/docker-run-action@v1.1.0
+        with:
+          image: node
+          environment: |
+            CONFIG__WAIT=60
+            CONFIG__SERVER__URL=http://localhost:8080
+          default_network: host
+          options: --name test1
+          volumes: ${{ github.workspace }}:/src
+          run: ls
+
       - name: Test - Start Compose
         run: docker-compose up -d
         working-directory: tests
@@ -42,4 +54,4 @@ jobs:
       - name: Test - Cleanup
         if: always()
         run: docker-compose down
-        working-directory: tools/TestSuite
+        working-directory: tests
