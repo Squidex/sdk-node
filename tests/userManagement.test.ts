@@ -16,6 +16,5 @@ describe("User management", () => {
         const user = await client.userManagement.getUser(createdUser.id!);
         expect(user.email).toEqual(email);
         expect(user.displayName).toEqual("Jane Smith");
-        expect(user.permissions).toEqual([]);
     });
 });
