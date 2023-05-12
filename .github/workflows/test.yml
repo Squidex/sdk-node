@@ -26,7 +26,11 @@ jobs:
           default_network: host
           options: --name test1
           volumes: ${{ github.workspace }}:/src
-          run: ./src/test.sh
+          run: |
+            npm install --global yarn
+            cd src
+            yarn install
+            ./test.sh
 
       - name: Test - Start Compose
         run: docker-compose up -d
