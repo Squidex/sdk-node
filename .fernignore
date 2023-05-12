@@ -5,9 +5,9 @@ src/index.ts
 src/wrapper
 
 # tests
-src/tests
+tests
 babel.config.js
 test.sh
-test.ps
+test.ps1
 test-only.sh
-test-only.ps
+test-only.ps1
