@@ -6,5 +6,5 @@ import * as Squidex from "..";
 
 export interface BackupJobsDto {
     /** The backups. */
-    items?: Squidex.BackupJobDto[];
+    items: Squidex.BackupJobDto[];
 }

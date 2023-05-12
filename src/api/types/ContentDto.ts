@@ -6,30 +6,30 @@ import * as Squidex from "..";
 
 export interface ContentDto {
     /** The if of the content item. */
-    id?: string;
+    id: string;
     /** The user that has created the content item. */
-    createdBy?: string;
+    createdBy: string;
     /** The user that has updated the content item. */
-    lastModifiedBy?: string;
+    lastModifiedBy: string;
     data?: unknown;
     referenceData?: Squidex.ContentData;
     /** The date and time when the content item has been created. */
-    created?: string;
+    created: string;
     /** The date and time when the content item has been modified last. */
-    lastModified?: string;
+    lastModified: string;
     /** The status of the content. */
-    status?: string;
+    status: string;
     /** The new status of the content. */
     newStatus?: string;
     /** The color of the status. */
-    statusColor?: string;
+    statusColor: string;
     /** The color of the new status. */
     newStatusColor?: string;
     /** The UI token. */
     editToken?: string;
     scheduleJob?: Squidex.ScheduleJobDto;
     /** The ID of the schema. */
-    schemaId?: string;
+    schemaId: string;
     /** The name of the schema. */
     schemaName?: string;
     /** The display name of the schema. */
@@ -37,7 +37,7 @@ export interface ContentDto {
     /** The reference fields. */
     referenceFields?: Squidex.FieldDto[];
     /** Indicates whether the content is deleted. */
-    isDeleted?: boolean;
+    isDeleted: boolean;
     /** The version of the content. */
-    version?: number;
+    version: number;
 }

@@ -9,6 +9,6 @@ export interface BooleanFieldPropertiesDto {
     /** The default value for the field value. */
     defaultValue?: boolean;
     /** Indicates that the inline editor is enabled for this field. */
-    inlineEditable?: boolean;
-    editor?: Squidex.BooleanFieldEditor;
+    inlineEditable: boolean;
+    editor: Squidex.BooleanFieldEditor;
 }

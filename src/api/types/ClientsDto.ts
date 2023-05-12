@@ -6,5 +6,5 @@ import * as Squidex from "..";
 
 export interface ClientsDto {
     /** The clients. */
-    items?: Squidex.ClientDto[];
+    items: Squidex.ClientDto[];
 }

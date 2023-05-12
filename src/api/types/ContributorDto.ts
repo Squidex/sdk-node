@@ -4,11 +4,11 @@
 
 export interface ContributorDto {
     /** The ID of the user that contributes to the app. */
-    contributorId?: string;
+    contributorId: string;
     /** The display name. */
-    contributorName?: string;
+    contributorName: string;
     /** The email address. */
-    contributorEmail?: string;
+    contributorEmail: string;
     /** The role of the contributor. */
     role?: string;
 }

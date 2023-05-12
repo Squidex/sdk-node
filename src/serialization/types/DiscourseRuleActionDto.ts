@@ -10,22 +10,22 @@ export const DiscourseRuleActionDto: core.serialization.ObjectSchema<
     serializers.DiscourseRuleActionDto.Raw,
     Squidex.DiscourseRuleActionDto
 > = core.serialization.object({
-    url: core.serialization.string().optional(),
-    apiKey: core.serialization.string().optional(),
-    apiUsername: core.serialization.string().optional(),
-    text: core.serialization.string().optional(),
-    title: core.serialization.string().optional(),
+    url: core.serialization.string(),
+    apiKey: core.serialization.string(),
+    apiUsername: core.serialization.string(),
+    text: core.serialization.string(),
+    title: core.serialization.string(),
     topic: core.serialization.number().optional(),
     category: core.serialization.number().optional(),
 });
 
 export declare namespace DiscourseRuleActionDto {
     interface Raw {
-        url?: string | null;
-        apiKey?: string | null;
-        apiUsername?: string | null;
-        text?: string | null;
-        title?: string | null;
+        url: string;
+        apiKey: string;
+        apiUsername: string;
+        text: string;
+        title: string;
         topic?: number | null;
         category?: number | null;
     }

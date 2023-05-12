@@ -8,21 +8,21 @@ import * as core from "../../core";
 
 export const BackupJobDto: core.serialization.ObjectSchema<serializers.BackupJobDto.Raw, Squidex.BackupJobDto> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        started: core.serialization.string().optional(),
+        id: core.serialization.string(),
+        started: core.serialization.string(),
         stopped: core.serialization.string().optional(),
-        handledEvents: core.serialization.number().optional(),
-        handledAssets: core.serialization.number().optional(),
-        status: core.serialization.lazy(async () => (await import("..")).JobStatus).optional(),
+        handledEvents: core.serialization.number(),
+        handledAssets: core.serialization.number(),
+        status: core.serialization.lazy(async () => (await import("..")).JobStatus),
     });
 
 export declare namespace BackupJobDto {
     interface Raw {
-        id?: string | null;
-        started?: string | null;
+        id: string;
+        started: string;
         stopped?: string | null;
-        handledEvents?: number | null;
-        handledAssets?: number | null;
-        status?: serializers.JobStatus.Raw | null;
+        handledEvents: number;
+        handledAssets: number;
+        status: serializers.JobStatus.Raw;
     }
 }

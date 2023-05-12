@@ -10,11 +10,11 @@ export const ScriptRuleActionDto: core.serialization.ObjectSchema<
     serializers.ScriptRuleActionDto.Raw,
     Squidex.ScriptRuleActionDto
 > = core.serialization.object({
-    script: core.serialization.string().optional(),
+    script: core.serialization.string(),
 });
 
 export declare namespace ScriptRuleActionDto {
     interface Raw {
-        script?: string | null;
+        script: string;
     }
 }

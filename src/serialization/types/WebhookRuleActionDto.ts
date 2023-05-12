@@ -10,21 +10,21 @@ export const WebhookRuleActionDto: core.serialization.ObjectSchema<
     serializers.WebhookRuleActionDto.Raw,
     Squidex.WebhookRuleActionDto
 > = core.serialization.object({
-    url: core.serialization.string().optional(),
-    method: core.serialization.lazy(async () => (await import("..")).WebhookMethod).optional(),
-    payload: core.serialization.string().optional(),
-    payloadType: core.serialization.string().optional(),
-    headers: core.serialization.string().optional(),
-    sharedSecret: core.serialization.string().optional(),
+    url: core.serialization.string(),
+    method: core.serialization.lazy(async () => (await import("..")).WebhookMethod),
+    payload: core.serialization.string(),
+    payloadType: core.serialization.string(),
+    headers: core.serialization.string(),
+    sharedSecret: core.serialization.string(),
 });
 
 export declare namespace WebhookRuleActionDto {
     interface Raw {
-        url?: string | null;
-        method?: serializers.WebhookMethod.Raw | null;
-        payload?: string | null;
-        payloadType?: string | null;
-        headers?: string | null;
-        sharedSecret?: string | null;
+        url: string;
+        method: serializers.WebhookMethod.Raw;
+        payload: string;
+        payloadType: string;
+        headers: string;
+        sharedSecret: string;
     }
 }

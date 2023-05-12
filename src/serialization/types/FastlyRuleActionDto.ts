@@ -10,13 +10,13 @@ export const FastlyRuleActionDto: core.serialization.ObjectSchema<
     serializers.FastlyRuleActionDto.Raw,
     Squidex.FastlyRuleActionDto
 > = core.serialization.object({
-    apiKey: core.serialization.string().optional(),
-    serviceId: core.serialization.string().optional(),
+    apiKey: core.serialization.string(),
+    serviceId: core.serialization.string(),
 });
 
 export declare namespace FastlyRuleActionDto {
     interface Raw {
-        apiKey?: string | null;
-        serviceId?: string | null;
+        apiKey: string;
+        serviceId: string;
     }
 }

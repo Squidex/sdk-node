@@ -8,21 +8,21 @@ import * as core from "../../core";
 
 export const NestedFieldDto: core.serialization.ObjectSchema<serializers.NestedFieldDto.Raw, Squidex.NestedFieldDto> =
     core.serialization.object({
-        fieldId: core.serialization.number().optional(),
-        name: core.serialization.string().optional(),
-        isHidden: core.serialization.boolean().optional(),
-        isLocked: core.serialization.boolean().optional(),
-        isDisabled: core.serialization.boolean().optional(),
-        properties: core.serialization.lazy(async () => (await import("..")).FieldPropertiesDto).optional(),
+        fieldId: core.serialization.number(),
+        name: core.serialization.string(),
+        isHidden: core.serialization.boolean(),
+        isLocked: core.serialization.boolean(),
+        isDisabled: core.serialization.boolean(),
+        properties: core.serialization.lazy(async () => (await import("..")).FieldPropertiesDto),
     });
 
 export declare namespace NestedFieldDto {
     interface Raw {
-        fieldId?: number | null;
-        name?: string | null;
-        isHidden?: boolean | null;
-        isLocked?: boolean | null;
-        isDisabled?: boolean | null;
-        properties?: serializers.FieldPropertiesDto.Raw | null;
+        fieldId: number;
+        name: string;
+        isHidden: boolean;
+        isLocked: boolean;
+        isDisabled: boolean;
+        properties: serializers.FieldPropertiesDto.Raw;
     }
 }

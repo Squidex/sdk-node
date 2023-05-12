@@ -8,59 +8,59 @@ import * as core from "../../core";
 
 export const AssetDto: core.serialization.ObjectSchema<serializers.AssetDto.Raw, Squidex.AssetDto> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        parentId: core.serialization.string().optional(),
-        fileName: core.serialization.string().optional(),
+        id: core.serialization.string(),
+        parentId: core.serialization.string(),
+        fileName: core.serialization.string(),
         fileHash: core.serialization.string().optional(),
-        isProtected: core.serialization.boolean().optional(),
-        slug: core.serialization.string().optional(),
-        mimeType: core.serialization.string().optional(),
-        fileType: core.serialization.string().optional(),
-        metadataText: core.serialization.string().optional(),
+        isProtected: core.serialization.boolean(),
+        slug: core.serialization.string(),
+        mimeType: core.serialization.string(),
+        fileType: core.serialization.string(),
+        metadataText: core.serialization.string(),
         editToken: core.serialization.string().optional(),
-        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
         tags: core.serialization.list(core.serialization.string()).optional(),
-        fileSize: core.serialization.number().optional(),
-        fileVersion: core.serialization.number().optional(),
-        type: core.serialization.lazy(async () => (await import("..")).AssetType).optional(),
-        createdBy: core.serialization.string().optional(),
-        lastModifiedBy: core.serialization.string().optional(),
-        created: core.serialization.string().optional(),
-        lastModified: core.serialization.string().optional(),
-        version: core.serialization.number().optional(),
+        fileSize: core.serialization.number(),
+        fileVersion: core.serialization.number(),
+        type: core.serialization.lazy(async () => (await import("..")).AssetType),
+        createdBy: core.serialization.string(),
+        lastModifiedBy: core.serialization.string(),
+        created: core.serialization.string(),
+        lastModified: core.serialization.string(),
+        version: core.serialization.number(),
         meta: core.serialization.property(
             "_meta",
             core.serialization.lazyObject(async () => (await import("..")).AssetMeta).optional()
         ),
-        isImage: core.serialization.boolean().optional(),
+        isImage: core.serialization.boolean(),
         pixelWidth: core.serialization.number().optional(),
         pixelHeight: core.serialization.number().optional(),
     });
 
 export declare namespace AssetDto {
     interface Raw {
-        id?: string | null;
-        parentId?: string | null;
-        fileName?: string | null;
+        id: string;
+        parentId: string;
+        fileName: string;
         fileHash?: string | null;
-        isProtected?: boolean | null;
-        slug?: string | null;
-        mimeType?: string | null;
-        fileType?: string | null;
-        metadataText?: string | null;
+        isProtected: boolean;
+        slug: string;
+        mimeType: string;
+        fileType: string;
+        metadataText: string;
         editToken?: string | null;
-        metadata?: Record<string, unknown> | null;
+        metadata: Record<string, unknown>;
         tags?: string[] | null;
-        fileSize?: number | null;
-        fileVersion?: number | null;
-        type?: serializers.AssetType.Raw | null;
-        createdBy?: string | null;
-        lastModifiedBy?: string | null;
-        created?: string | null;
-        lastModified?: string | null;
-        version?: number | null;
+        fileSize: number;
+        fileVersion: number;
+        type: serializers.AssetType.Raw;
+        createdBy: string;
+        lastModifiedBy: string;
+        created: string;
+        lastModified: string;
+        version: number;
         _meta?: serializers.AssetMeta.Raw | null;
-        isImage?: boolean | null;
+        isImage: boolean;
         pixelWidth?: number | null;
         pixelHeight?: number | null;
     }

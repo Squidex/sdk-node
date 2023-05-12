@@ -10,19 +10,15 @@ export const AssetFoldersDto: core.serialization.ObjectSchema<
     serializers.AssetFoldersDto.Raw,
     Squidex.AssetFoldersDto
 > = core.serialization.object({
-    total: core.serialization.number().optional(),
-    items: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).AssetFolderDto))
-        .optional(),
-    path: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).AssetFolderDto))
-        .optional(),
+    total: core.serialization.number(),
+    items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).AssetFolderDto)),
+    path: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).AssetFolderDto)),
 });
 
 export declare namespace AssetFoldersDto {
     interface Raw {
-        total?: number | null;
-        items?: serializers.AssetFolderDto.Raw[] | null;
-        path?: serializers.AssetFolderDto.Raw[] | null;
+        total: number;
+        items: serializers.AssetFolderDto.Raw[];
+        path: serializers.AssetFolderDto.Raw[];
     }
 }

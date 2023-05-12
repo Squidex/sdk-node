@@ -10,11 +10,11 @@ export const TemplateDetailsDto: core.serialization.ObjectSchema<
     serializers.TemplateDetailsDto.Raw,
     Squidex.TemplateDetailsDto
 > = core.serialization.object({
-    details: core.serialization.string().optional(),
+    details: core.serialization.string(),
 });
 
 export declare namespace TemplateDetailsDto {
     interface Raw {
-        details?: string | null;
+        details: string;
     }
 }

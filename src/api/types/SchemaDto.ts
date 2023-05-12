@@ -6,36 +6,36 @@ import * as Squidex from "..";
 
 export interface SchemaDto {
     /** The ID of the schema. */
-    id?: string;
+    id: string;
     /** The user that has created the schema. */
-    createdBy?: string;
+    createdBy: string;
     /** The user that has updated the schema. */
-    lastModifiedBy?: string;
+    lastModifiedBy: string;
     /** The name of the schema. Unique within the app. */
-    name?: string;
-    type?: Squidex.SchemaType;
+    name: string;
+    type: Squidex.SchemaType;
     /** The name of the category. */
     category?: string;
-    properties?: Squidex.SchemaPropertiesDto;
+    properties: Squidex.SchemaPropertiesDto;
     /** Indicates if the schema is a singleton. */
-    isSingleton?: boolean;
+    isSingleton: boolean;
     /** Indicates if the schema is published. */
-    isPublished?: boolean;
+    isPublished: boolean;
     /** The date and time when the schema has been created. */
-    created?: string;
+    created: string;
     /** The date and time when the schema has been modified last. */
-    lastModified?: string;
+    lastModified: string;
     /** The version of the schema. */
-    version?: number;
-    scripts?: Squidex.SchemaScriptsDto;
+    version: number;
+    scripts: Squidex.SchemaScriptsDto;
     /** The preview Urls. */
-    previewUrls?: Record<string, string | undefined>;
+    previewUrls: Record<string, string>;
     /** The name of fields that are used in content lists. */
-    fieldsInLists?: string[];
+    fieldsInLists: string[];
     /** The name of fields that are used in content references. */
-    fieldsInReferences?: string[];
+    fieldsInReferences: string[];
     /** The field rules. */
-    fieldRules?: Squidex.FieldRuleDto[];
+    fieldRules: Squidex.FieldRuleDto[];
     /** The list of fields. */
-    fields?: Squidex.FieldDto[];
+    fields: Squidex.FieldDto[];
 }

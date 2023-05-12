@@ -6,8 +6,8 @@ import * as Squidex from "..";
 
 export interface ContributorsDto {
     /** The contributors. */
-    items?: Squidex.ContributorDto[];
+    items: Squidex.ContributorDto[];
     /** The maximum number of allowed contributors. */
-    maxContributors?: number;
+    maxContributors: number;
     meta?: Squidex.ContributorsMetadata;
 }

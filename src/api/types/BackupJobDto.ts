@@ -6,14 +6,14 @@ import * as Squidex from "..";
 
 export interface BackupJobDto {
     /** The ID of the backup job. */
-    id?: string;
+    id: string;
     /** The time when the job has been started. */
-    started?: string;
+    started: string;
     /** The time when the job has been stopped. */
     stopped?: string;
     /** The number of handled events. */
-    handledEvents?: number;
+    handledEvents: number;
     /** The number of handled assets. */
-    handledAssets?: number;
-    status?: Squidex.JobStatus;
+    handledAssets: number;
+    status: Squidex.JobStatus;
 }

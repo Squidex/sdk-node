@@ -10,13 +10,13 @@ export const PrerenderRuleActionDto: core.serialization.ObjectSchema<
     serializers.PrerenderRuleActionDto.Raw,
     Squidex.PrerenderRuleActionDto
 > = core.serialization.object({
-    token: core.serialization.string().optional(),
-    url: core.serialization.string().optional(),
+    token: core.serialization.string(),
+    url: core.serialization.string(),
 });
 
 export declare namespace PrerenderRuleActionDto {
     interface Raw {
-        token?: string | null;
-        url?: string | null;
+        token: string;
+        url: string;
     }
 }

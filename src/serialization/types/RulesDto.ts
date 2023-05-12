@@ -8,15 +8,13 @@ import * as core from "../../core";
 
 export const RulesDto: core.serialization.ObjectSchema<serializers.RulesDto.Raw, Squidex.RulesDto> =
     core.serialization.object({
-        items: core.serialization
-            .list(core.serialization.lazyObject(async () => (await import("..")).RuleDto))
-            .optional(),
+        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).RuleDto)),
         runningRuleId: core.serialization.string().optional(),
     });
 
 export declare namespace RulesDto {
     interface Raw {
-        items?: serializers.RuleDto.Raw[] | null;
+        items: serializers.RuleDto.Raw[];
         runningRuleId?: string | null;
     }
 }

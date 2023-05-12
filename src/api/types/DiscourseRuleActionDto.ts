@@ -4,15 +4,15 @@
 
 export interface DiscourseRuleActionDto {
     /** The url to the discourse server. */
-    url?: string;
+    url: string;
     /** The api key to authenticate to your discourse server. */
-    apiKey?: string;
+    apiKey: string;
     /** The api username to authenticate to your discourse server. */
-    apiUsername?: string;
+    apiUsername: string;
     /** The text as markdown. */
-    text?: string;
+    text: string;
     /** The optional title when creating new topics. */
-    title?: string;
+    title: string;
     /** The optional topic id. */
     topic?: number;
     /** The optional category id. */

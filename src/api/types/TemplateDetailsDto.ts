@@ -4,5 +4,5 @@
 
 export interface TemplateDetailsDto {
     /** The details of the template. */
-    details?: string;
+    details: string;
 }

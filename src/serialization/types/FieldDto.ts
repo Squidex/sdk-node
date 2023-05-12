@@ -8,13 +8,13 @@ import * as core from "../../core";
 
 export const FieldDto: core.serialization.ObjectSchema<serializers.FieldDto.Raw, Squidex.FieldDto> =
     core.serialization.object({
-        fieldId: core.serialization.number().optional(),
-        name: core.serialization.string().optional(),
-        isHidden: core.serialization.boolean().optional(),
-        isLocked: core.serialization.boolean().optional(),
-        isDisabled: core.serialization.boolean().optional(),
-        partitioning: core.serialization.string().optional(),
-        properties: core.serialization.lazy(async () => (await import("..")).FieldPropertiesDto).optional(),
+        fieldId: core.serialization.number(),
+        name: core.serialization.string(),
+        isHidden: core.serialization.boolean(),
+        isLocked: core.serialization.boolean(),
+        isDisabled: core.serialization.boolean(),
+        partitioning: core.serialization.string(),
+        properties: core.serialization.lazy(async () => (await import("..")).FieldPropertiesDto),
         nested: core.serialization
             .list(core.serialization.lazyObject(async () => (await import("..")).NestedFieldDto))
             .optional(),
@@ -22,13 +22,13 @@ export const FieldDto: core.serialization.ObjectSchema<serializers.FieldDto.Raw,
 
 export declare namespace FieldDto {
     interface Raw {
-        fieldId?: number | null;
-        name?: string | null;
-        isHidden?: boolean | null;
-        isLocked?: boolean | null;
-        isDisabled?: boolean | null;
-        partitioning?: string | null;
-        properties?: serializers.FieldPropertiesDto.Raw | null;
+        fieldId: number;
+        name: string;
+        isHidden: boolean;
+        isLocked: boolean;
+        isDisabled: boolean;
+        partitioning: string;
+        properties: serializers.FieldPropertiesDto.Raw;
         nested?: serializers.NestedFieldDto.Raw[] | null;
     }
 }

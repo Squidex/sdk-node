@@ -4,11 +4,11 @@
 
 export interface TemplateDto {
     /** The name of the template. */
-    name?: string;
+    name: string;
     /** The title of the template. */
-    title?: string;
+    title: string;
     /** The description of the template. */
-    description?: string;
+    description: string;
     /** True, if the template is a starter. */
-    isStarter?: boolean;
+    isStarter: boolean;
 }

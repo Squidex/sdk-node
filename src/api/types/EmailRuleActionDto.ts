@@ -4,19 +4,19 @@
 
 export interface EmailRuleActionDto {
     /** The IP address or host to the SMTP server. */
-    serverHost?: string;
+    serverHost: string;
     /** The port to the SMTP server. */
-    serverPort?: number;
+    serverPort: number;
     /** The username for the SMTP server. */
-    serverUsername?: string;
+    serverUsername: string;
     /** The password for the SMTP server. */
-    serverPassword?: string;
+    serverPassword: string;
     /** The email sending address. */
-    messageFrom?: string;
+    messageFrom: string;
     /** The email message will be sent to. */
-    messageTo?: string;
+    messageTo: string;
     /** The subject line for this email message. */
-    messageSubject?: string;
+    messageSubject: string;
     /** The message body. */
-    messageBody?: string;
+    messageBody: string;
 }

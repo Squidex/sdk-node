@@ -10,11 +10,11 @@ export const UiFieldPropertiesDto: core.serialization.ObjectSchema<
     serializers.UiFieldPropertiesDto.Raw,
     Squidex.UiFieldPropertiesDto
 > = core.serialization.object({
-    editor: core.serialization.lazy(async () => (await import("..")).UiFieldEditor).optional(),
+    editor: core.serialization.lazy(async () => (await import("..")).UiFieldEditor),
 });
 
 export declare namespace UiFieldPropertiesDto {
     interface Raw {
-        editor?: serializers.UiFieldEditor.Raw | null;
+        editor: serializers.UiFieldEditor.Raw;
     }
 }

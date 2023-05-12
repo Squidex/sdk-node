@@ -8,35 +8,35 @@ import * as core from "../../core";
 
 export const RuleDto: core.serialization.ObjectSchema<serializers.RuleDto.Raw, Squidex.RuleDto> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        createdBy: core.serialization.string().optional(),
-        lastModifiedBy: core.serialization.string().optional(),
-        created: core.serialization.string().optional(),
-        lastModified: core.serialization.string().optional(),
-        version: core.serialization.number().optional(),
-        isEnabled: core.serialization.boolean().optional(),
+        id: core.serialization.string(),
+        createdBy: core.serialization.string(),
+        lastModifiedBy: core.serialization.string(),
+        created: core.serialization.string(),
+        lastModified: core.serialization.string(),
+        version: core.serialization.number(),
+        isEnabled: core.serialization.boolean(),
         name: core.serialization.string().optional(),
-        trigger: core.serialization.lazy(async () => (await import("..")).RuleTriggerDto).optional(),
-        action: core.serialization.lazy(async () => (await import("..")).RuleActionDto).optional(),
-        numSucceeded: core.serialization.number().optional(),
-        numFailed: core.serialization.number().optional(),
+        trigger: core.serialization.lazy(async () => (await import("..")).RuleTriggerDto),
+        action: core.serialization.lazy(async () => (await import("..")).RuleActionDto),
+        numSucceeded: core.serialization.number(),
+        numFailed: core.serialization.number(),
         lastExecuted: core.serialization.string().optional(),
     });
 
 export declare namespace RuleDto {
     interface Raw {
-        id?: string | null;
-        createdBy?: string | null;
-        lastModifiedBy?: string | null;
-        created?: string | null;
-        lastModified?: string | null;
-        version?: number | null;
-        isEnabled?: boolean | null;
+        id: string;
+        createdBy: string;
+        lastModifiedBy: string;
+        created: string;
+        lastModified: string;
+        version: number;
+        isEnabled: boolean;
         name?: string | null;
-        trigger?: serializers.RuleTriggerDto.Raw | null;
-        action?: serializers.RuleActionDto.Raw | null;
-        numSucceeded?: number | null;
-        numFailed?: number | null;
+        trigger: serializers.RuleTriggerDto.Raw;
+        action: serializers.RuleActionDto.Raw;
+        numSucceeded: number;
+        numFailed: number;
         lastExecuted?: string | null;
     }
 }

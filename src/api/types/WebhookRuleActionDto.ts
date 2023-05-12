@@ -6,14 +6,14 @@ import * as Squidex from "..";
 
 export interface WebhookRuleActionDto {
     /** The url to the webhook. */
-    url?: string;
-    method?: Squidex.WebhookMethod;
+    url: string;
+    method: Squidex.WebhookMethod;
     /** Leave it empty to use the full event as body. */
-    payload?: string;
+    payload: string;
     /** The mime type of the payload. */
-    payloadType?: string;
+    payloadType: string;
     /** The message headers in the format '[Key]=[Value]', one entry per line. */
-    headers?: string;
+    headers: string;
     /** The shared secret that is used to calculate the payload signature. */
-    sharedSecret?: string;
+    sharedSecret: string;
 }

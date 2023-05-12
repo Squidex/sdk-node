@@ -4,9 +4,9 @@
 
 export interface TweetRuleActionDto {
     /**  The generated access token. */
-    accessToken?: string;
+    accessToken: string;
     /**  The generated access secret. */
-    accessSecret?: string;
+    accessSecret: string;
     /** The text that is sent as tweet to twitter. */
-    text?: string;
+    text: string;
 }

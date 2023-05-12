@@ -6,5 +6,5 @@ import * as Squidex from "..";
 
 export interface AppLanguagesDto {
     /** The languages. */
-    items?: Squidex.AppLanguageDto[];
+    items: Squidex.AppLanguageDto[];
 }

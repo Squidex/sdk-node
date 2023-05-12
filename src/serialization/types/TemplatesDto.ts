@@ -8,13 +8,11 @@ import * as core from "../../core";
 
 export const TemplatesDto: core.serialization.ObjectSchema<serializers.TemplatesDto.Raw, Squidex.TemplatesDto> =
     core.serialization.object({
-        items: core.serialization
-            .list(core.serialization.lazyObject(async () => (await import("..")).TemplateDto))
-            .optional(),
+        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).TemplateDto)),
     });
 
 export declare namespace TemplatesDto {
     interface Raw {
-        items?: serializers.TemplateDto.Raw[] | null;
+        items: serializers.TemplateDto.Raw[];
     }
 }

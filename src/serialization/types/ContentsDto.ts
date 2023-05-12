@@ -8,19 +8,17 @@ import * as core from "../../core";
 
 export const ContentsDto: core.serialization.ObjectSchema<serializers.ContentsDto.Raw, Squidex.ContentsDto> =
     core.serialization.object({
-        total: core.serialization.number().optional(),
-        items: core.serialization
-            .list(core.serialization.lazyObject(async () => (await import("..")).ContentDto))
-            .optional(),
-        statuses: core.serialization
-            .list(core.serialization.lazyObject(async () => (await import("..")).StatusInfoDto))
-            .optional(),
+        total: core.serialization.number(),
+        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).ContentDto)),
+        statuses: core.serialization.list(
+            core.serialization.lazyObject(async () => (await import("..")).StatusInfoDto)
+        ),
     });
 
 export declare namespace ContentsDto {
     interface Raw {
-        total?: number | null;
-        items?: serializers.ContentDto.Raw[] | null;
-        statuses?: serializers.StatusInfoDto.Raw[] | null;
+        total: number;
+        items: serializers.ContentDto.Raw[];
+        statuses: serializers.StatusInfoDto.Raw[];
     }
 }

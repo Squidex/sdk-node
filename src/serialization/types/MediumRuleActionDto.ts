@@ -10,23 +10,23 @@ export const MediumRuleActionDto: core.serialization.ObjectSchema<
     serializers.MediumRuleActionDto.Raw,
     Squidex.MediumRuleActionDto
 > = core.serialization.object({
-    accessToken: core.serialization.string().optional(),
-    title: core.serialization.string().optional(),
-    content: core.serialization.string().optional(),
-    canonicalUrl: core.serialization.string().optional(),
-    tags: core.serialization.string().optional(),
-    publicationId: core.serialization.string().optional(),
-    isHtml: core.serialization.boolean().optional(),
+    accessToken: core.serialization.string(),
+    title: core.serialization.string(),
+    content: core.serialization.string(),
+    canonicalUrl: core.serialization.string(),
+    tags: core.serialization.string(),
+    publicationId: core.serialization.string(),
+    isHtml: core.serialization.boolean(),
 });
 
 export declare namespace MediumRuleActionDto {
     interface Raw {
-        accessToken?: string | null;
-        title?: string | null;
-        content?: string | null;
-        canonicalUrl?: string | null;
-        tags?: string | null;
-        publicationId?: string | null;
-        isHtml?: boolean | null;
+        accessToken: string;
+        title: string;
+        content: string;
+        canonicalUrl: string;
+        tags: string;
+        publicationId: string;
+        isHtml: boolean;
     }
 }

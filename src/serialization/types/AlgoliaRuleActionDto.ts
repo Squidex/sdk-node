@@ -10,19 +10,19 @@ export const AlgoliaRuleActionDto: core.serialization.ObjectSchema<
     serializers.AlgoliaRuleActionDto.Raw,
     Squidex.AlgoliaRuleActionDto
 > = core.serialization.object({
-    appId: core.serialization.string().optional(),
-    apiKey: core.serialization.string().optional(),
-    indexName: core.serialization.string().optional(),
-    document: core.serialization.string().optional(),
-    delete: core.serialization.string().optional(),
+    appId: core.serialization.string(),
+    apiKey: core.serialization.string(),
+    indexName: core.serialization.string(),
+    document: core.serialization.string(),
+    delete: core.serialization.string(),
 });
 
 export declare namespace AlgoliaRuleActionDto {
     interface Raw {
-        appId?: string | null;
-        apiKey?: string | null;
-        indexName?: string | null;
-        document?: string | null;
-        delete?: string | null;
+        appId: string;
+        apiKey: string;
+        indexName: string;
+        document: string;
+        delete: string;
     }
 }

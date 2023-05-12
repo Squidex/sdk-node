@@ -6,7 +6,7 @@ import * as Squidex from "..";
 
 export interface RulesDto {
     /** The rules. */
-    items?: Squidex.RuleDto[];
+    items: Squidex.RuleDto[];
     /** The ID of the rule that is currently rerunning. */
     runningRuleId?: string;
 }

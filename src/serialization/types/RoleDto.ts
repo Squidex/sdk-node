@@ -8,21 +8,21 @@ import * as core from "../../core";
 
 export const RoleDto: core.serialization.ObjectSchema<serializers.RoleDto.Raw, Squidex.RoleDto> =
     core.serialization.object({
-        name: core.serialization.string().optional(),
-        numClients: core.serialization.number().optional(),
-        numContributors: core.serialization.number().optional(),
-        isDefaultRole: core.serialization.boolean().optional(),
-        permissions: core.serialization.list(core.serialization.string()).optional(),
-        properties: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        name: core.serialization.string(),
+        numClients: core.serialization.number(),
+        numContributors: core.serialization.number(),
+        isDefaultRole: core.serialization.boolean(),
+        permissions: core.serialization.list(core.serialization.string()),
+        properties: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
     });
 
 export declare namespace RoleDto {
     interface Raw {
-        name?: string | null;
-        numClients?: number | null;
-        numContributors?: number | null;
-        isDefaultRole?: boolean | null;
-        permissions?: string[] | null;
-        properties?: Record<string, unknown> | null;
+        name: string;
+        numClients: number;
+        numContributors: number;
+        isDefaultRole: boolean;
+        permissions: string[];
+        properties: Record<string, unknown>;
     }
 }

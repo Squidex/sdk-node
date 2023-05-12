@@ -6,7 +6,7 @@ import * as Squidex from "..";
 
 export interface AssetsDto {
     /** The total number of assets. */
-    total?: number;
+    total: number;
     /** The assets. */
-    items?: Squidex.AssetDto[];
+    items: Squidex.AssetDto[];
 }

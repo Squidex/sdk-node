@@ -6,5 +6,5 @@ import * as Squidex from "..";
 
 export interface RolesDto {
     /** The roles. */
-    items?: Squidex.RoleDto[];
+    items: Squidex.RoleDto[];
 }

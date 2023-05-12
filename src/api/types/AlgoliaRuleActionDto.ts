@@ -4,13 +4,13 @@
 
 export interface AlgoliaRuleActionDto {
     /** The application ID. */
-    appId?: string;
+    appId: string;
     /** The API key to grant access to Squidex. */
-    apiKey?: string;
+    apiKey: string;
     /** The name of the index. */
-    indexName?: string;
+    indexName: string;
     /** The optional custom document. */
-    document?: string;
+    document: string;
     /** The condition when to delete the entry. */
-    delete?: string;
+    delete: string;
 }

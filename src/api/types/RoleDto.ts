@@ -4,15 +4,15 @@
 
 export interface RoleDto {
     /** The role name. */
-    name?: string;
+    name: string;
     /** The number of clients with this role. */
-    numClients?: number;
+    numClients: number;
     /** The number of contributors with this role. */
-    numContributors?: number;
+    numContributors: number;
     /** Indicates if the role is an builtin default role. */
-    isDefaultRole?: boolean;
+    isDefaultRole: boolean;
     /** Associated list of permissions. */
-    permissions?: string[];
+    permissions: string[];
     /** Associated list of UI properties. */
-    properties?: Record<string, unknown>;
+    properties: Record<string, unknown>;
 }

@@ -10,13 +10,13 @@ export const CommentRuleActionDto: core.serialization.ObjectSchema<
     serializers.CommentRuleActionDto.Raw,
     Squidex.CommentRuleActionDto
 > = core.serialization.object({
-    text: core.serialization.string().optional(),
-    client: core.serialization.string().optional(),
+    text: core.serialization.string(),
+    client: core.serialization.string(),
 });
 
 export declare namespace CommentRuleActionDto {
     interface Raw {
-        text?: string | null;
-        client?: string | null;
+        text: string;
+        client: string;
     }
 }

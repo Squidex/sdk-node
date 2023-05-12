@@ -10,5 +10,5 @@ export interface ContentChangedRuleTriggerDto {
     /** The schema references. */
     referencedSchemas?: Squidex.SchemaCondition[];
     /** Determines whether the trigger should handle all content changes events. */
-    handleAll?: boolean;
+    handleAll: boolean;
 }

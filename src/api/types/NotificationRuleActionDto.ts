@@ -4,11 +4,11 @@
 
 export interface NotificationRuleActionDto {
     /** The user id or email. */
-    user?: string;
+    user: string;
     /** The text to send. */
-    text?: string;
+    text: string;
     /** The optional url to attach to the notification. */
-    url?: string;
+    url: string;
     /** An optional client name. */
-    client?: string;
+    client: string;
 }

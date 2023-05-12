@@ -18,5 +18,5 @@ export interface AssetScriptsDto {
     /** The script that is executed when deleting a content. */
     delete?: string;
     /** The version of the app. */
-    version?: number;
+    version: number;
 }

@@ -4,7 +4,7 @@
 
 export interface SlackRuleActionDto {
     /** The slack webhook url. */
-    webhookUrl?: string;
+    webhookUrl: string;
     /** The text that is sent as message to slack. */
-    text?: string;
+    text: string;
 }

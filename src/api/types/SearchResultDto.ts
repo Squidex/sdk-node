@@ -6,8 +6,8 @@ import * as Squidex from "..";
 
 export interface SearchResultDto {
     /** The name of the search result. */
-    name?: string;
-    type?: Squidex.SearchResultType;
+    name: string;
+    type: Squidex.SearchResultType;
     /** An optional label. */
     label?: string;
 }

@@ -8,49 +8,49 @@ import * as core from "../../core";
 
 export const ContentDto: core.serialization.ObjectSchema<serializers.ContentDto.Raw, Squidex.ContentDto> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        createdBy: core.serialization.string().optional(),
-        lastModifiedBy: core.serialization.string().optional(),
+        id: core.serialization.string(),
+        createdBy: core.serialization.string(),
+        lastModifiedBy: core.serialization.string(),
         data: core.serialization.unknown(),
         referenceData: core.serialization.lazy(async () => (await import("..")).ContentData).optional(),
-        created: core.serialization.string().optional(),
-        lastModified: core.serialization.string().optional(),
-        status: core.serialization.string().optional(),
+        created: core.serialization.string(),
+        lastModified: core.serialization.string(),
+        status: core.serialization.string(),
         newStatus: core.serialization.string().optional(),
-        statusColor: core.serialization.string().optional(),
+        statusColor: core.serialization.string(),
         newStatusColor: core.serialization.string().optional(),
         editToken: core.serialization.string().optional(),
         scheduleJob: core.serialization.lazyObject(async () => (await import("..")).ScheduleJobDto).optional(),
-        schemaId: core.serialization.string().optional(),
+        schemaId: core.serialization.string(),
         schemaName: core.serialization.string().optional(),
         schemaDisplayName: core.serialization.string().optional(),
         referenceFields: core.serialization
             .list(core.serialization.lazyObject(async () => (await import("..")).FieldDto))
             .optional(),
-        isDeleted: core.serialization.boolean().optional(),
-        version: core.serialization.number().optional(),
+        isDeleted: core.serialization.boolean(),
+        version: core.serialization.number(),
     });
 
 export declare namespace ContentDto {
     interface Raw {
-        id?: string | null;
-        createdBy?: string | null;
-        lastModifiedBy?: string | null;
+        id: string;
+        createdBy: string;
+        lastModifiedBy: string;
         data?: unknown;
         referenceData?: serializers.ContentData.Raw | null;
-        created?: string | null;
-        lastModified?: string | null;
-        status?: string | null;
+        created: string;
+        lastModified: string;
+        status: string;
         newStatus?: string | null;
-        statusColor?: string | null;
+        statusColor: string;
         newStatusColor?: string | null;
         editToken?: string | null;
         scheduleJob?: serializers.ScheduleJobDto.Raw | null;
-        schemaId?: string | null;
+        schemaId: string;
         schemaName?: string | null;
         schemaDisplayName?: string | null;
         referenceFields?: serializers.FieldDto.Raw[] | null;
-        isDeleted?: boolean | null;
-        version?: number | null;
+        isDeleted: boolean;
+        version: number;
     }
 }

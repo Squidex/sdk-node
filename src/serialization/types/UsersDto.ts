@@ -8,15 +8,13 @@ import * as core from "../../core";
 
 export const UsersDto: core.serialization.ObjectSchema<serializers.UsersDto.Raw, Squidex.UsersDto> =
     core.serialization.object({
-        total: core.serialization.number().optional(),
-        items: core.serialization
-            .list(core.serialization.lazyObject(async () => (await import("..")).UserDto))
-            .optional(),
+        total: core.serialization.number(),
+        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).UserDto)),
     });
 
 export declare namespace UsersDto {
     interface Raw {
-        total?: number | null;
-        items?: serializers.UserDto.Raw[] | null;
+        total: number;
+        items: serializers.UserDto.Raw[];
     }
 }

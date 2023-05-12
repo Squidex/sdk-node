@@ -4,5 +4,5 @@
 
 export interface ScriptRuleActionDto {
     /** The script to render. */
-    script?: string;
+    script: string;
 }

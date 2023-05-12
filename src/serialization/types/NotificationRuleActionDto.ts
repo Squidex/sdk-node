@@ -10,17 +10,17 @@ export const NotificationRuleActionDto: core.serialization.ObjectSchema<
     serializers.NotificationRuleActionDto.Raw,
     Squidex.NotificationRuleActionDto
 > = core.serialization.object({
-    user: core.serialization.string().optional(),
-    text: core.serialization.string().optional(),
-    url: core.serialization.string().optional(),
-    client: core.serialization.string().optional(),
+    user: core.serialization.string(),
+    text: core.serialization.string(),
+    url: core.serialization.string(),
+    client: core.serialization.string(),
 });
 
 export declare namespace NotificationRuleActionDto {
     interface Raw {
-        user?: string | null;
-        text?: string | null;
-        url?: string | null;
-        client?: string | null;
+        user: string;
+        text: string;
+        url: string;
+        client: string;
     }
 }

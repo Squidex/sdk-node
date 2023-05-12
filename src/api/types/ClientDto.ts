@@ -4,17 +4,17 @@
 
 export interface ClientDto {
     /** The client id. */
-    id?: string;
+    id: string;
     /** The client secret. */
-    secret?: string;
+    secret: string;
     /** The client name. */
-    name?: string;
+    name: string;
     /** The role of the client. */
     role?: string;
     /** The number of allowed api calls per month for this client. */
-    apiCallsLimit?: number;
+    apiCallsLimit: number;
     /** The number of allowed api traffic bytes per month for this client. */
-    apiTrafficLimit?: number;
+    apiTrafficLimit: number;
     /** True to allow anonymous access without an access token for this client. */
-    allowAnonymous?: boolean;
+    allowAnonymous: boolean;
 }

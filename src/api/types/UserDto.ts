@@ -4,13 +4,13 @@
 
 export interface UserDto {
     /** The ID of the user. */
-    id?: string;
+    id: string;
     /** The email of the user. Unique value. */
-    email?: string;
+    email: string;
     /** The display name (usually first name and last name) of the user. */
-    displayName?: string;
+    displayName: string;
     /** Determines if the user is locked. */
-    isLocked?: boolean;
+    isLocked: boolean;
     /** Additional permissions for the user. */
-    permissions?: string[];
+    permissions: string[];
 }

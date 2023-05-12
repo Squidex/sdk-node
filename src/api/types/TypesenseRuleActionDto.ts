@@ -4,13 +4,13 @@
 
 export interface TypesenseRuleActionDto {
     /** The url to the instance or cluster. */
-    host?: string;
+    host: string;
     /** The name of the index. */
-    indexName?: string;
+    indexName: string;
     /** The api key. */
-    apiKey?: string;
+    apiKey: string;
     /** The optional custom document. */
-    document?: string;
+    document: string;
     /** The condition when to delete the document. */
-    delete?: string;
+    delete: string;
 }
