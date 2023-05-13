@@ -6,8 +6,8 @@ import * as serializers from "..";
 import * as Squidex from "../../api";
 import * as core from "../../core";
 
-export const AssetDto: core.serialization.ObjectSchema<serializers.AssetDto.Raw, Squidex.AssetDto> =
-    core.serialization.object({
+export const AssetDto: core.serialization.ObjectSchema<serializers.AssetDto.Raw, Squidex.AssetDto> = core.serialization
+    .object({
         id: core.serialization.string(),
         parentId: core.serialization.string(),
         fileName: core.serialization.string(),
@@ -35,10 +35,11 @@ export const AssetDto: core.serialization.ObjectSchema<serializers.AssetDto.Raw,
         isImage: core.serialization.boolean(),
         pixelWidth: core.serialization.number().optional(),
         pixelHeight: core.serialization.number().optional(),
-    });
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace AssetDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         id: string;
         parentId: string;
         fileName: string;

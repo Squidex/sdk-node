@@ -7,16 +7,18 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const AppLanguageDto: core.serialization.ObjectSchema<serializers.AppLanguageDto.Raw, Squidex.AppLanguageDto> =
-    core.serialization.object({
-        iso2Code: core.serialization.string(),
-        englishName: core.serialization.string(),
-        fallback: core.serialization.list(core.serialization.string()),
-        isMaster: core.serialization.boolean(),
-        isOptional: core.serialization.boolean(),
-    });
+    core.serialization
+        .object({
+            iso2Code: core.serialization.string(),
+            englishName: core.serialization.string(),
+            fallback: core.serialization.list(core.serialization.string()),
+            isMaster: core.serialization.boolean(),
+            isOptional: core.serialization.boolean(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace AppLanguageDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         iso2Code: string;
         englishName: string;
         fallback: string[];

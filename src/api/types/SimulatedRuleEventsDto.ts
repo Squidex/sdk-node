@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface SimulatedRuleEventsDto {
+export interface SimulatedRuleEventsDto extends Squidex.Resource {
     /** The total number of simulated rule events. */
     total: number;
     /** The simulated rule events. */

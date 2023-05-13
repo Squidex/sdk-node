@@ -7,20 +7,22 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const RuleEventDto: core.serialization.ObjectSchema<serializers.RuleEventDto.Raw, Squidex.RuleEventDto> =
-    core.serialization.object({
-        id: core.serialization.string(),
-        created: core.serialization.string(),
-        description: core.serialization.string(),
-        eventName: core.serialization.string(),
-        lastDump: core.serialization.string().optional(),
-        numCalls: core.serialization.number(),
-        nextAttempt: core.serialization.string().optional(),
-        result: core.serialization.lazy(async () => (await import("..")).RuleResult),
-        jobResult: core.serialization.lazy(async () => (await import("..")).RuleJobResult),
-    });
+    core.serialization
+        .object({
+            id: core.serialization.string(),
+            created: core.serialization.string(),
+            description: core.serialization.string(),
+            eventName: core.serialization.string(),
+            lastDump: core.serialization.string().optional(),
+            numCalls: core.serialization.number(),
+            nextAttempt: core.serialization.string().optional(),
+            result: core.serialization.lazy(async () => (await import("..")).RuleResult),
+            jobResult: core.serialization.lazy(async () => (await import("..")).RuleJobResult),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace RuleEventDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         id: string;
         created: string;
         description: string;

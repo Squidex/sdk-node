@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface AssetFoldersDto {
+export interface AssetFoldersDto extends Squidex.Resource {
     /** The total number of assets. */
     total: number;
     /** The assets folders. */

@@ -6,8 +6,8 @@ import * as serializers from "..";
 import * as Squidex from "../../api";
 import * as core from "../../core";
 
-export const FieldDto: core.serialization.ObjectSchema<serializers.FieldDto.Raw, Squidex.FieldDto> =
-    core.serialization.object({
+export const FieldDto: core.serialization.ObjectSchema<serializers.FieldDto.Raw, Squidex.FieldDto> = core.serialization
+    .object({
         fieldId: core.serialization.number(),
         name: core.serialization.string(),
         isHidden: core.serialization.boolean(),
@@ -18,10 +18,11 @@ export const FieldDto: core.serialization.ObjectSchema<serializers.FieldDto.Raw,
         nested: core.serialization
             .list(core.serialization.lazyObject(async () => (await import("..")).NestedFieldDto))
             .optional(),
-    });
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace FieldDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         fieldId: number;
         name: string;
         isHidden: boolean;

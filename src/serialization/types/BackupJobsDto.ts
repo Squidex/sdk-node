@@ -7,12 +7,16 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const BackupJobsDto: core.serialization.ObjectSchema<serializers.BackupJobsDto.Raw, Squidex.BackupJobsDto> =
-    core.serialization.object({
-        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).BackupJobDto)),
-    });
+    core.serialization
+        .object({
+            items: core.serialization.list(
+                core.serialization.lazyObject(async () => (await import("..")).BackupJobDto)
+            ),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace BackupJobsDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         items: serializers.BackupJobDto.Raw[];
     }
 }

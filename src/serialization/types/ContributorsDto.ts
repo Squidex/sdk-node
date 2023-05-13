@@ -9,17 +9,19 @@ import * as core from "../../core";
 export const ContributorsDto: core.serialization.ObjectSchema<
     serializers.ContributorsDto.Raw,
     Squidex.ContributorsDto
-> = core.serialization.object({
-    items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).ContributorDto)),
-    maxContributors: core.serialization.number(),
-    meta: core.serialization.property(
-        "_meta",
-        core.serialization.lazyObject(async () => (await import("..")).ContributorsMetadata).optional()
-    ),
-});
+> = core.serialization
+    .object({
+        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).ContributorDto)),
+        maxContributors: core.serialization.number(),
+        meta: core.serialization.property(
+            "_meta",
+            core.serialization.lazyObject(async () => (await import("..")).ContributorsMetadata).optional()
+        ),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace ContributorsDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         items: serializers.ContributorDto.Raw[];
         maxContributors: number;
         _meta?: serializers.ContributorsMetadata.Raw | null;

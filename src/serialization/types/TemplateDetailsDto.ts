@@ -9,12 +9,14 @@ import * as core from "../../core";
 export const TemplateDetailsDto: core.serialization.ObjectSchema<
     serializers.TemplateDetailsDto.Raw,
     Squidex.TemplateDetailsDto
-> = core.serialization.object({
-    details: core.serialization.string(),
-});
+> = core.serialization
+    .object({
+        details: core.serialization.string(),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace TemplateDetailsDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         details: string;
     }
 }

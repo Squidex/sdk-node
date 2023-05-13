@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface ContributorsDto {
+export interface ContributorsDto extends Squidex.Resource {
     /** The contributors. */
     items: Squidex.ContributorDto[];
     /** The maximum number of allowed contributors. */

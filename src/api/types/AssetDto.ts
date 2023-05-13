@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface AssetDto {
+export interface AssetDto extends Squidex.Resource {
     /** The ID of the asset. */
     id: string;
     /** The ID of the parent folder. Empty for files without parent. */

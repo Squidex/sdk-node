@@ -9,19 +9,21 @@ import * as core from "../../core";
 export const AssetScriptsDto: core.serialization.ObjectSchema<
     serializers.AssetScriptsDto.Raw,
     Squidex.AssetScriptsDto
-> = core.serialization.object({
-    query: core.serialization.string().optional(),
-    queryPre: core.serialization.string().optional(),
-    create: core.serialization.string().optional(),
-    update: core.serialization.string().optional(),
-    annotate: core.serialization.string().optional(),
-    move: core.serialization.string().optional(),
-    delete: core.serialization.string().optional(),
-    version: core.serialization.number(),
-});
+> = core.serialization
+    .object({
+        query: core.serialization.string().optional(),
+        queryPre: core.serialization.string().optional(),
+        create: core.serialization.string().optional(),
+        update: core.serialization.string().optional(),
+        annotate: core.serialization.string().optional(),
+        move: core.serialization.string().optional(),
+        delete: core.serialization.string().optional(),
+        version: core.serialization.number(),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace AssetScriptsDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         query?: string | null;
         queryPre?: string | null;
         create?: string | null;

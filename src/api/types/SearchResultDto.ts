@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface SearchResultDto {
+export interface SearchResultDto extends Squidex.Resource {
     /** The name of the search result. */
     name: string;
     type: Squidex.SearchResultType;

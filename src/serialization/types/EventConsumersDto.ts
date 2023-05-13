@@ -9,12 +9,16 @@ import * as core from "../../core";
 export const EventConsumersDto: core.serialization.ObjectSchema<
     serializers.EventConsumersDto.Raw,
     Squidex.EventConsumersDto
-> = core.serialization.object({
-    items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EventConsumerDto)),
-});
+> = core.serialization
+    .object({
+        items: core.serialization.list(
+            core.serialization.lazyObject(async () => (await import("..")).EventConsumerDto)
+        ),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace EventConsumersDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         items: serializers.EventConsumerDto.Raw[];
     }
 }

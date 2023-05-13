@@ -7,31 +7,33 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const SchemaDto: core.serialization.ObjectSchema<serializers.SchemaDto.Raw, Squidex.SchemaDto> =
-    core.serialization.object({
-        id: core.serialization.string(),
-        createdBy: core.serialization.string(),
-        lastModifiedBy: core.serialization.string(),
-        name: core.serialization.string(),
-        type: core.serialization.lazy(async () => (await import("..")).SchemaType),
-        category: core.serialization.string().optional(),
-        properties: core.serialization.lazyObject(async () => (await import("..")).SchemaPropertiesDto),
-        isSingleton: core.serialization.boolean(),
-        isPublished: core.serialization.boolean(),
-        created: core.serialization.string(),
-        lastModified: core.serialization.string(),
-        version: core.serialization.number(),
-        scripts: core.serialization.lazyObject(async () => (await import("..")).SchemaScriptsDto),
-        previewUrls: core.serialization.record(core.serialization.string(), core.serialization.string()),
-        fieldsInLists: core.serialization.list(core.serialization.string()),
-        fieldsInReferences: core.serialization.list(core.serialization.string()),
-        fieldRules: core.serialization.list(
-            core.serialization.lazyObject(async () => (await import("..")).FieldRuleDto)
-        ),
-        fields: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).FieldDto)),
-    });
+    core.serialization
+        .object({
+            id: core.serialization.string(),
+            createdBy: core.serialization.string(),
+            lastModifiedBy: core.serialization.string(),
+            name: core.serialization.string(),
+            type: core.serialization.lazy(async () => (await import("..")).SchemaType),
+            category: core.serialization.string().optional(),
+            properties: core.serialization.lazyObject(async () => (await import("..")).SchemaPropertiesDto),
+            isSingleton: core.serialization.boolean(),
+            isPublished: core.serialization.boolean(),
+            created: core.serialization.string(),
+            lastModified: core.serialization.string(),
+            version: core.serialization.number(),
+            scripts: core.serialization.lazyObject(async () => (await import("..")).SchemaScriptsDto),
+            previewUrls: core.serialization.record(core.serialization.string(), core.serialization.string()),
+            fieldsInLists: core.serialization.list(core.serialization.string()),
+            fieldsInReferences: core.serialization.list(core.serialization.string()),
+            fieldRules: core.serialization.list(
+                core.serialization.lazyObject(async () => (await import("..")).FieldRuleDto)
+            ),
+            fields: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).FieldDto)),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace SchemaDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         id: string;
         createdBy: string;
         lastModifiedBy: string;

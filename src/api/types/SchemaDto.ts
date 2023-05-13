@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface SchemaDto {
+export interface SchemaDto extends Squidex.Resource {
     /** The ID of the schema. */
     id: string;
     /** The user that has created the schema. */

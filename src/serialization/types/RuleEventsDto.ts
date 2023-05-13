@@ -7,13 +7,17 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const RuleEventsDto: core.serialization.ObjectSchema<serializers.RuleEventsDto.Raw, Squidex.RuleEventsDto> =
-    core.serialization.object({
-        total: core.serialization.number(),
-        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).RuleEventDto)),
-    });
+    core.serialization
+        .object({
+            total: core.serialization.number(),
+            items: core.serialization.list(
+                core.serialization.lazyObject(async () => (await import("..")).RuleEventDto)
+            ),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace RuleEventsDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         total: number;
         items: serializers.RuleEventDto.Raw[];
     }

@@ -7,15 +7,17 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const AssetFolderDto: core.serialization.ObjectSchema<serializers.AssetFolderDto.Raw, Squidex.AssetFolderDto> =
-    core.serialization.object({
-        id: core.serialization.string(),
-        parentId: core.serialization.string(),
-        folderName: core.serialization.string(),
-        version: core.serialization.number(),
-    });
+    core.serialization
+        .object({
+            id: core.serialization.string(),
+            parentId: core.serialization.string(),
+            folderName: core.serialization.string(),
+            version: core.serialization.number(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace AssetFolderDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         id: string;
         parentId: string;
         folderName: string;

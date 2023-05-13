@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface RulesDto {
+export interface RulesDto extends Squidex.Resource {
     /** The rules. */
     items: Squidex.RuleDto[];
     /** The ID of the rule that is currently rerunning. */

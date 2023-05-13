@@ -6,17 +6,18 @@ import * as serializers from "..";
 import * as Squidex from "../../api";
 import * as core from "../../core";
 
-export const UserDto: core.serialization.ObjectSchema<serializers.UserDto.Raw, Squidex.UserDto> =
-    core.serialization.object({
+export const UserDto: core.serialization.ObjectSchema<serializers.UserDto.Raw, Squidex.UserDto> = core.serialization
+    .object({
         id: core.serialization.string(),
         email: core.serialization.string(),
         displayName: core.serialization.string(),
         isLocked: core.serialization.boolean(),
         permissions: core.serialization.list(core.serialization.string()),
-    });
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace UserDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         id: string;
         email: string;
         displayName: string;

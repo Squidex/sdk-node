@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface RuleEventDto {
+export interface RuleEventDto extends Squidex.Resource {
     /** The ID of the event. */
     id: string;
     /** The time when the event has been created. */

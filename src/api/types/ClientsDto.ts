@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface ClientsDto {
+export interface ClientsDto extends Squidex.Resource {
     /** The clients. */
     items: Squidex.ClientDto[];
 }

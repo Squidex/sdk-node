@@ -7,14 +7,16 @@ import * as Squidex from "../../../../../api";
 import * as core from "../../../../../core";
 
 export const CreateSchemaDto: core.serialization.Schema<serializers.CreateSchemaDto.Raw, Squidex.CreateSchemaDto> =
-    core.serialization.object({
-        name: core.serialization.string(),
-        type: core.serialization.lazy(async () => (await import("../../../..")).SchemaType).optional(),
-        isSingleton: core.serialization.boolean().optional(),
-    });
+    core.serialization
+        .object({
+            name: core.serialization.string(),
+            type: core.serialization.lazy(async () => (await import("../../../..")).SchemaType).optional(),
+            isSingleton: core.serialization.boolean().optional(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("../../../..")).UpsertSchemaDto));
 
 export declare namespace CreateSchemaDto {
-    interface Raw {
+    interface Raw extends serializers.UpsertSchemaDto.Raw {
         name: string;
         type?: serializers.SchemaType.Raw | null;
         isSingleton?: boolean | null;

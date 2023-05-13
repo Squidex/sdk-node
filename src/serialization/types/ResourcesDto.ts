@@ -7,8 +7,8 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const ResourcesDto: core.serialization.ObjectSchema<serializers.ResourcesDto.Raw, Squidex.ResourcesDto> =
-    core.serialization.object({});
+    core.serialization.object({}).extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace ResourcesDto {
-    interface Raw {}
+    interface Raw extends serializers.Resource.Raw {}
 }

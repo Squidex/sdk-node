@@ -7,15 +7,17 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const ContributorDto: core.serialization.ObjectSchema<serializers.ContributorDto.Raw, Squidex.ContributorDto> =
-    core.serialization.object({
-        contributorId: core.serialization.string(),
-        contributorName: core.serialization.string(),
-        contributorEmail: core.serialization.string(),
-        role: core.serialization.string().optional(),
-    });
+    core.serialization
+        .object({
+            contributorId: core.serialization.string(),
+            contributorName: core.serialization.string(),
+            contributorEmail: core.serialization.string(),
+            role: core.serialization.string().optional(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace ContributorDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         contributorId: string;
         contributorName: string;
         contributorEmail: string;

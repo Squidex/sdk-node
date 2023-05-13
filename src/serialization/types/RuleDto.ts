@@ -6,8 +6,8 @@ import * as serializers from "..";
 import * as Squidex from "../../api";
 import * as core from "../../core";
 
-export const RuleDto: core.serialization.ObjectSchema<serializers.RuleDto.Raw, Squidex.RuleDto> =
-    core.serialization.object({
+export const RuleDto: core.serialization.ObjectSchema<serializers.RuleDto.Raw, Squidex.RuleDto> = core.serialization
+    .object({
         id: core.serialization.string(),
         createdBy: core.serialization.string(),
         lastModifiedBy: core.serialization.string(),
@@ -21,10 +21,11 @@ export const RuleDto: core.serialization.ObjectSchema<serializers.RuleDto.Raw, S
         numSucceeded: core.serialization.number(),
         numFailed: core.serialization.number(),
         lastExecuted: core.serialization.string().optional(),
-    });
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace RuleDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         id: string;
         createdBy: string;
         lastModifiedBy: string;

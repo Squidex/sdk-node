@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface SchemasDto {
+export interface SchemasDto extends Squidex.Resource {
     /** The schemas. */
     items: Squidex.SchemaDto[];
 }

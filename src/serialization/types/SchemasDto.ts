@@ -7,12 +7,14 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const SchemasDto: core.serialization.ObjectSchema<serializers.SchemasDto.Raw, Squidex.SchemasDto> =
-    core.serialization.object({
-        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).SchemaDto)),
-    });
+    core.serialization
+        .object({
+            items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).SchemaDto)),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace SchemasDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         items: serializers.SchemaDto.Raw[];
     }
 }

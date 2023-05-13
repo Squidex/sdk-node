@@ -6,18 +6,19 @@ import * as serializers from "..";
 import * as Squidex from "../../api";
 import * as core from "../../core";
 
-export const RoleDto: core.serialization.ObjectSchema<serializers.RoleDto.Raw, Squidex.RoleDto> =
-    core.serialization.object({
+export const RoleDto: core.serialization.ObjectSchema<serializers.RoleDto.Raw, Squidex.RoleDto> = core.serialization
+    .object({
         name: core.serialization.string(),
         numClients: core.serialization.number(),
         numContributors: core.serialization.number(),
         isDefaultRole: core.serialization.boolean(),
         permissions: core.serialization.list(core.serialization.string()),
         properties: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
-    });
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace RoleDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         name: string;
         numClients: number;
         numContributors: number;

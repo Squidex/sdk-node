@@ -7,15 +7,17 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const TemplateDto: core.serialization.ObjectSchema<serializers.TemplateDto.Raw, Squidex.TemplateDto> =
-    core.serialization.object({
-        name: core.serialization.string(),
-        title: core.serialization.string(),
-        description: core.serialization.string(),
-        isStarter: core.serialization.boolean(),
-    });
+    core.serialization
+        .object({
+            name: core.serialization.string(),
+            title: core.serialization.string(),
+            description: core.serialization.string(),
+            isStarter: core.serialization.boolean(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace TemplateDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         name: string;
         title: string;
         description: string;

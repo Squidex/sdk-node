@@ -9,12 +9,14 @@ import * as core from "../../core";
 export const AppLanguagesDto: core.serialization.ObjectSchema<
     serializers.AppLanguagesDto.Raw,
     Squidex.AppLanguagesDto
-> = core.serialization.object({
-    items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).AppLanguageDto)),
-});
+> = core.serialization
+    .object({
+        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).AppLanguageDto)),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace AppLanguagesDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         items: serializers.AppLanguageDto.Raw[];
     }
 }

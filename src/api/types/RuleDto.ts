@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface RuleDto {
+export interface RuleDto extends Squidex.Resource {
     /** The ID of the rule. */
     id: string;
     /** The user that has created the rule. */

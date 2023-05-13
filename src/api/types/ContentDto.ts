@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface ContentDto {
+export interface ContentDto extends Squidex.Resource {
     /** The if of the content item. */
     id: string;
     /** The user that has created the content item. */

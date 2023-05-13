@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface EventConsumersDto {
+export interface EventConsumersDto extends Squidex.Resource {
     /** The event consumers. */
     items: Squidex.EventConsumerDto[];
 }

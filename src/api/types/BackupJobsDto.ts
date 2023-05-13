@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface BackupJobsDto {
+export interface BackupJobsDto extends Squidex.Resource {
     /** The backups. */
     items: Squidex.BackupJobDto[];
 }

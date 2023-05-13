@@ -7,13 +7,15 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const WorkflowsDto: core.serialization.ObjectSchema<serializers.WorkflowsDto.Raw, Squidex.WorkflowsDto> =
-    core.serialization.object({
-        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).WorkflowDto)),
-        errors: core.serialization.list(core.serialization.string()),
-    });
+    core.serialization
+        .object({
+            items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).WorkflowDto)),
+            errors: core.serialization.list(core.serialization.string()),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace WorkflowsDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         items: serializers.WorkflowDto.Raw[];
         errors: string[];
     }

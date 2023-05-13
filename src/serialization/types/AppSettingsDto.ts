@@ -7,16 +7,20 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const AppSettingsDto: core.serialization.ObjectSchema<serializers.AppSettingsDto.Raw, Squidex.AppSettingsDto> =
-    core.serialization.object({
-        patterns: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).PatternDto)),
-        editors: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EditorDto)),
-        hideScheduler: core.serialization.boolean(),
-        hideDateTimeModeButton: core.serialization.boolean(),
-        version: core.serialization.number(),
-    });
+    core.serialization
+        .object({
+            patterns: core.serialization.list(
+                core.serialization.lazyObject(async () => (await import("..")).PatternDto)
+            ),
+            editors: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).EditorDto)),
+            hideScheduler: core.serialization.boolean(),
+            hideDateTimeModeButton: core.serialization.boolean(),
+            version: core.serialization.number(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace AppSettingsDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         patterns: serializers.PatternDto.Raw[];
         editors: serializers.EditorDto.Raw[];
         hideScheduler: boolean;

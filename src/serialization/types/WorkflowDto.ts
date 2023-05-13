@@ -7,19 +7,21 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const WorkflowDto: core.serialization.ObjectSchema<serializers.WorkflowDto.Raw, Squidex.WorkflowDto> =
-    core.serialization.object({
-        id: core.serialization.string(),
-        name: core.serialization.string().optional(),
-        steps: core.serialization.record(
-            core.serialization.string(),
-            core.serialization.lazyObject(async () => (await import("..")).WorkflowStepDto)
-        ),
-        schemaIds: core.serialization.list(core.serialization.string()).optional(),
-        initial: core.serialization.string(),
-    });
+    core.serialization
+        .object({
+            id: core.serialization.string(),
+            name: core.serialization.string().optional(),
+            steps: core.serialization.record(
+                core.serialization.string(),
+                core.serialization.lazyObject(async () => (await import("..")).WorkflowStepDto)
+            ),
+            schemaIds: core.serialization.list(core.serialization.string()).optional(),
+            initial: core.serialization.string(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace WorkflowDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         id: string;
         name?: string | null;
         steps: Record<string, serializers.WorkflowStepDto.Raw>;

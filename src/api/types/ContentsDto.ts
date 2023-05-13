@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface ContentsDto {
+export interface ContentsDto extends Squidex.Resource {
     /** The total number of content items. */
     total: number;
     /** The content items. */

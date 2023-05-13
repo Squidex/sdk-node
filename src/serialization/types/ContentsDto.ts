@@ -7,16 +7,18 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const ContentsDto: core.serialization.ObjectSchema<serializers.ContentsDto.Raw, Squidex.ContentsDto> =
-    core.serialization.object({
-        total: core.serialization.number(),
-        items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).ContentDto)),
-        statuses: core.serialization.list(
-            core.serialization.lazyObject(async () => (await import("..")).StatusInfoDto)
-        ),
-    });
+    core.serialization
+        .object({
+            total: core.serialization.number(),
+            items: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).ContentDto)),
+            statuses: core.serialization.list(
+                core.serialization.lazyObject(async () => (await import("..")).StatusInfoDto)
+            ),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace ContentsDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         total: number;
         items: serializers.ContentDto.Raw[];
         statuses: serializers.StatusInfoDto.Raw[];

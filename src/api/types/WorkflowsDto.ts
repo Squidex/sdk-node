@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface WorkflowsDto {
+export interface WorkflowsDto extends Squidex.Resource {
     /** The workflow. */
     items: Squidex.WorkflowDto[];
     /** The errros that should be fixed. */

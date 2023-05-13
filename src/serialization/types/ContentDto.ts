@@ -7,32 +7,34 @@ import * as Squidex from "../../api";
 import * as core from "../../core";
 
 export const ContentDto: core.serialization.ObjectSchema<serializers.ContentDto.Raw, Squidex.ContentDto> =
-    core.serialization.object({
-        id: core.serialization.string(),
-        createdBy: core.serialization.string(),
-        lastModifiedBy: core.serialization.string(),
-        data: core.serialization.unknown(),
-        referenceData: core.serialization.lazy(async () => (await import("..")).ContentData).optional(),
-        created: core.serialization.string(),
-        lastModified: core.serialization.string(),
-        status: core.serialization.string(),
-        newStatus: core.serialization.string().optional(),
-        statusColor: core.serialization.string(),
-        newStatusColor: core.serialization.string().optional(),
-        editToken: core.serialization.string().optional(),
-        scheduleJob: core.serialization.lazyObject(async () => (await import("..")).ScheduleJobDto).optional(),
-        schemaId: core.serialization.string(),
-        schemaName: core.serialization.string().optional(),
-        schemaDisplayName: core.serialization.string().optional(),
-        referenceFields: core.serialization
-            .list(core.serialization.lazyObject(async () => (await import("..")).FieldDto))
-            .optional(),
-        isDeleted: core.serialization.boolean(),
-        version: core.serialization.number(),
-    });
+    core.serialization
+        .object({
+            id: core.serialization.string(),
+            createdBy: core.serialization.string(),
+            lastModifiedBy: core.serialization.string(),
+            data: core.serialization.unknown(),
+            referenceData: core.serialization.lazy(async () => (await import("..")).ContentData).optional(),
+            created: core.serialization.string(),
+            lastModified: core.serialization.string(),
+            status: core.serialization.string(),
+            newStatus: core.serialization.string().optional(),
+            statusColor: core.serialization.string(),
+            newStatusColor: core.serialization.string().optional(),
+            editToken: core.serialization.string().optional(),
+            scheduleJob: core.serialization.lazyObject(async () => (await import("..")).ScheduleJobDto).optional(),
+            schemaId: core.serialization.string(),
+            schemaName: core.serialization.string().optional(),
+            schemaDisplayName: core.serialization.string().optional(),
+            referenceFields: core.serialization
+                .list(core.serialization.lazyObject(async () => (await import("..")).FieldDto))
+                .optional(),
+            isDeleted: core.serialization.boolean(),
+            version: core.serialization.number(),
+        })
+        .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace ContentDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         id: string;
         createdBy: string;
         lastModifiedBy: string;

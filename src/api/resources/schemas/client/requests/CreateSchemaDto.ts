@@ -4,7 +4,7 @@
 
 import * as Squidex from "../../../..";
 
-export interface CreateSchemaDto {
+export interface CreateSchemaDto extends Squidex.UpsertSchemaDto {
     /** The name of the schema. */
     name: string;
     type?: Squidex.SchemaType;

@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface RolesDto {
+export interface RolesDto extends Squidex.Resource {
     /** The roles. */
     items: Squidex.RoleDto[];
 }

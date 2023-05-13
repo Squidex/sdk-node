@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface BackupJobDto {
+export interface BackupJobDto extends Squidex.Resource {
     /** The ID of the backup job. */
     id: string;
     /** The time when the job has been started. */

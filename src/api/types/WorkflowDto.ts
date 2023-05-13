@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface WorkflowDto {
+export interface WorkflowDto extends Squidex.Resource {
     /** The workflow id. */
     id: string;
     /** The name of the workflow. */

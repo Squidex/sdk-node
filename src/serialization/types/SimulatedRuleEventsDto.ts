@@ -9,15 +9,17 @@ import * as core from "../../core";
 export const SimulatedRuleEventsDto: core.serialization.ObjectSchema<
     serializers.SimulatedRuleEventsDto.Raw,
     Squidex.SimulatedRuleEventsDto
-> = core.serialization.object({
-    total: core.serialization.number(),
-    items: core.serialization.list(
-        core.serialization.lazyObject(async () => (await import("..")).SimulatedRuleEventDto)
-    ),
-});
+> = core.serialization
+    .object({
+        total: core.serialization.number(),
+        items: core.serialization.list(
+            core.serialization.lazyObject(async () => (await import("..")).SimulatedRuleEventDto)
+        ),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace SimulatedRuleEventsDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         total: number;
         items: serializers.SimulatedRuleEventDto.Raw[];
     }

@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface FieldDto {
+export interface FieldDto extends Squidex.Resource {
     /** The ID of the field. */
     fieldId: number;
     /** The name of the field. Must be unique within the schema. */

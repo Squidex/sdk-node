@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface AppLanguagesDto {
+export interface AppLanguagesDto extends Squidex.Resource {
     /** The languages. */
     items: Squidex.AppLanguageDto[];
 }

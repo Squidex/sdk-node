@@ -4,7 +4,7 @@
 
 import * as Squidex from "..";
 
-export interface AppSettingsDto {
+export interface AppSettingsDto extends Squidex.Resource {
     /** The configured app patterns. */
     patterns: Squidex.PatternDto[];
     /** The configured UI editors. */

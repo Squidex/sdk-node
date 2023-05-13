@@ -9,17 +9,19 @@ import * as core from "../../core";
 export const EventConsumerDto: core.serialization.ObjectSchema<
     serializers.EventConsumerDto.Raw,
     Squidex.EventConsumerDto
-> = core.serialization.object({
-    isStopped: core.serialization.boolean(),
-    isResetting: core.serialization.boolean(),
-    count: core.serialization.number(),
-    name: core.serialization.string(),
-    error: core.serialization.string().optional(),
-    position: core.serialization.string().optional(),
-});
+> = core.serialization
+    .object({
+        isStopped: core.serialization.boolean(),
+        isResetting: core.serialization.boolean(),
+        count: core.serialization.number(),
+        name: core.serialization.string(),
+        error: core.serialization.string().optional(),
+        position: core.serialization.string().optional(),
+    })
+    .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 
 export declare namespace EventConsumerDto {
-    interface Raw {
+    interface Raw extends serializers.Resource.Raw {
         isStopped: boolean;
         isResetting: boolean;
         count: number;
