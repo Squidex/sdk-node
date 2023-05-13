@@ -8,7 +8,7 @@ import * as core from "../../core";
 
 export const RuleTriggerDto: core.serialization.Schema<serializers.RuleTriggerDto.Raw, Squidex.RuleTriggerDto> =
     core.serialization
-        .union("type", {
+        .union("triggerType", {
             AssetChanged: core.serialization.lazyObject(async () => (await import("..")).AssetChangedRuleTriggerDto),
             Comment: core.serialization.lazyObject(async () => (await import("..")).CommentRuleTriggerDto),
             ContentChanged: core.serialization.lazyObject(
@@ -33,26 +33,26 @@ export declare namespace RuleTriggerDto {
         | RuleTriggerDto.Usage;
 
     interface AssetChanged extends serializers.AssetChangedRuleTriggerDto.Raw {
-        type: "AssetChanged";
+        triggerType: "AssetChanged";
     }
 
     interface Comment extends serializers.CommentRuleTriggerDto.Raw {
-        type: "Comment";
+        triggerType: "Comment";
     }
 
     interface ContentChanged extends serializers.ContentChangedRuleTriggerDto.Raw {
-        type: "ContentChanged";
+        triggerType: "ContentChanged";
     }
 
     interface Manual extends serializers.ManualRuleTriggerDto.Raw {
-        type: "Manual";
+        triggerType: "Manual";
     }
 
     interface SchemaChanged extends serializers.SchemaChangedRuleTriggerDto.Raw {
-        type: "SchemaChanged";
+        triggerType: "SchemaChanged";
     }
 
     interface Usage extends serializers.UsageRuleTriggerDto.Raw {
-        type: "Usage";
+        triggerType: "Usage";
     }
 }

@@ -26,74 +26,74 @@ export type RuleActionDto =
 
 export declare namespace RuleActionDto {
     interface Algolia extends Squidex.AlgoliaRuleActionDto {
-        type: "Algolia";
+        actionType: "Algolia";
     }
 
     interface AzureQueue extends Squidex.AzureQueueRuleActionDto {
-        type: "AzureQueue";
+        actionType: "AzureQueue";
     }
 
     interface Comment extends Squidex.CommentRuleActionDto {
-        type: "Comment";
+        actionType: "Comment";
     }
 
     interface CreateContent extends Squidex.CreateContentRuleActionDto {
-        type: "CreateContent";
+        actionType: "CreateContent";
     }
 
     interface Discourse extends Squidex.DiscourseRuleActionDto {
-        type: "Discourse";
+        actionType: "Discourse";
     }
 
     interface ElasticSearch extends Squidex.ElasticSearchRuleActionDto {
-        type: "ElasticSearch";
+        actionType: "ElasticSearch";
     }
 
     interface Email extends Squidex.EmailRuleActionDto {
-        type: "Email";
+        actionType: "Email";
     }
 
     interface Fastly extends Squidex.FastlyRuleActionDto {
-        type: "Fastly";
+        actionType: "Fastly";
     }
 
     interface Medium extends Squidex.MediumRuleActionDto {
-        type: "Medium";
+        actionType: "Medium";
     }
 
     interface Notification extends Squidex.NotificationRuleActionDto {
-        type: "Notification";
+        actionType: "Notification";
     }
 
     interface OpenSearch extends Squidex.OpenSearchRuleActionDto {
-        type: "OpenSearch";
+        actionType: "OpenSearch";
     }
 
     interface Prerender extends Squidex.PrerenderRuleActionDto {
-        type: "Prerender";
+        actionType: "Prerender";
     }
 
     interface Script extends Squidex.ScriptRuleActionDto {
-        type: "Script";
+        actionType: "Script";
     }
 
     interface SignalR extends Squidex.SignalRRuleActionDto {
-        type: "SignalR";
+        actionType: "SignalR";
     }
 
     interface Slack extends Squidex.SlackRuleActionDto {
-        type: "Slack";
+        actionType: "Slack";
     }
 
     interface Tweet extends Squidex.TweetRuleActionDto {
-        type: "Tweet";
+        actionType: "Tweet";
     }
 
     interface Typesense extends Squidex.TypesenseRuleActionDto {
-        type: "Typesense";
+        actionType: "Typesense";
     }
 
     interface Webhook extends Squidex.WebhookRuleActionDto {
-        type: "Webhook";
+        actionType: "Webhook";
     }
 }

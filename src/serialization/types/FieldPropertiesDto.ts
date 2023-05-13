@@ -20,7 +20,7 @@ export const FieldPropertiesDto: core.serialization.Schema<
     serializers.FieldPropertiesDto.Raw,
     Squidex.FieldPropertiesDto
 > = core.serialization
-    .union("type", {
+    .union("fieldType", {
         Array: core.serialization.lazyObject(async () => (await import("..")).ArrayFieldPropertiesDto).extend(_Base),
         Assets: core.serialization.lazyObject(async () => (await import("..")).AssetsFieldPropertiesDto).extend(_Base),
         Boolean: core.serialization
@@ -69,55 +69,55 @@ export declare namespace FieldPropertiesDto {
         | FieldPropertiesDto.Ui;
 
     interface Array extends _Base, serializers.ArrayFieldPropertiesDto.Raw {
-        type: "Array";
+        fieldType: "Array";
     }
 
     interface Assets extends _Base, serializers.AssetsFieldPropertiesDto.Raw {
-        type: "Assets";
+        fieldType: "Assets";
     }
 
     interface Boolean extends _Base, serializers.BooleanFieldPropertiesDto.Raw {
-        type: "Boolean";
+        fieldType: "Boolean";
     }
 
     interface Component extends _Base, serializers.ComponentFieldPropertiesDto.Raw {
-        type: "Component";
+        fieldType: "Component";
     }
 
     interface Components extends _Base, serializers.ComponentsFieldPropertiesDto.Raw {
-        type: "Components";
+        fieldType: "Components";
     }
 
     interface DateTime extends _Base, serializers.DateTimeFieldPropertiesDto.Raw {
-        type: "DateTime";
+        fieldType: "DateTime";
     }
 
     interface Geolocation extends _Base, serializers.GeolocationFieldPropertiesDto.Raw {
-        type: "Geolocation";
+        fieldType: "Geolocation";
     }
 
     interface Json extends _Base, serializers.JsonFieldPropertiesDto.Raw {
-        type: "Json";
+        fieldType: "Json";
     }
 
     interface Number extends _Base, serializers.NumberFieldPropertiesDto.Raw {
-        type: "Number";
+        fieldType: "Number";
     }
 
     interface References extends _Base, serializers.ReferencesFieldPropertiesDto.Raw {
-        type: "References";
+        fieldType: "References";
     }
 
     interface String extends _Base, serializers.StringFieldPropertiesDto.Raw {
-        type: "String";
+        fieldType: "String";
     }
 
     interface Tags extends _Base, serializers.TagsFieldPropertiesDto.Raw {
-        type: "Tags";
+        fieldType: "Tags";
     }
 
     interface Ui extends _Base, serializers.UiFieldPropertiesDto.Raw {
-        type: "UI";
+        fieldType: "UI";
     }
 
     interface _Base {

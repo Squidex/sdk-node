@@ -8,7 +8,7 @@ import * as core from "../../core";
 
 export const RuleActionDto: core.serialization.Schema<serializers.RuleActionDto.Raw, Squidex.RuleActionDto> =
     core.serialization
-        .union("type", {
+        .union("actionType", {
             Algolia: core.serialization.lazyObject(async () => (await import("..")).AlgoliaRuleActionDto),
             AzureQueue: core.serialization.lazyObject(async () => (await import("..")).AzureQueueRuleActionDto),
             Comment: core.serialization.lazyObject(async () => (await import("..")).CommentRuleActionDto),
@@ -55,74 +55,74 @@ export declare namespace RuleActionDto {
         | RuleActionDto.Webhook;
 
     interface Algolia extends serializers.AlgoliaRuleActionDto.Raw {
-        type: "Algolia";
+        actionType: "Algolia";
     }
 
     interface AzureQueue extends serializers.AzureQueueRuleActionDto.Raw {
-        type: "AzureQueue";
+        actionType: "AzureQueue";
     }
 
     interface Comment extends serializers.CommentRuleActionDto.Raw {
-        type: "Comment";
+        actionType: "Comment";
     }
 
     interface CreateContent extends serializers.CreateContentRuleActionDto.Raw {
-        type: "CreateContent";
+        actionType: "CreateContent";
     }
 
     interface Discourse extends serializers.DiscourseRuleActionDto.Raw {
-        type: "Discourse";
+        actionType: "Discourse";
     }
 
     interface ElasticSearch extends serializers.ElasticSearchRuleActionDto.Raw {
-        type: "ElasticSearch";
+        actionType: "ElasticSearch";
     }
 
     interface Email extends serializers.EmailRuleActionDto.Raw {
-        type: "Email";
+        actionType: "Email";
     }
 
     interface Fastly extends serializers.FastlyRuleActionDto.Raw {
-        type: "Fastly";
+        actionType: "Fastly";
     }
 
     interface Medium extends serializers.MediumRuleActionDto.Raw {
-        type: "Medium";
+        actionType: "Medium";
     }
 
     interface Notification extends serializers.NotificationRuleActionDto.Raw {
-        type: "Notification";
+        actionType: "Notification";
     }
 
     interface OpenSearch extends serializers.OpenSearchRuleActionDto.Raw {
-        type: "OpenSearch";
+        actionType: "OpenSearch";
     }
 
     interface Prerender extends serializers.PrerenderRuleActionDto.Raw {
-        type: "Prerender";
+        actionType: "Prerender";
     }
 
     interface Script extends serializers.ScriptRuleActionDto.Raw {
-        type: "Script";
+        actionType: "Script";
     }
 
     interface SignalR extends serializers.SignalRRuleActionDto.Raw {
-        type: "SignalR";
+        actionType: "SignalR";
     }
 
     interface Slack extends serializers.SlackRuleActionDto.Raw {
-        type: "Slack";
+        actionType: "Slack";
     }
 
     interface Tweet extends serializers.TweetRuleActionDto.Raw {
-        type: "Tweet";
+        actionType: "Tweet";
     }
 
     interface Typesense extends serializers.TypesenseRuleActionDto.Raw {
-        type: "Typesense";
+        actionType: "Typesense";
     }
 
     interface Webhook extends serializers.WebhookRuleActionDto.Raw {
-        type: "Webhook";
+        actionType: "Webhook";
     }
 }

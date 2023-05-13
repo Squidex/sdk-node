@@ -14,26 +14,26 @@ export type RuleTriggerDto =
 
 export declare namespace RuleTriggerDto {
     interface AssetChanged extends Squidex.AssetChangedRuleTriggerDto {
-        type: "AssetChanged";
+        triggerType: "AssetChanged";
     }
 
     interface Comment extends Squidex.CommentRuleTriggerDto {
-        type: "Comment";
+        triggerType: "Comment";
     }
 
     interface ContentChanged extends Squidex.ContentChangedRuleTriggerDto {
-        type: "ContentChanged";
+        triggerType: "ContentChanged";
     }
 
     interface Manual extends Squidex.ManualRuleTriggerDto {
-        type: "Manual";
+        triggerType: "Manual";
     }
 
     interface SchemaChanged extends Squidex.SchemaChangedRuleTriggerDto {
-        type: "SchemaChanged";
+        triggerType: "SchemaChanged";
     }
 
     interface Usage extends Squidex.UsageRuleTriggerDto {
-        type: "Usage";
+        triggerType: "Usage";
     }
 }

@@ -21,55 +21,55 @@ export type FieldPropertiesDto =
 
 export declare namespace FieldPropertiesDto {
     interface Array extends Squidex.ArrayFieldPropertiesDto, _Base {
-        type: "Array";
+        fieldType: "Array";
     }
 
     interface Assets extends Squidex.AssetsFieldPropertiesDto, _Base {
-        type: "Assets";
+        fieldType: "Assets";
     }
 
     interface Boolean extends Squidex.BooleanFieldPropertiesDto, _Base {
-        type: "Boolean";
+        fieldType: "Boolean";
     }
 
     interface Component extends Squidex.ComponentFieldPropertiesDto, _Base {
-        type: "Component";
+        fieldType: "Component";
     }
 
     interface Components extends Squidex.ComponentsFieldPropertiesDto, _Base {
-        type: "Components";
+        fieldType: "Components";
     }
 
     interface DateTime extends Squidex.DateTimeFieldPropertiesDto, _Base {
-        type: "DateTime";
+        fieldType: "DateTime";
     }
 
     interface Geolocation extends Squidex.GeolocationFieldPropertiesDto, _Base {
-        type: "Geolocation";
+        fieldType: "Geolocation";
     }
 
     interface Json extends Squidex.JsonFieldPropertiesDto, _Base {
-        type: "Json";
+        fieldType: "Json";
     }
 
     interface Number extends Squidex.NumberFieldPropertiesDto, _Base {
-        type: "Number";
+        fieldType: "Number";
     }
 
     interface References extends Squidex.ReferencesFieldPropertiesDto, _Base {
-        type: "References";
+        fieldType: "References";
     }
 
     interface String extends Squidex.StringFieldPropertiesDto, _Base {
-        type: "String";
+        fieldType: "String";
     }
 
     interface Tags extends Squidex.TagsFieldPropertiesDto, _Base {
-        type: "Tags";
+        fieldType: "Tags";
     }
 
     interface Ui extends Squidex.UiFieldPropertiesDto, _Base {
-        type: "UI";
+        fieldType: "UI";
     }
 
     interface _Base {
