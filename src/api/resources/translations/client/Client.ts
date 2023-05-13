@@ -35,7 +35,7 @@ export class Translations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.TranslateDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -46,6 +46,7 @@ export class Translations {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -57,6 +58,7 @@ export class Translations {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 500:
@@ -65,6 +67,7 @@ export class Translations {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:

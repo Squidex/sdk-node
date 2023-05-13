@@ -31,7 +31,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -41,6 +41,7 @@ export class EventConsumers {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -52,6 +53,7 @@ export class EventConsumers {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -93,7 +95,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -103,6 +105,7 @@ export class EventConsumers {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -114,6 +117,7 @@ export class EventConsumers {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -124,6 +128,7 @@ export class EventConsumers {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -165,7 +170,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -175,6 +180,7 @@ export class EventConsumers {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -186,6 +192,7 @@ export class EventConsumers {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -196,6 +203,7 @@ export class EventConsumers {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -237,7 +245,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -247,6 +255,7 @@ export class EventConsumers {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -258,6 +267,7 @@ export class EventConsumers {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -268,6 +278,7 @@ export class EventConsumers {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:

@@ -15,6 +15,7 @@ export declare namespace Fetcher {
         timeoutMs?: number;
         withCredentials?: boolean;
         adapter?: AxiosAdapter;
+        onUploadProgress?: (event: ProgressEvent) => void;
     }
 
     export type Error = FailedStatusCodeError | NonJsonError | TimeoutError | UnknownError;
@@ -70,6 +71,9 @@ export const fetcher: FetchFunction = async (args) => {
             },
             withCredentials: args.withCredentials,
             adapter: args.adapter,
+            onUploadProgress: args.onUploadProgress,
+            maxBodyLength: Infinity,
+            maxContentLength: Infinity,
         });
 
         let body: unknown;

@@ -8,8 +8,8 @@ import * as Squidex from "../../..";
 import * as stream from "stream";
 import URLSearchParams from "@ungap/url-search-params";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization";
 import * as fs from "fs";
 import FormData from "form-data";
 
@@ -112,10 +112,15 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             queryParameters: _queryParams,
             timeoutMs: 60000,
+            onError: (error) => {
+                throw new errors.SquidexError({
+                    message: (error as any)?.message,
+                });
+            },
         });
     }
 
@@ -203,10 +208,15 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             queryParameters: _queryParams,
             timeoutMs: 60000,
+            onError: (error) => {
+                throw new errors.SquidexError({
+                    message: (error as any)?.message,
+                });
+            },
         });
     }
 
@@ -236,7 +246,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -247,6 +257,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -260,6 +271,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -301,7 +313,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.CreateAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -312,6 +324,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -323,6 +336,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -333,6 +347,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -374,7 +389,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.RenameAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -385,6 +400,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -396,6 +412,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -406,6 +423,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -447,7 +465,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -464,6 +482,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -474,6 +493,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -518,7 +538,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.MoveAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -529,6 +549,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -540,6 +561,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -550,6 +572,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -591,7 +614,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -601,6 +624,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -614,6 +638,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -655,7 +680,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.RenameTagDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -666,6 +691,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -677,6 +703,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -687,6 +714,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -758,7 +786,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -769,6 +797,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -782,6 +811,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -814,7 +844,12 @@ export class Assets {
      * @throws {Squidex.ContentTooLargeError}
      * @throws {Squidex.InternalServerError}
      */
-    public async postAsset(file: File | fs.ReadStream): Promise<Squidex.AssetDto> {
+    public async postAsset(
+        file: File | fs.ReadStream,
+        opts?: {
+            onUploadProgress: (event: ProgressEvent) => void;
+        }
+    ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
         const _response = await core.fetcher({
@@ -827,18 +862,20 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
             body: _request,
             timeoutMs: 60000,
+            onUploadProgress: opts?.onUploadProgress,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -850,6 +887,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -860,6 +898,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 500:
@@ -868,6 +907,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -910,7 +950,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.QueryDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -921,6 +961,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -932,6 +973,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -942,6 +984,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -982,7 +1025,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -992,6 +1035,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1005,6 +1049,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1037,7 +1082,13 @@ export class Assets {
      * @throws {Squidex.ContentTooLargeError}
      * @throws {Squidex.InternalServerError}
      */
-    public async postUpsertAsset(file: File | fs.ReadStream, id: string): Promise<Squidex.AssetDto> {
+    public async postUpsertAsset(
+        file: File | fs.ReadStream,
+        id: string,
+        opts?: {
+            onUploadProgress: (event: ProgressEvent) => void;
+        }
+    ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
         const _response = await core.fetcher({
@@ -1050,18 +1101,20 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
             body: _request,
             timeoutMs: 60000,
+            onUploadProgress: opts?.onUploadProgress,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1073,6 +1126,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1083,6 +1137,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 500:
@@ -1091,6 +1146,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1132,7 +1188,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.AnnotateAssetDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1143,6 +1199,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1154,6 +1211,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1164,6 +1222,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1215,7 +1274,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -1233,6 +1292,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1243,6 +1303,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1284,7 +1345,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.BulkUpdateAssetsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1295,6 +1356,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1306,6 +1368,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1316,6 +1379,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1348,7 +1412,13 @@ export class Assets {
      * @throws {Squidex.ContentTooLargeError}
      * @throws {Squidex.InternalServerError}
      */
-    public async putAssetContent(file: File | fs.ReadStream, id: string): Promise<Squidex.AssetDto> {
+    public async putAssetContent(
+        file: File | fs.ReadStream,
+        id: string,
+        opts?: {
+            onUploadProgress: (event: ProgressEvent) => void;
+        }
+    ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
         const _response = await core.fetcher({
@@ -1361,18 +1431,20 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
             body: _request,
             timeoutMs: 60000,
+            onUploadProgress: opts?.onUploadProgress,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1384,6 +1456,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1394,6 +1467,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 500:
@@ -1402,6 +1476,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1443,7 +1518,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.MoveAssetDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1454,6 +1529,7 @@ export class Assets {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1465,6 +1541,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1475,6 +1552,7 @@ export class Assets {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:

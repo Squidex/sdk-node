@@ -38,7 +38,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -48,6 +48,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -61,6 +62,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -102,7 +104,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.UpdateAssetScriptsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -113,6 +115,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -124,6 +127,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -134,6 +138,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -175,7 +180,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -185,6 +190,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -198,6 +204,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -241,7 +248,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.CreateClientDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -252,6 +259,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -263,6 +271,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -273,6 +282,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -315,7 +325,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.UpdateClientDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -326,6 +336,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -337,6 +348,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -347,6 +359,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -389,7 +402,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -399,6 +412,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -410,6 +424,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -420,6 +435,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -460,7 +476,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -470,6 +486,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -483,6 +500,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -524,7 +542,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.AssignContributorDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -535,6 +553,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -546,6 +565,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -556,6 +576,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -597,7 +618,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -607,6 +628,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -618,6 +640,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -628,6 +651,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -669,7 +693,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -679,6 +703,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -690,6 +715,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -700,6 +726,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -736,9 +763,14 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             timeoutMs: 60000,
+            onError: (error) => {
+                throw new errors.SquidexError({
+                    message: (error as any)?.message,
+                });
+            },
         });
     }
 
@@ -747,7 +779,12 @@ export class Apps {
      * @throws {Squidex.NotFoundError}
      * @throws {Squidex.InternalServerError}
      */
-    public async uploadImage(file: File | fs.ReadStream): Promise<Squidex.AppDto> {
+    public async uploadImage(
+        file: File | fs.ReadStream,
+        opts?: {
+            onUploadProgress: (event: ProgressEvent) => void;
+        }
+    ): Promise<Squidex.AppDto> {
         const _request = new FormData();
         _request.append("file", file);
         const _response = await core.fetcher({
@@ -760,18 +797,20 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
             body: _request,
             timeoutMs: 60000,
+            onUploadProgress: opts?.onUploadProgress,
         });
         if (_response.ok) {
             return await serializers.AppDto.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -783,6 +822,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -793,6 +833,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -834,7 +875,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -844,6 +885,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -855,6 +897,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -865,6 +908,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -905,7 +949,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -915,6 +959,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -928,6 +973,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -969,7 +1015,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.AddLanguageDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -980,6 +1026,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -991,6 +1038,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1001,6 +1049,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1045,7 +1094,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.UpdateLanguageDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1056,6 +1105,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1067,6 +1117,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1077,6 +1128,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1118,7 +1170,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1128,6 +1180,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1139,6 +1192,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1149,6 +1203,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1189,7 +1244,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1199,6 +1254,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1212,6 +1268,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1253,7 +1310,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.AddRoleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1264,6 +1321,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1275,6 +1333,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1285,6 +1344,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1325,7 +1385,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1335,6 +1395,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1348,6 +1409,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1389,7 +1451,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.UpdateRoleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1400,6 +1462,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1411,6 +1474,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1421,6 +1485,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1462,7 +1527,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1472,6 +1537,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1483,6 +1549,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1493,6 +1560,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1531,7 +1599,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1541,6 +1609,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1552,6 +1621,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1592,7 +1662,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.CreateAppDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1603,6 +1673,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1614,6 +1685,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 409:
@@ -1622,6 +1694,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 500:
@@ -1630,6 +1703,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1668,7 +1742,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1678,6 +1752,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1689,6 +1764,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1729,7 +1805,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1739,6 +1815,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1752,6 +1829,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1793,7 +1871,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.UpdateAppDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1804,6 +1882,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1815,6 +1894,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1825,6 +1905,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1866,7 +1947,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1883,6 +1964,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1893,6 +1975,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -1934,7 +2017,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.TransferToTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1945,6 +2028,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -1956,6 +2040,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -1966,6 +2051,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -2006,7 +2092,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -2016,6 +2102,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -2029,6 +2116,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -2070,7 +2158,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.UpdateAppSettingsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -2081,6 +2169,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -2092,6 +2181,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -2102,6 +2192,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -2142,7 +2233,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -2152,6 +2243,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -2165,6 +2257,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -2206,7 +2299,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.AddWorkflowDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -2217,6 +2310,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -2228,6 +2322,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -2238,6 +2333,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -2279,7 +2375,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             body: await serializers.UpdateWorkflowDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -2290,6 +2386,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -2301,6 +2398,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -2311,6 +2409,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
@@ -2352,7 +2451,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.25",
+                "X-Fern-SDK-Version": "0.0.26",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -2362,6 +2461,7 @@ export class Apps {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
             });
         }
 
@@ -2373,6 +2473,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 case 404:
@@ -2383,6 +2484,7 @@ export class Apps {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
                         })
                     );
                 default:
