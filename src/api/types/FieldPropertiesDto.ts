@@ -80,11 +80,11 @@ export declare namespace FieldPropertiesDto {
         /** Placeholder to show when no value has been entered. */
         placeholder?: string;
         /** Indicates if the field is required. */
-        isRequired: boolean;
+        isRequired?: boolean;
         /** Indicates if the field is required when publishing. */
-        isRequiredOnPublish: boolean;
+        isRequiredOnPublish?: boolean;
         /** Indicates if the field should be rendered with half width only. */
-        isHalfWidth: boolean;
+        isHalfWidth?: boolean;
         /** Optional url to the editor. */
         editorUrl?: string;
         /** Tags for automation processes. */

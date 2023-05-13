@@ -15,9 +15,9 @@ export const NumberFieldPropertiesDto: core.serialization.ObjectSchema<
     maxValue: core.serialization.number().optional(),
     minValue: core.serialization.number().optional(),
     allowedValues: core.serialization.list(core.serialization.number()).optional(),
-    isUnique: core.serialization.boolean(),
-    inlineEditable: core.serialization.boolean(),
-    editor: core.serialization.lazy(async () => (await import("..")).NumberFieldEditor),
+    isUnique: core.serialization.boolean().optional(),
+    inlineEditable: core.serialization.boolean().optional(),
+    editor: core.serialization.lazy(async () => (await import("..")).NumberFieldEditor).optional(),
 });
 
 export declare namespace NumberFieldPropertiesDto {
@@ -27,8 +27,8 @@ export declare namespace NumberFieldPropertiesDto {
         maxValue?: number | null;
         minValue?: number | null;
         allowedValues?: number[] | null;
-        isUnique: boolean;
-        inlineEditable: boolean;
-        editor: serializers.NumberFieldEditor.Raw;
+        isUnique?: boolean | null;
+        inlineEditable?: boolean | null;
+        editor?: serializers.NumberFieldEditor.Raw | null;
     }
 }

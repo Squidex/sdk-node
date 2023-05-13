@@ -17,8 +17,8 @@ export const TagsFieldPropertiesDto: core.serialization.ObjectSchema<
     minItems: core.serialization.number().optional(),
     maxItems: core.serialization.number().optional(),
     allowedValues: core.serialization.list(core.serialization.string()).optional(),
-    createEnum: core.serialization.boolean(),
-    editor: core.serialization.lazy(async () => (await import("..")).TagsFieldEditor),
+    createEnum: core.serialization.boolean().optional(),
+    editor: core.serialization.lazy(async () => (await import("..")).TagsFieldEditor).optional(),
 });
 
 export declare namespace TagsFieldPropertiesDto {
@@ -28,7 +28,7 @@ export declare namespace TagsFieldPropertiesDto {
         minItems?: number | null;
         maxItems?: number | null;
         allowedValues?: string[] | null;
-        createEnum: boolean;
-        editor: serializers.TagsFieldEditor.Raw;
+        createEnum?: boolean | null;
+        editor?: serializers.TagsFieldEditor.Raw | null;
     }
 }

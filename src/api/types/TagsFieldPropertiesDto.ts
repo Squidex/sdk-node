@@ -15,6 +15,6 @@ export interface TagsFieldPropertiesDto {
     /** The allowed values for the field value. */
     allowedValues?: string[];
     /** Indicates whether GraphQL Enum should be created. */
-    createEnum: boolean;
-    editor: Squidex.TagsFieldEditor;
+    createEnum?: boolean;
+    editor?: Squidex.TagsFieldEditor;
 }

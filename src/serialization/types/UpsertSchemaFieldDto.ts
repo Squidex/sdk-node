@@ -11,9 +11,9 @@ export const UpsertSchemaFieldDto: core.serialization.ObjectSchema<
     Squidex.UpsertSchemaFieldDto
 > = core.serialization.object({
     name: core.serialization.string(),
-    isHidden: core.serialization.boolean(),
-    isLocked: core.serialization.boolean(),
-    isDisabled: core.serialization.boolean(),
+    isHidden: core.serialization.boolean().optional(),
+    isLocked: core.serialization.boolean().optional(),
+    isDisabled: core.serialization.boolean().optional(),
     partitioning: core.serialization.string().optional(),
     properties: core.serialization.lazy(async () => (await import("..")).FieldPropertiesDto),
     nested: core.serialization
@@ -24,9 +24,9 @@ export const UpsertSchemaFieldDto: core.serialization.ObjectSchema<
 export declare namespace UpsertSchemaFieldDto {
     interface Raw {
         name: string;
-        isHidden: boolean;
-        isLocked: boolean;
-        isDisabled: boolean;
+        isHidden?: boolean | null;
+        isLocked?: boolean | null;
+        isDisabled?: boolean | null;
         partitioning?: string | null;
         properties: serializers.FieldPropertiesDto.Raw;
         nested?: serializers.UpsertSchemaNestedFieldDto.Raw[] | null;

@@ -11,18 +11,18 @@ export const UpsertSchemaNestedFieldDto: core.serialization.ObjectSchema<
     Squidex.UpsertSchemaNestedFieldDto
 > = core.serialization.object({
     name: core.serialization.string(),
-    isHidden: core.serialization.boolean(),
-    isLocked: core.serialization.boolean(),
-    isDisabled: core.serialization.boolean(),
+    isHidden: core.serialization.boolean().optional(),
+    isLocked: core.serialization.boolean().optional(),
+    isDisabled: core.serialization.boolean().optional(),
     properties: core.serialization.lazy(async () => (await import("..")).FieldPropertiesDto),
 });
 
 export declare namespace UpsertSchemaNestedFieldDto {
     interface Raw {
         name: string;
-        isHidden: boolean;
-        isLocked: boolean;
-        isDisabled: boolean;
+        isHidden?: boolean | null;
+        isLocked?: boolean | null;
+        isDisabled?: boolean | null;
         properties: serializers.FieldPropertiesDto.Raw;
     }
 }

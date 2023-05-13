@@ -10,9 +10,9 @@ const _Base = core.serialization.object({
     label: core.serialization.string().optional(),
     hints: core.serialization.string().optional(),
     placeholder: core.serialization.string().optional(),
-    isRequired: core.serialization.boolean(),
-    isRequiredOnPublish: core.serialization.boolean(),
-    isHalfWidth: core.serialization.boolean(),
+    isRequired: core.serialization.boolean().optional(),
+    isRequiredOnPublish: core.serialization.boolean().optional(),
+    isHalfWidth: core.serialization.boolean().optional(),
     editorUrl: core.serialization.string().optional(),
     tags: core.serialization.list(core.serialization.string()).optional(),
 });
@@ -124,9 +124,9 @@ export declare namespace FieldPropertiesDto {
         label?: string | null;
         hints?: string | null;
         placeholder?: string | null;
-        isRequired: boolean;
-        isRequiredOnPublish: boolean;
-        isHalfWidth: boolean;
+        isRequired?: boolean | null;
+        isRequiredOnPublish?: boolean | null;
+        isHalfWidth?: boolean | null;
         editorUrl?: string | null;
         tags?: string[] | null;
     }

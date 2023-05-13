@@ -13,7 +13,7 @@ export const UpdateSchemaDto: core.serialization.Schema<serializers.UpdateSchema
         contentsSidebarUrl: core.serialization.string().optional(),
         contentSidebarUrl: core.serialization.string().optional(),
         contentEditorUrl: core.serialization.string().optional(),
-        validateOnPublish: core.serialization.boolean(),
+        validateOnPublish: core.serialization.boolean().optional(),
         tags: core.serialization.list(core.serialization.string()).optional(),
     });
 
@@ -24,7 +24,7 @@ export declare namespace UpdateSchemaDto {
         contentsSidebarUrl?: string | null;
         contentSidebarUrl?: string | null;
         contentEditorUrl?: string | null;
-        validateOnPublish: boolean;
+        validateOnPublish?: boolean | null;
         tags?: string[] | null;
     }
 }

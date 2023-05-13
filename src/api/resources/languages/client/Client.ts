@@ -32,7 +32,7 @@ export class Languages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.29",
+                "X-Fern-SDK-Version": "0.0.30",
             },
             contentType: "application/json",
             timeoutMs: 60000,

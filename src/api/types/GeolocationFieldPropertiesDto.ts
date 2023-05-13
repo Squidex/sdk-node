@@ -5,5 +5,5 @@
 import * as Squidex from "..";
 
 export interface GeolocationFieldPropertiesDto {
-    editor: Squidex.GeolocationFieldEditor;
+    editor?: Squidex.GeolocationFieldEditor;
 }

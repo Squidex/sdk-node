@@ -14,6 +14,6 @@ export interface DateTimeFieldPropertiesDto {
     minValue?: string;
     /** The format pattern when displayed in the UI. */
     format?: string;
-    editor: Squidex.DateTimeFieldEditor;
+    editor?: Squidex.DateTimeFieldEditor;
     calculatedDefaultValue?: Squidex.DateTimeCalculatedDefaultValue;
 }

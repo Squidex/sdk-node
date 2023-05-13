@@ -15,8 +15,8 @@ export interface NumberFieldPropertiesDto {
     /** The allowed values for the field value. */
     allowedValues?: number[];
     /** Indicates if the field value must be unique. Ignored for nested fields and localized fields. */
-    isUnique: boolean;
+    isUnique?: boolean;
     /** Indicates that the inline editor is enabled for this field. */
-    inlineEditable: boolean;
-    editor: Squidex.NumberFieldEditor;
+    inlineEditable?: boolean;
+    editor?: Squidex.NumberFieldEditor;
 }

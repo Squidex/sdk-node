@@ -13,12 +13,12 @@ export interface ReferencesFieldPropertiesDto {
     /** The maximum allowed items for the field value. */
     maxItems?: number;
     /** True, if duplicate values are allowed. */
-    allowDuplicates: boolean;
+    allowDuplicates?: boolean;
     /** True to resolve references in the content list. */
-    resolveReference: boolean;
+    resolveReference?: boolean;
     /** True when all references must be published. */
-    mustBePublished: boolean;
-    editor: Squidex.ReferencesFieldEditor;
+    mustBePublished?: boolean;
+    editor?: Squidex.ReferencesFieldEditor;
     /** The ID of the referenced schemas. */
     schemaIds?: string[];
 }

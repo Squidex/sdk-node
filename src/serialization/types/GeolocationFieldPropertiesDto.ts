@@ -10,11 +10,11 @@ export const GeolocationFieldPropertiesDto: core.serialization.ObjectSchema<
     serializers.GeolocationFieldPropertiesDto.Raw,
     Squidex.GeolocationFieldPropertiesDto
 > = core.serialization.object({
-    editor: core.serialization.lazy(async () => (await import("..")).GeolocationFieldEditor),
+    editor: core.serialization.lazy(async () => (await import("..")).GeolocationFieldEditor).optional(),
 });
 
 export declare namespace GeolocationFieldPropertiesDto {
     interface Raw {
-        editor: serializers.GeolocationFieldEditor.Raw;
+        editor?: serializers.GeolocationFieldEditor.Raw | null;
     }
 }

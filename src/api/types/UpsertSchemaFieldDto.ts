@@ -8,11 +8,11 @@ export interface UpsertSchemaFieldDto {
     /** The name of the field. Must be unique within the schema. */
     name: string;
     /** Defines if the field is hidden. */
-    isHidden: boolean;
+    isHidden?: boolean;
     /** Defines if the field is locked. */
-    isLocked: boolean;
+    isLocked?: boolean;
     /** Defines if the field is disabled. */
-    isDisabled: boolean;
+    isDisabled?: boolean;
     /** Determines the optional partitioning of the field. */
     partitioning?: string;
     properties: Squidex.FieldPropertiesDto;

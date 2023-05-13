@@ -14,7 +14,7 @@ export interface UpdateSchemaDto {
     /** The url to the editor plugin. */
     contentEditorUrl?: string;
     /** True to validate the content items on publish. */
-    validateOnPublish: boolean;
+    validateOnPublish?: boolean;
     /** Tags for automation processes. */
     tags?: string[];
 }
