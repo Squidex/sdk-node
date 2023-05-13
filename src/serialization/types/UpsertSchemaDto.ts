@@ -24,7 +24,7 @@ export const UpsertSchemaDto: core.serialization.ObjectSchema<
         .list(core.serialization.lazyObject(async () => (await import("..")).FieldRuleDto))
         .optional(),
     category: core.serialization.string().optional(),
-    isPublished: core.serialization.boolean(),
+    isPublished: core.serialization.boolean().optional(),
 });
 
 export declare namespace UpsertSchemaDto {
@@ -37,6 +37,6 @@ export declare namespace UpsertSchemaDto {
         previewUrls?: Record<string, string | null | undefined> | null;
         fieldRules?: serializers.FieldRuleDto.Raw[] | null;
         category?: string | null;
-        isPublished: boolean;
+        isPublished?: boolean | null;
     }
 }

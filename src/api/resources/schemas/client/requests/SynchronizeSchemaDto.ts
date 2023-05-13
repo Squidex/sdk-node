@@ -4,7 +4,7 @@
 
 export interface SynchronizeSchemaDto {
     /** True, when fields should not be deleted. */
-    noFieldDeletion: boolean;
+    noFieldDeletion?: boolean;
     /** True, when fields with different types should not be recreated. */
-    noFieldRecreation: boolean;
+    noFieldRecreation?: boolean;
 }

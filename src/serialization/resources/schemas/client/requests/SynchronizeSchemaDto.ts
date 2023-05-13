@@ -10,13 +10,13 @@ export const SynchronizeSchemaDto: core.serialization.Schema<
     serializers.SynchronizeSchemaDto.Raw,
     Squidex.SynchronizeSchemaDto
 > = core.serialization.object({
-    noFieldDeletion: core.serialization.boolean(),
-    noFieldRecreation: core.serialization.boolean(),
+    noFieldDeletion: core.serialization.boolean().optional(),
+    noFieldRecreation: core.serialization.boolean().optional(),
 });
 
 export declare namespace SynchronizeSchemaDto {
     interface Raw {
-        noFieldDeletion: boolean;
-        noFieldRecreation: boolean;
+        noFieldDeletion?: boolean | null;
+        noFieldRecreation?: boolean | null;
     }
 }

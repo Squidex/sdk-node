@@ -9,14 +9,14 @@ import * as core from "../../../../../core";
 export const CreateSchemaDto: core.serialization.Schema<serializers.CreateSchemaDto.Raw, Squidex.CreateSchemaDto> =
     core.serialization.object({
         name: core.serialization.string(),
-        type: core.serialization.lazy(async () => (await import("../../../..")).SchemaType),
-        isSingleton: core.serialization.boolean(),
+        type: core.serialization.lazy(async () => (await import("../../../..")).SchemaType).optional(),
+        isSingleton: core.serialization.boolean().optional(),
     });
 
 export declare namespace CreateSchemaDto {
     interface Raw {
         name: string;
-        type: serializers.SchemaType.Raw;
-        isSingleton: boolean;
+        type?: serializers.SchemaType.Raw | null;
+        isSingleton?: boolean | null;
     }
 }

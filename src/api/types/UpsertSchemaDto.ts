@@ -20,5 +20,5 @@ export interface UpsertSchemaDto {
     /** The category. */
     category?: string;
     /** Set it to true to autopublish the schema. */
-    isPublished: boolean;
+    isPublished?: boolean;
 }
