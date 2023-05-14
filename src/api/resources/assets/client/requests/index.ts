@@ -7,6 +7,7 @@ export { MoveAssetFolderDto } from "./MoveAssetFolderDto";
 export { RenameTagDto } from "./RenameTagDto";
 export { AssetsGetAssetsRequest } from "./AssetsGetAssetsRequest";
 export { AssetsPostAssetRequest } from "./AssetsPostAssetRequest";
+export { AssetsGetAssetsPostRequest } from "./AssetsGetAssetsPostRequest";
 export { AssetsPostUpsertAssetRequest } from "./AssetsPostUpsertAssetRequest";
 export { AnnotateAssetDto } from "./AnnotateAssetDto";
 export { AssetsDeleteAssetRequest } from "./AssetsDeleteAssetRequest";

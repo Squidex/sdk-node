@@ -11,4 +11,36 @@ export interface ContentsGetContentsRequest {
      * The optional json query.
      */
     q?: string;
+    /**
+     * Optional number of items to skip.
+     */
+    search?: string;
+    /**
+     * Optional number of items to take.
+     */
+    top?: number;
+    /**
+     * Optional number of items to skip.
+     */
+    skip?: number;
+    /**
+     * Optional OData order definition.
+     */
+    orderby?: string;
+    /**
+     * Optional OData filter.
+     */
+    filter?: string;
+    /**
+     * Do not return the total amount.
+     */
+    noTotal?: boolean;
+    /**
+     * Do not return the total amount, if it would be slow.
+     */
+    noSlowTotal?: boolean;
+    /**
+     * Return unpublished content items.
+     */
+    unpublished?: boolean;
 }

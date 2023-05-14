@@ -31,7 +31,7 @@ export class Contents {
         schema: string,
         request: Squidex.ContentsGetContentsRequest = {}
     ): Promise<Squidex.ContentsDto> {
-        const { ids, q } = request;
+        const { ids, q, search, top, skip, orderby, filter, noTotal, noSlowTotal, unpublished } = request;
         const _queryParams = new URLSearchParams();
         if (ids != null) {
             _queryParams.append("ids", ids);
@@ -39,6 +39,26 @@ export class Contents {
 
         if (q != null) {
             _queryParams.append("q", q);
+        }
+
+        if (search != null) {
+            _queryParams.append("$search", search);
+        }
+
+        if (top != null) {
+            _queryParams.append("$top", top.toString());
+        }
+
+        if (skip != null) {
+            _queryParams.append("$skip", skip.toString());
+        }
+
+        if (orderby != null) {
+            _queryParams.append("$orderby", orderby);
+        }
+
+        if (filter != null) {
+            _queryParams.append("$filter", filter);
         }
 
         const _response = await core.fetcher({
@@ -51,7 +71,10 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
+                "X-NoTotal": noTotal,
+                "X-NoSlowTotal": noSlowTotal,
+                "X-Unpublished": unpublished,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -133,7 +156,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -202,7 +225,11 @@ export class Contents {
      * @throws {Squidex.NotFoundError}
      * @throws {Squidex.InternalServerError}
      */
-    public async getContentsPost(schema: string, request: Squidex.QueryDto): Promise<Squidex.ContentsDto> {
+    public async getContentsPost(
+        schema: string,
+        request: Squidex.ContentsGetContentsPostRequest
+    ): Promise<Squidex.ContentsDto> {
+        const { noTotal, noSlowTotal, unpublished, body: _body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -213,10 +240,13 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
+                "X-NoTotal": noTotal,
+                "X-NoSlowTotal": noSlowTotal,
+                "X-Unpublished": unpublished,
             },
             contentType: "application/json",
-            body: await serializers.QueryDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.QueryDto.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: 60000,
         });
         if (_response.ok) {
@@ -283,7 +313,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsGetContentRequest = {}
     ): Promise<Squidex.ContentDto> {
-        const { version } = request;
+        const { version, unpublished } = request;
         const _queryParams = new URLSearchParams();
         if (version != null) {
             _queryParams.append("version", version.toString());
@@ -299,7 +329,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
+                "X-Unpublished": unpublished,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -385,7 +416,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -469,7 +500,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             body: await serializers.contents.putContent.Request.jsonOrThrow(request, {
@@ -552,7 +583,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             body: await serializers.contents.patchContent.Request.jsonOrThrow(request, {
@@ -645,7 +676,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -717,7 +748,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -781,7 +812,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsGetReferencesRequest = {}
     ): Promise<Squidex.ContentsDto> {
-        const { q } = request;
+        const { q, noTotal, noSlowTotal, unpublished } = request;
         const _queryParams = new URLSearchParams();
         if (q != null) {
             _queryParams.append("q", q);
@@ -797,7 +828,10 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
+                "X-NoTotal": noTotal,
+                "X-NoSlowTotal": noSlowTotal,
+                "X-Unpublished": unpublished,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -858,7 +892,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsGetReferencingRequest = {}
     ): Promise<Squidex.ContentsDto> {
-        const { q } = request;
+        const { q, noTotal, noSlowTotal, unpublished } = request;
         const _queryParams = new URLSearchParams();
         if (q != null) {
             _queryParams.append("q", q);
@@ -874,7 +908,10 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
+                "X-NoTotal": noTotal,
+                "X-NoSlowTotal": noSlowTotal,
+                "X-Unpublished": unpublished,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -928,7 +965,13 @@ export class Contents {
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      */
-    public async getContentVersion(schema: string, id: string, version: number): Promise<stream.Readable> {
+    public async getContentVersion(
+        schema: string,
+        id: string,
+        version: number,
+        request: Squidex.ContentsGetContentVersionRequest = {}
+    ): Promise<stream.Readable> {
+        const { unpublished } = request;
         return await core.streamingFetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -939,7 +982,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
+                "X-Unpublished": unpublished,
             },
             timeoutMs: 60000,
             onError: (error) => {
@@ -967,7 +1011,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             body: await serializers.ImportContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1047,7 +1091,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             body: await serializers.BulkUpdateContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1128,7 +1172,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             body: await serializers.ChangeStatusDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1205,7 +1249,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1281,7 +1325,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1357,7 +1401,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.32",
+                "X-Fern-SDK-Version": "0.0.33",
             },
             contentType: "application/json",
             timeoutMs: 60000,

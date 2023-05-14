@@ -31,4 +31,12 @@ export interface AssetsGetAssetsRequest {
      * Optional OData filter.
      */
     filter?: string;
+    /**
+     * Do not return the total amount.
+     */
+    noTotal?: boolean;
+    /**
+     * Do not return the total amount, if it would be slow.
+     */
+    noSlowTotal?: boolean;
 }

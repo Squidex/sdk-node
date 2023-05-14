@@ -1,10 +1,12 @@
 export { ContentsGetContentsRequest } from "./ContentsGetContentsRequest";
 export { ContentsPostContentRequest } from "./ContentsPostContentRequest";
+export { ContentsGetContentsPostRequest } from "./ContentsGetContentsPostRequest";
 export { ContentsGetContentRequest } from "./ContentsGetContentRequest";
 export { ContentsPostUpsertContentRequest } from "./ContentsPostUpsertContentRequest";
 export { ContentsDeleteContentRequest } from "./ContentsDeleteContentRequest";
 export { ContentsGetReferencesRequest } from "./ContentsGetReferencesRequest";
 export { ContentsGetReferencingRequest } from "./ContentsGetReferencingRequest";
+export { ContentsGetContentVersionRequest } from "./ContentsGetContentVersionRequest";
 export { ImportContentsDto } from "./ImportContentsDto";
 export { BulkUpdateContentsDto } from "./BulkUpdateContentsDto";
 export { ChangeStatusDto } from "./ChangeStatusDto";

@@ -7,4 +7,16 @@ export interface ContentsGetReferencingRequest {
      * The optional json query.
      */
     q?: string;
+    /**
+     * Do not return the total amount.
+     */
+    noTotal?: boolean;
+    /**
+     * Do not return the total amount, if it would be slow.
+     */
+    noSlowTotal?: boolean;
+    /**
+     * Return unpublished content items.
+     */
+    unpublished?: boolean;
 }
