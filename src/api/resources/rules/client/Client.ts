@@ -22,7 +22,7 @@ export class Rules {
     constructor(protected readonly options: Rules.Options) {}
 
     /**
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getActions(): Promise<Record<string, Squidex.RuleElementDto>> {
         const _response = await core.fetcher({
@@ -32,7 +32,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -81,8 +81,8 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getRules(): Promise<Squidex.RulesDto> {
         const _response = await core.fetcher({
@@ -95,7 +95,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -146,9 +146,9 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postRule(request: Squidex.CreateRuleDto): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
@@ -161,7 +161,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.CreateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -222,8 +222,8 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteRuleRun(): Promise<void> {
         const _response = await core.fetcher({
@@ -236,7 +236,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -289,9 +289,9 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putRule(id: string, request: Squidex.UpdateRuleDto = {}): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
@@ -304,7 +304,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.UpdateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -365,9 +365,9 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteRule(id: string): Promise<void> {
         const _response = await core.fetcher({
@@ -380,7 +380,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -435,9 +435,9 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async enableRule(id: string): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
@@ -450,7 +450,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -510,9 +510,9 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async disableRule(id: string): Promise<Squidex.RuleDto> {
         const _response = await core.fetcher({
@@ -525,7 +525,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -585,9 +585,9 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async triggerRule(id: string): Promise<void> {
         const _response = await core.fetcher({
@@ -600,7 +600,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -655,8 +655,8 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putRuleRun(id: string, request: Squidex.RulesPutRuleRunRequest = {}): Promise<void> {
         const { fromSnapshots } = request;
@@ -675,7 +675,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -729,8 +729,8 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteRuleEvents(id: string): Promise<void> {
         const _response = await core.fetcher({
@@ -743,7 +743,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -796,9 +796,9 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async simulatePost(request: Squidex.CreateRuleDto): Promise<Squidex.SimulatedRuleEventsDto> {
         const _response = await core.fetcher({
@@ -811,7 +811,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.CreateRuleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -872,8 +872,8 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async simulateGet(id: string): Promise<Squidex.SimulatedRuleEventsDto> {
         const _response = await core.fetcher({
@@ -886,7 +886,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -937,8 +937,8 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getEvents(request: Squidex.RulesGetEventsRequest = {}): Promise<Squidex.RuleEventsDto> {
         const { ruleId, skip, take } = request;
@@ -965,7 +965,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -1017,8 +1017,8 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteEvents(): Promise<void> {
         const _response = await core.fetcher({
@@ -1031,7 +1031,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1084,9 +1084,9 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putEvent(id: string): Promise<void> {
         const _response = await core.fetcher({
@@ -1099,7 +1099,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1154,9 +1154,9 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteEvent(id: string): Promise<void> {
         const _response = await core.fetcher({
@@ -1169,7 +1169,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1224,7 +1224,7 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getEventTypes(): Promise<string[]> {
         const _response = await core.fetcher({
@@ -1234,7 +1234,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1283,8 +1283,8 @@ export class Rules {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getEventSchema(type: string): Promise<unknown> {
         const _response = await core.fetcher({
@@ -1297,7 +1297,7 @@ export class Rules {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1343,11 +1343,6 @@ export class Rules {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

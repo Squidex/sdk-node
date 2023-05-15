@@ -3,6 +3,8 @@ export { ContentsPostContentRequest } from "./ContentsPostContentRequest";
 export { ContentsGetContentsPostRequest } from "./ContentsGetContentsPostRequest";
 export { ContentsGetContentRequest } from "./ContentsGetContentRequest";
 export { ContentsPostUpsertContentRequest } from "./ContentsPostUpsertContentRequest";
+export { ContentsPutContentRequest } from "./ContentsPutContentRequest";
+export { ContentsPatchContentRequest } from "./ContentsPatchContentRequest";
 export { ContentsDeleteContentRequest } from "./ContentsDeleteContentRequest";
 export { ContentsGetReferencesRequest } from "./ContentsGetReferencesRequest";
 export { ContentsGetReferencingRequest } from "./ContentsGetReferencingRequest";
@@ -10,3 +12,6 @@ export { ContentsGetContentVersionRequest } from "./ContentsGetContentVersionReq
 export { ImportContentsDto } from "./ImportContentsDto";
 export { BulkUpdateContentsDto } from "./BulkUpdateContentsDto";
 export { ChangeStatusDto } from "./ChangeStatusDto";
+export { ContentsDeleteContentStatusRequest } from "./ContentsDeleteContentStatusRequest";
+export { ContentsCreateDraftRequest } from "./ContentsCreateDraftRequest";
+export { ContentsDeleteVersionRequest } from "./ContentsDeleteVersionRequest";

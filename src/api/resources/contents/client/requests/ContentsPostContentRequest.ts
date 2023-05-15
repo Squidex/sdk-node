@@ -17,5 +17,13 @@ export interface ContentsPostContentRequest {
      * True to automatically publish the content.
      */
     publish?: boolean;
+    /**
+     * Return unpublished content items.
+     */
+    flatten?: boolean;
+    /**
+     * Only resolve these languages (comma-separated).
+     */
+    languages?: string;
     body: Record<string, Squidex.ContentFieldData>;
 }

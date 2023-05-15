@@ -21,8 +21,8 @@ export class Plans {
     constructor(protected readonly options: Plans.Options) {}
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getPlans(): Promise<Squidex.PlansDto> {
         const _response = await core.fetcher({
@@ -35,7 +35,7 @@ export class Plans {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -86,9 +86,9 @@ export class Plans {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putPlan(request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
         const _response = await core.fetcher({
@@ -101,7 +101,7 @@ export class Plans {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.ChangePlanDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -162,8 +162,8 @@ export class Plans {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getTeamPlans(team: string): Promise<Squidex.PlansDto> {
         const _response = await core.fetcher({
@@ -176,7 +176,7 @@ export class Plans {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -227,9 +227,9 @@ export class Plans {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putTeamPlan(team: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
         const _response = await core.fetcher({
@@ -239,7 +239,7 @@ export class Plans {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.ChangePlanDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -300,11 +300,6 @@ export class Plans {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

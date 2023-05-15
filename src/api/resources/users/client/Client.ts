@@ -23,7 +23,7 @@ export class Users {
     constructor(protected readonly options: Users.Options) {}
 
     /**
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getUserResources(): Promise<Squidex.ResourcesDto> {
         const _response = await core.fetcher({
@@ -33,7 +33,7 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -83,7 +83,7 @@ export class Users {
 
     /**
      * Search the user by query that contains the email address or the part of the email address.
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getUsers(request: Squidex.UsersGetUsersRequest = {}): Promise<Squidex.UserDto[]> {
         const { query } = request;
@@ -99,7 +99,7 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -149,8 +149,8 @@ export class Users {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getUser(id: string): Promise<Squidex.UserDto> {
         const _response = await core.fetcher({
@@ -160,7 +160,7 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -221,7 +221,7 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             timeoutMs: 60000,
             onError: (error) => {
@@ -233,11 +233,6 @@ export class Users {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

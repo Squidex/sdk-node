@@ -10,7 +10,7 @@ export interface TypesenseRuleActionDto {
     /** The api key. */
     apiKey: string;
     /** The optional custom document. */
-    document: string;
+    document?: string;
     /** The condition when to delete the document. */
-    delete: string;
+    delete?: string;
 }

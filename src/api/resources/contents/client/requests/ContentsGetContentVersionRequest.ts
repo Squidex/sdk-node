@@ -6,5 +6,9 @@ export interface ContentsGetContentVersionRequest {
     /**
      * Return unpublished content items.
      */
-    unpublished?: boolean;
+    flatten?: boolean;
+    /**
+     * Only resolve these languages (comma-separated).
+     */
+    languages?: string;
 }

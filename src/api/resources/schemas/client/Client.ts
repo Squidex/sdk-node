@@ -21,10 +21,10 @@ export class Schemas {
     constructor(protected readonly options: Schemas.Options) {}
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.ConflictError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.ConflictError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postField(schema: string, request: Squidex.AddFieldDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -37,7 +37,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.AddFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -107,10 +107,10 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.ConflictError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.ConflictError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postNestedField(
         schema: string,
@@ -127,7 +127,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.AddFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -197,9 +197,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putSchemaUiFields(
         schema: string,
@@ -215,7 +215,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.ConfigureUiFieldsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -276,9 +276,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putSchemaFieldOrdering(schema: string, request: Squidex.ReorderFieldsDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -291,7 +291,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.ReorderFieldsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -352,9 +352,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putNestedFieldOrdering(
         schema: string,
@@ -371,7 +371,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.ReorderFieldsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -432,9 +432,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putField(schema: string, id: number, request: Squidex.UpdateFieldDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -447,7 +447,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.UpdateFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -508,9 +508,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -523,7 +523,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -583,9 +583,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putNestedField(
         schema: string,
@@ -603,7 +603,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.UpdateFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -664,9 +664,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -679,7 +679,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -740,9 +740,9 @@ export class Schemas {
 
     /**
      * A locked field cannot be updated or deleted.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async lockField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -755,7 +755,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -816,9 +816,9 @@ export class Schemas {
 
     /**
      * A locked field cannot be edited or deleted.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async lockNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -831,7 +831,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -892,9 +892,9 @@ export class Schemas {
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async hideField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -907,7 +907,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -968,9 +968,9 @@ export class Schemas {
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async hideNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -983,7 +983,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1044,9 +1044,9 @@ export class Schemas {
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async showField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1059,7 +1059,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1120,9 +1120,9 @@ export class Schemas {
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async showNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1135,7 +1135,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1196,9 +1196,9 @@ export class Schemas {
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async enableField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1211,7 +1211,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1272,9 +1272,9 @@ export class Schemas {
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async enableNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1287,7 +1287,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1348,9 +1348,9 @@ export class Schemas {
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async disableField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1363,7 +1363,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1424,9 +1424,9 @@ export class Schemas {
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async disableNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1439,7 +1439,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1499,8 +1499,8 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getSchemas(): Promise<Squidex.SchemasDto> {
         const _response = await core.fetcher({
@@ -1513,7 +1513,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1564,9 +1564,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.ConflictError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.ConflictError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postSchema(request: Squidex.CreateSchemaDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1579,7 +1579,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.CreateSchemaDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1647,8 +1647,8 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getSchema(schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1661,7 +1661,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1712,9 +1712,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putSchema(schema: string, request: Squidex.UpdateSchemaDto = {}): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1727,7 +1727,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.UpdateSchemaDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1788,9 +1788,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteSchema(schema: string): Promise<void> {
         const _response = await core.fetcher({
@@ -1803,7 +1803,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1858,9 +1858,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putSchemaSync(schema: string, request: Squidex.SynchronizeSchemaDto = {}): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1873,7 +1873,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.SynchronizeSchemaDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1934,9 +1934,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putCategory(schema: string, request: Squidex.ChangeCategoryDto = {}): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -1949,7 +1949,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.ChangeCategoryDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -2010,9 +2010,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putPreviewUrls(schema: string, request: Record<string, string>): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -2025,7 +2025,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.schemas.putPreviewUrls.Request.jsonOrThrow(request, {
@@ -2088,9 +2088,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putScripts(schema: string, request: Squidex.SchemaScriptsDto): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -2103,7 +2103,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.SchemaScriptsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -2164,9 +2164,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putRules(schema: string, request: Squidex.ConfigureFieldRulesDto = {}): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -2179,7 +2179,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.ConfigureFieldRulesDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -2240,9 +2240,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async publishSchema(schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -2255,7 +2255,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -2315,9 +2315,9 @@ export class Schemas {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async unpublishSchema(schema: string): Promise<Squidex.SchemaDto> {
         const _response = await core.fetcher({
@@ -2330,7 +2330,7 @@ export class Schemas {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -2390,11 +2390,6 @@ export class Schemas {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

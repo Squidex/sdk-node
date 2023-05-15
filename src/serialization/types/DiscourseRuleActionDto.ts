@@ -14,7 +14,7 @@ export const DiscourseRuleActionDto: core.serialization.ObjectSchema<
     apiKey: core.serialization.string(),
     apiUsername: core.serialization.string(),
     text: core.serialization.string(),
-    title: core.serialization.string(),
+    title: core.serialization.string().optional(),
     topic: core.serialization.number().optional(),
     category: core.serialization.number().optional(),
 });
@@ -25,7 +25,7 @@ export declare namespace DiscourseRuleActionDto {
         apiKey: string;
         apiUsername: string;
         text: string;
-        title: string;
+        title?: string | null;
         topic?: number | null;
         category?: number | null;
     }

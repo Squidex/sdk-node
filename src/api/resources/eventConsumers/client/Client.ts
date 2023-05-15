@@ -21,7 +21,7 @@ export class EventConsumers {
     constructor(protected readonly options: EventConsumers.Options) {}
 
     /**
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getEventConsumers(): Promise<Squidex.EventConsumersDto> {
         const _response = await core.fetcher({
@@ -31,7 +31,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -80,9 +80,9 @@ export class EventConsumers {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async startEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
         const _response = await core.fetcher({
@@ -95,7 +95,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -155,9 +155,9 @@ export class EventConsumers {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async stopEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
         const _response = await core.fetcher({
@@ -170,7 +170,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -230,9 +230,9 @@ export class EventConsumers {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async resetEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
         const _response = await core.fetcher({
@@ -245,7 +245,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -305,11 +305,6 @@ export class EventConsumers {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

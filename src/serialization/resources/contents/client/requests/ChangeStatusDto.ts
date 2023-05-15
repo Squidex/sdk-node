@@ -6,12 +6,14 @@ import * as serializers from "../../../..";
 import * as Squidex from "../../../../../api";
 import * as core from "../../../../../core";
 
-export const ChangeStatusDto: core.serialization.Schema<serializers.ChangeStatusDto.Raw, Squidex.ChangeStatusDto> =
-    core.serialization.object({
-        status: core.serialization.string(),
-        dueTime: core.serialization.string().optional(),
-        checkReferrers: core.serialization.boolean().optional(),
-    });
+export const ChangeStatusDto: core.serialization.Schema<
+    serializers.ChangeStatusDto.Raw,
+    Omit<Squidex.ChangeStatusDto, "flatten" | "languages">
+> = core.serialization.object({
+    status: core.serialization.string(),
+    dueTime: core.serialization.string().optional(),
+    checkReferrers: core.serialization.boolean().optional(),
+});
 
 export declare namespace ChangeStatusDto {
     interface Raw {

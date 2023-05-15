@@ -10,11 +10,11 @@ export interface MediumRuleActionDto {
     /** The content, either html or markdown. */
     content: string;
     /** The original home of this content, if it was originally published elsewhere. */
-    canonicalUrl: string;
+    canonicalUrl?: string;
     /** The optional comma separated list of tags. */
-    tags: string;
+    tags?: string;
     /** Optional publication id. */
-    publicationId: string;
+    publicationId?: string;
     /** Indicates whether the content is markdown or html. */
     isHtml: boolean;
 }

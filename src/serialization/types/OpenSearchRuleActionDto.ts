@@ -12,19 +12,19 @@ export const OpenSearchRuleActionDto: core.serialization.ObjectSchema<
 > = core.serialization.object({
     host: core.serialization.string(),
     indexName: core.serialization.string(),
-    username: core.serialization.string(),
-    password: core.serialization.string(),
-    document: core.serialization.string(),
-    delete: core.serialization.string(),
+    username: core.serialization.string().optional(),
+    password: core.serialization.string().optional(),
+    document: core.serialization.string().optional(),
+    delete: core.serialization.string().optional(),
 });
 
 export declare namespace OpenSearchRuleActionDto {
     interface Raw {
         host: string;
         indexName: string;
-        username: string;
-        password: string;
-        document: string;
-        delete: string;
+        username?: string | null;
+        password?: string | null;
+        document?: string | null;
+        delete?: string | null;
     }
 }

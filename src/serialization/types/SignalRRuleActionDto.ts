@@ -13,9 +13,9 @@ export const SignalRRuleActionDto: core.serialization.ObjectSchema<
     connectionString: core.serialization.string(),
     hubName: core.serialization.string(),
     action: core.serialization.lazy(async () => (await import("..")).ActionTypeEnum),
-    methodName: core.serialization.string(),
-    target: core.serialization.string(),
-    payload: core.serialization.string(),
+    methodName: core.serialization.string().optional(),
+    target: core.serialization.string().optional(),
+    payload: core.serialization.string().optional(),
 });
 
 export declare namespace SignalRRuleActionDto {
@@ -23,8 +23,8 @@ export declare namespace SignalRRuleActionDto {
         connectionString: string;
         hubName: string;
         action: serializers.ActionTypeEnum.Raw;
-        methodName: string;
-        target: string;
-        payload: string;
+        methodName?: string | null;
+        target?: string | null;
+        payload?: string | null;
     }
 }

@@ -4,7 +4,7 @@
 
 import * as Squidex from "../../../..";
 
-export interface ContentsGetContentsPostRequest {
+export interface ContentsPatchContentRequest {
     /**
      * Return unpublished content items.
      */
@@ -13,13 +13,5 @@ export interface ContentsGetContentsPostRequest {
      * Only resolve these languages (comma-separated).
      */
     languages?: string;
-    /**
-     * Do not return the total amount, if it would be slow.
-     */
-    noSlowTotal?: boolean;
-    /**
-     * Do not return the total amount.
-     */
-    noTotal?: boolean;
-    body: Squidex.QueryDto;
+    body: Record<string, Squidex.ContentFieldData>;
 }

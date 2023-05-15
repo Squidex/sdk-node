@@ -13,9 +13,9 @@ export const MediumRuleActionDto: core.serialization.ObjectSchema<
     accessToken: core.serialization.string(),
     title: core.serialization.string(),
     content: core.serialization.string(),
-    canonicalUrl: core.serialization.string(),
-    tags: core.serialization.string(),
-    publicationId: core.serialization.string(),
+    canonicalUrl: core.serialization.string().optional(),
+    tags: core.serialization.string().optional(),
+    publicationId: core.serialization.string().optional(),
     isHtml: core.serialization.boolean(),
 });
 
@@ -24,9 +24,9 @@ export declare namespace MediumRuleActionDto {
         accessToken: string;
         title: string;
         content: string;
-        canonicalUrl: string;
-        tags: string;
-        publicationId: string;
+        canonicalUrl?: string | null;
+        tags?: string | null;
+        publicationId?: string | null;
         isHtml: boolean;
     }
 }

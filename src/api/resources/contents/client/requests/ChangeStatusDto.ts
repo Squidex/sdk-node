@@ -3,6 +3,14 @@
  */
 
 export interface ChangeStatusDto {
+    /**
+     * Return unpublished content items.
+     */
+    flatten?: boolean;
+    /**
+     * Only resolve these languages (comma-separated).
+     */
+    languages?: string;
     /** The new status. */
     status: string;
     /** The due time. */

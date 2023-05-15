@@ -12,13 +12,13 @@ export const AzureQueueRuleActionDto: core.serialization.ObjectSchema<
 > = core.serialization.object({
     connectionString: core.serialization.string(),
     queue: core.serialization.string(),
-    payload: core.serialization.string(),
+    payload: core.serialization.string().optional(),
 });
 
 export declare namespace AzureQueueRuleActionDto {
     interface Raw {
         connectionString: string;
         queue: string;
-        payload: string;
+        payload?: string | null;
     }
 }

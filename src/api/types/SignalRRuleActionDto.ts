@@ -11,9 +11,9 @@ export interface SignalRRuleActionDto {
     hubName: string;
     action: Squidex.ActionTypeEnum;
     /** Set the Name of the hub method received by the customer. */
-    methodName: string;
+    methodName?: string;
     /** Define target users or groups by id or name. One item per line. Not needed for Broadcast action. */
-    target: string;
+    target?: string;
     /** Leave it empty to use the full event as body. */
-    payload: string;
+    payload?: string;
 }

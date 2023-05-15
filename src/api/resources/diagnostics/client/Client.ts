@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
+import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors";
 import * as serializers from "../../../../serialization";
-import * as Squidex from "../../..";
 
 export declare namespace Diagnostics {
     interface Options {
@@ -21,8 +21,8 @@ export class Diagnostics {
     constructor(protected readonly options: Diagnostics.Options) {}
 
     /**
-     * @throws {Squidex.InternalServerError}
-     * @throws {Squidex.NotImplementedError}
+     * @throws {@link Squidex.InternalServerError}
+     * @throws {@link Squidex.NotImplementedError}
      */
     public async getDump(): Promise<void> {
         const _response = await core.fetcher({
@@ -32,7 +32,7 @@ export class Diagnostics {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -85,8 +85,8 @@ export class Diagnostics {
     }
 
     /**
-     * @throws {Squidex.InternalServerError}
-     * @throws {Squidex.NotImplementedError}
+     * @throws {@link Squidex.InternalServerError}
+     * @throws {@link Squidex.NotImplementedError}
      */
     public async getGcDump(): Promise<void> {
         const _response = await core.fetcher({
@@ -96,7 +96,7 @@ export class Diagnostics {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -149,11 +149,6 @@ export class Diagnostics {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

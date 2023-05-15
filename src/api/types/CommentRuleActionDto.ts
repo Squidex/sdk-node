@@ -6,5 +6,5 @@ export interface CommentRuleActionDto {
     /** The comment text. */
     text: string;
     /** An optional client name. */
-    client: string;
+    client?: string;
 }

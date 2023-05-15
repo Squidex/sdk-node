@@ -21,8 +21,8 @@ export class Teams {
     constructor(protected readonly options: Teams.Options) {}
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getContributors(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
@@ -35,7 +35,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -86,9 +86,9 @@ export class Teams {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postContributor(
         team: string,
@@ -104,7 +104,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.AssignContributorDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -165,9 +165,9 @@ export class Teams {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteMyself(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
@@ -180,7 +180,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -240,9 +240,9 @@ export class Teams {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteContributor(team: string, id: string): Promise<Squidex.ContributorsDto> {
         const _response = await core.fetcher({
@@ -255,7 +255,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -317,7 +317,7 @@ export class Teams {
     /**
      * You can only retrieve the list of teams when you are authenticated as a user (OpenID implicit flow).
      * You will retrieve all teams, where you are assigned as a contributor.
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getTeams(): Promise<Squidex.TeamDto[]> {
         const _response = await core.fetcher({
@@ -327,7 +327,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -378,9 +378,9 @@ export class Teams {
     /**
      * You can only create an team when you are authenticated as a user (OpenID implicit flow).
      * You will be assigned as owner of the new team automatically.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.ConflictError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.ConflictError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postTeam(request: Squidex.CreateTeamDto): Promise<Squidex.TeamDto> {
         const _response = await core.fetcher({
@@ -390,7 +390,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.CreateTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -458,8 +458,8 @@ export class Teams {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getTeam(team: string): Promise<Squidex.TeamDto> {
         const _response = await core.fetcher({
@@ -469,7 +469,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -520,9 +520,9 @@ export class Teams {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putTeam(team: string, request: Squidex.UpdateTeamDto): Promise<Squidex.TeamDto> {
         const _response = await core.fetcher({
@@ -532,7 +532,7 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.UpdateTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -593,11 +593,6 @@ export class Teams {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

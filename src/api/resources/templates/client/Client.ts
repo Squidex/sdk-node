@@ -21,7 +21,7 @@ export class Templates {
     constructor(protected readonly options: Templates.Options) {}
 
     /**
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getTemplates(): Promise<Squidex.TemplatesDto> {
         const _response = await core.fetcher({
@@ -31,7 +31,7 @@ export class Templates {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -80,8 +80,8 @@ export class Templates {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getTemplate(name: string): Promise<Squidex.TemplateDetailsDto> {
         const _response = await core.fetcher({
@@ -91,7 +91,7 @@ export class Templates {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -142,11 +142,6 @@ export class Templates {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

@@ -11,12 +11,12 @@ export const CommentRuleActionDto: core.serialization.ObjectSchema<
     Squidex.CommentRuleActionDto
 > = core.serialization.object({
     text: core.serialization.string(),
-    client: core.serialization.string(),
+    client: core.serialization.string().optional(),
 });
 
 export declare namespace CommentRuleActionDto {
     interface Raw {
         text: string;
-        client: string;
+        client?: string | null;
     }
 }

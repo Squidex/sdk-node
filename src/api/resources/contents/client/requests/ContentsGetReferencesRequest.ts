@@ -8,15 +8,19 @@ export interface ContentsGetReferencesRequest {
      */
     q?: string;
     /**
-     * Do not return the total amount.
+     * Return unpublished content items.
      */
-    noTotal?: boolean;
+    flatten?: boolean;
+    /**
+     * Only resolve these languages (comma-separated).
+     */
+    languages?: string;
     /**
      * Do not return the total amount, if it would be slow.
      */
     noSlowTotal?: boolean;
     /**
-     * Return unpublished content items.
+     * Do not return the total amount.
      */
-    unpublished?: boolean;
+    noTotal?: boolean;
 }

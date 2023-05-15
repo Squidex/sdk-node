@@ -7,8 +7,8 @@ import * as core from "../../../../core";
 import * as stream from "stream";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors";
-import * as serializers from "../../../../serialization";
 import * as Squidex from "../../..";
+import * as serializers from "../../../../serialization";
 import URLSearchParams from "@ungap/url-search-params";
 
 export declare namespace Backups {
@@ -33,7 +33,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             timeoutMs: 60000,
             onError: (error) => {
@@ -45,9 +45,9 @@ export class Backups {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteBackup(id: string): Promise<void> {
         const _response = await core.fetcher({
@@ -60,7 +60,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -135,7 +135,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             queryParameters: _queryParams,
             timeoutMs: 60000,
@@ -148,8 +148,8 @@ export class Backups {
     }
 
     /**
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getBackups(): Promise<Squidex.BackupJobsDto> {
         const _response = await core.fetcher({
@@ -162,7 +162,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -213,9 +213,9 @@ export class Backups {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postBackup(): Promise<void> {
         const _response = await core.fetcher({
@@ -228,7 +228,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -283,7 +283,7 @@ export class Backups {
     }
 
     /**
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getRestoreJob(): Promise<Squidex.RestoreJobDto> {
         const _response = await core.fetcher({
@@ -293,7 +293,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -342,8 +342,8 @@ export class Backups {
     }
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postRestoreJob(request: Squidex.RestoreRequestDto): Promise<void> {
         const _response = await core.fetcher({
@@ -353,7 +353,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.RestoreRequestDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -407,11 +407,6 @@ export class Backups {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

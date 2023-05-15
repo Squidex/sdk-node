@@ -12,15 +12,15 @@ export const NotificationRuleActionDto: core.serialization.ObjectSchema<
 > = core.serialization.object({
     user: core.serialization.string(),
     text: core.serialization.string(),
-    url: core.serialization.string(),
-    client: core.serialization.string(),
+    url: core.serialization.string().optional(),
+    client: core.serialization.string().optional(),
 });
 
 export declare namespace NotificationRuleActionDto {
     interface Raw {
         user: string;
         text: string;
-        url: string;
-        client: string;
+        url?: string | null;
+        client?: string | null;
     }
 }

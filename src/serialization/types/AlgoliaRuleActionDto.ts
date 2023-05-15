@@ -13,8 +13,8 @@ export const AlgoliaRuleActionDto: core.serialization.ObjectSchema<
     appId: core.serialization.string(),
     apiKey: core.serialization.string(),
     indexName: core.serialization.string(),
-    document: core.serialization.string(),
-    delete: core.serialization.string(),
+    document: core.serialization.string().optional(),
+    delete: core.serialization.string().optional(),
 });
 
 export declare namespace AlgoliaRuleActionDto {
@@ -22,7 +22,7 @@ export declare namespace AlgoliaRuleActionDto {
         appId: string;
         apiKey: string;
         indexName: string;
-        document: string;
-        delete: string;
+        document?: string | null;
+        delete?: string | null;
     }
 }

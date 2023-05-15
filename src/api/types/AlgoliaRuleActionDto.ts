@@ -10,7 +10,7 @@ export interface AlgoliaRuleActionDto {
     /** The name of the index. */
     indexName: string;
     /** The optional custom document. */
-    document: string;
+    document?: string;
     /** The condition when to delete the entry. */
-    delete: string;
+    delete?: string;
 }

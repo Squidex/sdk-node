@@ -21,8 +21,8 @@ export class Translations {
     constructor(protected readonly options: Translations.Options) {}
 
     /**
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postTranslation(request: Squidex.TranslateDto): Promise<Squidex.TranslationDto> {
         const _response = await core.fetcher({
@@ -35,7 +35,7 @@ export class Translations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.TranslateDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -94,11 +94,6 @@ export class Translations {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

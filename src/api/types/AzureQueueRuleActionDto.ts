@@ -8,5 +8,5 @@ export interface AzureQueueRuleActionDto {
     /** The name of the queue. */
     queue: string;
     /** Leave it empty to use the full event as body. */
-    payload: string;
+    payload?: string;
 }

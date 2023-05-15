@@ -8,7 +8,7 @@ export interface NotificationRuleActionDto {
     /** The text to send. */
     text: string;
     /** The optional url to attach to the notification. */
-    url: string;
+    url?: string;
     /** An optional client name. */
-    client: string;
+    client?: string;
 }

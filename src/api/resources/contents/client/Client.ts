@@ -24,14 +24,14 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getContents(
         schema: string,
         request: Squidex.ContentsGetContentsRequest = {}
     ): Promise<Squidex.ContentsDto> {
-        const { ids, q, search, top, skip, orderby, filter, noTotal, noSlowTotal, unpublished } = request;
+        const { ids, q, search, top, skip, orderby, filter, flatten, languages, noSlowTotal, noTotal } = request;
         const _queryParams = new URLSearchParams();
         if (ids != null) {
             _queryParams.append("ids", ids);
@@ -71,10 +71,11 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
-                "X-NoTotal": noTotal,
-                "X-NoSlowTotal": noSlowTotal,
-                "X-Unpublished": unpublished,
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
+                "X-NoSlowTotal": noSlowTotal.toString(),
+                "X-NoTotal": noTotal.toString(),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -127,12 +128,12 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postContent(schema: string, request: Squidex.ContentsPostContentRequest): Promise<Squidex.ContentDto> {
-        const { status, id, publish, body: _body } = request;
+        const { status, id, publish, flatten, languages, body: _body } = request;
         const _queryParams = new URLSearchParams();
         if (status != null) {
             _queryParams.append("status", status);
@@ -156,7 +157,9 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -221,15 +224,15 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getContentsPost(
         schema: string,
         request: Squidex.ContentsGetContentsPostRequest
     ): Promise<Squidex.ContentsDto> {
-        const { noTotal, noSlowTotal, unpublished, body: _body } = request;
+        const { flatten, languages, noSlowTotal, noTotal, body: _body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -240,10 +243,11 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
-                "X-NoTotal": noTotal,
-                "X-NoSlowTotal": noSlowTotal,
-                "X-Unpublished": unpublished,
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
+                "X-NoSlowTotal": noSlowTotal.toString(),
+                "X-NoTotal": noTotal.toString(),
             },
             contentType: "application/json",
             body: await serializers.QueryDto.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
@@ -305,15 +309,15 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getContent(
         schema: string,
         id: string,
         request: Squidex.ContentsGetContentRequest = {}
     ): Promise<Squidex.ContentDto> {
-        const { version, unpublished } = request;
+        const { version, flatten, languages } = request;
         const _queryParams = new URLSearchParams();
         if (version != null) {
             _queryParams.append("version", version.toString());
@@ -329,8 +333,9 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
-                "X-Unpublished": unpublished,
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -383,16 +388,16 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postUpsertContent(
         schema: string,
         id: string,
         request: Squidex.ContentsPostUpsertContentRequest
-    ): Promise<Squidex.ContentsDto> {
-        const { status, patch, publish, body: _body } = request;
+    ): Promise<Squidex.ContentDto> {
+        const { status, patch, publish, flatten, languages, body: _body } = request;
         const _queryParams = new URLSearchParams();
         if (status != null) {
             _queryParams.append("status", status);
@@ -416,94 +421,13 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             body: await serializers.contents.postUpsertContent.Request.jsonOrThrow(_body, {
-                unrecognizedObjectKeys: "strip",
-            }),
-            timeoutMs: 60000,
-        });
-        if (_response.ok) {
-            return await serializers.ContentsDto.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Squidex.BadRequestError(
-                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 404:
-                    throw new Squidex.NotFoundError(_response.error.body);
-                case 500:
-                    throw new Squidex.InternalServerError(
-                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.SquidexError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.SquidexError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.SquidexTimeoutError();
-            case "unknown":
-                throw new errors.SquidexError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
-     */
-    public async putContent(
-        schema: string,
-        id: string,
-        request: Record<string, Squidex.ContentFieldData>
-    ): Promise<Squidex.ContentDto> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
-                `api/content/${this.options.appName}/${schema}/${id}`
-            ),
-            method: "PUT",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
-            },
-            contentType: "application/json",
-            body: await serializers.contents.putContent.Request.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: 60000,
@@ -564,15 +488,100 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
+     */
+    public async putContent(
+        schema: string,
+        id: string,
+        request: Squidex.ContentsPutContentRequest
+    ): Promise<Squidex.ContentDto> {
+        const { flatten, languages, body: _body } = request;
+        const _response = await core.fetcher({
+            url: urlJoin(
+                this.options.environment ?? environments.SquidexEnvironment.Default,
+                `api/content/${this.options.appName}/${schema}/${id}`
+            ),
+            method: "PUT",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
+            },
+            contentType: "application/json",
+            body: await serializers.contents.putContent.Request.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: 60000,
+        });
+        if (_response.ok) {
+            return await serializers.ContentDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * You can read the generated documentation for your app at /api/content/{appName}/docs.
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async patchContent(
         schema: string,
         id: string,
-        request: Record<string, Squidex.ContentFieldData>
+        request: Squidex.ContentsPatchContentRequest
     ): Promise<Squidex.ContentDto> {
+        const { flatten, languages, body: _body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -583,10 +592,12 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
             },
             contentType: "application/json",
-            body: await serializers.contents.patchContent.Request.jsonOrThrow(request, {
+            body: await serializers.contents.patchContent.Request.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: 60000,
@@ -647,9 +658,9 @@ export class Contents {
 
     /**
      * You can create an generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async deleteContent(
         schema: string,
@@ -676,7 +687,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -733,9 +744,9 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getContentValidity(schema: string, id: string): Promise<void> {
         const _response = await core.fetcher({
@@ -748,7 +759,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -804,15 +815,15 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getReferences(
         schema: string,
         id: string,
         request: Squidex.ContentsGetReferencesRequest = {}
     ): Promise<Squidex.ContentsDto> {
-        const { q, noTotal, noSlowTotal, unpublished } = request;
+        const { q, flatten, languages, noSlowTotal, noTotal } = request;
         const _queryParams = new URLSearchParams();
         if (q != null) {
             _queryParams.append("q", q);
@@ -828,10 +839,11 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
-                "X-NoTotal": noTotal,
-                "X-NoSlowTotal": noSlowTotal,
-                "X-Unpublished": unpublished,
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
+                "X-NoSlowTotal": noSlowTotal.toString(),
+                "X-NoTotal": noTotal.toString(),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -884,15 +896,15 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async getReferencing(
         schema: string,
         id: string,
         request: Squidex.ContentsGetReferencingRequest = {}
     ): Promise<Squidex.ContentsDto> {
-        const { q, noTotal, noSlowTotal, unpublished } = request;
+        const { q, flatten, languages, noSlowTotal, noTotal } = request;
         const _queryParams = new URLSearchParams();
         if (q != null) {
             _queryParams.append("q", q);
@@ -908,10 +920,11 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
-                "X-NoTotal": noTotal,
-                "X-NoSlowTotal": noSlowTotal,
-                "X-Unpublished": unpublished,
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
+                "X-NoSlowTotal": noSlowTotal.toString(),
+                "X-NoTotal": noTotal.toString(),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -971,7 +984,7 @@ export class Contents {
         version: number,
         request: Squidex.ContentsGetContentVersionRequest = {}
     ): Promise<stream.Readable> {
-        const { unpublished } = request;
+        const { flatten, languages } = request;
         return await core.streamingFetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -982,8 +995,9 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
-                "X-Unpublished": unpublished,
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
             },
             timeoutMs: 60000,
             onError: (error) => {
@@ -996,9 +1010,9 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async postContents(schema: string, request: Squidex.ImportContentsDto): Promise<Squidex.BulkResultDto[]> {
         const _response = await core.fetcher({
@@ -1011,7 +1025,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.ImportContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1073,9 +1087,9 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async bulkUpdateContents(
         schema: string,
@@ -1091,7 +1105,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
             },
             contentType: "application/json",
             body: await serializers.BulkUpdateContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1153,15 +1167,16 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
     public async putContentStatus(
         schema: string,
         id: string,
         request: Squidex.ChangeStatusDto
     ): Promise<Squidex.ContentDto> {
+        const { flatten, languages, ..._body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1172,10 +1187,12 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
             },
             contentType: "application/json",
-            body: await serializers.ChangeStatusDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.ChangeStatusDto.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: 60000,
         });
         if (_response.ok) {
@@ -1234,11 +1251,16 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteContentStatus(schema: string, id: string): Promise<Squidex.ContentDto> {
+    public async deleteContentStatus(
+        schema: string,
+        id: string,
+        request: Squidex.ContentsDeleteContentStatusRequest = {}
+    ): Promise<Squidex.ContentDto> {
+        const { flatten, languages } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1249,7 +1271,9 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1310,11 +1334,16 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
-    public async createDraft(schema: string, id: string): Promise<Squidex.ContentDto> {
+    public async createDraft(
+        schema: string,
+        id: string,
+        request: Squidex.ContentsCreateDraftRequest = {}
+    ): Promise<Squidex.ContentDto> {
+        const { flatten, languages } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1325,7 +1354,9 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1386,11 +1417,16 @@ export class Contents {
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
-     * @throws {Squidex.BadRequestError}
-     * @throws {Squidex.NotFoundError}
-     * @throws {Squidex.InternalServerError}
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteVersion(schema: string, id: string): Promise<Squidex.ContentDto> {
+    public async deleteVersion(
+        schema: string,
+        id: string,
+        request: Squidex.ContentsDeleteVersionRequest = {}
+    ): Promise<Squidex.ContentDto> {
+        const { flatten, languages } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1401,7 +1437,9 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.33",
+                "X-Fern-SDK-Version": "0.0.34",
+                "X-Flatten": flatten.toString(),
+                "X-Languages": languages,
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1461,11 +1499,6 @@ export class Contents {
     }
 
     protected async _getAuthorizationHeader() {
-        const bearer = await core.Supplier.get(this.options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+        return `Bearer ${await core.Supplier.get(this.options.token)}`;
     }
 }

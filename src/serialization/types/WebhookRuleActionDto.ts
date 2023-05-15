@@ -12,19 +12,19 @@ export const WebhookRuleActionDto: core.serialization.ObjectSchema<
 > = core.serialization.object({
     url: core.serialization.string(),
     method: core.serialization.lazy(async () => (await import("..")).WebhookMethod),
-    payload: core.serialization.string(),
-    payloadType: core.serialization.string(),
-    headers: core.serialization.string(),
-    sharedSecret: core.serialization.string(),
+    payload: core.serialization.string().optional(),
+    payloadType: core.serialization.string().optional(),
+    headers: core.serialization.string().optional(),
+    sharedSecret: core.serialization.string().optional(),
 });
 
 export declare namespace WebhookRuleActionDto {
     interface Raw {
         url: string;
         method: serializers.WebhookMethod.Raw;
-        payload: string;
-        payloadType: string;
-        headers: string;
-        sharedSecret: string;
+        payload?: string | null;
+        payloadType?: string | null;
+        headers?: string | null;
+        sharedSecret?: string | null;
     }
 }

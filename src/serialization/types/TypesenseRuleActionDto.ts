@@ -13,8 +13,8 @@ export const TypesenseRuleActionDto: core.serialization.ObjectSchema<
     host: core.serialization.string(),
     indexName: core.serialization.string(),
     apiKey: core.serialization.string(),
-    document: core.serialization.string(),
-    delete: core.serialization.string(),
+    document: core.serialization.string().optional(),
+    delete: core.serialization.string().optional(),
 });
 
 export declare namespace TypesenseRuleActionDto {
@@ -22,7 +22,7 @@ export declare namespace TypesenseRuleActionDto {
         host: string;
         indexName: string;
         apiKey: string;
-        document: string;
-        delete: string;
+        document?: string | null;
+        delete?: string | null;
     }
 }
