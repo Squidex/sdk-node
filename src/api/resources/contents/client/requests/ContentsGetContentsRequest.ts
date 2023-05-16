@@ -32,7 +32,7 @@ export interface ContentsGetContentsRequest {
      */
     filter?: string;
     /**
-     * Return unpublished content items.
+     * Provide the data as flat object.
      */
     flatten?: boolean;
     /**
@@ -47,4 +47,8 @@ export interface ContentsGetContentsRequest {
      * Do not return the total amount.
      */
     noTotal?: boolean;
+    /**
+     * Return unpublished content items.
+     */
+    unpublished?: boolean;
 }

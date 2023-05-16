@@ -8,7 +8,7 @@ import * as core from "../../../../../core";
 
 export const ChangeStatusDto: core.serialization.Schema<
     serializers.ChangeStatusDto.Raw,
-    Omit<Squidex.ChangeStatusDto, "flatten" | "languages">
+    Omit<Squidex.ChangeStatusDto, "unpublished" | "languages">
 > = core.serialization.object({
     status: core.serialization.string(),
     dueTime: core.serialization.string().optional(),

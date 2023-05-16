@@ -8,13 +8,17 @@ export interface ContentsGetReferencingRequest {
      */
     q?: string;
     /**
-     * Return unpublished content items.
+     * Provide the data as flat object.
      */
     flatten?: boolean;
     /**
      * Only resolve these languages (comma-separated).
      */
     languages?: string;
+    /**
+     * Return unpublished content items.
+     */
+    unpublished?: boolean;
     /**
      * Do not return the total amount, if it would be slow.
      */

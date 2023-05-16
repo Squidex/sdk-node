@@ -8,11 +8,15 @@ export interface ContentsGetContentRequest {
      */
     version?: number;
     /**
-     * Return unpublished content items.
+     * Provide the data as flat object.
      */
     flatten?: boolean;
     /**
      * Only resolve these languages (comma-separated).
      */
     languages?: string;
+    /**
+     * Return unpublished content items.
+     */
+    unpublished?: boolean;
 }

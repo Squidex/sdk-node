@@ -6,7 +6,7 @@ export interface ContentsDeleteContentStatusRequest {
     /**
      * Return unpublished content items.
      */
-    flatten?: boolean;
+    unpublished?: boolean;
     /**
      * Only resolve these languages (comma-separated).
      */

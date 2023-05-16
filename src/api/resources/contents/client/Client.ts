@@ -31,7 +31,8 @@ export class Contents {
         schema: string,
         request: Squidex.ContentsGetContentsRequest = {}
     ): Promise<Squidex.ContentsDto> {
-        const { ids, q, search, top, skip, orderby, filter, flatten, languages, noSlowTotal, noTotal } = request;
+        const { ids, q, search, top, skip, orderby, filter, flatten, languages, noSlowTotal, noTotal, unpublished } =
+            request;
         const _queryParams = new URLSearchParams();
         if (ids != null) {
             _queryParams.append("ids", ids);
@@ -71,11 +72,12 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
+                "X-Fern-SDK-Version": "0.0.36",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
                 "X-NoTotal": noTotal != null ? noTotal.toString() : undefined,
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -133,7 +135,7 @@ export class Contents {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postContent(schema: string, request: Squidex.ContentsPostContentRequest): Promise<Squidex.ContentDto> {
-        const { status, id, publish, flatten, languages, body: _body } = request;
+        const { status, id, publish, unpublished, languages, body: _body } = request;
         const _queryParams = new URLSearchParams();
         if (status != null) {
             _queryParams.append("status", status);
@@ -157,8 +159,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
-                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Fern-SDK-Version": "0.0.36",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
             contentType: "application/json",
@@ -232,7 +234,7 @@ export class Contents {
         schema: string,
         request: Squidex.ContentsGetContentsPostRequest
     ): Promise<Squidex.ContentsDto> {
-        const { flatten, languages, noSlowTotal, noTotal, body: _body } = request;
+        const { flatten, languages, noSlowTotal, noTotal, unpublished, body: _body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -243,11 +245,12 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
+                "X-Fern-SDK-Version": "0.0.36",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
                 "X-NoTotal": noTotal != null ? noTotal.toString() : undefined,
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
             },
             contentType: "application/json",
             body: await serializers.QueryDto.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
@@ -317,7 +320,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsGetContentRequest = {}
     ): Promise<Squidex.ContentDto> {
-        const { version, flatten, languages } = request;
+        const { version, flatten, languages, unpublished } = request;
         const _queryParams = new URLSearchParams();
         if (version != null) {
             _queryParams.append("version", version.toString());
@@ -333,9 +336,10 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
+                "X-Fern-SDK-Version": "0.0.36",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -397,7 +401,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsPostUpsertContentRequest
     ): Promise<Squidex.ContentDto> {
-        const { status, patch, publish, flatten, languages, body: _body } = request;
+        const { status, patch, publish, unpublished, languages, body: _body } = request;
         const _queryParams = new URLSearchParams();
         if (status != null) {
             _queryParams.append("status", status);
@@ -421,8 +425,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
-                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Fern-SDK-Version": "0.0.36",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
             contentType: "application/json",
@@ -497,7 +501,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsPutContentRequest
     ): Promise<Squidex.ContentDto> {
-        const { flatten, languages, body: _body } = request;
+        const { unpublished, languages, body: _body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -508,8 +512,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
-                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Fern-SDK-Version": "0.0.36",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
             contentType: "application/json",
@@ -581,7 +585,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsPatchContentRequest
     ): Promise<Squidex.ContentDto> {
-        const { flatten, languages, body: _body } = request;
+        const { unpublished, languages, body: _body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -592,8 +596,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
-                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Fern-SDK-Version": "0.0.36",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
             contentType: "application/json",
@@ -687,7 +691,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
+                "X-Fern-SDK-Version": "0.0.36",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -759,7 +763,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
+                "X-Fern-SDK-Version": "0.0.36",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -823,7 +827,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsGetReferencesRequest = {}
     ): Promise<Squidex.ContentsDto> {
-        const { q, flatten, languages, noSlowTotal, noTotal } = request;
+        const { q, flatten, languages, unpublished, noSlowTotal, noTotal } = request;
         const _queryParams = new URLSearchParams();
         if (q != null) {
             _queryParams.append("q", q);
@@ -839,9 +843,10 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
+                "X-Fern-SDK-Version": "0.0.36",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
                 "X-NoTotal": noTotal != null ? noTotal.toString() : undefined,
             },
@@ -904,7 +909,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsGetReferencingRequest = {}
     ): Promise<Squidex.ContentsDto> {
-        const { q, flatten, languages, noSlowTotal, noTotal } = request;
+        const { q, flatten, languages, unpublished, noSlowTotal, noTotal } = request;
         const _queryParams = new URLSearchParams();
         if (q != null) {
             _queryParams.append("q", q);
@@ -920,9 +925,10 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
+                "X-Fern-SDK-Version": "0.0.36",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
                 "X-NoTotal": noTotal != null ? noTotal.toString() : undefined,
             },
@@ -984,7 +990,7 @@ export class Contents {
         version: number,
         request: Squidex.ContentsGetContentVersionRequest = {}
     ): Promise<stream.Readable> {
-        const { flatten, languages } = request;
+        const { unpublished, languages } = request;
         return await core.streamingFetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -995,8 +1001,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
-                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Fern-SDK-Version": "0.0.36",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
             timeoutMs: 60000,
@@ -1025,7 +1031,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
+                "X-Fern-SDK-Version": "0.0.36",
             },
             contentType: "application/json",
             body: await serializers.ImportContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1105,7 +1111,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
+                "X-Fern-SDK-Version": "0.0.36",
             },
             contentType: "application/json",
             body: await serializers.BulkUpdateContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1176,7 +1182,7 @@ export class Contents {
         id: string,
         request: Squidex.ChangeStatusDto
     ): Promise<Squidex.ContentDto> {
-        const { flatten, languages, ..._body } = request;
+        const { unpublished, languages, ..._body } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1187,8 +1193,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
-                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Fern-SDK-Version": "0.0.36",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
             contentType: "application/json",
@@ -1260,7 +1266,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsDeleteContentStatusRequest = {}
     ): Promise<Squidex.ContentDto> {
-        const { flatten, languages } = request;
+        const { unpublished, languages } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1271,8 +1277,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
-                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Fern-SDK-Version": "0.0.36",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
             contentType: "application/json",
@@ -1343,7 +1349,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsCreateDraftRequest = {}
     ): Promise<Squidex.ContentDto> {
-        const { flatten, languages } = request;
+        const { unpublished, languages } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1354,8 +1360,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
-                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Fern-SDK-Version": "0.0.36",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
             contentType: "application/json",
@@ -1426,7 +1432,7 @@ export class Contents {
         id: string,
         request: Squidex.ContentsDeleteVersionRequest = {}
     ): Promise<Squidex.ContentDto> {
-        const { flatten, languages } = request;
+        const { unpublished, languages } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
@@ -1437,8 +1443,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "0.0.35",
-                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Fern-SDK-Version": "0.0.36",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
             contentType: "application/json",
