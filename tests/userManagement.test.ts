@@ -3,7 +3,7 @@ import { getClient, guid } from "./_utils";
 describe("User management", () => {
     const { client } = getClient();
 
-    it("create user and load user", async () => {
+    it("should create and fetch user", async () => {
         const email = `user${guid()}@email.com`;
 
         const createdUser = await client.userManagement.postUser({

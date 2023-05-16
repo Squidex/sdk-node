@@ -6,7 +6,7 @@ import { getClient, guid } from "./_utils";
 describe("Assets", () => {
     const { client } = getClient();
 
-    it("upload and fetch asset", async () => {
+    it("should upload and fetch asset", async () => {
         const fileStream = fs.createReadStream('tests/assets/logo-wide.png');
         const fileInfo = fs.statSync('tests/assets/logo-wide.png');
 
@@ -19,7 +19,7 @@ describe("Assets", () => {
         expect(asset.mimeType).toEqual('image/png');
     });
 
-    it("upload and download asset", async () => {
+    it("should upload and download asset", async () => {
         const fileStream = fs.createReadStream('tests/assets/logo-wide.png');
         const fileInfo = fs.statSync('tests/assets/logo-wide.png');
 
