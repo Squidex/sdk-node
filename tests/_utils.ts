@@ -4,7 +4,7 @@ import { SquidexClient } from "../src/wrapper/SquidexClient";
 
 let singleClient: { client: SquidexClient, create: (app: string) => SquidexClient };
 
-export function getClient(print = false) {
+export function getClient() {
     if (singleClient) {
         return singleClient;
     }

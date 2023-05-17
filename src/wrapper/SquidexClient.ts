@@ -10,12 +10,43 @@ export declare namespace SquidexClient {
         clientSecret: string;
         environment?: environments.SquidexEnvironment | string;
         appName: string;
+        tokenStore?: TokenStore;
+    }
+    
+    export interface TokenStore {
+        get(): string | undefined;
+
+        set(token: string): void;
+    }
+}
+
+
+export class SquidexInMemoryTokenStore implements SquidexClient.TokenStore {
+    private token: string | undefined;
+
+    get(): string | undefined {
+        return this.token;
+    }
+
+    set(token: string): void {
+        this.token = token;
+    }
+}
+
+export class SquidexStorageTokenStore implements SquidexClient.TokenStore {
+    constructor(readonly store: Storage = localStorage, readonly key = 'SquidexToken') {
+    }
+
+    get(): string | undefined {
+        return this.store.getItem(this.key) || undefined;
+    }
+
+    set(token: string): void {
+        this.store.setItem(this.key, token);
     }
 }
 
 export class SquidexClient extends FernClient {
-    private token: string | undefined;
-
     public get appName() {
         return this.options.appName;
     }
@@ -36,60 +67,87 @@ export class SquidexClient extends FernClient {
         super({
             environment: clientOptions.environment,
             appName: clientOptions.appName,
-            token: async () => {
-                if (this.token == null) {
-                    const response = await core.fetcher({
-                        url: urlJoin(
-                            this.options.environment ?? environments.SquidexEnvironment.Default,
-                            "/identity-server/connect/token"
-                        ),
-                        contentType: "application/x-www-form-urlencoded",
-                        method: "POST",
-                        body: new URLSearchParams({
-                            grant_type: "client_credentials",
-                            client_id: clientOptions.clientId,
-                            client_secret: clientOptions.clientSecret,
-                            scope: "squidex-api",
-                        }),
-                    });
-                    if (response.ok) {
-                        const accessToken = (response.body as any)?.["access_token"];
-                        if (typeof accessToken !== "string") {
+            token: buildTokenResolver(clientOptions)
+        });
+    }
+}
+
+function buildTokenResolver(options: SquidexClient.Options) {
+    const store = options.tokenStore || new SquidexInMemoryTokenStore();
+    
+    const cachedPromise: {
+        promise?: Promise<string>
+    } = {};
+
+    return () => {
+        const promise = (cachedPromise.promise ||= (async () => {
+            try {
+                let token = store.get();
+
+                if (token != null) {
+                    return token;
+                }
+
+                const response = await core.fetcher({
+                    url: urlJoin(
+                        options.environment ?? environments.SquidexEnvironment.Default,
+                        "/identity-server/connect/token"
+                    ),
+                    contentType: "application/x-www-form-urlencoded",
+                    body: new URLSearchParams({
+                        grant_type: "client_credentials",
+                        client_id: options.clientId,
+                        client_secret: options.clientSecret,
+                        scope: "squidex-api",
+                    }),
+                    method: "POST",
+                });
+                
+                if (response.ok) {
+                    const accessToken = (response.body as any)?.["access_token"];
+                    if (typeof accessToken !== "string") {
+                        throw new errors.SquidexError({
+                            message: "Token is not a string",
+                        });
+                    }
+                    token = accessToken;
+                } else {
+                    switch (response.error.reason) {
+                        case "non-json":
                             throw new errors.SquidexError({
-                                message: "Token is not a string",
+                                message: 'Token request does not return a valid JSON object.',
+                                statusCode: response.error.statusCode,
+                                body: response.error.rawBody,
                             });
-                        }
-                        this.token = accessToken;
-                    } else {
-                        switch (response.error.reason) {
-                            case "non-json":
-                                throw new errors.SquidexError({
-                                    message: 'Token request does not return a valid JSON object.',
-                                    statusCode: response.error.statusCode,
-                                    body: response.error.rawBody,
-                                });
-                            case "status-code":
-                                throw new errors.SquidexError({
-                                    message: `Token request returns invalid status code: ${response.error.statusCode}.`,
-                                    statusCode: response.error.statusCode,
-                                    body: response.error['body'],
-                                });
-                            case "unknown":
-                                throw new errors.SquidexError({
-                                    message: response.error.errorMessage,
-                                });
-                            case "timeout":
-                                throw new errors.SquidexTimeoutError();
-                        }
+                        case "status-code":
+                            throw new errors.SquidexError({
+                                message: `Token request returns invalid status code: ${response.error.statusCode}.`,
+                                statusCode: response.error.statusCode,
+                                body: response.error['body'],
+                            });
+                        case "unknown":
+                            throw new errors.SquidexError({
+                                message: response.error.errorMessage,
+                            });
+                        case "timeout":
+                            throw new errors.SquidexTimeoutError();
                     }
                 }
-                if (this.token == null) {
+
+                store.set(token);
+
+                if (token == null) {
                     throw new errors.SquidexError({
                         message: "Token is null despite trying to fetch",
                     });
                 }
-                return this.token;
-            },
-        });
+
+                return token;
+            } finally {
+                cachedPromise.promise = undefined;
+            }
+        })());
+
+        return promise;
     }
 }
