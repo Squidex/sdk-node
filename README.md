@@ -1,9 +1,13 @@
 # Squidex Node Library
 
+The Squidex Node.js library provides access to the Squidex API from JavaScript and TypeScript. Can be used in node and in the browser.
+
+Requires **TypeScript 4.5** or higher.
+
+## Status
+
 [![npm shield](https://img.shields.io/npm/v/@squidex/squidex)](https://www.npmjs.com/package/@squidex/squidex)
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
-
-The Squidex Node.js library provides access to the Squidex API from JavaScript/TypeScript.
 
 ## Documentation
 
@@ -28,8 +32,10 @@ const client = new SquidexClient({
     clientId: "client-id",
     clientSecret: "client-secret",
     appName: "my-app",
-    environment: "https://your.squidex-deployment",
-    tokenStore: new 
+    // environment: "https://your.squidex-deployment",
+    // tokenStore: new SquidexInMemoryTokenStore(),
+    // tokenStore: new SquidexStorageTokenStore() // Keep the tokens in the local store.
+    // tokenStore: new SquidexStorageTokenStore(sessionStorage, "CustomKey")
 });
 
 const response = await client.rules.runRule("rule-id", {
