@@ -22,12 +22,14 @@ yarn add @squidex/squidex
 [![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/squidex-typescript-sdk-hg1o4f?file=app.ts&view=editor)
 
 ```typescript
-import { SquidexClient } from "@squidex/squidex";
+import { SquidexClient, SquidexInMemoryTokenStore, SquidexStorageTokenStore } from "@squidex/squidex";
 
 const client = new SquidexClient({
     clientId: "client-id",
     clientSecret: "client-secret",
     appName: "my-app",
+    environment: "https://your.squidex-deployment",
+    tokenStore: new 
 });
 
 const response = await client.rules.runRule("rule-id", {
@@ -69,9 +71,9 @@ Error codes are as followed:
 | 500         | `InternalServerError`      |
 | 501         | `NotImplementedError`      |
 
-## Beta status
+## Release Candidate status
 
-This SDK is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning the package version to a specific version in your package.json file. This way, you can install the same version each time without breaking changes unless you are intentionally looking for the latest version.
+This SDK is a release candidate, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning the package version to a specific version in your package.json file. This way, you can install the same version each time without breaking changes unless you are intentionally looking for the latest version.
 
 ## Contributing
 
