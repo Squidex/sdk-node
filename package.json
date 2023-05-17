@@ -1,6 +1,6 @@
 {
     "name": "@squidex/squidex",
-    "version": "1.0.0-rc0",
+    "version": "1.0.0-rc1",
     "private": false,
     "repository": "https://github.com/squidex/sdk-node",
     "main": "./index.js",
