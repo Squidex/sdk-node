@@ -4,7 +4,7 @@ import { getEnvironment, getClient, delay } from "./_utils";
 async function setup() {
     console.log('SETUP');
 
-    const { client } = getClient(true);
+    const { client } = getClient();
 
     const waitTime = parseInt(getEnvironment("CONFIG__WAIT", "0"), 10);
 
