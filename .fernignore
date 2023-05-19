@@ -3,7 +3,10 @@
 README.md
 src/index.ts
 src/wrapper
-.github/test.yml
+
+# Workflows
+.github/workflows/check-updates.yml
+.github/workflows/test.yml
 
 # tests
 tests
