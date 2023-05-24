@@ -6,16 +6,49 @@ import urlJoin from "url-join";
 
 export declare namespace SquidexClient {
     interface Options {
+        /**
+         * The name of the app.
+         */
         appName: string;
+        /**
+         * The secret of the client.
+         */
         clientId: string;
+        /**
+         * The secret of the client.
+         */
         clientSecret: string;
+        /**
+         * Custom headers to be added to each request.
+         */
         customHeader?: Record<string, string>;
+        /**
+         * The URL to your Squidex installation (cloud by default).
+         */
         environment?: environments.SquidexEnvironment | string;
+        /**
+         * A custom fetcher for normal requests.
+         */
         fetcher?: core.FetchFunction;
+        /**
+         * A function to create a new fetcher based on the default fetcher.
+         */
         fetcherInterceptor?: (next: core.FetchFunction) => core.FetchFunction;
+        /**
+         * A custom fetcher for streaming requests.
+         */
         streamingFetcher?: core.StreamingFetchFunction;
+        /**
+         * A function to create a new stream fetcher based on the default fetcher.
+         */
         streamingFetcherInterceptor?: (next: core.StreamingFetchFunction) => core.StreamingFetchFunction;
+        /**
+         * The timeout in milliseconds.
+         */
         timeout?: number;
+        /**
+         * The store for tokens. By default it is in memory.
+         */
         tokenStore?: TokenStore;
     }
     
@@ -38,18 +71,30 @@ export class SquidexClient extends FernClient {
     private tokenPromise?: Promise<string>;
     private tokenStore?: SquidexClient.TokenStore;
 
+    /**
+     * The current app name.
+     */
     public get appName() {
         return this.options.appName;
     }
 
+    /**
+     * The current client ID.
+     */
     public get clientId() {
         return this.clientOptions.clientId;
     }
     
+    /**
+     * The current client secret.
+     */
     public get clientSecret() {
         return this.clientOptions.clientSecret;
     }
     
+    /**
+     * The current URL to the Squidex installation.
+     */
     public get environment() {
         return this.clientOptions.environment || environments.SquidexEnvironment.Default;
     }
@@ -66,64 +111,42 @@ export class SquidexClient extends FernClient {
             },
             environment: clientOptions.environment,
             fetcher: async args => {
-                let actual = clientOptions.fetcher ?? core.fetcher;
+                let fetcher = clientOptions.fetcher ?? core.fetcher;
 
-                if (clientOptions.fetcherInterceptor) {
-                    actual = clientOptions.fetcherInterceptor(actual) ?? actual;
-                }
+                // Allow custom fetcher function.
+                fetcher = clientOptions.fetcherInterceptor?.(fetcher) ?? fetcher;
 
-                if (clientOptions.timeout) {
-                    args.timeoutMs = clientOptions.timeout;
-                }
-
-                if (clientOptions.customHeader) {
-                    args.headers ??= {};
-                    for (const [key, value] of Object.entries(clientOptions.customHeader)) {
-                        args.headers[key] = value;
-                    }
-                }
-
+                addOptions(args, clientOptions);
                 try {
-                    return await actual(args as any) as any;
+                    return await fetcher(args as any) as any;
                 } catch (ex) {
                     const error = ex as core.Fetcher.Error;
 
                     // Token has probably been expired.
                     if (error.reason === 'status-code' && error.statusCode === 401) {
                         this.clearToken();
-                        return await actual(args as any);
+                        return await fetcher(args as any);
                     }
 
                     throw ex;
                 }
             },
             streamingFetcher: async args => {
-                let actual = clientOptions.streamingFetcher ?? core.streamingFetcher;
+                let fetcher = clientOptions.streamingFetcher ?? core.streamingFetcher;
 
-                if (clientOptions.streamingFetcherInterceptor) {
-                    actual = clientOptions.streamingFetcherInterceptor(actual) ?? actual;
-                }
+                // Allow custom fetcher function.
+                fetcher = clientOptions.streamingFetcherInterceptor?.(fetcher) ?? fetcher;
 
-                if (clientOptions.timeout) {
-                    args.timeoutMs = clientOptions.timeout;
-                }
-
-                if (clientOptions.customHeader) {
-                    args.headers ??= {};
-                    for (const [key, value] of Object.entries(clientOptions.customHeader)) {
-                        args.headers[key] = value;
-                    }
-                }
-
+                addOptions(args, clientOptions);
                 try {
-                    return actual(args);
+                    return fetcher(args);
                 } catch (ex) {
                     const error = ex as core.Fetcher.Error;
 
                     // Token has probably been expired.
                     if (error.reason === 'status-code' && error.statusCode === 401) {
                         this.clearToken();
-                        return actual(args);
+                        return fetcher(args);
                     }
 
                     throw ex;
@@ -132,6 +155,9 @@ export class SquidexClient extends FernClient {
         });
     }
 
+    /**
+     * Clears the current token in case it has been expired.
+     */
     clearToken() {
         this.actualTokenStore.clear();
     }
@@ -220,6 +246,19 @@ export class SquidexClient extends FernClient {
 
         return promise;
     };
+}
+
+function addOptions(args: core.Fetcher.Args | core.StreamingFetcher.Args, clientOptions: SquidexClient.Options) {
+    if (clientOptions.timeout) {
+        args.timeoutMs = clientOptions.timeout;
+    }
+
+    if (clientOptions.customHeader) {
+        args.headers ??= {};
+        for (const [key, value] of Object.entries(clientOptions.customHeader)) {
+            args.headers[key] = value;
+        }
+    }
 }
 
 export namespace SquidexClient {
