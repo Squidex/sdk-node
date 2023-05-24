@@ -6,10 +6,16 @@ import urlJoin from "url-join";
 
 export declare namespace SquidexClient {
     interface Options {
+        appName: string;
         clientId: string;
         clientSecret: string;
+        customHeader?: Record<string, string>;
         environment?: environments.SquidexEnvironment | string;
-        appName: string;
+        fetcher?: core.FetchFunction;
+        fetcherInterceptor?: (next: core.FetchFunction) => core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
+        streamingFetcherInterceptor?: (next: core.StreamingFetchFunction) => core.StreamingFetchFunction;
+        timeout?: number;
         tokenStore?: TokenStore;
     }
     
@@ -58,7 +64,71 @@ export class SquidexClient extends FernClient {
             token: () => {
                 return this.getToken();
             },
-            environment: clientOptions.environment
+            environment: clientOptions.environment,
+            fetcher: async args => {
+                let actual = clientOptions.fetcher ?? core.fetcher;
+
+                if (clientOptions.fetcherInterceptor) {
+                    actual = clientOptions.fetcherInterceptor(actual) ?? actual;
+                }
+
+                if (clientOptions.timeout) {
+                    args.timeoutMs = clientOptions.timeout;
+                }
+
+                if (clientOptions.customHeader) {
+                    args.headers ??= {};
+                    for (const [key, value] of Object.entries(clientOptions.customHeader)) {
+                        args.headers[key] = value;
+                    }
+                }
+
+                try {
+                    return await actual(args as any) as any;
+                } catch (ex) {
+                    const error = ex as core.Fetcher.Error;
+
+                    // Token has probably been expired.
+                    if (error.reason === 'status-code' && error.statusCode === 401) {
+                        this.clearToken();
+                        return await actual(args as any);
+                    }
+
+                    throw ex;
+                }
+            },
+            streamingFetcher: async args => {
+                let actual = clientOptions.streamingFetcher ?? core.streamingFetcher;
+
+                if (clientOptions.streamingFetcherInterceptor) {
+                    actual = clientOptions.streamingFetcherInterceptor(actual) ?? actual;
+                }
+
+                if (clientOptions.timeout) {
+                    args.timeoutMs = clientOptions.timeout;
+                }
+
+                if (clientOptions.customHeader) {
+                    args.headers ??= {};
+                    for (const [key, value] of Object.entries(clientOptions.customHeader)) {
+                        args.headers[key] = value;
+                    }
+                }
+
+                try {
+                    return actual(args);
+                } catch (ex) {
+                    const error = ex as core.Fetcher.Error;
+
+                    // Token has probably been expired.
+                    if (error.reason === 'status-code' && error.statusCode === 401) {
+                        this.clearToken();
+                        return actual(args);
+                    }
+
+                    throw ex;
+                }
+            }
         });
     }
 

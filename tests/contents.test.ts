@@ -9,9 +9,9 @@ beforeAll(async () => {
     createdSchema = await client.schemas.postSchema({
         name: `schema-${guid()}`,
         fields: [{
-            name: 'field1',
+            name: "field1",
             properties: {
-                fieldType: 'String',
+                fieldType: "String",
             },
         }],
         isPublished: true,
@@ -35,7 +35,7 @@ describe("Contents", () => {
         expect(content.data).toEqual({ field1: { iv: value } });
         expect(content.lastModified).toBeDefined();
         expect(content.lastModifiedBy).toBeDefined();
-        expect(content.status).toEqual('Published');
+        expect(content.status).toEqual("Published");
     });
 
     it("should create and fetch unpublished content", async () => {
@@ -53,6 +53,6 @@ describe("Contents", () => {
         expect(content.data).toEqual({ field1: { iv: value } });
         expect(content.lastModified).toBeDefined();
         expect(content.lastModifiedBy).toBeDefined();
-        expect(content.status).toEqual('Draft');
+        expect(content.status).toEqual("Draft");
     });
 })
