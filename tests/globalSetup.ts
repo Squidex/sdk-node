@@ -2,7 +2,7 @@ import { SquidexError } from "../src/errors";
 import { getEnvironment, getClient, delay } from "./_utils";
 
 async function setup() {
-    console.log('SETUP');
+    console.log("SETUP");
 
     const { client } = getClient();
 

@@ -1,5 +1,5 @@
 function teardown() {
-    console.log('TEARDOWN');
+    console.log("TEARDOWN");
 };
 
 export default teardown;
