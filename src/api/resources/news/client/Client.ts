@@ -5,17 +5,18 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Squidex from "../../..";
-import URLSearchParams from "@ungap/url-search-params";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace News {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -33,7 +34,10 @@ export class News {
         }
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/news/features"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/news/features"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

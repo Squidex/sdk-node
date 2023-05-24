@@ -11,10 +11,11 @@ import * as errors from "../../../../errors";
 
 export declare namespace EventConsumers {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -26,7 +27,10 @@ export class EventConsumers {
      */
     public async getEventConsumers(): Promise<Squidex.EventConsumersDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/event-consumers"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/event-consumers"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -88,7 +92,7 @@ export class EventConsumers {
     public async startEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/event-consumers/${consumerName}/start`
             ),
             method: "PUT",
@@ -163,7 +167,7 @@ export class EventConsumers {
     public async stopEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/event-consumers/${consumerName}/stop`
             ),
             method: "PUT",
@@ -238,7 +242,7 @@ export class EventConsumers {
     public async resetEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/event-consumers/${consumerName}/reset`
             ),
             method: "PUT",

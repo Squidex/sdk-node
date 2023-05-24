@@ -29,10 +29,11 @@ import { Apps } from "./api/resources/apps/client/Client";
 
 export declare namespace SquidexClient {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 

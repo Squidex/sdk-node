@@ -8,15 +8,16 @@ import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
-import URLSearchParams from "@ungap/url-search-params";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 import * as stream from "stream";
 
 export declare namespace Users {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -28,7 +29,10 @@ export class Users {
      */
     public async getUserResources(): Promise<Squidex.ResourcesDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -94,7 +98,10 @@ export class Users {
         }
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/users"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/users"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -155,7 +162,10 @@ export class Users {
      */
     public async getUser(id: string): Promise<Squidex.UserDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/users/${id}`),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/users/${id}`
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -214,7 +224,7 @@ export class Users {
     public async getUserPicture(id: string): Promise<stream.Readable> {
         return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/users/${id}/picture`
             ),
             method: "GET",

@@ -11,10 +11,11 @@ import * as errors from "../../../../errors";
 
 export declare namespace Plans {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -28,7 +29,7 @@ export class Plans {
     public async getPlans(): Promise<Squidex.PlansDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/plans`
             ),
             method: "GET",
@@ -94,7 +95,7 @@ export class Plans {
     public async putPlan(request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/plan`
             ),
             method: "PUT",
@@ -169,7 +170,7 @@ export class Plans {
     public async getTeamPlans(team: string): Promise<Squidex.PlansDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/plans`
             ),
             method: "GET",
@@ -234,7 +235,10 @@ export class Plans {
      */
     public async putTeamPlan(team: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}/plan`),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}/plan`
+            ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

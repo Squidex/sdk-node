@@ -11,10 +11,11 @@ import * as errors from "../../../../errors";
 
 export declare namespace Ping {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -26,7 +27,10 @@ export class Ping {
      */
     public async getInfo(): Promise<Squidex.ExposedValues> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/info"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/info"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -86,7 +90,10 @@ export class Ping {
      */
     public async getPing(): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/ping"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/ping"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -142,7 +149,7 @@ export class Ping {
     public async getAppPing(): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/ping/${this.options.appName}`
             ),
             method: "GET",

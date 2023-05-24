@@ -11,10 +11,11 @@ import * as errors from "../../../../errors";
 
 export declare namespace Languages {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -27,7 +28,10 @@ export class Languages {
      */
     public async getLanguages(): Promise<Squidex.LanguageDto[]> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/languages"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/languages"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

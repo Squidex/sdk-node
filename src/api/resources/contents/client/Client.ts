@@ -5,7 +5,7 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Squidex from "../../..";
-import URLSearchParams from "@ungap/url-search-params";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
@@ -13,10 +13,11 @@ import * as stream from "stream";
 
 export declare namespace Contents {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -65,7 +66,7 @@ export class Contents {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}`
             ),
             method: "GET",
@@ -152,7 +153,7 @@ export class Contents {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}`
             ),
             method: "POST",
@@ -238,7 +239,7 @@ export class Contents {
         const { flatten, languages, noSlowTotal, noTotal, unpublished, body: _body } = request;
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/query`
             ),
             method: "POST",
@@ -329,7 +330,7 @@ export class Contents {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}`
             ),
             method: "GET",
@@ -418,7 +419,7 @@ export class Contents {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}`
             ),
             method: "POST",
@@ -505,7 +506,7 @@ export class Contents {
         const { unpublished, languages, body: _body } = request;
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}`
             ),
             method: "PUT",
@@ -589,7 +590,7 @@ export class Contents {
         const { unpublished, languages, body: _body } = request;
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}`
             ),
             method: "PATCH",
@@ -684,7 +685,7 @@ export class Contents {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}`
             ),
             method: "DELETE",
@@ -756,7 +757,7 @@ export class Contents {
     public async getContentValidity(schema: string, id: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/validity`
             ),
             method: "GET",
@@ -836,7 +837,7 @@ export class Contents {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/references`
             ),
             method: "GET",
@@ -918,7 +919,7 @@ export class Contents {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/referencing`
             ),
             method: "GET",
@@ -994,7 +995,7 @@ export class Contents {
         const { unpublished, languages } = request;
         return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/${version}`
             ),
             method: "GET",
@@ -1024,7 +1025,7 @@ export class Contents {
     public async postContents(schema: string, request: Squidex.ImportContentsDto): Promise<Squidex.BulkResultDto[]> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/import`
             ),
             method: "POST",
@@ -1104,7 +1105,7 @@ export class Contents {
     ): Promise<Squidex.BulkResultDto[]> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/bulk`
             ),
             method: "POST",
@@ -1186,7 +1187,7 @@ export class Contents {
         const { unpublished, languages, ..._body } = request;
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/status`
             ),
             method: "PUT",
@@ -1270,7 +1271,7 @@ export class Contents {
         const { unpublished, languages } = request;
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/status`
             ),
             method: "DELETE",
@@ -1353,7 +1354,7 @@ export class Contents {
         const { unpublished, languages } = request;
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/draft`
             ),
             method: "POST",
@@ -1436,7 +1437,7 @@ export class Contents {
         const { unpublished, languages } = request;
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/draft`
             ),
             method: "DELETE",

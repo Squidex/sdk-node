@@ -5,17 +5,18 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Squidex from "../../..";
-import URLSearchParams from "@ungap/url-search-params";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace History {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -35,7 +36,7 @@ export class History {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/history`
             ),
             method: "GET",
@@ -110,7 +111,7 @@ export class History {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/history`
             ),
             method: "GET",

@@ -9,14 +9,15 @@ import urlJoin from "url-join";
 import * as errors from "../../../../errors";
 import * as Squidex from "../../..";
 import * as serializers from "../../../../serialization";
-import URLSearchParams from "@ungap/url-search-params";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 
 export declare namespace Backups {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -26,7 +27,7 @@ export class Backups {
     public async getBackupContent(id: string): Promise<stream.Readable> {
         return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/backups/${id}`
             ),
             method: "GET",
@@ -53,7 +54,7 @@ export class Backups {
     public async deleteBackup(id: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/backups/${id}`
             ),
             method: "DELETE",
@@ -130,7 +131,10 @@ export class Backups {
         }
 
         return await (this.options.streamingFetcher ?? core.streamingFetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/backups/${id}`),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/backups/${id}`
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -155,7 +159,7 @@ export class Backups {
     public async getBackups(): Promise<Squidex.BackupJobsDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/backups`
             ),
             method: "GET",
@@ -221,7 +225,7 @@ export class Backups {
     public async postBackup(): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/backups`
             ),
             method: "POST",
@@ -288,7 +292,10 @@ export class Backups {
      */
     public async getRestoreJob(): Promise<Squidex.RestoreJobDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps/restore"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/apps/restore"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -348,7 +355,10 @@ export class Backups {
      */
     public async postRestoreJob(request: Squidex.RestoreRequestDto): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps/restore"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/apps/restore"
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

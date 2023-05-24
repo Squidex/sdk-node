@@ -8,14 +8,15 @@ import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
-import URLSearchParams from "@ungap/url-search-params";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 
 export declare namespace Comments {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -29,7 +30,7 @@ export class Comments {
     public async getWatchingUsers(resource: string | undefined): Promise<string[]> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/watching/${resource}`
             ),
             method: "GET",
@@ -104,7 +105,7 @@ export class Comments {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/comments/${commentsId}`
             ),
             method: "GET",
@@ -171,7 +172,7 @@ export class Comments {
     public async postComment(commentsId: string, request: Squidex.UpsertCommentDto): Promise<Squidex.CommentDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/comments/${commentsId}`
             ),
             method: "POST",
@@ -247,7 +248,7 @@ export class Comments {
     public async putComment(commentsId: string, commentId: string, request: Squidex.UpsertCommentDto): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/comments/${commentsId}/${commentId}`
             ),
             method: "PUT",
@@ -318,7 +319,7 @@ export class Comments {
     public async deleteComment(commentsId: string, commentId: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/comments/${commentsId}/${commentId}`
             ),
             method: "DELETE",

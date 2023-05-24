@@ -6,19 +6,20 @@ import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Squidex from "../../..";
 import * as stream from "stream";
-import URLSearchParams from "@ungap/url-search-params";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors";
 import * as serializers from "../../../../serialization";
 import * as fs from "fs";
-import FormData from "form-data";
+import { default as FormData } from "form-data";
 
 export declare namespace Assets {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -105,7 +106,7 @@ export class Assets {
 
         return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/assets/${this.options.appName}/${idOrSlug}/${more}`
             ),
             method: "GET",
@@ -203,7 +204,10 @@ export class Assets {
         }
 
         return await (this.options.streamingFetcher ?? core.streamingFetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/assets/${id}`),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/assets/${id}`
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -239,7 +243,7 @@ export class Assets {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/folders`
             ),
             method: "GET",
@@ -306,7 +310,7 @@ export class Assets {
     public async postAssetFolder(request: Squidex.CreateAssetFolderDto): Promise<Squidex.AssetFolderDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/folders`
             ),
             method: "POST",
@@ -382,7 +386,7 @@ export class Assets {
     public async putAssetFolder(id: string, request: Squidex.RenameAssetFolderDto): Promise<Squidex.AssetFolderDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/folders/${id}`
             ),
             method: "PUT",
@@ -458,7 +462,7 @@ export class Assets {
     public async deleteAssetFolder(id: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/folders/${id}`
             ),
             method: "DELETE",
@@ -531,7 +535,7 @@ export class Assets {
     ): Promise<Squidex.AssetFolderDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/folders/${id}/parent`
             ),
             method: "PUT",
@@ -607,7 +611,7 @@ export class Assets {
     public async getTags(): Promise<Record<string, number>> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/tags`
             ),
             method: "GET",
@@ -673,7 +677,7 @@ export class Assets {
     public async putTag(name: string, request: Squidex.RenameTagDto): Promise<Record<string, number>> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/tags/${name}`
             ),
             method: "PUT",
@@ -779,7 +783,7 @@ export class Assets {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets`
             ),
             method: "GET",
@@ -847,17 +851,12 @@ export class Assets {
      * @throws {@link Squidex.ContentTooLargeError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postAsset(
-        file: File | fs.ReadStream,
-        opts?: {
-            onUploadProgress: (event: ProgressEvent) => void;
-        }
-    ): Promise<Squidex.AssetDto> {
+    public async postAsset(file: File | fs.ReadStream): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets`
             ),
             method: "POST",
@@ -871,7 +870,6 @@ export class Assets {
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
             body: _request,
             timeoutMs: 60000,
-            onUploadProgress: opts?.onUploadProgress,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -946,7 +944,7 @@ export class Assets {
         const { noTotal, noSlowTotal, body: _body } = request;
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/query`
             ),
             method: "POST",
@@ -1023,7 +1021,7 @@ export class Assets {
     public async getAsset(id: string): Promise<Squidex.AssetDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}`
             ),
             method: "GET",
@@ -1088,18 +1086,12 @@ export class Assets {
      * @throws {@link Squidex.ContentTooLargeError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postUpsertAsset(
-        file: File | fs.ReadStream,
-        id: string,
-        opts?: {
-            onUploadProgress: (event: ProgressEvent) => void;
-        }
-    ): Promise<Squidex.AssetDto> {
+    public async postUpsertAsset(file: File | fs.ReadStream, id: string): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}`
             ),
             method: "POST",
@@ -1113,7 +1105,6 @@ export class Assets {
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
             body: _request,
             timeoutMs: 60000,
-            onUploadProgress: opts?.onUploadProgress,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -1186,7 +1177,7 @@ export class Assets {
     public async putAsset(id: string, request: Squidex.AnnotateAssetDto = {}): Promise<Squidex.AssetDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}`
             ),
             method: "PUT",
@@ -1272,7 +1263,7 @@ export class Assets {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}`
             ),
             method: "DELETE",
@@ -1343,7 +1334,7 @@ export class Assets {
     public async bulkUpdateAssets(request: Squidex.BulkUpdateAssetsDto = {}): Promise<Squidex.BulkResultDto[]> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/bulk`
             ),
             method: "POST",
@@ -1418,18 +1409,12 @@ export class Assets {
      * @throws {@link Squidex.ContentTooLargeError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putAssetContent(
-        file: File | fs.ReadStream,
-        id: string,
-        opts?: {
-            onUploadProgress: (event: ProgressEvent) => void;
-        }
-    ): Promise<Squidex.AssetDto> {
+    public async putAssetContent(file: File | fs.ReadStream, id: string): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}/content`
             ),
             method: "PUT",
@@ -1443,7 +1428,6 @@ export class Assets {
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
             body: _request,
             timeoutMs: 60000,
-            onUploadProgress: opts?.onUploadProgress,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -1516,7 +1500,7 @@ export class Assets {
     public async putAssetParent(id: string, request: Squidex.MoveAssetDto = {}): Promise<Squidex.AssetDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}/parent`
             ),
             method: "PUT",

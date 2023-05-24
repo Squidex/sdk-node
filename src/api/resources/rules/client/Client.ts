@@ -8,14 +8,15 @@ import * as Squidex from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
-import URLSearchParams from "@ungap/url-search-params";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 
 export declare namespace Rules {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -27,7 +28,10 @@ export class Rules {
      */
     public async getActions(): Promise<Record<string, Squidex.RuleElementDto>> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/rules/actions"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/rules/actions"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -88,7 +92,7 @@ export class Rules {
     public async getRules(): Promise<Squidex.RulesDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules`
             ),
             method: "GET",
@@ -154,7 +158,7 @@ export class Rules {
     public async postRule(request: Squidex.CreateRuleDto): Promise<Squidex.RuleDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules`
             ),
             method: "POST",
@@ -229,7 +233,7 @@ export class Rules {
     public async deleteRuleRun(): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/run`
             ),
             method: "DELETE",
@@ -297,7 +301,7 @@ export class Rules {
     public async putRule(id: string, request: Squidex.UpdateRuleDto = {}): Promise<Squidex.RuleDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/${id}`
             ),
             method: "PUT",
@@ -373,7 +377,7 @@ export class Rules {
     public async deleteRule(id: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/${id}`
             ),
             method: "DELETE",
@@ -443,7 +447,7 @@ export class Rules {
     public async enableRule(id: string): Promise<Squidex.RuleDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/${id}/enable`
             ),
             method: "PUT",
@@ -518,7 +522,7 @@ export class Rules {
     public async disableRule(id: string): Promise<Squidex.RuleDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/${id}/disable`
             ),
             method: "PUT",
@@ -593,7 +597,7 @@ export class Rules {
     public async triggerRule(id: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/${id}/trigger`
             ),
             method: "PUT",
@@ -668,7 +672,7 @@ export class Rules {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/${id}/run`
             ),
             method: "PUT",
@@ -736,7 +740,7 @@ export class Rules {
     public async deleteRuleEvents(id: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/${id}/events`
             ),
             method: "DELETE",
@@ -804,7 +808,7 @@ export class Rules {
     public async simulatePost(request: Squidex.CreateRuleDto): Promise<Squidex.SimulatedRuleEventsDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/simulate`
             ),
             method: "POST",
@@ -879,7 +883,7 @@ export class Rules {
     public async simulateGet(id: string): Promise<Squidex.SimulatedRuleEventsDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/${id}/simulate`
             ),
             method: "GET",
@@ -958,7 +962,7 @@ export class Rules {
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/events`
             ),
             method: "GET",
@@ -1024,7 +1028,7 @@ export class Rules {
     public async deleteEvents(): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/events`
             ),
             method: "DELETE",
@@ -1092,7 +1096,7 @@ export class Rules {
     public async putEvent(id: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/events/${id}`
             ),
             method: "PUT",
@@ -1162,7 +1166,7 @@ export class Rules {
     public async deleteEvent(id: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/rules/events/${id}`
             ),
             method: "DELETE",
@@ -1229,7 +1233,10 @@ export class Rules {
      */
     public async getEventTypes(): Promise<string[]> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/rules/eventtypes"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/rules/eventtypes"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -1290,7 +1297,7 @@ export class Rules {
     public async getEventSchema(type: string): Promise<unknown> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/rules/eventtypes/${type}`
             ),
             method: "GET",

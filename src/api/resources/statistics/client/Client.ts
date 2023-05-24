@@ -11,10 +11,11 @@ import * as errors from "../../../../errors";
 
 export declare namespace Statistics {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -28,7 +29,7 @@ export class Statistics {
     public async getLog(): Promise<Squidex.LogDownloadDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/usages/log`
             ),
             method: "GET",
@@ -93,7 +94,7 @@ export class Statistics {
     public async getUsages(fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/usages/calls/${fromDate}/${toDate}`
             ),
             method: "GET",
@@ -158,7 +159,7 @@ export class Statistics {
     public async getUsagesForTeam(team: string, fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/usages/calls/${fromDate}/${toDate}`
             ),
             method: "GET",
@@ -223,7 +224,7 @@ export class Statistics {
     public async getCurrentStorageSize(): Promise<Squidex.CurrentStorageDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/usages/storage/today`
             ),
             method: "GET",
@@ -288,7 +289,7 @@ export class Statistics {
     public async getTeamCurrentStorageSizeForTeam(team: string): Promise<Squidex.CurrentStorageDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/usages/storage/today`
             ),
             method: "GET",
@@ -353,7 +354,7 @@ export class Statistics {
     public async getStorageSizes(fromDate: string, toDate: string): Promise<Squidex.StorageUsagePerDateDto[]> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/usages/storage/${fromDate}/${toDate}`
             ),
             method: "GET",
@@ -422,7 +423,7 @@ export class Statistics {
     ): Promise<Squidex.StorageUsagePerDateDto[]> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/usages/storage/${fromDate}/${toDate}`
             ),
             method: "GET",

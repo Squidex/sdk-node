@@ -11,10 +11,11 @@ import * as errors from "../../../../errors";
 
 export declare namespace Schemas {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -30,7 +31,7 @@ export class Schemas {
     public async postField(schema: string, request: Squidex.AddFieldDto): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields`
             ),
             method: "POST",
@@ -120,7 +121,7 @@ export class Schemas {
     ): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested`
             ),
             method: "POST",
@@ -208,7 +209,7 @@ export class Schemas {
     ): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/ui`
             ),
             method: "PUT",
@@ -284,7 +285,7 @@ export class Schemas {
     public async putSchemaFieldOrdering(schema: string, request: Squidex.ReorderFieldsDto): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/ordering`
             ),
             method: "PUT",
@@ -364,7 +365,7 @@ export class Schemas {
     ): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/ordering`
             ),
             method: "PUT",
@@ -440,7 +441,7 @@ export class Schemas {
     public async putField(schema: string, id: number, request: Squidex.UpdateFieldDto): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}`
             ),
             method: "PUT",
@@ -516,7 +517,7 @@ export class Schemas {
     public async deleteField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}`
             ),
             method: "DELETE",
@@ -596,7 +597,7 @@ export class Schemas {
     ): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}`
             ),
             method: "PUT",
@@ -672,7 +673,7 @@ export class Schemas {
     public async deleteNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}`
             ),
             method: "DELETE",
@@ -748,7 +749,7 @@ export class Schemas {
     public async lockField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}/lock`
             ),
             method: "PUT",
@@ -824,7 +825,7 @@ export class Schemas {
     public async lockNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/lock`
             ),
             method: "PUT",
@@ -900,7 +901,7 @@ export class Schemas {
     public async hideField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}/hide`
             ),
             method: "PUT",
@@ -976,7 +977,7 @@ export class Schemas {
     public async hideNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/hide`
             ),
             method: "PUT",
@@ -1052,7 +1053,7 @@ export class Schemas {
     public async showField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}/show`
             ),
             method: "PUT",
@@ -1128,7 +1129,7 @@ export class Schemas {
     public async showNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/show`
             ),
             method: "PUT",
@@ -1204,7 +1205,7 @@ export class Schemas {
     public async enableField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}/enable`
             ),
             method: "PUT",
@@ -1280,7 +1281,7 @@ export class Schemas {
     public async enableNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/enable`
             ),
             method: "PUT",
@@ -1356,7 +1357,7 @@ export class Schemas {
     public async disableField(schema: string, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}/disable`
             ),
             method: "PUT",
@@ -1432,7 +1433,7 @@ export class Schemas {
     public async disableNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/disable`
             ),
             method: "PUT",
@@ -1506,7 +1507,7 @@ export class Schemas {
     public async getSchemas(): Promise<Squidex.SchemasDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas`
             ),
             method: "GET",
@@ -1572,7 +1573,7 @@ export class Schemas {
     public async postSchema(request: Squidex.CreateSchemaDto): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas`
             ),
             method: "POST",
@@ -1654,7 +1655,7 @@ export class Schemas {
     public async getSchema(schema: string): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}`
             ),
             method: "GET",
@@ -1720,7 +1721,7 @@ export class Schemas {
     public async putSchema(schema: string, request: Squidex.UpdateSchemaDto = {}): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}`
             ),
             method: "PUT",
@@ -1796,7 +1797,7 @@ export class Schemas {
     public async deleteSchema(schema: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}`
             ),
             method: "DELETE",
@@ -1866,7 +1867,7 @@ export class Schemas {
     public async putSchemaSync(schema: string, request: Squidex.SynchronizeSchemaDto = {}): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/sync`
             ),
             method: "PUT",
@@ -1942,7 +1943,7 @@ export class Schemas {
     public async putCategory(schema: string, request: Squidex.ChangeCategoryDto = {}): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/category`
             ),
             method: "PUT",
@@ -2018,7 +2019,7 @@ export class Schemas {
     public async putPreviewUrls(schema: string, request: Record<string, string>): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/preview-urls`
             ),
             method: "PUT",
@@ -2096,7 +2097,7 @@ export class Schemas {
     public async putScripts(schema: string, request: Squidex.SchemaScriptsDto): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/scripts`
             ),
             method: "PUT",
@@ -2172,7 +2173,7 @@ export class Schemas {
     public async putRules(schema: string, request: Squidex.ConfigureFieldRulesDto = {}): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/rules`
             ),
             method: "PUT",
@@ -2248,7 +2249,7 @@ export class Schemas {
     public async publishSchema(schema: string): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/publish`
             ),
             method: "PUT",
@@ -2323,7 +2324,7 @@ export class Schemas {
     public async unpublishSchema(schema: string): Promise<Squidex.SchemaDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/schemas/${schema}/unpublish`
             ),
             method: "PUT",

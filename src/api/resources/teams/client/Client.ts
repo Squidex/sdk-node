@@ -11,10 +11,11 @@ import * as errors from "../../../../errors";
 
 export declare namespace Teams {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -28,7 +29,7 @@ export class Teams {
     public async getContributors(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/contributors`
             ),
             method: "GET",
@@ -97,7 +98,7 @@ export class Teams {
     ): Promise<Squidex.ContributorsDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/contributors`
             ),
             method: "POST",
@@ -173,7 +174,7 @@ export class Teams {
     public async deleteMyself(team: string): Promise<Squidex.ContributorsDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/contributors/me`
             ),
             method: "DELETE",
@@ -248,7 +249,7 @@ export class Teams {
     public async deleteContributor(team: string, id: string): Promise<Squidex.ContributorsDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/contributors/${id}`
             ),
             method: "DELETE",
@@ -322,7 +323,10 @@ export class Teams {
      */
     public async getTeams(): Promise<Squidex.TeamDto[]> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/teams"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/teams"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -385,7 +389,10 @@ export class Teams {
      */
     public async postTeam(request: Squidex.CreateTeamDto): Promise<Squidex.TeamDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/teams"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/teams"
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -464,7 +471,10 @@ export class Teams {
      */
     public async getTeam(team: string): Promise<Squidex.TeamDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}`),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}`
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -527,7 +537,10 @@ export class Teams {
      */
     public async putTeam(team: string, request: Squidex.UpdateTeamDto): Promise<Squidex.TeamDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}`),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/teams/${team}`
+            ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

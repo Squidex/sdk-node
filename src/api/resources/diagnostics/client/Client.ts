@@ -11,10 +11,11 @@ import * as serializers from "../../../../serialization";
 
 export declare namespace Diagnostics {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -27,7 +28,10 @@ export class Diagnostics {
      */
     public async getDump(): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/diagnostics/dump"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/diagnostics/dump"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -91,7 +95,10 @@ export class Diagnostics {
      */
     public async getGcDump(): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/diagnostics/gcdump"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/diagnostics/gcdump"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

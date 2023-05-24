@@ -11,10 +11,11 @@ import * as errors from "../../../../errors";
 
 export declare namespace Templates {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -26,7 +27,10 @@ export class Templates {
      */
     public async getTemplates(): Promise<Squidex.TemplatesDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/templates"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/templates"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -86,7 +90,10 @@ export class Templates {
      */
     public async getTemplate(name: string): Promise<Squidex.TemplateDetailsDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/templates/${name}`),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/templates/${name}`
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

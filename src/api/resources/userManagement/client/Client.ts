@@ -5,17 +5,18 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Squidex from "../../..";
-import URLSearchParams from "@ungap/url-search-params";
+import { default as URLSearchParams } from "@ungap/url-search-params";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace UserManagement {
     interface Options {
-        environment?: environments.SquidexEnvironment | string;
+        environment?: core.Supplier<environments.SquidexEnvironment | string>;
         appName: string;
         token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
+        streamingFetcher?: core.StreamingFetchFunction;
     }
 }
 
@@ -41,7 +42,10 @@ export class UserManagement {
         }
 
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/user-management"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/user-management"
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -102,7 +106,10 @@ export class UserManagement {
      */
     public async postUser(request: Squidex.CreateUserDto): Promise<Squidex.UserDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
-            url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/user-management"),
+            url: urlJoin(
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                "api/user-management"
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -173,7 +180,7 @@ export class UserManagement {
     public async getUser(id: string): Promise<Squidex.UserDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}`
             ),
             method: "GET",
@@ -239,7 +246,7 @@ export class UserManagement {
     public async putUser(id: string, request: Squidex.UpdateUserDto): Promise<Squidex.UserDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}`
             ),
             method: "PUT",
@@ -316,7 +323,7 @@ export class UserManagement {
     public async deleteUser(id: string): Promise<void> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}`
             ),
             method: "DELETE",
@@ -396,7 +403,7 @@ export class UserManagement {
     public async lockUser(id: string): Promise<Squidex.UserDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}/lock`
             ),
             method: "PUT",
@@ -481,7 +488,7 @@ export class UserManagement {
     public async unlockUser(id: string): Promise<Squidex.UserDto> {
         const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                this.options.environment ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}/unlock`
             ),
             method: "PUT",
