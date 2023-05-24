@@ -14,6 +14,7 @@ export declare namespace Diagnostics {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -25,14 +26,14 @@ export class Diagnostics {
      * @throws {@link Squidex.NotImplementedError}
      */
     public async getDump(): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/diagnostics/dump"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -89,14 +90,14 @@ export class Diagnostics {
      * @throws {@link Squidex.NotImplementedError}
      */
     public async getGcDump(): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/diagnostics/gcdump"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,

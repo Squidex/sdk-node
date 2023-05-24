@@ -14,6 +14,7 @@ export declare namespace Translations {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -25,7 +26,7 @@ export class Translations {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postTranslation(request: Squidex.TranslateDto): Promise<Squidex.TranslationDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/translations`
@@ -35,7 +36,7 @@ export class Translations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.TranslateDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

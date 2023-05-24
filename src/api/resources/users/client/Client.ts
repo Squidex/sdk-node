@@ -16,6 +16,7 @@ export declare namespace Users {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -26,14 +27,14 @@ export class Users {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getUserResources(): Promise<Squidex.ResourcesDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -92,14 +93,14 @@ export class Users {
             _queryParams.append("query", query);
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/users"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -153,14 +154,14 @@ export class Users {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getUser(id: string): Promise<Squidex.UserDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/users/${id}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -211,7 +212,7 @@ export class Users {
     }
 
     public async getUserPicture(id: string): Promise<stream.Readable> {
-        return await core.streamingFetcher({
+        return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/users/${id}/picture`
@@ -221,7 +222,7 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             timeoutMs: 60000,
             onError: (error) => {

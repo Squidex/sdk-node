@@ -10,7 +10,7 @@ export const QueryDto: core.serialization.ObjectSchema<serializers.QueryDto.Raw,
     core.serialization.object({
         ids: core.serialization.list(core.serialization.string()).optional(),
         oData: core.serialization.string().optional(),
-        q: core.serialization.unknown(),
+        q: core.serialization.unknown().optional(),
         parentId: core.serialization.string().optional(),
     });
 
@@ -18,7 +18,7 @@ export declare namespace QueryDto {
     interface Raw {
         ids?: string[] | null;
         oData?: string | null;
-        q?: unknown;
+        q?: unknown | null;
         parentId?: string | null;
     }
 }

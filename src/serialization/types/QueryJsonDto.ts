@@ -8,7 +8,7 @@ import * as core from "../../core";
 
 export const QueryJsonDto: core.serialization.ObjectSchema<serializers.QueryJsonDto.Raw, Squidex.QueryJsonDto> =
     core.serialization.object({
-        filter: core.serialization.unknown(),
+        filter: core.serialization.unknown().optional(),
         fullText: core.serialization.string().optional(),
         skip: core.serialization.number(),
         take: core.serialization.number(),
@@ -21,7 +21,7 @@ export const QueryJsonDto: core.serialization.ObjectSchema<serializers.QueryJson
 
 export declare namespace QueryJsonDto {
     interface Raw {
-        filter?: unknown;
+        filter?: unknown | null;
         fullText?: string | null;
         skip: number;
         take: number;

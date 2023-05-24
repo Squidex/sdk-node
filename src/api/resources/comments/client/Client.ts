@@ -15,6 +15,7 @@ export declare namespace Comments {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -26,7 +27,7 @@ export class Comments {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getWatchingUsers(resource: string | undefined): Promise<string[]> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/watching/${resource}`
@@ -36,7 +37,7 @@ export class Comments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -101,7 +102,7 @@ export class Comments {
             _queryParams.append("version", version.toString());
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/comments/${commentsId}`
@@ -111,7 +112,7 @@ export class Comments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -168,7 +169,7 @@ export class Comments {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postComment(commentsId: string, request: Squidex.UpsertCommentDto): Promise<Squidex.CommentDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/comments/${commentsId}`
@@ -178,7 +179,7 @@ export class Comments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.UpsertCommentDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -244,7 +245,7 @@ export class Comments {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putComment(commentsId: string, commentId: string, request: Squidex.UpsertCommentDto): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/comments/${commentsId}/${commentId}`
@@ -254,7 +255,7 @@ export class Comments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.UpsertCommentDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -315,7 +316,7 @@ export class Comments {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteComment(commentsId: string, commentId: string): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/comments/${commentsId}/${commentId}`
@@ -325,7 +326,7 @@ export class Comments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,

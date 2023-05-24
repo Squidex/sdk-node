@@ -14,6 +14,7 @@ export declare namespace EventConsumers {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -24,14 +25,14 @@ export class EventConsumers {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getEventConsumers(): Promise<Squidex.EventConsumersDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/event-consumers"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -85,7 +86,7 @@ export class EventConsumers {
      * @throws {@link Squidex.InternalServerError}
      */
     public async startEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/event-consumers/${consumerName}/start`
@@ -95,7 +96,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -160,7 +161,7 @@ export class EventConsumers {
      * @throws {@link Squidex.InternalServerError}
      */
     public async stopEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/event-consumers/${consumerName}/stop`
@@ -170,7 +171,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -235,7 +236,7 @@ export class EventConsumers {
      * @throws {@link Squidex.InternalServerError}
      */
     public async resetEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/event-consumers/${consumerName}/reset`
@@ -245,7 +246,7 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,

@@ -15,6 +15,7 @@ export declare namespace UserManagement {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -39,14 +40,14 @@ export class UserManagement {
             _queryParams.append("take", take.toString());
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/user-management"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -100,14 +101,14 @@ export class UserManagement {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postUser(request: Squidex.CreateUserDto): Promise<Squidex.UserDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/user-management"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.CreateUserDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -170,7 +171,7 @@ export class UserManagement {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getUser(id: string): Promise<Squidex.UserDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}`
@@ -180,7 +181,7 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -236,7 +237,7 @@ export class UserManagement {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putUser(id: string, request: Squidex.UpdateUserDto): Promise<Squidex.UserDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}`
@@ -246,7 +247,7 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.UpdateUserDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -313,7 +314,7 @@ export class UserManagement {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteUser(id: string): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}`
@@ -323,7 +324,7 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -393,7 +394,7 @@ export class UserManagement {
      * @throws {@link Squidex.InternalServerError}
      */
     public async lockUser(id: string): Promise<Squidex.UserDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}/lock`
@@ -403,7 +404,7 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -478,7 +479,7 @@ export class UserManagement {
      * @throws {@link Squidex.InternalServerError}
      */
     public async unlockUser(id: string): Promise<Squidex.UserDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}/unlock`
@@ -488,7 +489,7 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,

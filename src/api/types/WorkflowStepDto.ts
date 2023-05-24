@@ -6,7 +6,7 @@ import * as Squidex from "..";
 
 export interface WorkflowStepDto {
     /** The transitions. */
-    transitions?: Record<string, Squidex.WorkflowTransitionDto | undefined>;
+    transitions?: Record<string, Squidex.WorkflowTransitionDto>;
     /** The optional color. */
     color?: string;
     /** True if the content should be validated when moving to this step. */

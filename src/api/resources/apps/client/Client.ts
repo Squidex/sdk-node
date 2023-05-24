@@ -17,6 +17,7 @@ export declare namespace Apps {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -28,7 +29,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getAssetScripts(): Promise<Squidex.AssetScriptsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/scripts`
@@ -38,7 +39,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -94,7 +95,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putAssetScripts(request: Squidex.UpdateAssetScriptsDto = {}): Promise<Squidex.AssetScriptsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/scripts`
@@ -104,7 +105,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.UpdateAssetScriptsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -170,7 +171,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getClients(): Promise<Squidex.ClientsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/clients`
@@ -180,7 +181,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -238,7 +239,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postClient(request: Squidex.CreateClientDto): Promise<Squidex.ClientsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/clients`
@@ -248,7 +249,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.CreateClientDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -315,7 +316,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putClient(id: string, request: Squidex.UpdateClientDto = {}): Promise<Squidex.ClientsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/clients/${id}`
@@ -325,7 +326,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.UpdateClientDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -392,7 +393,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteClient(id: string): Promise<Squidex.ClientsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/clients/${id}`
@@ -402,7 +403,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -466,7 +467,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getContributors(): Promise<Squidex.ContributorsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/contributors`
@@ -476,7 +477,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -532,7 +533,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postContributor(request: Squidex.AssignContributorDto): Promise<Squidex.ContributorsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/contributors`
@@ -542,7 +543,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.AssignContributorDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -608,7 +609,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteMyself(): Promise<Squidex.ContributorsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/contributors/me`
@@ -618,7 +619,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -683,7 +684,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteContributor(id: string): Promise<Squidex.ContributorsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/contributors/${id}`
@@ -693,7 +694,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -753,7 +754,7 @@ export class Apps {
     }
 
     public async getImage(): Promise<stream.Readable> {
-        return await core.streamingFetcher({
+        return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/image`
@@ -763,7 +764,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             timeoutMs: 60000,
             onError: (error) => {
@@ -787,7 +788,7 @@ export class Apps {
     ): Promise<Squidex.AppDto> {
         const _request = new FormData();
         _request.append("file", file);
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/image`
@@ -797,7 +798,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
@@ -865,7 +866,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteImage(): Promise<Squidex.AppDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/image`
@@ -875,7 +876,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -939,7 +940,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getLanguages(): Promise<Squidex.AppLanguagesDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/languages`
@@ -949,7 +950,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1005,7 +1006,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postLanguage(request: Squidex.AddLanguageDto): Promise<Squidex.AppLanguagesDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/languages`
@@ -1015,7 +1016,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.AddLanguageDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1084,7 +1085,7 @@ export class Apps {
         language: string,
         request: Squidex.UpdateLanguageDto = {}
     ): Promise<Squidex.AppLanguagesDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/languages/${language}`
@@ -1094,7 +1095,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.UpdateLanguageDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1160,7 +1161,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteLanguage(language: string): Promise<Squidex.AppLanguagesDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/languages/${language}`
@@ -1170,7 +1171,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1234,7 +1235,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getRoles(): Promise<Squidex.RolesDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/roles`
@@ -1244,7 +1245,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1300,7 +1301,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postRole(request: Squidex.AddRoleDto): Promise<Squidex.RolesDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/roles`
@@ -1310,7 +1311,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.AddRoleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1375,7 +1376,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getPermissions(): Promise<string[]> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/roles/permissions`
@@ -1385,7 +1386,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1441,7 +1442,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putRole(roleName: string, request: Squidex.UpdateRoleDto): Promise<Squidex.RolesDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/roles/${roleName}`
@@ -1451,7 +1452,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.UpdateRoleDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1517,7 +1518,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteRole(roleName: string): Promise<Squidex.RolesDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/roles/${roleName}`
@@ -1527,7 +1528,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1592,14 +1593,14 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getApps(): Promise<Squidex.AppDto[]> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1655,14 +1656,14 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postApp(request: Squidex.CreateAppDto): Promise<Squidex.AppDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.CreateAppDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1735,14 +1736,14 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getTeamApps(team: string): Promise<Squidex.AppDto[]> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}/apps`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1795,7 +1796,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getApp(): Promise<Squidex.AppDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}`
@@ -1805,7 +1806,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1861,7 +1862,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putApp(request: Squidex.UpdateAppDto = {}): Promise<Squidex.AppDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}`
@@ -1871,7 +1872,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.UpdateAppDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1937,7 +1938,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteApp(): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}`
@@ -1947,7 +1948,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -2007,7 +2008,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putAppTeam(request: Squidex.TransferToTeamDto = {}): Promise<Squidex.AppDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/team`
@@ -2017,7 +2018,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.TransferToTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -2082,7 +2083,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getSettings(): Promise<Squidex.AppSettingsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/settings`
@@ -2092,7 +2093,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -2148,7 +2149,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putSettings(request: Squidex.UpdateAppSettingsDto): Promise<Squidex.AppSettingsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/settings`
@@ -2158,7 +2159,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.UpdateAppSettingsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -2223,7 +2224,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getWorkflows(): Promise<Squidex.WorkflowsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/workflows`
@@ -2233,7 +2234,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -2289,7 +2290,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postWorkflow(request: Squidex.AddWorkflowDto): Promise<Squidex.WorkflowsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/workflows`
@@ -2299,7 +2300,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.AddWorkflowDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -2365,7 +2366,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putWorkflow(id: string, request: Squidex.UpdateWorkflowDto): Promise<Squidex.WorkflowsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/workflows/${id}`
@@ -2375,7 +2376,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.UpdateWorkflowDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -2441,7 +2442,7 @@ export class Apps {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteWorkflow(id: string): Promise<Squidex.WorkflowsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/workflows/${id}`
@@ -2451,7 +2452,7 @@ export class Apps {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,

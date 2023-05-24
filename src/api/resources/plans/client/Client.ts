@@ -14,6 +14,7 @@ export declare namespace Plans {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -25,7 +26,7 @@ export class Plans {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getPlans(): Promise<Squidex.PlansDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/plans`
@@ -35,7 +36,7 @@ export class Plans {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -91,7 +92,7 @@ export class Plans {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putPlan(request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/plan`
@@ -101,7 +102,7 @@ export class Plans {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.ChangePlanDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -166,7 +167,7 @@ export class Plans {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getTeamPlans(team: string): Promise<Squidex.PlansDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/plans`
@@ -176,7 +177,7 @@ export class Plans {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -232,14 +233,14 @@ export class Plans {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putTeamPlan(team: string, request: Squidex.ChangePlanDto): Promise<Squidex.PlanChangedDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/teams/${team}/plan`),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.ChangePlanDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

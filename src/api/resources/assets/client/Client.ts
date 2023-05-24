@@ -18,6 +18,7 @@ export declare namespace Assets {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -102,7 +103,7 @@ export class Assets {
             _queryParams.append("format", format);
         }
 
-        return await core.streamingFetcher({
+        return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/assets/${this.options.appName}/${idOrSlug}/${more}`
@@ -112,7 +113,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             queryParameters: _queryParams,
             timeoutMs: 60000,
@@ -201,14 +202,14 @@ export class Assets {
             _queryParams.append("format", format);
         }
 
-        return await core.streamingFetcher({
+        return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/assets/${id}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             queryParameters: _queryParams,
             timeoutMs: 60000,
@@ -236,7 +237,7 @@ export class Assets {
             _queryParams.append("scope", scope);
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/folders`
@@ -246,7 +247,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -303,7 +304,7 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postAssetFolder(request: Squidex.CreateAssetFolderDto): Promise<Squidex.AssetFolderDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/folders`
@@ -313,7 +314,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.CreateAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -379,7 +380,7 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putAssetFolder(id: string, request: Squidex.RenameAssetFolderDto): Promise<Squidex.AssetFolderDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/folders/${id}`
@@ -389,7 +390,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.RenameAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -455,7 +456,7 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteAssetFolder(id: string): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/folders/${id}`
@@ -465,7 +466,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -528,7 +529,7 @@ export class Assets {
         id: string,
         request: Squidex.MoveAssetFolderDto = {}
     ): Promise<Squidex.AssetFolderDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/folders/${id}/parent`
@@ -538,7 +539,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.MoveAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -604,7 +605,7 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getTags(): Promise<Record<string, number>> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/tags`
@@ -614,7 +615,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -670,7 +671,7 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putTag(name: string, request: Squidex.RenameTagDto): Promise<Record<string, number>> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/tags/${name}`
@@ -680,7 +681,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.RenameTagDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -776,7 +777,7 @@ export class Assets {
             _queryParams.append("$filter", filter);
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets`
@@ -786,7 +787,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-NoTotal": noTotal != null ? noTotal.toString() : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
             },
@@ -854,7 +855,7 @@ export class Assets {
     ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets`
@@ -864,7 +865,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
@@ -943,7 +944,7 @@ export class Assets {
      */
     public async getAssetsPost(request: Squidex.AssetsGetAssetsPostRequest): Promise<Squidex.AssetsDto> {
         const { noTotal, noSlowTotal, body: _body } = request;
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/query`
@@ -953,7 +954,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-NoTotal": noTotal != null ? noTotal.toString() : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
             },
@@ -1020,7 +1021,7 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getAsset(id: string): Promise<Squidex.AssetDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}`
@@ -1030,7 +1031,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -1096,7 +1097,7 @@ export class Assets {
     ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}`
@@ -1106,7 +1107,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
@@ -1183,7 +1184,7 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putAsset(id: string, request: Squidex.AnnotateAssetDto = {}): Promise<Squidex.AssetDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}`
@@ -1193,7 +1194,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.AnnotateAssetDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1269,7 +1270,7 @@ export class Assets {
             _queryParams.append("permanent", permanent.toString());
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}`
@@ -1279,7 +1280,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -1340,7 +1341,7 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async bulkUpdateAssets(request: Squidex.BulkUpdateAssetsDto = {}): Promise<Squidex.BulkResultDto[]> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/bulk`
@@ -1350,7 +1351,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.BulkUpdateAssetsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1426,7 +1427,7 @@ export class Assets {
     ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}/content`
@@ -1436,7 +1437,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
@@ -1513,7 +1514,7 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putAssetParent(id: string, request: Squidex.MoveAssetDto = {}): Promise<Squidex.AssetDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/assets/${id}/parent`
@@ -1523,7 +1524,7 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.MoveAssetDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

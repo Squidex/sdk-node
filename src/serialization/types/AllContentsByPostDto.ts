@@ -16,7 +16,7 @@ export const AllContentsByPostDto: core.serialization.ObjectSchema<
     referencing: core.serialization.string().optional(),
     references: core.serialization.string().optional(),
     oData: core.serialization.string().optional(),
-    q: core.serialization.unknown(),
+    q: core.serialization.unknown().optional(),
 });
 
 export declare namespace AllContentsByPostDto {
@@ -27,6 +27,6 @@ export declare namespace AllContentsByPostDto {
         referencing?: string | null;
         references?: string | null;
         oData?: string | null;
-        q?: unknown;
+        q?: unknown | null;
     }
 }

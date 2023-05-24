@@ -14,7 +14,7 @@ export const SimulatedRuleEventDto: core.serialization.ObjectSchema<
     uniqueId: core.serialization.string(),
     eventName: core.serialization.string(),
     event: core.serialization.unknown(),
-    enrichedEvent: core.serialization.unknown(),
+    enrichedEvent: core.serialization.unknown().optional(),
     actionName: core.serialization.string().optional(),
     actionData: core.serialization.string().optional(),
     error: core.serialization.string().optional(),
@@ -27,7 +27,7 @@ export declare namespace SimulatedRuleEventDto {
         uniqueId: string;
         eventName: string;
         event?: unknown;
-        enrichedEvent?: unknown;
+        enrichedEvent?: unknown | null;
         actionName?: string | null;
         actionData?: string | null;
         error?: string | null;

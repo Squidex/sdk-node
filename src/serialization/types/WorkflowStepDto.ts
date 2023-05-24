@@ -13,7 +13,7 @@ export const WorkflowStepDto: core.serialization.ObjectSchema<
     transitions: core.serialization
         .record(
             core.serialization.string(),
-            core.serialization.lazyObject(async () => (await import("..")).WorkflowTransitionDto).optional()
+            core.serialization.lazyObject(async () => (await import("..")).WorkflowTransitionDto)
         )
         .optional(),
     color: core.serialization.string().optional(),
@@ -25,7 +25,7 @@ export const WorkflowStepDto: core.serialization.ObjectSchema<
 
 export declare namespace WorkflowStepDto {
     interface Raw {
-        transitions?: Record<string, serializers.WorkflowTransitionDto.Raw | null | undefined> | null;
+        transitions?: Record<string, serializers.WorkflowTransitionDto.Raw> | null;
         color?: string | null;
         validate?: boolean | null;
         noUpdate?: boolean | null;

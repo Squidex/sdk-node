@@ -16,6 +16,7 @@ export declare namespace Backups {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -23,7 +24,7 @@ export class Backups {
     constructor(protected readonly options: Backups.Options) {}
 
     public async getBackupContent(id: string): Promise<stream.Readable> {
-        return await core.streamingFetcher({
+        return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/backups/${id}`
@@ -33,7 +34,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             timeoutMs: 60000,
             onError: (error) => {
@@ -50,7 +51,7 @@ export class Backups {
      * @throws {@link Squidex.InternalServerError}
      */
     public async deleteBackup(id: string): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/backups/${id}`
@@ -60,7 +61,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -128,14 +129,14 @@ export class Backups {
             _queryParams.append("app", app);
         }
 
-        return await core.streamingFetcher({
+        return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, `api/apps/backups/${id}`),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             queryParameters: _queryParams,
             timeoutMs: 60000,
@@ -152,7 +153,7 @@ export class Backups {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getBackups(): Promise<Squidex.BackupJobsDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/backups`
@@ -162,7 +163,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -218,7 +219,7 @@ export class Backups {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postBackup(): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/apps/${this.options.appName}/backups`
@@ -228,7 +229,7 @@ export class Backups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -286,14 +287,14 @@ export class Backups {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getRestoreJob(): Promise<Squidex.RestoreJobDto> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps/restore"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -346,14 +347,14 @@ export class Backups {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postRestoreJob(request: Squidex.RestoreRequestDto): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(this.options.environment ?? environments.SquidexEnvironment.Default, "api/apps/restore"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.RestoreRequestDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

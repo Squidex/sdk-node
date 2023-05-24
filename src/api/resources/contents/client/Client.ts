@@ -16,6 +16,7 @@ export declare namespace Contents {
         environment?: environments.SquidexEnvironment | string;
         appName: string;
         token: core.Supplier<core.BearerToken>;
+        fetcher?: core.FetchFunction;
     }
 }
 
@@ -62,7 +63,7 @@ export class Contents {
             _queryParams.append("$filter", filter);
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}`
@@ -72,7 +73,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
@@ -149,7 +150,7 @@ export class Contents {
             _queryParams.append("publish", publish.toString());
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}`
@@ -159,7 +160,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -235,7 +236,7 @@ export class Contents {
         request: Squidex.ContentsGetContentsPostRequest
     ): Promise<Squidex.ContentsDto> {
         const { flatten, languages, noSlowTotal, noTotal, unpublished, body: _body } = request;
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/query`
@@ -245,7 +246,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
@@ -326,7 +327,7 @@ export class Contents {
             _queryParams.append("version", version.toString());
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}`
@@ -336,7 +337,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
@@ -415,7 +416,7 @@ export class Contents {
             _queryParams.append("publish", publish.toString());
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}`
@@ -425,7 +426,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -502,7 +503,7 @@ export class Contents {
         request: Squidex.ContentsPutContentRequest
     ): Promise<Squidex.ContentDto> {
         const { unpublished, languages, body: _body } = request;
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}`
@@ -512,7 +513,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -586,7 +587,7 @@ export class Contents {
         request: Squidex.ContentsPatchContentRequest
     ): Promise<Squidex.ContentDto> {
         const { unpublished, languages, body: _body } = request;
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}`
@@ -596,7 +597,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -681,7 +682,7 @@ export class Contents {
             _queryParams.append("permanent", permanent.toString());
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}`
@@ -691,7 +692,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -753,7 +754,7 @@ export class Contents {
      * @throws {@link Squidex.InternalServerError}
      */
     public async getContentValidity(schema: string, id: string): Promise<void> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/validity`
@@ -763,7 +764,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -833,7 +834,7 @@ export class Contents {
             _queryParams.append("q", q);
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/references`
@@ -843,7 +844,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
@@ -915,7 +916,7 @@ export class Contents {
             _queryParams.append("q", q);
         }
 
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/referencing`
@@ -925,7 +926,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
@@ -991,7 +992,7 @@ export class Contents {
         request: Squidex.ContentsGetContentVersionRequest = {}
     ): Promise<stream.Readable> {
         const { unpublished, languages } = request;
-        return await core.streamingFetcher({
+        return await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/${version}`
@@ -1001,7 +1002,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1021,7 +1022,7 @@ export class Contents {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postContents(schema: string, request: Squidex.ImportContentsDto): Promise<Squidex.BulkResultDto[]> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/import`
@@ -1031,7 +1032,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.ImportContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1101,7 +1102,7 @@ export class Contents {
         schema: string,
         request: Squidex.BulkUpdateContentsDto
     ): Promise<Squidex.BulkResultDto[]> {
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/bulk`
@@ -1111,7 +1112,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
             },
             contentType: "application/json",
             body: await serializers.BulkUpdateContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1183,7 +1184,7 @@ export class Contents {
         request: Squidex.ChangeStatusDto
     ): Promise<Squidex.ContentDto> {
         const { unpublished, languages, ..._body } = request;
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/status`
@@ -1193,7 +1194,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1267,7 +1268,7 @@ export class Contents {
         request: Squidex.ContentsDeleteContentStatusRequest = {}
     ): Promise<Squidex.ContentDto> {
         const { unpublished, languages } = request;
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/status`
@@ -1277,7 +1278,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1350,7 +1351,7 @@ export class Contents {
         request: Squidex.ContentsCreateDraftRequest = {}
     ): Promise<Squidex.ContentDto> {
         const { unpublished, languages } = request;
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/draft`
@@ -1360,7 +1361,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1433,7 +1434,7 @@ export class Contents {
         request: Squidex.ContentsDeleteVersionRequest = {}
     ): Promise<Squidex.ContentDto> {
         const { unpublished, languages } = request;
-        const _response = await core.fetcher({
+        const _response = await (this.options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 this.options.environment ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/draft`
@@ -1443,7 +1444,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc3",
+                "X-Fern-SDK-Version": "1.0.0-rc4",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
