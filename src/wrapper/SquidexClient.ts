@@ -118,14 +118,14 @@ export class SquidexClient extends FernClient {
 
                 addOptions(args, clientOptions);
                 try {
-                    return await fetcher(args as any) as any;
+                    return await fetcher(args);
                 } catch (ex) {
                     const error = ex as core.Fetcher.Error;
 
                     // Token has probably been expired.
                     if (error.reason === 'status-code' && error.statusCode === 401) {
                         this.clearToken();
-                        return await fetcher(args as any);
+                        return await fetcher(args);
                     }
 
                     throw ex;
