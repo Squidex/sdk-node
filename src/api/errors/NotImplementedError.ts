@@ -8,7 +8,6 @@ import * as Squidex from "..";
 export class NotImplementedError extends errors.SquidexError {
     constructor(body: Squidex.ErrorDto) {
         super({
-            message: "NotImplementedError",
             statusCode: 501,
             body: body,
         });

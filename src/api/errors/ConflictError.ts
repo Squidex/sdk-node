@@ -8,7 +8,6 @@ import * as Squidex from "..";
 export class ConflictError extends errors.SquidexError {
     constructor(body: Squidex.ErrorDto) {
         super({
-            message: "ConflictError",
             statusCode: 409,
             body: body,
         });

@@ -8,7 +8,6 @@ import * as Squidex from "..";
 export class ForbiddenError extends errors.SquidexError {
     constructor(body: Squidex.ErrorDto) {
         super({
-            message: "ForbiddenError",
             statusCode: 403,
             body: body,
         });

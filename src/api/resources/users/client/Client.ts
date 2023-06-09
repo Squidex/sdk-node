@@ -38,7 +38,7 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -107,7 +107,7 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -171,7 +171,7 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -221,8 +221,12 @@ export class Users {
         }
     }
 
-    public async getUserPicture(id: string): Promise<stream.Readable> {
-        return await (this.options.streamingFetcher ?? core.streamingFetcher)({
+    public async getUserPicture(id: string): Promise<{
+        data: stream.Readable;
+        contentLengthInBytes?: number;
+        contentType?: string;
+    }> {
+        const _response = await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/users/${id}/picture`
@@ -232,7 +236,7 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
             },
             timeoutMs: 60000,
             onError: (error) => {
@@ -241,6 +245,12 @@ export class Users {
                 });
             },
         });
+        return {
+            data: _response.data,
+            contentLengthInBytes:
+                _response.headers["Content-Length"] != null ? Number(_response.headers["Content-Length"]) : undefined,
+            contentType: _response.headers["Content-Type"],
+        };
     }
 
     protected async _getAuthorizationHeader() {

@@ -8,7 +8,6 @@ import * as Squidex from "..";
 export class BadRequestError extends errors.SquidexError {
     constructor(body: Squidex.ErrorDto) {
         super({
-            message: "BadRequestError",
             statusCode: 400,
             body: body,
         });

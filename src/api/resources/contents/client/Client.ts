@@ -74,7 +74,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
@@ -161,7 +161,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -247,7 +247,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
@@ -338,7 +338,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
@@ -427,7 +427,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -514,7 +514,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -598,7 +598,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -693,7 +693,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -765,7 +765,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
             },
             contentType: "application/json",
             timeoutMs: 60000,
@@ -845,7 +845,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
@@ -927,7 +927,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
@@ -991,9 +991,13 @@ export class Contents {
         id: string,
         version: number,
         request: Squidex.ContentsGetContentVersionRequest = {}
-    ): Promise<stream.Readable> {
+    ): Promise<{
+        data: stream.Readable;
+        contentLengthInBytes?: number;
+        contentType?: string;
+    }> {
         const { unpublished, languages } = request;
-        return await (this.options.streamingFetcher ?? core.streamingFetcher)({
+        const _response = await (this.options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/content/${this.options.appName}/${schema}/${id}/${version}`
@@ -1003,7 +1007,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1014,6 +1018,12 @@ export class Contents {
                 });
             },
         });
+        return {
+            data: _response.data,
+            contentLengthInBytes:
+                _response.headers["Content-Length"] != null ? Number(_response.headers["Content-Length"]) : undefined,
+            contentType: _response.headers["Content-Type"],
+        };
     }
 
     /**
@@ -1033,7 +1043,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
             },
             contentType: "application/json",
             body: await serializers.ImportContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1113,7 +1123,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
             },
             contentType: "application/json",
             body: await serializers.BulkUpdateContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1195,7 +1205,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1279,7 +1289,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1362,7 +1372,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1445,7 +1455,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc6",
+                "X-Fern-SDK-Version": "1.0.0-rc7",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },

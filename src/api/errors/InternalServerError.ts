@@ -8,7 +8,6 @@ import * as Squidex from "..";
 export class InternalServerError extends errors.SquidexError {
     constructor(body: Squidex.ErrorDto) {
         super({
-            message: "InternalServerError",
             statusCode: 500,
             body: body,
         });

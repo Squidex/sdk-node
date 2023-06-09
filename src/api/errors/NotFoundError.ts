@@ -7,7 +7,6 @@ import * as errors from "../../errors";
 export class NotFoundError extends errors.SquidexError {
     constructor(body?: unknown) {
         super({
-            message: "NotFoundError",
             statusCode: 404,
             body: body,
         });

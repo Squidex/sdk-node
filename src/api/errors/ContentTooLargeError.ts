@@ -8,7 +8,6 @@ import * as Squidex from "..";
 export class ContentTooLargeError extends errors.SquidexError {
     constructor(body: Squidex.ErrorDto) {
         super({
-            message: "ContentTooLargeError",
             statusCode: 413,
             body: body,
         });
