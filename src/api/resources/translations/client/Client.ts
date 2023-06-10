@@ -37,7 +37,7 @@ export class Translations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0-rc8",
+                "X-Fern-SDK-Version": "1.0.0",
             },
             contentType: "application/json",
             body: await serializers.TranslateDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
