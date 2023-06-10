@@ -3,6 +3,7 @@ import * as environments from "../environments";
 import * as core from "../core";
 import * as errors from "../errors";
 import urlJoin from "url-join";
+import { normalizeHeaders } from "./normalize-headers";
 
 export declare namespace SquidexClient {
     interface Options {
@@ -139,7 +140,13 @@ export class SquidexClient extends FernClient {
 
                 addOptions(args, clientOptions);
                 try {
-                    return fetcher(args);
+                    const { headers, ...response } = await fetcher(args);
+                    
+                    return {
+                        ...response,
+                        // Headers might be in lowercase for some servers and http versions.
+                        headers: normalizeHeaders(headers)
+                    };
                 } catch (ex) {
                     const error = ex as core.Fetcher.Error;
 

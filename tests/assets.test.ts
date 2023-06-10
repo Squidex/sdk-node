@@ -30,10 +30,12 @@ describe("Assets", () => {
         const tempFolder = os.tmpdir();
         const tempFile = path.join(tempFolder, guid());
         const tempStream = fs.createWriteStream(tempFile);
-        await StreamPromises.pipeline(asset, tempStream);
+        await StreamPromises.pipeline(asset.data, tempStream);
 
         const downloadedFile = fs.statSync(tempFile);
         
+        expect(asset.contentType).toEqual('image/png');
+        expect(asset.contentLengthInBytes).toEqual(fileInfo.size);
         expect(downloadedFile.size).toEqual(fileInfo.size);
     });
 });
