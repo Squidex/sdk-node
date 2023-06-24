@@ -81,6 +81,19 @@ Error codes are as followed:
 
 This SDK is a release candidate, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning the package version to a specific version in your package.json file. This way, you can install the same version each time without breaking changes unless you are intentionally looking for the latest version.
 
+## Usage in TypeScript ESM Projects
+
+To ensure maximum compatability, the Squidex Node SDK is transpiled to CJS JavaScript. If your project is TypeScript ESM, make sure to enable [`esModuleInterop`](https://www.typescriptlang.org/tsconfig#esModuleInterop) in your tsconfig.json so that the imports in this package work correctly.
+
+```jsonc
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    ...
+  }
+}
+```
+
 ## Contributing
 
 While we value open-source contributions to this SDK, this library is generated programmatically. Additions made directly to this library would have to be moved over to our generation code, otherwise they would be overwritten upon the next generated release. Feel free to open a PR as a proof of concept, but know that we will not be able to merge it as-is. We suggest opening an issue first to discuss with us!
