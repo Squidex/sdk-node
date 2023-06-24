@@ -83,6 +83,8 @@ This SDK is a release candidate, and there may be breaking changes between versi
 
 ## Usage in TypeScript ESM Projects
 
+Learn more about ESM [here](https://www.typescriptlang.org/docs/handbook/esm-node.html). 
+
 To ensure maximum compatability, the Squidex Node SDK is transpiled to CJS JavaScript. If your project is TypeScript ESM, make sure to enable [`esModuleInterop`](https://www.typescriptlang.org/tsconfig#esModuleInterop) in your tsconfig.json so that the imports in this package work correctly.
 
 ```jsonc
