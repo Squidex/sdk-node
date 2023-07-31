@@ -76,7 +76,7 @@ export class SquidexClient extends FernClient {
      * The current app name.
      */
     public get appName() {
-        return this.options.appName;
+        return this._options.appName;
     }
 
     /**
