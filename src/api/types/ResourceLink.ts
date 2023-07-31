@@ -3,9 +3,9 @@
  */
 
 export interface ResourceLink {
-    /** The link url. */
+    /** The link url. <span style="white-space: nowrap">`non-empty`</span> */
     href: string;
-    /** The link method. */
+    /** The link method. <span style="white-space: nowrap">`non-empty`</span> */
     method: string;
     /** Additional data about the link. */
     metadata?: string;

@@ -3,9 +3,9 @@
  */
 
 export interface TranslateDto {
-    /** The text to translate. */
+    /** The text to translate. <span style="white-space: nowrap">`non-empty`</span> */
     text: string;
-    /** The target language. */
+    /** The target language. <span style="white-space: nowrap">`non-empty`</span> */
     targetLanguage: string;
     /** The optional source language. */
     sourceLanguage?: string;

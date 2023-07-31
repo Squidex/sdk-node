@@ -5,11 +5,11 @@
 import * as Squidex from "..";
 
 export interface SimulatedRuleEventDto {
-    /** The unique event id. */
+    /** The unique event id. <span style="white-space: nowrap">`non-empty`</span> */
     eventId: string;
-    /** The the unique id of the simulated event. */
+    /** The the unique id of the simulated event. <span style="white-space: nowrap">`non-empty`</span> */
     uniqueId: string;
-    /** The name of the event. */
+    /** The name of the event. <span style="white-space: nowrap">`non-empty`</span> */
     eventName: string;
     event?: unknown;
     enrichedEvent?: unknown;

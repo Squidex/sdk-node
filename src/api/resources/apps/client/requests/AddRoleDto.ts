@@ -3,6 +3,6 @@
  */
 
 export interface AddRoleDto {
-    /** The role name. */
+    /** The role name. <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
 }

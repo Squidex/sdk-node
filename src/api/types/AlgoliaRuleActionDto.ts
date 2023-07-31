@@ -3,11 +3,11 @@
  */
 
 export interface AlgoliaRuleActionDto {
-    /** The application ID. */
+    /** The application ID. <span style="white-space: nowrap">`non-empty`</span> */
     appId: string;
-    /** The API key to grant access to Squidex. */
+    /** The API key to grant access to Squidex. <span style="white-space: nowrap">`non-empty`</span> */
     apiKey: string;
-    /** The name of the index. */
+    /** The name of the index. <span style="white-space: nowrap">`non-empty`</span> */
     indexName: string;
     /** The optional custom document. */
     document?: string;

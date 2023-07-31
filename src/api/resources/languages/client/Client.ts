@@ -17,19 +17,23 @@ export declare namespace Languages {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Languages {
-    constructor(protected readonly options: Languages.Options) {}
+    constructor(protected readonly _options: Languages.Options) {}
 
     /**
      * Provide a list of supported language codes, following the ISO2Code standard.
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getLanguages(): Promise<Squidex.LanguageDto[]> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getLanguages(requestOptions?: Languages.RequestOptions): Promise<Squidex.LanguageDto[]> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 "api/languages"
             ),
             method: "GET",
@@ -37,10 +41,10 @@ export class Languages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.languages.getLanguages.Response.parseOrThrow(_response.body, {
@@ -86,6 +90,6 @@ export class Languages {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

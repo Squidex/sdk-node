@@ -3,6 +3,6 @@
  */
 
 export interface RenameAssetFolderDto {
-    /** The name of the folder. */
+    /** The name of the folder. <span style="white-space: nowrap">`non-empty`</span> */
     folderName: string;
 }

@@ -7,11 +7,11 @@ import * as Squidex from "..";
 export interface SchemaDto extends Squidex.Resource {
     /** The ID of the schema. */
     id: string;
-    /** The user that has created the schema. */
+    /** The user that has created the schema. <span style="white-space: nowrap">`non-empty`</span> */
     createdBy: string;
-    /** The user that has updated the schema. */
+    /** The user that has updated the schema. <span style="white-space: nowrap">`non-empty`</span> */
     lastModifiedBy: string;
-    /** The name of the schema. Unique within the app. */
+    /** The name of the schema. Unique within the app. <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
     type: Squidex.SchemaType;
     /** The name of the category. */

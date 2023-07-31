@@ -6,7 +6,7 @@ import * as Squidex from "..";
 
 export interface FieldRuleDto {
     action: Squidex.FieldRuleAction;
-    /** The field to update. */
+    /** The field to update. <span style="white-space: nowrap">`non-empty`</span> */
     field: string;
     /** The condition. */
     condition?: string;

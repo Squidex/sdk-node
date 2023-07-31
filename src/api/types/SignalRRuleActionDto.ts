@@ -5,9 +5,9 @@
 import * as Squidex from "..";
 
 export interface SignalRRuleActionDto {
-    /** The connection string to the Azure SignalR. */
+    /** The connection string to the Azure SignalR. <span style="white-space: nowrap">`non-empty`</span> */
     connectionString: string;
-    /** The name of the hub. */
+    /** The name of the hub. <span style="white-space: nowrap">`non-empty`</span> */
     hubName: string;
     action: Squidex.ActionTypeEnum;
     /** Set the Name of the hub method received by the customer. */

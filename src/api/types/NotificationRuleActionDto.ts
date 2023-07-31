@@ -3,9 +3,9 @@
  */
 
 export interface NotificationRuleActionDto {
-    /** The user id or email. */
+    /** The user id or email. <span style="white-space: nowrap">`non-empty`</span> */
     user: string;
-    /** The text to send. */
+    /** The text to send. <span style="white-space: nowrap">`non-empty`</span> */
     text: string;
     /** The optional url to attach to the notification. */
     url?: string;

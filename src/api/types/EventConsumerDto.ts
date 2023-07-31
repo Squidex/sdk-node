@@ -11,7 +11,7 @@ export interface EventConsumerDto extends Squidex.Resource {
     isResetting: boolean;
     /** The number of handled events. */
     count: number;
-    /** The name of the event consumer. */
+    /** The name of the event consumer. <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
     /** The error details if the event consumer has been stopped after a failure. */
     error?: string;

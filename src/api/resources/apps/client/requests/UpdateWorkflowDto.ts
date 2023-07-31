@@ -11,6 +11,6 @@ export interface UpdateWorkflowDto {
     steps: Record<string, Squidex.WorkflowStepDto>;
     /** The schema ids. */
     schemaIds?: string[];
-    /** The initial step. */
+    /** The initial step. <span style="white-space: nowrap">`non-empty`</span> */
     initial: string;
 }

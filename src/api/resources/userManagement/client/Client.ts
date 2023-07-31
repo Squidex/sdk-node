@@ -18,15 +18,22 @@ export declare namespace UserManagement {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class UserManagement {
-    constructor(protected readonly options: UserManagement.Options) {}
+    constructor(protected readonly _options: UserManagement.Options) {}
 
     /**
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getUsers(request: Squidex.UserManagementGetUsersRequest = {}): Promise<Squidex.UsersDto> {
+    public async getUsers(
+        request: Squidex.UserManagementGetUsersRequest = {},
+        requestOptions?: UserManagement.RequestOptions
+    ): Promise<Squidex.UsersDto> {
         const { query, skip, take } = request;
         const _queryParams = new URLSearchParams();
         if (query != null) {
@@ -41,9 +48,9 @@ export class UserManagement {
             _queryParams.append("take", take.toString());
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 "api/user-management"
             ),
             method: "GET",
@@ -51,11 +58,11 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.UsersDto.parseOrThrow(_response.body, {
@@ -104,10 +111,13 @@ export class UserManagement {
      * @throws {@link Squidex.BadRequestError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postUser(request: Squidex.CreateUserDto): Promise<Squidex.UserDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async postUser(
+        request: Squidex.CreateUserDto,
+        requestOptions?: UserManagement.RequestOptions
+    ): Promise<Squidex.UserDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 "api/user-management"
             ),
             method: "POST",
@@ -115,11 +125,11 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.CreateUserDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.UserDto.parseOrThrow(_response.body, {
@@ -177,10 +187,10 @@ export class UserManagement {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getUser(id: string): Promise<Squidex.UserDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getUser(id: string, requestOptions?: UserManagement.RequestOptions): Promise<Squidex.UserDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}`
             ),
             method: "GET",
@@ -188,10 +198,10 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.UserDto.parseOrThrow(_response.body, {
@@ -243,10 +253,14 @@ export class UserManagement {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putUser(id: string, request: Squidex.UpdateUserDto): Promise<Squidex.UserDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putUser(
+        id: string,
+        request: Squidex.UpdateUserDto,
+        requestOptions?: UserManagement.RequestOptions
+    ): Promise<Squidex.UserDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}`
             ),
             method: "PUT",
@@ -254,11 +268,11 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.UpdateUserDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.UserDto.parseOrThrow(_response.body, {
@@ -320,10 +334,10 @@ export class UserManagement {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteUser(id: string): Promise<void> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async deleteUser(id: string, requestOptions?: UserManagement.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}`
             ),
             method: "DELETE",
@@ -331,10 +345,10 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -400,10 +414,10 @@ export class UserManagement {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async lockUser(id: string): Promise<Squidex.UserDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async lockUser(id: string, requestOptions?: UserManagement.RequestOptions): Promise<Squidex.UserDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}/lock`
             ),
             method: "PUT",
@@ -411,10 +425,10 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.UserDto.parseOrThrow(_response.body, {
@@ -485,10 +499,10 @@ export class UserManagement {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async unlockUser(id: string): Promise<Squidex.UserDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async unlockUser(id: string, requestOptions?: UserManagement.RequestOptions): Promise<Squidex.UserDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/user-management/${id}/unlock`
             ),
             method: "PUT",
@@ -496,10 +510,10 @@ export class UserManagement {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.UserDto.parseOrThrow(_response.body, {
@@ -565,6 +579,6 @@ export class UserManagement {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

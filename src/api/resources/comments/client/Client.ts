@@ -18,30 +18,37 @@ export declare namespace Comments {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Comments {
-    constructor(protected readonly options: Comments.Options) {}
+    constructor(protected readonly _options: Comments.Options) {}
 
     /**
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getWatchingUsers(resource: string | undefined): Promise<string[]> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getWatchingUsers(
+        resource: string | undefined,
+        requestOptions?: Comments.RequestOptions
+    ): Promise<string[]> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/watching/${resource}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/watching/${resource}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.comments.getWatchingUsers.Response.parseOrThrow(_response.body, {
@@ -95,7 +102,8 @@ export class Comments {
      */
     public async getComments(
         commentsId: string,
-        request: Squidex.CommentsGetCommentsRequest = {}
+        request: Squidex.CommentsGetCommentsRequest = {},
+        requestOptions?: Comments.RequestOptions
     ): Promise<Squidex.CommentsDto> {
         const { version } = request;
         const _queryParams = new URLSearchParams();
@@ -103,21 +111,21 @@ export class Comments {
             _queryParams.append("version", version.toString());
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/comments/${commentsId}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/comments/${commentsId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.CommentsDto.parseOrThrow(_response.body, {
@@ -169,22 +177,26 @@ export class Comments {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postComment(commentsId: string, request: Squidex.UpsertCommentDto): Promise<Squidex.CommentDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async postComment(
+        commentsId: string,
+        request: Squidex.UpsertCommentDto,
+        requestOptions?: Comments.RequestOptions
+    ): Promise<Squidex.CommentDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/comments/${commentsId}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/comments/${commentsId}`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.UpsertCommentDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.CommentDto.parseOrThrow(_response.body, {
@@ -245,22 +257,27 @@ export class Comments {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putComment(commentsId: string, commentId: string, request: Squidex.UpsertCommentDto): Promise<void> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putComment(
+        commentsId: string,
+        commentId: string,
+        request: Squidex.UpsertCommentDto,
+        requestOptions?: Comments.RequestOptions
+    ): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/comments/${commentsId}/${commentId}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/comments/${commentsId}/${commentId}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.UpsertCommentDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -316,21 +333,25 @@ export class Comments {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteComment(commentsId: string, commentId: string): Promise<void> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async deleteComment(
+        commentsId: string,
+        commentId: string,
+        requestOptions?: Comments.RequestOptions
+    ): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/comments/${commentsId}/${commentId}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/comments/${commentsId}/${commentId}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -382,6 +403,6 @@ export class Comments {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

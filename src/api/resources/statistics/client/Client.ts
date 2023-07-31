@@ -17,30 +17,34 @@ export declare namespace Statistics {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Statistics {
-    constructor(protected readonly options: Statistics.Options) {}
+    constructor(protected readonly _options: Statistics.Options) {}
 
     /**
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getLog(): Promise<Squidex.LogDownloadDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getLog(requestOptions?: Statistics.RequestOptions): Promise<Squidex.LogDownloadDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/usages/log`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/usages/log`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.LogDownloadDto.parseOrThrow(_response.body, {
@@ -91,21 +95,25 @@ export class Statistics {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getUsages(fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getUsages(
+        fromDate: string,
+        toDate: string,
+        requestOptions?: Statistics.RequestOptions
+    ): Promise<Squidex.CallsUsageDtoDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/usages/calls/${fromDate}/${toDate}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/usages/calls/${fromDate}/${toDate}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.CallsUsageDtoDto.parseOrThrow(_response.body, {
@@ -156,10 +164,15 @@ export class Statistics {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getUsagesForTeam(team: string, fromDate: string, toDate: string): Promise<Squidex.CallsUsageDtoDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getUsagesForTeam(
+        team: string,
+        fromDate: string,
+        toDate: string,
+        requestOptions?: Statistics.RequestOptions
+    ): Promise<Squidex.CallsUsageDtoDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/usages/calls/${fromDate}/${toDate}`
             ),
             method: "GET",
@@ -167,10 +180,10 @@ export class Statistics {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.CallsUsageDtoDto.parseOrThrow(_response.body, {
@@ -221,21 +234,21 @@ export class Statistics {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getCurrentStorageSize(): Promise<Squidex.CurrentStorageDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getCurrentStorageSize(requestOptions?: Statistics.RequestOptions): Promise<Squidex.CurrentStorageDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/usages/storage/today`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/usages/storage/today`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.CurrentStorageDto.parseOrThrow(_response.body, {
@@ -286,10 +299,13 @@ export class Statistics {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getTeamCurrentStorageSizeForTeam(team: string): Promise<Squidex.CurrentStorageDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getTeamCurrentStorageSizeForTeam(
+        team: string,
+        requestOptions?: Statistics.RequestOptions
+    ): Promise<Squidex.CurrentStorageDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/usages/storage/today`
             ),
             method: "GET",
@@ -297,10 +313,10 @@ export class Statistics {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.CurrentStorageDto.parseOrThrow(_response.body, {
@@ -351,21 +367,25 @@ export class Statistics {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getStorageSizes(fromDate: string, toDate: string): Promise<Squidex.StorageUsagePerDateDto[]> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getStorageSizes(
+        fromDate: string,
+        toDate: string,
+        requestOptions?: Statistics.RequestOptions
+    ): Promise<Squidex.StorageUsagePerDateDto[]> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/usages/storage/${fromDate}/${toDate}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/usages/storage/${fromDate}/${toDate}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.statistics.getStorageSizes.Response.parseOrThrow(_response.body, {
@@ -419,11 +439,12 @@ export class Statistics {
     public async getStorageSizesForTeam(
         team: string,
         fromDate: string,
-        toDate: string
+        toDate: string,
+        requestOptions?: Statistics.RequestOptions
     ): Promise<Squidex.StorageUsagePerDateDto[]> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/usages/storage/${fromDate}/${toDate}`
             ),
             method: "GET",
@@ -431,10 +452,10 @@ export class Statistics {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.statistics.getStorageSizesForTeam.Response.parseOrThrow(_response.body, {
@@ -482,6 +503,6 @@ export class Statistics {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

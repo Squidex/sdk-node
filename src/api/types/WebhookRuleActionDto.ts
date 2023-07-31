@@ -5,7 +5,7 @@
 import * as Squidex from "..";
 
 export interface WebhookRuleActionDto {
-    /** The url to the webhook. */
+    /** The url to the webhook. <span style="white-space: nowrap">`non-empty`</span> */
     url: string;
     method: Squidex.WebhookMethod;
     /** Leave it empty to use the full event as body. */

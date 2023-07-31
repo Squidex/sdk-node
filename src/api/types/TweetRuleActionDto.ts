@@ -3,10 +3,10 @@
  */
 
 export interface TweetRuleActionDto {
-    /**  The generated access token. */
+    /**  The generated access token. <span style="white-space: nowrap">`non-empty`</span> */
     accessToken: string;
-    /**  The generated access secret. */
+    /**  The generated access secret. <span style="white-space: nowrap">`non-empty`</span> */
     accessSecret: string;
-    /** The text that is sent as tweet to twitter. */
+    /** The text that is sent as tweet to twitter. <span style="white-space: nowrap">`non-empty`</span> */
     text: string;
 }

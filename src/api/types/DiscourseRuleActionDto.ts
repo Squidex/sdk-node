@@ -3,13 +3,13 @@
  */
 
 export interface DiscourseRuleActionDto {
-    /** The url to the discourse server. */
+    /** The url to the discourse server. <span style="white-space: nowrap">`non-empty`</span> */
     url: string;
-    /** The api key to authenticate to your discourse server. */
+    /** The api key to authenticate to your discourse server. <span style="white-space: nowrap">`non-empty`</span> */
     apiKey: string;
-    /** The api username to authenticate to your discourse server. */
+    /** The api username to authenticate to your discourse server. <span style="white-space: nowrap">`non-empty`</span> */
     apiUsername: string;
-    /** The text as markdown. */
+    /** The text as markdown. <span style="white-space: nowrap">`non-empty`</span> */
     text: string;
     /** The optional title when creating new topics. */
     title?: string;

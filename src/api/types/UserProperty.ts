@@ -3,6 +3,8 @@
  */
 
 export interface UserProperty {
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     value: string;
 }

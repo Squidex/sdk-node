@@ -18,37 +18,44 @@ export declare namespace History {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class History {
-    constructor(protected readonly options: History.Options) {}
+    constructor(protected readonly _options: History.Options) {}
 
     /**
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getAppHistory(request: Squidex.HistoryGetAppHistoryRequest = {}): Promise<Squidex.HistoryEventDto[]> {
+    public async getAppHistory(
+        request: Squidex.HistoryGetAppHistoryRequest = {},
+        requestOptions?: History.RequestOptions
+    ): Promise<Squidex.HistoryEventDto[]> {
         const { channel } = request;
         const _queryParams = new URLSearchParams();
         if (channel != null) {
             _queryParams.append("channel", channel);
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/history`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/history`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.history.getAppHistory.Response.parseOrThrow(_response.body, {
@@ -101,7 +108,8 @@ export class History {
      */
     public async getTeamHistory(
         team: string,
-        request: Squidex.HistoryGetTeamHistoryRequest = {}
+        request: Squidex.HistoryGetTeamHistoryRequest = {},
+        requestOptions?: History.RequestOptions
     ): Promise<Squidex.HistoryEventDto[]> {
         const { channel } = request;
         const _queryParams = new URLSearchParams();
@@ -109,9 +117,9 @@ export class History {
             _queryParams.append("channel", channel);
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/history`
             ),
             method: "GET",
@@ -119,11 +127,11 @@ export class History {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.history.getTeamHistory.Response.parseOrThrow(_response.body, {
@@ -171,6 +179,6 @@ export class History {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

@@ -3,11 +3,11 @@
  */
 
 export interface CreateUserDto {
-    /** The email of the user. Unique value. */
+    /** The email of the user. Unique value. <span style="white-space: nowrap">`non-empty`</span> */
     email: string;
-    /** The display name (usually first name and last name) of the user. */
+    /** The display name (usually first name and last name) of the user. <span style="white-space: nowrap">`non-empty`</span> */
     displayName: string;
-    /** The password of the user. */
+    /** The password of the user. <span style="white-space: nowrap">`non-empty`</span> */
     password: string;
     /** Additional permissions for the user. */
     permissions: string[];

@@ -3,7 +3,7 @@
  */
 
 export interface AssignContributorDto {
-    /** The id or email of the user to add to the app. */
+    /** The id or email of the user to add to the app. <span style="white-space: nowrap">`non-empty`</span> */
     contributorId: string;
     /** The role of the contributor. */
     role?: string;

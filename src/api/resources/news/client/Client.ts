@@ -18,24 +18,31 @@ export declare namespace News {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class News {
-    constructor(protected readonly options: News.Options) {}
+    constructor(protected readonly _options: News.Options) {}
 
     /**
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getNews(request: Squidex.NewsGetNewsRequest = {}): Promise<Squidex.FeaturesDto> {
+    public async getNews(
+        request: Squidex.NewsGetNewsRequest = {},
+        requestOptions?: News.RequestOptions
+    ): Promise<Squidex.FeaturesDto> {
         const { version } = request;
         const _queryParams = new URLSearchParams();
         if (version != null) {
             _queryParams.append("version", version.toString());
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 "api/news/features"
             ),
             method: "GET",
@@ -43,11 +50,11 @@ export class News {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.FeaturesDto.parseOrThrow(_response.body, {
@@ -93,6 +100,6 @@ export class News {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

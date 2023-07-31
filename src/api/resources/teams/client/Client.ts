@@ -17,19 +17,26 @@ export declare namespace Teams {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Teams {
-    constructor(protected readonly options: Teams.Options) {}
+    constructor(protected readonly _options: Teams.Options) {}
 
     /**
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getContributors(team: string): Promise<Squidex.ContributorsDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getContributors(
+        team: string,
+        requestOptions?: Teams.RequestOptions
+    ): Promise<Squidex.ContributorsDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/contributors`
             ),
             method: "GET",
@@ -37,10 +44,10 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.ContributorsDto.parseOrThrow(_response.body, {
@@ -94,11 +101,12 @@ export class Teams {
      */
     public async postContributor(
         team: string,
-        request: Squidex.AssignContributorDto
+        request: Squidex.AssignContributorDto,
+        requestOptions?: Teams.RequestOptions
     ): Promise<Squidex.ContributorsDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/contributors`
             ),
             method: "POST",
@@ -106,11 +114,11 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.AssignContributorDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.ContributorsDto.parseOrThrow(_response.body, {
@@ -171,10 +179,10 @@ export class Teams {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteMyself(team: string): Promise<Squidex.ContributorsDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async deleteMyself(team: string, requestOptions?: Teams.RequestOptions): Promise<Squidex.ContributorsDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/contributors/me`
             ),
             method: "DELETE",
@@ -182,10 +190,10 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.ContributorsDto.parseOrThrow(_response.body, {
@@ -246,10 +254,14 @@ export class Teams {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteContributor(team: string, id: string): Promise<Squidex.ContributorsDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async deleteContributor(
+        team: string,
+        id: string,
+        requestOptions?: Teams.RequestOptions
+    ): Promise<Squidex.ContributorsDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}/contributors/${id}`
             ),
             method: "DELETE",
@@ -257,10 +269,10 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.ContributorsDto.parseOrThrow(_response.body, {
@@ -321,10 +333,10 @@ export class Teams {
      * You will retrieve all teams, where you are assigned as a contributor.
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getTeams(): Promise<Squidex.TeamDto[]> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getTeams(requestOptions?: Teams.RequestOptions): Promise<Squidex.TeamDto[]> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 "api/teams"
             ),
             method: "GET",
@@ -332,10 +344,10 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.teams.getTeams.Response.parseOrThrow(_response.body, {
@@ -387,10 +399,13 @@ export class Teams {
      * @throws {@link Squidex.ConflictError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postTeam(request: Squidex.CreateTeamDto): Promise<Squidex.TeamDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async postTeam(
+        request: Squidex.CreateTeamDto,
+        requestOptions?: Teams.RequestOptions
+    ): Promise<Squidex.TeamDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 "api/teams"
             ),
             method: "POST",
@@ -398,11 +413,11 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.CreateTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.TeamDto.parseOrThrow(_response.body, {
@@ -469,10 +484,10 @@ export class Teams {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getTeam(team: string): Promise<Squidex.TeamDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getTeam(team: string, requestOptions?: Teams.RequestOptions): Promise<Squidex.TeamDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}`
             ),
             method: "GET",
@@ -480,10 +495,10 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.TeamDto.parseOrThrow(_response.body, {
@@ -535,10 +550,14 @@ export class Teams {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putTeam(team: string, request: Squidex.UpdateTeamDto): Promise<Squidex.TeamDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putTeam(
+        team: string,
+        request: Squidex.UpdateTeamDto,
+        requestOptions?: Teams.RequestOptions
+    ): Promise<Squidex.TeamDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/teams/${team}`
             ),
             method: "PUT",
@@ -546,11 +565,11 @@ export class Teams {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.UpdateTeamDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.TeamDto.parseOrThrow(_response.body, {
@@ -607,6 +626,6 @@ export class Teams {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

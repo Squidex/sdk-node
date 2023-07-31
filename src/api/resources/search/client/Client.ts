@@ -18,17 +18,22 @@ export declare namespace Search {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Search {
-    constructor(protected readonly options: Search.Options) {}
+    constructor(protected readonly _options: Search.Options) {}
 
     /**
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
     public async getSearchResults(
-        request: Squidex.SearchGetSearchResultsRequest = {}
+        request: Squidex.SearchGetSearchResultsRequest = {},
+        requestOptions?: Search.RequestOptions
     ): Promise<Squidex.SearchResultDto[]> {
         const { query } = request;
         const _queryParams = new URLSearchParams();
@@ -36,21 +41,21 @@ export class Search {
             _queryParams.append("query", query);
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/search`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/search`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.search.getSearchResults.Response.parseOrThrow(_response.body, {
@@ -98,6 +103,6 @@ export class Search {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

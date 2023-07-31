@@ -17,31 +17,38 @@ export declare namespace Translations {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Translations {
-    constructor(protected readonly options: Translations.Options) {}
+    constructor(protected readonly _options: Translations.Options) {}
 
     /**
      * @throws {@link Squidex.BadRequestError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postTranslation(request: Squidex.TranslateDto): Promise<Squidex.TranslationDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async postTranslation(
+        request: Squidex.TranslateDto,
+        requestOptions?: Translations.RequestOptions
+    ): Promise<Squidex.TranslationDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/translations`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/translations`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.TranslateDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.TranslationDto.parseOrThrow(_response.body, {
@@ -96,6 +103,6 @@ export class Translations {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

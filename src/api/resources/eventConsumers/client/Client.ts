@@ -17,18 +17,22 @@ export declare namespace EventConsumers {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class EventConsumers {
-    constructor(protected readonly options: EventConsumers.Options) {}
+    constructor(protected readonly _options: EventConsumers.Options) {}
 
     /**
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getEventConsumers(): Promise<Squidex.EventConsumersDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getEventConsumers(requestOptions?: EventConsumers.RequestOptions): Promise<Squidex.EventConsumersDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 "api/event-consumers"
             ),
             method: "GET",
@@ -36,10 +40,10 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.EventConsumersDto.parseOrThrow(_response.body, {
@@ -89,10 +93,13 @@ export class EventConsumers {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async startEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async startEventConsumer(
+        consumerName: string,
+        requestOptions?: EventConsumers.RequestOptions
+    ): Promise<Squidex.EventConsumerDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/event-consumers/${consumerName}/start`
             ),
             method: "PUT",
@@ -100,10 +107,10 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.EventConsumerDto.parseOrThrow(_response.body, {
@@ -164,10 +171,13 @@ export class EventConsumers {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async stopEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async stopEventConsumer(
+        consumerName: string,
+        requestOptions?: EventConsumers.RequestOptions
+    ): Promise<Squidex.EventConsumerDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/event-consumers/${consumerName}/stop`
             ),
             method: "PUT",
@@ -175,10 +185,10 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.EventConsumerDto.parseOrThrow(_response.body, {
@@ -239,10 +249,13 @@ export class EventConsumers {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async resetEventConsumer(consumerName: string): Promise<Squidex.EventConsumerDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async resetEventConsumer(
+        consumerName: string,
+        requestOptions?: EventConsumers.RequestOptions
+    ): Promise<Squidex.EventConsumerDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/event-consumers/${consumerName}/reset`
             ),
             method: "PUT",
@@ -250,10 +263,10 @@ export class EventConsumers {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.EventConsumerDto.parseOrThrow(_response.body, {
@@ -310,6 +323,6 @@ export class EventConsumers {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

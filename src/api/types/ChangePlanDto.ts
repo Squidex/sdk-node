@@ -3,6 +3,6 @@
  */
 
 export interface ChangePlanDto {
-    /** The new plan id. */
+    /** The new plan id. <span style="white-space: nowrap">`non-empty`</span> */
     planId: string;
 }

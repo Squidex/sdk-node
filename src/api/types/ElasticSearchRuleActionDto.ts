@@ -3,9 +3,9 @@
  */
 
 export interface ElasticSearchRuleActionDto {
-    /** The url to the instance or cluster. */
+    /** The url to the instance or cluster. <span style="white-space: nowrap">`non-empty`</span> */
     host: string;
-    /** The name of the index. */
+    /** The name of the index. <span style="white-space: nowrap">`non-empty`</span> */
     indexName: string;
     /** The optional username. */
     username?: string;

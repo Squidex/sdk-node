@@ -21,15 +21,20 @@ export declare namespace Assets {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Assets {
-    constructor(protected readonly options: Assets.Options) {}
+    constructor(protected readonly _options: Assets.Options) {}
 
     public async getAssetContentBySlug(
         idOrSlug: string,
         more: string | undefined,
-        request: Squidex.AssetsGetAssetContentBySlugRequest = {}
+        request: Squidex.AssetsGetAssetContentBySlugRequest = {},
+        requestOptions?: Assets.RequestOptions
     ): Promise<{
         data: stream.Readable;
         contentLengthInBytes?: number;
@@ -108,37 +113,38 @@ export class Assets {
             _queryParams.append("format", format);
         }
 
-        const _response = await (this.options.streamingFetcher ?? core.streamingFetcher)({
+        const _response = await (this._options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/assets/${this.options.appName}/${idOrSlug}/${more}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/assets/${this._options.appName}/${idOrSlug}/${more}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             onError: (error) => {
                 throw new errors.SquidexError({
                     message: (error as any)?.message,
                 });
             },
         });
+        const _contentLength = core.getHeader(_response, "Content-Length");
         return {
             data: _response.data,
-            contentLengthInBytes:
-                _response.headers["Content-Length"] != null ? Number(_response.headers["Content-Length"]) : undefined,
-            contentType: _response.headers["Content-Type"],
+            contentLengthInBytes: _contentLength != null ? Number(_contentLength) : undefined,
+            contentType: core.getHeader(_response, "Content-Type"),
         };
     }
 
     public async getAssetContent(
         id: string,
-        request: Squidex.AssetsGetAssetContentRequest = {}
+        request: Squidex.AssetsGetAssetContentRequest = {},
+        requestOptions?: Assets.RequestOptions
     ): Promise<{
         data: stream.Readable;
         contentLengthInBytes?: number;
@@ -217,9 +223,9 @@ export class Assets {
             _queryParams.append("format", format);
         }
 
-        const _response = await (this.options.streamingFetcher ?? core.streamingFetcher)({
+        const _response = await (this._options.streamingFetcher ?? core.streamingFetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/assets/${id}`
             ),
             method: "GET",
@@ -227,21 +233,21 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             onError: (error) => {
                 throw new errors.SquidexError({
                     message: (error as any)?.message,
                 });
             },
         });
+        const _contentLength = core.getHeader(_response, "Content-Length");
         return {
             data: _response.data,
-            contentLengthInBytes:
-                _response.headers["Content-Length"] != null ? Number(_response.headers["Content-Length"]) : undefined,
-            contentType: _response.headers["Content-Type"],
+            contentLengthInBytes: _contentLength != null ? Number(_contentLength) : undefined,
+            contentType: core.getHeader(_response, "Content-Type"),
         };
     }
 
@@ -250,7 +256,10 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getAssetFolders(request: Squidex.AssetsGetAssetFoldersRequest = {}): Promise<Squidex.AssetFoldersDto> {
+    public async getAssetFolders(
+        request: Squidex.AssetsGetAssetFoldersRequest = {},
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.AssetFoldersDto> {
         const { parentId, scope } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -261,21 +270,21 @@ export class Assets {
             _queryParams.append("scope", scope);
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/folders`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/folders`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetFoldersDto.parseOrThrow(_response.body, {
@@ -327,22 +336,25 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postAssetFolder(request: Squidex.CreateAssetFolderDto): Promise<Squidex.AssetFolderDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async postAssetFolder(
+        request: Squidex.CreateAssetFolderDto,
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.AssetFolderDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/folders`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/folders`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.CreateAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetFolderDto.parseOrThrow(_response.body, {
@@ -403,22 +415,26 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putAssetFolder(id: string, request: Squidex.RenameAssetFolderDto): Promise<Squidex.AssetFolderDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putAssetFolder(
+        id: string,
+        request: Squidex.RenameAssetFolderDto,
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.AssetFolderDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/folders/${id}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/folders/${id}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.RenameAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetFolderDto.parseOrThrow(_response.body, {
@@ -479,21 +495,21 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteAssetFolder(id: string): Promise<void> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async deleteAssetFolder(id: string, requestOptions?: Assets.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/folders/${id}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/folders/${id}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -551,23 +567,24 @@ export class Assets {
      */
     public async putAssetFolderParent(
         id: string,
-        request: Squidex.MoveAssetFolderDto = {}
+        request: Squidex.MoveAssetFolderDto = {},
+        requestOptions?: Assets.RequestOptions
     ): Promise<Squidex.AssetFolderDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/folders/${id}/parent`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/folders/${id}/parent`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.MoveAssetFolderDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetFolderDto.parseOrThrow(_response.body, {
@@ -628,21 +645,21 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getTags(): Promise<Record<string, number>> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getTags(requestOptions?: Assets.RequestOptions): Promise<Record<string, number>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/tags`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/tags`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.assets.getTags.Response.parseOrThrow(_response.body, {
@@ -694,22 +711,26 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putTag(name: string, request: Squidex.RenameTagDto): Promise<Record<string, number>> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putTag(
+        name: string,
+        request: Squidex.RenameTagDto,
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Record<string, number>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/tags/${name}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/tags/${name}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.RenameTagDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.assets.putTag.Response.parseOrThrow(_response.body, {
@@ -770,7 +791,10 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getAssets(request: Squidex.AssetsGetAssetsRequest = {}): Promise<Squidex.AssetsDto> {
+    public async getAssets(
+        request: Squidex.AssetsGetAssetsRequest = {},
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.AssetsDto> {
         const { parentId, ids, q, top, skip, orderby, filter, noTotal, noSlowTotal } = request;
         const _queryParams = new URLSearchParams();
         if (parentId != null) {
@@ -801,23 +825,23 @@ export class Assets {
             _queryParams.append("$filter", filter);
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
                 "X-NoTotal": noTotal != null ? noTotal.toString() : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetsDto.parseOrThrow(_response.body, {
@@ -871,25 +895,28 @@ export class Assets {
      * @throws {@link Squidex.ContentTooLargeError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postAsset(file: File | fs.ReadStream): Promise<Squidex.AssetDto> {
+    public async postAsset(
+        file: File | fs.ReadStream,
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
             body: _request,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -960,25 +987,28 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getAssetsPost(request: Squidex.AssetsGetAssetsPostRequest): Promise<Squidex.AssetsDto> {
+    public async getAssetsPost(
+        request: Squidex.AssetsGetAssetsPostRequest,
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.AssetsDto> {
         const { noTotal, noSlowTotal, body: _body } = request;
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/query`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/query`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
                 "X-NoTotal": noTotal != null ? noTotal.toString() : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
             },
             contentType: "application/json",
             body: await serializers.QueryDto.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetsDto.parseOrThrow(_response.body, {
@@ -1038,21 +1068,21 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getAsset(id: string): Promise<Squidex.AssetDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getAsset(id: string, requestOptions?: Assets.RequestOptions): Promise<Squidex.AssetDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/${id}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/${id}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -1106,25 +1136,29 @@ export class Assets {
      * @throws {@link Squidex.ContentTooLargeError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postUpsertAsset(file: File | fs.ReadStream, id: string): Promise<Squidex.AssetDto> {
+    public async postUpsertAsset(
+        file: File | fs.ReadStream,
+        id: string,
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/${id}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/${id}`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
             body: _request,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -1194,22 +1228,26 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putAsset(id: string, request: Squidex.AnnotateAssetDto = {}): Promise<Squidex.AssetDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putAsset(
+        id: string,
+        request: Squidex.AnnotateAssetDto = {},
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.AssetDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/${id}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/${id}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.AnnotateAssetDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -1270,7 +1308,11 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteAsset(id: string, request: Squidex.AssetsDeleteAssetRequest = {}): Promise<void> {
+    public async deleteAsset(
+        id: string,
+        request: Squidex.AssetsDeleteAssetRequest = {},
+        requestOptions?: Assets.RequestOptions
+    ): Promise<void> {
         const { checkReferrers, permanent } = request;
         const _queryParams = new URLSearchParams();
         if (checkReferrers != null) {
@@ -1281,21 +1323,21 @@ export class Assets {
             _queryParams.append("permanent", permanent.toString());
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/${id}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/${id}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -1351,22 +1393,25 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async bulkUpdateAssets(request: Squidex.BulkUpdateAssetsDto = {}): Promise<Squidex.BulkResultDto[]> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async bulkUpdateAssets(
+        request: Squidex.BulkUpdateAssetsDto = {},
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.BulkResultDto[]> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/bulk`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/bulk`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.BulkUpdateAssetsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.assets.bulkUpdateAssets.Response.parseOrThrow(_response.body, {
@@ -1429,25 +1474,29 @@ export class Assets {
      * @throws {@link Squidex.ContentTooLargeError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putAssetContent(file: File | fs.ReadStream, id: string): Promise<Squidex.AssetDto> {
+    public async putAssetContent(
+        file: File | fs.ReadStream,
+        id: string,
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
         _request.append("file", file);
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/${id}/content`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/${id}/content`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
                 "Content-Length": (await core.getFormDataContentLength(_request)).toString(),
             },
             contentType: "multipart/form-data; boundary=" + _request.getBoundary(),
             body: _request,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -1517,22 +1566,26 @@ export class Assets {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putAssetParent(id: string, request: Squidex.MoveAssetDto = {}): Promise<Squidex.AssetDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putAssetParent(
+        id: string,
+        request: Squidex.MoveAssetDto = {},
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Squidex.AssetDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/assets/${id}/parent`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/assets/${id}/parent`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.MoveAssetDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.AssetDto.parseOrThrow(_response.body, {
@@ -1589,6 +1642,6 @@ export class Assets {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

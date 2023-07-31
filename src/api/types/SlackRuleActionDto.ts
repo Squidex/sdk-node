@@ -3,8 +3,8 @@
  */
 
 export interface SlackRuleActionDto {
-    /** The slack webhook url. */
+    /** The slack webhook url. <span style="white-space: nowrap">`non-empty`</span> */
     webhookUrl: string;
-    /** The text that is sent as message to slack. */
+    /** The text that is sent as message to slack. <span style="white-space: nowrap">`non-empty`</span> */
     text: string;
 }

@@ -17,10 +17,14 @@ export declare namespace Schemas {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Schemas {
-    constructor(protected readonly options: Schemas.Options) {}
+    constructor(protected readonly _options: Schemas.Options) {}
 
     /**
      * @throws {@link Squidex.BadRequestError}
@@ -28,22 +32,26 @@ export class Schemas {
      * @throws {@link Squidex.ConflictError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postField(schema: string, request: Squidex.AddFieldDto): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async postField(
+        schema: string,
+        request: Squidex.AddFieldDto,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.AddFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -117,23 +125,24 @@ export class Schemas {
     public async postNestedField(
         schema: string,
         parentId: number,
-        request: Squidex.AddFieldDto
+        request: Squidex.AddFieldDto,
+        requestOptions?: Schemas.RequestOptions
     ): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${parentId}/nested`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.AddFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -205,23 +214,24 @@ export class Schemas {
      */
     public async putSchemaUiFields(
         schema: string,
-        request: Squidex.ConfigureUiFieldsDto = {}
+        request: Squidex.ConfigureUiFieldsDto = {},
+        requestOptions?: Schemas.RequestOptions
     ): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/ui`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/ui`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.ConfigureUiFieldsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -282,22 +292,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putSchemaFieldOrdering(schema: string, request: Squidex.ReorderFieldsDto): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putSchemaFieldOrdering(
+        schema: string,
+        request: Squidex.ReorderFieldsDto,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/ordering`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/ordering`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.ReorderFieldsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -361,23 +375,24 @@ export class Schemas {
     public async putNestedFieldOrdering(
         schema: string,
         parentId: number,
-        request: Squidex.ReorderFieldsDto
+        request: Squidex.ReorderFieldsDto,
+        requestOptions?: Schemas.RequestOptions
     ): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/ordering`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${parentId}/nested/ordering`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.ReorderFieldsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -438,22 +453,27 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putField(schema: string, id: number, request: Squidex.UpdateFieldDto): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putField(
+        schema: string,
+        id: number,
+        request: Squidex.UpdateFieldDto,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${id}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.UpdateFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -514,21 +534,25 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteField(schema: string, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async deleteField(
+        schema: string,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${id}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -593,23 +617,24 @@ export class Schemas {
         schema: string,
         parentId: number,
         id: number,
-        request: Squidex.UpdateFieldDto
+        request: Squidex.UpdateFieldDto,
+        requestOptions?: Schemas.RequestOptions
     ): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.UpdateFieldDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -670,21 +695,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async deleteNestedField(
+        schema: string,
+        parentId: number,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -746,21 +776,25 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async lockField(schema: string, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async lockField(
+        schema: string,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}/lock`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${id}/lock`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -822,21 +856,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async lockNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async lockNestedField(
+        schema: string,
+        parentId: number,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/lock`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/lock`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -898,21 +937,25 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async hideField(schema: string, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async hideField(
+        schema: string,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}/hide`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${id}/hide`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -974,21 +1017,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async hideNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async hideNestedField(
+        schema: string,
+        parentId: number,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/hide`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/hide`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1050,21 +1098,25 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async showField(schema: string, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async showField(
+        schema: string,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}/show`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${id}/show`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1126,21 +1178,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async showNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async showNestedField(
+        schema: string,
+        parentId: number,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/show`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/show`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1202,21 +1259,25 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async enableField(schema: string, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async enableField(
+        schema: string,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}/enable`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${id}/enable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1278,21 +1339,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async enableNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async enableNestedField(
+        schema: string,
+        parentId: number,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/enable`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/enable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1354,21 +1420,25 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async disableField(schema: string, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async disableField(
+        schema: string,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${id}/disable`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${id}/disable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1430,21 +1500,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async disableNestedField(schema: string, parentId: number, id: number): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async disableNestedField(
+        schema: string,
+        parentId: number,
+        id: number,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/disable`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/fields/${parentId}/nested/${id}/disable`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1504,21 +1579,21 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getSchemas(): Promise<Squidex.SchemasDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getSchemas(requestOptions?: Schemas.RequestOptions): Promise<Squidex.SchemasDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemasDto.parseOrThrow(_response.body, {
@@ -1570,22 +1645,25 @@ export class Schemas {
      * @throws {@link Squidex.ConflictError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async postSchema(request: Squidex.CreateSchemaDto): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async postSchema(
+        request: Squidex.CreateSchemaDto,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.CreateSchemaDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1652,21 +1730,21 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getSchema(schema: string): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getSchema(schema: string, requestOptions?: Schemas.RequestOptions): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1718,22 +1796,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putSchema(schema: string, request: Squidex.UpdateSchemaDto = {}): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putSchema(
+        schema: string,
+        request: Squidex.UpdateSchemaDto = {},
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.UpdateSchemaDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1794,21 +1876,21 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteSchema(schema: string): Promise<void> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async deleteSchema(schema: string, requestOptions?: Schemas.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -1864,22 +1946,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putSchemaSync(schema: string, request: Squidex.SynchronizeSchemaDto = {}): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putSchemaSync(
+        schema: string,
+        request: Squidex.SynchronizeSchemaDto = {},
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/sync`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/sync`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.SynchronizeSchemaDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -1940,22 +2026,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putCategory(schema: string, request: Squidex.ChangeCategoryDto = {}): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putCategory(
+        schema: string,
+        request: Squidex.ChangeCategoryDto = {},
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/category`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/category`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.ChangeCategoryDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -2016,24 +2106,28 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putPreviewUrls(schema: string, request: Record<string, string>): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putPreviewUrls(
+        schema: string,
+        request: Record<string, string>,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/preview-urls`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/preview-urls`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.schemas.putPreviewUrls.Request.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -2094,22 +2188,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putScripts(schema: string, request: Squidex.SchemaScriptsDto): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putScripts(
+        schema: string,
+        request: Squidex.SchemaScriptsDto,
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/scripts`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/scripts`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.SchemaScriptsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -2170,22 +2268,26 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async putRules(schema: string, request: Squidex.ConfigureFieldRulesDto = {}): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async putRules(
+        schema: string,
+        request: Squidex.ConfigureFieldRulesDto = {},
+        requestOptions?: Schemas.RequestOptions
+    ): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/rules`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/rules`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             body: await serializers.ConfigureFieldRulesDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -2246,21 +2348,21 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async publishSchema(schema: string): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async publishSchema(schema: string, requestOptions?: Schemas.RequestOptions): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/publish`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/publish`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -2321,21 +2423,21 @@ export class Schemas {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async unpublishSchema(schema: string): Promise<Squidex.SchemaDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async unpublishSchema(schema: string, requestOptions?: Schemas.RequestOptions): Promise<Squidex.SchemaDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/apps/${this.options.appName}/schemas/${schema}/unpublish`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/apps/${this._options.appName}/schemas/${schema}/unpublish`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.SchemaDto.parseOrThrow(_response.body, {
@@ -2392,6 +2494,6 @@ export class Schemas {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

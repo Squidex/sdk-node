@@ -3,8 +3,8 @@
  */
 
 export interface PrerenderRuleActionDto {
-    /** The prerender token from your account. */
+    /** The prerender token from your account. <span style="white-space: nowrap">`non-empty`</span> */
     token: string;
-    /** The url to recache. */
+    /** The url to recache. <span style="white-space: nowrap">`non-empty`</span> */
     url: string;
 }

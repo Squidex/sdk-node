@@ -7,7 +7,7 @@ import * as Squidex from "..";
 export interface NestedFieldDto extends Squidex.Resource {
     /** The ID of the field. */
     fieldId: number;
-    /** The name of the field. Must be unique within the schema. */
+    /** The name of the field. Must be unique within the schema. <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
     /** Defines if the field is hidden. */
     isHidden: boolean;

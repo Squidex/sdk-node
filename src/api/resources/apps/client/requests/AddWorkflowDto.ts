@@ -3,6 +3,6 @@
  */
 
 export interface AddWorkflowDto {
-    /** The name of the workflow. */
+    /** The name of the workflow. <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
 }

@@ -3,7 +3,7 @@
  */
 
 export interface CreateAssetFolderDto {
-    /** The name of the folder. */
+    /** The name of the folder. <span style="white-space: nowrap">`non-empty`</span> */
     folderName: string;
     /** The ID of the parent folder. */
     parentId?: string;

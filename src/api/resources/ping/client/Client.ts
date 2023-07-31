@@ -17,18 +17,22 @@ export declare namespace Ping {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Ping {
-    constructor(protected readonly options: Ping.Options) {}
+    constructor(protected readonly _options: Ping.Options) {}
 
     /**
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getInfo(): Promise<Squidex.ExposedValues> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getInfo(requestOptions?: Ping.RequestOptions): Promise<Squidex.ExposedValues> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 "api/info"
             ),
             method: "GET",
@@ -36,10 +40,10 @@ export class Ping {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.ExposedValues.parseOrThrow(_response.body, {
@@ -88,10 +92,10 @@ export class Ping {
      * Can be used to test, if the Squidex API is alive and responding.
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getPing(): Promise<void> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getPing(requestOptions?: Ping.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 "api/ping"
             ),
             method: "GET",
@@ -99,10 +103,10 @@ export class Ping {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -146,21 +150,21 @@ export class Ping {
      * Can be used to test, if the Squidex API is alive and responding.
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getAppPing(): Promise<void> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getAppPing(requestOptions?: Ping.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
-                `api/ping/${this.options.appName}`
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/ping/${this._options.appName}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -201,6 +205,6 @@ export class Ping {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

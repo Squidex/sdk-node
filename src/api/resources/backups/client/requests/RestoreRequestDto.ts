@@ -5,6 +5,6 @@
 export interface RestoreRequestDto {
     /** The name of the app. */
     name?: string;
-    /** The url to the restore file. */
+    /** The url to the restore file. <span style="white-space: nowrap">`non-empty`</span> */
     url: string;
 }

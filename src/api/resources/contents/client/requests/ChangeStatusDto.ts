@@ -11,7 +11,7 @@ export interface ChangeStatusDto {
      * Only resolve these languages (comma-separated).
      */
     languages?: string;
-    /** The new status. */
+    /** The new status. <span style="white-space: nowrap">`non-empty`</span> */
     status: string;
     /** The due time. */
     dueTime?: string;

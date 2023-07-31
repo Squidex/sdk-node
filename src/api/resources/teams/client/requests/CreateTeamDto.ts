@@ -3,6 +3,6 @@
  */
 
 export interface CreateTeamDto {
-    /** The name of the team. */
+    /** The name of the team. <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
 }

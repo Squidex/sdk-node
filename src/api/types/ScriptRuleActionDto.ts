@@ -3,6 +3,6 @@
  */
 
 export interface ScriptRuleActionDto {
-    /** The script to render. */
+    /** The script to render. <span style="white-space: nowrap">`non-empty`</span> */
     script: string;
 }

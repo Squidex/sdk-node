@@ -3,7 +3,7 @@
  */
 
 export interface CommentRuleActionDto {
-    /** The comment text. */
+    /** The comment text. <span style="white-space: nowrap">`non-empty`</span> */
     text: string;
     /** An optional client name. */
     client?: string;

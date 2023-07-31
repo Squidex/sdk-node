@@ -5,7 +5,7 @@
 import * as Squidex from "..";
 
 export interface UpsertSchemaNestedFieldDto {
-    /** The name of the field. Must be unique within the schema. */
+    /** The name of the field. Must be unique within the schema. <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
     /** Defines if the field is hidden. */
     isHidden?: boolean;

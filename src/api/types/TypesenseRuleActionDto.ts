@@ -3,11 +3,11 @@
  */
 
 export interface TypesenseRuleActionDto {
-    /** The url to the instance or cluster. */
+    /** The url to the instance or cluster. <span style="white-space: nowrap">`non-empty`</span> */
     host: string;
-    /** The name of the index. */
+    /** The name of the index. <span style="white-space: nowrap">`non-empty`</span> */
     indexName: string;
-    /** The api key. */
+    /** The api key. <span style="white-space: nowrap">`non-empty`</span> */
     apiKey: string;
     /** The optional custom document. */
     document?: string;

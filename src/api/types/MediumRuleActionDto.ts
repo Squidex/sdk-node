@@ -3,11 +3,11 @@
  */
 
 export interface MediumRuleActionDto {
-    /** The self issued access token. */
+    /** The self issued access token. <span style="white-space: nowrap">`non-empty`</span> */
     accessToken: string;
-    /** The title, used for the url. */
+    /** The title, used for the url. <span style="white-space: nowrap">`non-empty`</span> */
     title: string;
-    /** The content, either html or markdown. */
+    /** The content, either html or markdown. <span style="white-space: nowrap">`non-empty`</span> */
     content: string;
     /** The original home of this content, if it was originally published elsewhere. */
     canonicalUrl?: string;

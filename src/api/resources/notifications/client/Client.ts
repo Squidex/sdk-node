@@ -18,10 +18,14 @@ export declare namespace Notifications {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Notifications {
-    constructor(protected readonly options: Notifications.Options) {}
+    constructor(protected readonly _options: Notifications.Options) {}
 
     /**
      * When passing in a version you can retrieve all updates since then.
@@ -29,7 +33,8 @@ export class Notifications {
      */
     public async getNotifications(
         userId: string,
-        request: Squidex.NotificationsGetNotificationsRequest = {}
+        request: Squidex.NotificationsGetNotificationsRequest = {},
+        requestOptions?: Notifications.RequestOptions
     ): Promise<Squidex.CommentsDto> {
         const { version } = request;
         const _queryParams = new URLSearchParams();
@@ -37,9 +42,9 @@ export class Notifications {
             _queryParams.append("version", version.toString());
         }
 
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/users/${userId}/notifications`
             ),
             method: "GET",
@@ -47,11 +52,11 @@ export class Notifications {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.CommentsDto.parseOrThrow(_response.body, {
@@ -101,10 +106,14 @@ export class Notifications {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async deleteComment(userId: string, commentId: string): Promise<void> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async deleteComment(
+        userId: string,
+        commentId: string,
+        requestOptions?: Notifications.RequestOptions
+    ): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/users/${userId}/notifications/${commentId}`
             ),
             method: "DELETE",
@@ -112,10 +121,10 @@ export class Notifications {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return;
@@ -167,6 +176,6 @@ export class Notifications {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

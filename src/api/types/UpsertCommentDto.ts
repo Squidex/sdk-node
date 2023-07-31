@@ -3,7 +3,7 @@
  */
 
 export interface UpsertCommentDto {
-    /** The comment text. */
+    /** The comment text. <span style="white-space: nowrap">`non-empty`</span> */
     text: string;
     /** The url where the comment is created. */
     url?: string;

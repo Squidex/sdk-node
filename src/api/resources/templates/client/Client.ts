@@ -17,18 +17,22 @@ export declare namespace Templates {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class Templates {
-    constructor(protected readonly options: Templates.Options) {}
+    constructor(protected readonly _options: Templates.Options) {}
 
     /**
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getTemplates(): Promise<Squidex.TemplatesDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getTemplates(requestOptions?: Templates.RequestOptions): Promise<Squidex.TemplatesDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 "api/templates"
             ),
             method: "GET",
@@ -36,10 +40,10 @@ export class Templates {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.TemplatesDto.parseOrThrow(_response.body, {
@@ -88,10 +92,13 @@ export class Templates {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getTemplate(name: string): Promise<Squidex.TemplateDetailsDto> {
-        const _response = await (this.options.fetcher ?? core.fetcher)({
+    public async getTemplate(
+        name: string,
+        requestOptions?: Templates.RequestOptions
+    ): Promise<Squidex.TemplateDetailsDto> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this.options.environment)) ?? environments.SquidexEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
                 `api/templates/${name}`
             ),
             method: "GET",
@@ -99,10 +106,10 @@ export class Templates {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.0.0",
+                "X-Fern-SDK-Version": "1.1.0",
             },
             contentType: "application/json",
-            timeoutMs: 60000,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
         });
         if (_response.ok) {
             return await serializers.TemplateDetailsDto.parseOrThrow(_response.body, {
@@ -150,6 +157,6 @@ export class Templates {
     }
 
     protected async _getAuthorizationHeader() {
-        return `Bearer ${await core.Supplier.get(this.options.token)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

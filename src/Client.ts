@@ -35,140 +35,144 @@ export declare namespace SquidexClient {
         fetcher?: core.FetchFunction;
         streamingFetcher?: core.StreamingFetchFunction;
     }
+
+    interface RequestOptions {
+        timeoutInSeconds?: number;
+    }
 }
 
 export class SquidexClient {
-    constructor(protected readonly options: SquidexClient.Options) {}
+    constructor(protected readonly _options: SquidexClient.Options) {}
 
     protected _userManagement: UserManagement | undefined;
 
     public get userManagement(): UserManagement {
-        return (this._userManagement ??= new UserManagement(this.options));
+        return (this._userManagement ??= new UserManagement(this._options));
     }
 
     protected _users: Users | undefined;
 
     public get users(): Users {
-        return (this._users ??= new Users(this.options));
+        return (this._users ??= new Users(this._options));
     }
 
     protected _translations: Translations | undefined;
 
     public get translations(): Translations {
-        return (this._translations ??= new Translations(this.options));
+        return (this._translations ??= new Translations(this._options));
     }
 
     protected _templates: Templates | undefined;
 
     public get templates(): Templates {
-        return (this._templates ??= new Templates(this.options));
+        return (this._templates ??= new Templates(this._options));
     }
 
     protected _teams: Teams | undefined;
 
     public get teams(): Teams {
-        return (this._teams ??= new Teams(this.options));
+        return (this._teams ??= new Teams(this._options));
     }
 
     protected _statistics: Statistics | undefined;
 
     public get statistics(): Statistics {
-        return (this._statistics ??= new Statistics(this.options));
+        return (this._statistics ??= new Statistics(this._options));
     }
 
     protected _search: Search | undefined;
 
     public get search(): Search {
-        return (this._search ??= new Search(this.options));
+        return (this._search ??= new Search(this._options));
     }
 
     protected _schemas: Schemas | undefined;
 
     public get schemas(): Schemas {
-        return (this._schemas ??= new Schemas(this.options));
+        return (this._schemas ??= new Schemas(this._options));
     }
 
     protected _rules: Rules | undefined;
 
     public get rules(): Rules {
-        return (this._rules ??= new Rules(this.options));
+        return (this._rules ??= new Rules(this._options));
     }
 
     protected _plans: Plans | undefined;
 
     public get plans(): Plans {
-        return (this._plans ??= new Plans(this.options));
+        return (this._plans ??= new Plans(this._options));
     }
 
     protected _ping: Ping | undefined;
 
     public get ping(): Ping {
-        return (this._ping ??= new Ping(this.options));
+        return (this._ping ??= new Ping(this._options));
     }
 
     protected _news: News | undefined;
 
     public get news(): News {
-        return (this._news ??= new News(this.options));
+        return (this._news ??= new News(this._options));
     }
 
     protected _languages: Languages | undefined;
 
     public get languages(): Languages {
-        return (this._languages ??= new Languages(this.options));
+        return (this._languages ??= new Languages(this._options));
     }
 
     protected _history: History | undefined;
 
     public get history(): History {
-        return (this._history ??= new History(this.options));
+        return (this._history ??= new History(this._options));
     }
 
     protected _eventConsumers: EventConsumers | undefined;
 
     public get eventConsumers(): EventConsumers {
-        return (this._eventConsumers ??= new EventConsumers(this.options));
+        return (this._eventConsumers ??= new EventConsumers(this._options));
     }
 
     protected _diagnostics: Diagnostics | undefined;
 
     public get diagnostics(): Diagnostics {
-        return (this._diagnostics ??= new Diagnostics(this.options));
+        return (this._diagnostics ??= new Diagnostics(this._options));
     }
 
     protected _contents: Contents | undefined;
 
     public get contents(): Contents {
-        return (this._contents ??= new Contents(this.options));
+        return (this._contents ??= new Contents(this._options));
     }
 
     protected _comments: Comments | undefined;
 
     public get comments(): Comments {
-        return (this._comments ??= new Comments(this.options));
+        return (this._comments ??= new Comments(this._options));
     }
 
     protected _notifications: Notifications | undefined;
 
     public get notifications(): Notifications {
-        return (this._notifications ??= new Notifications(this.options));
+        return (this._notifications ??= new Notifications(this._options));
     }
 
     protected _backups: Backups | undefined;
 
     public get backups(): Backups {
-        return (this._backups ??= new Backups(this.options));
+        return (this._backups ??= new Backups(this._options));
     }
 
     protected _assets: Assets | undefined;
 
     public get assets(): Assets {
-        return (this._assets ??= new Assets(this.options));
+        return (this._assets ??= new Assets(this._options));
     }
 
     protected _apps: Apps | undefined;
 
     public get apps(): Apps {
-        return (this._apps ??= new Apps(this.options));
+        return (this._apps ??= new Apps(this._options));
     }
 }

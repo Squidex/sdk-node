@@ -3,6 +3,6 @@
  */
 
 export interface CreateClientDto {
-    /** The ID of the client. */
+    /** The ID of the client. <span style="white-space: nowrap">`non-empty`</span> */
     id: string;
 }

@@ -3,6 +3,6 @@
  */
 
 export interface RenameTagDto {
-    /** The new name for the tag. */
+    /** The new name for the tag. <span style="white-space: nowrap">`non-empty`</span> */
     tagName: string;
 }

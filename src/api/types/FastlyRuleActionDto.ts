@@ -3,8 +3,8 @@
  */
 
 export interface FastlyRuleActionDto {
-    /** The API key to grant access to Squidex. */
+    /** The API key to grant access to Squidex. <span style="white-space: nowrap">`non-empty`</span> */
     apiKey: string;
-    /** The ID of the fastly service. */
+    /** The ID of the fastly service. <span style="white-space: nowrap">`non-empty`</span> */
     serviceId: string;
 }

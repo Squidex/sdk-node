@@ -3,7 +3,7 @@
  */
 
 export interface ErrorDto {
-    /** Error message. */
+    /** Error message. <span style="white-space: nowrap">`non-empty`</span> */
     message: string;
     /** The error code. */
     errorCode?: string;
