@@ -13,35 +13,36 @@ async function setup() {
     console.log(`Using <clientSecret>=<${client.clientSecret}>`);
     console.log(`Using <environment>=<${client.environment}>`);
 
-    if (waitTime > 10) {
-        console.log(`Waiting ${waitTime} seconds to access server.`);
+    if (waitTime <= 0) {
+        console.log("Waiting for server is skipped.");
+        return;
+    }
 
-        const timeout = waitTime * waitTime;
-        const timeStart = getTime();
+    console.log(`Waiting ${waitTime} seconds to access server.`);
 
-        while (true) {
-            try {
-                await client.ping.getPing();
-                break;
-            } catch (error) {
-                if (error instanceof SquidexError) {
-                    throw error;
-                }
+    const timeout = waitTime * 1000;
+    const timeStart = getTime();
 
-                const elapsed = getTime() - timeStart;
-
-                if (elapsed > timeout) {
-                    throw new Error(`Cannot connect to test system ${client.environment} with: ${error}.`);
-                }
+    while (true) {
+        try {
+            await client.ping.getPing();
+            break;
+        } catch (error) {
+            if (error instanceof SquidexError) {
+                throw error;
             }
 
-            await delay(100);
+            const elapsed = getTime() - timeStart;
+
+            if (elapsed > timeout) {
+                throw new Error(`Cannot connect to test system with: ${error}.`);
+            }
         }
 
-        console.log("Connected to server.");
-    } else {
-        console.log("Waiting for server is skipped.");
+        await delay(100);
     }
+
+    console.log("Connected to server.");
 
     try {
         await client.apps.postApp({ name: client.appName });
