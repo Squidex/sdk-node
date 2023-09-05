@@ -6,7 +6,7 @@ Requires **TypeScript 4.5** or higher.
 
 ## Status
 
-[![npm shield](https://img.shields.io/npm/v/@squidex/squidex?label=packagist)](https://www.npmjs.com/package/@squidex/squidex)
+[![npm shield](https://img.shields.io/npm/v/@squidex/squidex)](https://www.npmjs.com/package/@squidex/squidex)
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
 
 ## Documentation
