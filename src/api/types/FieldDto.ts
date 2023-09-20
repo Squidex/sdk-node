@@ -17,6 +17,7 @@ export interface FieldDto extends Squidex.Resource {
     isDisabled: boolean;
     /** Defines the partitioning of the field. <span style="white-space: nowrap">`non-empty`</span> */
     partitioning: string;
+    /** The field properties. */
     properties: Squidex.FieldPropertiesDto;
     /** The nested fields. */
     nested?: Squidex.NestedFieldDto[];

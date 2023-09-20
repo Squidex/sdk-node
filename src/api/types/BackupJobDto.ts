@@ -8,12 +8,13 @@ export interface BackupJobDto extends Squidex.Resource {
     /** The ID of the backup job. */
     id: string;
     /** The time when the job has been started. */
-    started: string;
+    started: Date;
     /** The time when the job has been stopped. */
-    stopped?: string;
+    stopped?: Date;
     /** The number of handled events. */
     handledEvents: number;
     /** The number of handled assets. */
     handledAssets: number;
+    /** The status of the operation. */
     status: Squidex.JobStatus;
 }

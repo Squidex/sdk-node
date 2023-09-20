@@ -12,6 +12,9 @@ export const ComponentsFieldPropertiesDto: core.serialization.ObjectSchema<
 > = core.serialization.object({
     minItems: core.serialization.number().optional(),
     maxItems: core.serialization.number().optional(),
+    calculatedDefaultValue: core.serialization
+        .lazy(async () => (await import("..")).ArrayCalculatedDefaultValue)
+        .optional(),
     schemaIds: core.serialization.list(core.serialization.string()).optional(),
     uniqueFields: core.serialization.list(core.serialization.string()).optional(),
 });
@@ -20,6 +23,7 @@ export declare namespace ComponentsFieldPropertiesDto {
     interface Raw {
         minItems?: number | null;
         maxItems?: number | null;
+        calculatedDefaultValue?: serializers.ArrayCalculatedDefaultValue.Raw | null;
         schemaIds?: string[] | null;
         uniqueFields?: string[] | null;
     }

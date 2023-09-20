@@ -5,6 +5,7 @@
 import * as Squidex from "..";
 
 export interface NumberFieldPropertiesDto {
+    /** The language specific default value for the field value. */
     defaultValues?: Squidex.LocalizedValueOfNullableDouble;
     /** The default value for the field value. */
     defaultValue?: number;
@@ -18,5 +19,6 @@ export interface NumberFieldPropertiesDto {
     isUnique?: boolean;
     /** Indicates that the inline editor is enabled for this field. */
     inlineEditable?: boolean;
+    /** The editor that is used to manage this field. */
     editor?: Squidex.NumberFieldEditor;
 }

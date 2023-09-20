@@ -5,6 +5,7 @@
 import * as Squidex from "..";
 
 export interface RuleElementPropertyDto {
+    /** The html editor. */
     editor: Squidex.RuleFieldEditor;
     /** The name of the editor. */
     name: string;

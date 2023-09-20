@@ -13,6 +13,7 @@ export const RuleActionDto: core.serialization.Schema<serializers.RuleActionDto.
             AzureQueue: core.serialization.lazyObject(async () => (await import("..")).AzureQueueRuleActionDto),
             Comment: core.serialization.lazyObject(async () => (await import("..")).CommentRuleActionDto),
             CreateContent: core.serialization.lazyObject(async () => (await import("..")).CreateContentRuleActionDto),
+            DeepDetect: core.serialization.lazyObject(async () => (await import("..")).DeepDetectRuleActionDto),
             Discourse: core.serialization.lazyObject(async () => (await import("..")).DiscourseRuleActionDto),
             ElasticSearch: core.serialization.lazyObject(async () => (await import("..")).ElasticSearchRuleActionDto),
             Email: core.serialization.lazyObject(async () => (await import("..")).EmailRuleActionDto),
@@ -39,6 +40,7 @@ export declare namespace RuleActionDto {
         | RuleActionDto.AzureQueue
         | RuleActionDto.Comment
         | RuleActionDto.CreateContent
+        | RuleActionDto.DeepDetect
         | RuleActionDto.Discourse
         | RuleActionDto.ElasticSearch
         | RuleActionDto.Email
@@ -68,6 +70,10 @@ export declare namespace RuleActionDto {
 
     interface CreateContent extends serializers.CreateContentRuleActionDto.Raw {
         actionType: "CreateContent";
+    }
+
+    interface DeepDetect extends serializers.DeepDetectRuleActionDto.Raw {
+        actionType: "DeepDetect";
     }
 
     interface Discourse extends serializers.DiscourseRuleActionDto.Raw {

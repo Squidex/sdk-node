@@ -10,7 +10,7 @@ export const ScheduleJobDto: core.serialization.ObjectSchema<serializers.Schedul
     core.serialization.object({
         id: core.serialization.string(),
         status: core.serialization.string(),
-        dueTime: core.serialization.string(),
+        dueTime: core.serialization.date(),
         color: core.serialization.string(),
         scheduledBy: core.serialization.string(),
     });

@@ -12,21 +12,23 @@ export interface RuleDto extends Squidex.Resource {
     /** The user that has updated the rule. */
     lastModifiedBy: string;
     /** The date and time when the rule has been created. */
-    created: string;
+    created: Date;
     /** The date and time when the rule has been modified last. */
-    lastModified: string;
+    lastModified: Date;
     /** The version of the rule. */
     version: number;
     /** Determines if the rule is enabled. */
     isEnabled: boolean;
     /** Optional rule name. */
     name?: string;
+    /** The trigger properties. */
     trigger: Squidex.RuleTriggerDto;
+    /** The action properties. */
     action: Squidex.RuleActionDto;
     /** The number of completed executions. */
     numSucceeded: number;
     /** The number of failed executions. */
     numFailed: number;
     /** The date and time when the rule was executed the last time. */
-    lastExecuted?: string;
+    lastExecuted?: Date;
 }

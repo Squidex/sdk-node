@@ -58,6 +58,10 @@ export interface AssetsGetAssetContentRequest {
      */
     force?: boolean;
     /**
+     * Also return deleted content items.
+     */
+    deleted?: boolean;
+    /**
      * True to force a new resize even if it already stored.
      */
     format?: Squidex.ImageFormat;

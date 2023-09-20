@@ -10,8 +10,8 @@ export const RestoreJobDto: core.serialization.ObjectSchema<serializers.RestoreJ
     core.serialization.object({
         url: core.serialization.string(),
         log: core.serialization.list(core.serialization.string()),
-        started: core.serialization.string(),
-        stopped: core.serialization.string().optional(),
+        started: core.serialization.date(),
+        stopped: core.serialization.date().optional(),
         status: core.serialization.lazy(async () => (await import("..")).JobStatus),
     });
 

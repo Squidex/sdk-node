@@ -10,12 +10,12 @@ export const RuleEventDto: core.serialization.ObjectSchema<serializers.RuleEvent
     core.serialization
         .object({
             id: core.serialization.string(),
-            created: core.serialization.string(),
+            created: core.serialization.date(),
             description: core.serialization.string(),
             eventName: core.serialization.string(),
             lastDump: core.serialization.string().optional(),
             numCalls: core.serialization.number(),
-            nextAttempt: core.serialization.string().optional(),
+            nextAttempt: core.serialization.date().optional(),
             result: core.serialization.lazy(async () => (await import("..")).RuleResult),
             jobResult: core.serialization.lazy(async () => (await import("..")).RuleJobResult),
         })

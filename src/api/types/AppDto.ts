@@ -16,9 +16,9 @@ export interface AppDto extends Squidex.Resource {
     /** The version of the app. */
     version: number;
     /** The timestamp when the app has been created. */
-    created: string;
+    created: Date;
     /** The timestamp when the app has been modified last. */
-    lastModified: string;
+    lastModified: Date;
     /** The ID of the team. */
     teamId?: string;
     /** The permission level of the user. */

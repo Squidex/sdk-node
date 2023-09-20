@@ -5,14 +5,17 @@
 import * as Squidex from "..";
 
 export interface BulkUpdateContentsJobDto {
+    /** An optional query to identify the content to update. */
     query?: Squidex.QueryJsonDto;
     /** An optional ID of the content to update. */
     id?: string;
+    /** The data of the content when type is set to 'Upsert', 'Create', 'Update' or 'Patch. */
     data?: Squidex.ContentData;
     /** The new status when the type is set to 'ChangeStatus' or 'Upsert'. */
     status?: string;
     /** The due time. */
-    dueTime?: string;
+    dueTime?: Date;
+    /** The update type. */
     type?: Squidex.BulkUpdateContentType;
     /** The optional schema id or name. */
     schema?: string;

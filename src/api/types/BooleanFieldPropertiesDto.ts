@@ -5,10 +5,12 @@
 import * as Squidex from "..";
 
 export interface BooleanFieldPropertiesDto {
+    /** The language specific default value for the field value. */
     defaultValues?: Squidex.LocalizedValueOfNullableBoolean;
     /** The default value for the field value. */
     defaultValue?: boolean;
     /** Indicates that the inline editor is enabled for this field. */
     inlineEditable?: boolean;
+    /** The editor that is used to manage this field. */
     editor?: Squidex.BooleanFieldEditor;
 }

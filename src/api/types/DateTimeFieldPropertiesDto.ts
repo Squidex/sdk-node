@@ -5,15 +5,18 @@
 import * as Squidex from "..";
 
 export interface DateTimeFieldPropertiesDto {
+    /** The language specific default value for the field value. */
     defaultValues?: Squidex.LocalizedValueOfNullableInstant;
     /** The default value for the field value. */
-    defaultValue?: string;
+    defaultValue?: Date;
     /** The maximum allowed value for the field value. */
-    maxValue?: string;
+    maxValue?: Date;
     /** The minimum allowed value for the field value. */
-    minValue?: string;
+    minValue?: Date;
     /** The format pattern when displayed in the UI. */
     format?: string;
+    /** The editor that is used to manage this field. */
     editor?: Squidex.DateTimeFieldEditor;
+    /** The calculated default value for the field value. */
     calculatedDefaultValue?: Squidex.DateTimeCalculatedDefaultValue;
 }

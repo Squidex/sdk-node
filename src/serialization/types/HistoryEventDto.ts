@@ -14,7 +14,7 @@ export const HistoryEventDto: core.serialization.ObjectSchema<
     eventType: core.serialization.string(),
     actor: core.serialization.string(),
     eventId: core.serialization.string(),
-    created: core.serialization.string(),
+    created: core.serialization.date(),
     version: core.serialization.number(),
 });
 

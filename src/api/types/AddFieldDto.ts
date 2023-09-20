@@ -9,5 +9,6 @@ export interface AddFieldDto {
     name: string;
     /** Determines the optional partitioning of the field. */
     partitioning?: string;
+    /** The field properties. */
     properties: Squidex.FieldPropertiesDto;
 }

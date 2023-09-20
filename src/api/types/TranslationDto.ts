@@ -5,7 +5,10 @@
 import * as Squidex from "..";
 
 export interface TranslationDto {
-    result: Squidex.TranslationResultCode;
+    /** The result of the translation. */
+    status: Squidex.TranslationStatus;
+    /** The result of the translation. */
+    result: Squidex.TranslationStatus;
     /** The translated text. */
     text?: string;
 }

@@ -38,8 +38,21 @@ export class Contents {
         request: Squidex.ContentsGetContentsRequest = {},
         requestOptions?: Contents.RequestOptions
     ): Promise<Squidex.ContentsDto> {
-        const { ids, q, search, top, skip, orderby, filter, flatten, languages, noSlowTotal, noTotal, unpublished } =
-            request;
+        const {
+            ids,
+            q,
+            search,
+            top,
+            skip,
+            orderby,
+            filter,
+            fields,
+            flatten,
+            languages,
+            noSlowTotal,
+            noTotal,
+            unpublished,
+        } = request;
         const _queryParams = new URLSearchParams();
         if (ids != null) {
             _queryParams.append("ids", ids);
@@ -79,7 +92,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
+                "X-Fields": fields != null ? fields : undefined,
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
@@ -170,7 +184,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -246,7 +260,7 @@ export class Contents {
         request: Squidex.ContentsGetContentsPostRequest,
         requestOptions?: Contents.RequestOptions
     ): Promise<Squidex.ContentsDto> {
-        const { flatten, languages, noSlowTotal, noTotal, unpublished, body: _body } = request;
+        const { fields, flatten, languages, noSlowTotal, noTotal, unpublished, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
@@ -257,7 +271,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
+                "X-Fields": fields != null ? fields : undefined,
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
@@ -333,7 +348,7 @@ export class Contents {
         request: Squidex.ContentsGetContentRequest = {},
         requestOptions?: Contents.RequestOptions
     ): Promise<Squidex.ContentDto> {
-        const { version, flatten, languages, unpublished } = request;
+        const { version, fields, flatten, languages, unpublished } = request;
         const _queryParams = new URLSearchParams();
         if (version != null) {
             _queryParams.append("version", version.toString());
@@ -349,7 +364,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
+                "X-Fields": fields != null ? fields : undefined,
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
@@ -439,7 +455,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -527,7 +543,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -612,7 +628,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -708,7 +724,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -784,7 +800,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -849,7 +865,7 @@ export class Contents {
         request: Squidex.ContentsGetReferencesRequest = {},
         requestOptions?: Contents.RequestOptions
     ): Promise<Squidex.ContentsDto> {
-        const { q, flatten, languages, unpublished, noSlowTotal, noTotal } = request;
+        const { q, fields, flatten, languages, unpublished, noSlowTotal, noTotal } = request;
         const _queryParams = new URLSearchParams();
         if (q != null) {
             _queryParams.append("q", q);
@@ -865,7 +881,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
+                "X-Fields": fields != null ? fields : undefined,
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
@@ -932,7 +949,7 @@ export class Contents {
         request: Squidex.ContentsGetReferencingRequest = {},
         requestOptions?: Contents.RequestOptions
     ): Promise<Squidex.ContentsDto> {
-        const { q, flatten, languages, unpublished, noSlowTotal, noTotal } = request;
+        const { q, fields, flatten, languages, unpublished, noSlowTotal, noTotal } = request;
         const _queryParams = new URLSearchParams();
         if (q != null) {
             _queryParams.append("q", q);
@@ -948,7 +965,8 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
+                "X-Fields": fields != null ? fields : undefined,
                 "X-Flatten": flatten != null ? flatten.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
@@ -1029,7 +1047,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1069,7 +1087,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
             },
             contentType: "application/json",
             body: await serializers.ImportContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1150,7 +1168,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
             },
             contentType: "application/json",
             body: await serializers.BulkUpdateContentsDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -1233,7 +1251,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1318,7 +1336,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1402,7 +1420,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1486,7 +1504,7 @@ export class Contents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
                 "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
                 "X-Languages": languages != null ? languages : undefined,
             },
@@ -1495,6 +1513,375 @@ export class Contents {
         });
         if (_response.ok) {
             return await serializers.ContentDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * You can read the generated documentation for your app at /api/content/{appName}/docs.
+     */
+    public async getGraphQl(
+        request: Squidex.ContentsGetGraphQlRequest = {},
+        requestOptions?: Contents.RequestOptions
+    ): Promise<{
+        data: stream.Readable;
+        contentLengthInBytes?: number;
+        contentType?: string;
+    }> {
+        const { unpublished } = request;
+        const _response = await (this._options.streamingFetcher ?? core.streamingFetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/content/${this._options.appName}/graphql`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "1.2.0",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
+            },
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            onError: (error) => {
+                throw new errors.SquidexError({
+                    message: (error as any)?.message,
+                });
+            },
+        });
+        const _contentLength = core.getHeader(_response, "Content-Length");
+        return {
+            data: _response.data,
+            contentLengthInBytes: _contentLength != null ? Number(_contentLength) : undefined,
+            contentType: core.getHeader(_response, "Content-Type"),
+        };
+    }
+
+    /**
+     * You can read the generated documentation for your app at /api/content/{appName}/docs.
+     */
+    public async getGraphQl2(
+        request: Squidex.ContentsGetGraphQl2Request = {},
+        requestOptions?: Contents.RequestOptions
+    ): Promise<{
+        data: stream.Readable;
+        contentLengthInBytes?: number;
+        contentType?: string;
+    }> {
+        const { unpublished } = request;
+        const _response = await (this._options.streamingFetcher ?? core.streamingFetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/content/${this._options.appName}/graphql/batch`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "1.2.0",
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
+            },
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            onError: (error) => {
+                throw new errors.SquidexError({
+                    message: (error as any)?.message,
+                });
+            },
+        });
+        const _contentLength = core.getHeader(_response, "Content-Length");
+        return {
+            data: _response.data,
+            contentLengthInBytes: _contentLength != null ? Number(_contentLength) : undefined,
+            contentType: core.getHeader(_response, "Content-Type"),
+        };
+    }
+
+    /**
+     * You can read the generated documentation for your app at /api/content/{appName}/docs.
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
+     */
+    public async getAllContents(
+        request: Squidex.ContentsGetAllContentsRequest = {},
+        requestOptions?: Contents.RequestOptions
+    ): Promise<Squidex.ContentsDto> {
+        const {
+            ids,
+            scheduleFrom,
+            scheduleTo,
+            referencing,
+            references,
+            q,
+            fields,
+            flatten,
+            languages,
+            noSlowTotal,
+            noTotal,
+            unpublished,
+        } = request;
+        const _queryParams = new URLSearchParams();
+        if (ids != null) {
+            _queryParams.append("ids", ids);
+        }
+
+        if (scheduleFrom != null) {
+            _queryParams.append("scheduleFrom", scheduleFrom.toISOString());
+        }
+
+        if (scheduleTo != null) {
+            _queryParams.append("scheduleTo", scheduleTo.toISOString());
+        }
+
+        if (referencing != null) {
+            _queryParams.append("referencing", referencing);
+        }
+
+        if (references != null) {
+            _queryParams.append("references", references);
+        }
+
+        if (q != null) {
+            _queryParams.append("q", q);
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/content/${this._options.appName}`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "1.2.0",
+                "X-Fields": fields != null ? fields : undefined,
+                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Languages": languages != null ? languages : undefined,
+                "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
+                "X-NoTotal": noTotal != null ? noTotal.toString() : undefined,
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+        });
+        if (_response.ok) {
+            return await serializers.ContentsDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * You can read the generated documentation for your app at /api/content/{appName}/docs.
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
+     */
+    public async getAllContentsPost(
+        request: Squidex.AllContentsByPostDto = {},
+        requestOptions?: Contents.RequestOptions
+    ): Promise<Squidex.ContentsDto> {
+        const { fields, flatten, languages, noSlowTotal, noTotal, unpublished, ..._body } = request;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/content/${this._options.appName}`
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "1.2.0",
+                "X-Fields": fields != null ? fields : undefined,
+                "X-Flatten": flatten != null ? flatten.toString() : undefined,
+                "X-Languages": languages != null ? languages : undefined,
+                "X-NoSlowTotal": noSlowTotal != null ? noSlowTotal.toString() : undefined,
+                "X-NoTotal": noTotal != null ? noTotal.toString() : undefined,
+                "X-Unpublished": unpublished != null ? unpublished.toString() : undefined,
+            },
+            contentType: "application/json",
+            body: await serializers.AllContentsByPostDto.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+        });
+        if (_response.ok) {
+            return await serializers.ContentsDto.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Squidex.BadRequestError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Squidex.NotFoundError(_response.error.body);
+                case 500:
+                    throw new Squidex.InternalServerError(
+                        await serializers.ErrorDto.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.SquidexError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.SquidexError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.SquidexTimeoutError();
+            case "unknown":
+                throw new errors.SquidexError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * You can read the generated documentation for your app at /api/content/{appName}/docs.
+     * @throws {@link Squidex.BadRequestError}
+     * @throws {@link Squidex.NotFoundError}
+     * @throws {@link Squidex.InternalServerError}
+     */
+    public async bulkUpdateAllContents(
+        request: Squidex.ContentsBulkUpdateAllContentsRequest,
+        requestOptions?: Contents.RequestOptions
+    ): Promise<Squidex.BulkResultDto[]> {
+        const { schema, body: _body } = request;
+        const _queryParams = new URLSearchParams();
+        if (schema != null) {
+            _queryParams.append("schema", schema);
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
+                `api/content/${this._options.appName}/bulk`
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@squidex/squidex",
+                "X-Fern-SDK-Version": "1.2.0",
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            body: await serializers.BulkUpdateContentsDto.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+        });
+        if (_response.ok) {
+            return await serializers.contents.bulkUpdateAllContents.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

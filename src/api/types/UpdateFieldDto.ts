@@ -5,5 +5,6 @@
 import * as Squidex from "..";
 
 export interface UpdateFieldDto {
+    /** The field properties. */
     properties: Squidex.FieldPropertiesDto;
 }

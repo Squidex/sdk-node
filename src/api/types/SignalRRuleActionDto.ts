@@ -9,6 +9,11 @@ export interface SignalRRuleActionDto {
     connectionString: string;
     /** The name of the hub. <span style="white-space: nowrap">`non-empty`</span> */
     hubName: string;
+    /**
+     * * Broadcast = send to all users.
+     *  * User = send to all target users(s).
+     *  * Group = send to all target group(s).
+     */
     action: Squidex.ActionTypeEnum;
     /** Set the Name of the hub method received by the customer. */
     methodName?: string;

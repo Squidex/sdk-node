@@ -6,7 +6,7 @@ export interface CommentDto {
     /** The ID of the comment. */
     id: string;
     /** The time when the comment was created or updated last. */
-    time: string;
+    time: Date;
     /** The user who created or updated the comment. */
     user: string;
     /** The text of the comment. */

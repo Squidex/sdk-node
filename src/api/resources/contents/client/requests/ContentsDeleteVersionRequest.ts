@@ -8,7 +8,7 @@ export interface ContentsDeleteVersionRequest {
      */
     unpublished?: boolean;
     /**
-     * Only resolve these languages (comma-separated).
+     * The list of languages to resolve (comma-separated).
      */
     languages?: string;
 }

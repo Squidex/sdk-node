@@ -12,6 +12,9 @@ export const ArrayFieldPropertiesDto: core.serialization.ObjectSchema<
 > = core.serialization.object({
     minItems: core.serialization.number().optional(),
     maxItems: core.serialization.number().optional(),
+    calculatedDefaultValue: core.serialization
+        .lazy(async () => (await import("..")).ArrayCalculatedDefaultValue)
+        .optional(),
     uniqueFields: core.serialization.list(core.serialization.string()).optional(),
 });
 
@@ -19,6 +22,7 @@ export declare namespace ArrayFieldPropertiesDto {
     interface Raw {
         minItems?: number | null;
         maxItems?: number | null;
+        calculatedDefaultValue?: serializers.ArrayCalculatedDefaultValue.Raw | null;
         uniqueFields?: string[] | null;
     }
 }

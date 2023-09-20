@@ -8,13 +8,13 @@ export interface ChangeStatusDto {
      */
     unpublished?: boolean;
     /**
-     * Only resolve these languages (comma-separated).
+     * The list of languages to resolve (comma-separated).
      */
     languages?: string;
     /** The new status. <span style="white-space: nowrap">`non-empty`</span> */
     status: string;
     /** The due time. */
-    dueTime?: string;
+    dueTime?: Date;
     /** True to check referrers of this content. */
     checkReferrers?: boolean;
 }

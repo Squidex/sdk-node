@@ -9,7 +9,7 @@ import * as core from "../../core";
 export const CommentDto: core.serialization.ObjectSchema<serializers.CommentDto.Raw, Squidex.CommentDto> =
     core.serialization.object({
         id: core.serialization.string(),
-        time: core.serialization.string(),
+        time: core.serialization.date(),
         user: core.serialization.string(),
         text: core.serialization.string(),
         url: core.serialization.string().optional(),

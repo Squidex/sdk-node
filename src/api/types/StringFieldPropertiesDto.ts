@@ -5,6 +5,7 @@
 import * as Squidex from "..";
 
 export interface StringFieldPropertiesDto {
+    /** The language specific default value for the field value. */
     defaultValues?: Squidex.LocalizedValueOfString;
     /** The default value for the field value. */
     defaultValue?: string;
@@ -38,6 +39,8 @@ export interface StringFieldPropertiesDto {
     inlineEditable?: boolean;
     /** Indicates whether GraphQL Enum should be created. */
     createEnum?: boolean;
+    /** How the string content should be interpreted. */
     contentType?: Squidex.StringContentType;
+    /** The editor that is used to manage this field. */
     editor?: Squidex.StringFieldEditor;
 }

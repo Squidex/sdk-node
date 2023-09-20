@@ -7,6 +7,7 @@ import * as Squidex from "../../../..";
 export interface CreateSchemaDto extends Squidex.UpsertSchemaDto {
     /** The name of the schema. <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
+    /** The type of the schema. */
     type?: Squidex.SchemaType;
     /** Set to true to allow a single content item only. */
     isSingleton?: boolean;
