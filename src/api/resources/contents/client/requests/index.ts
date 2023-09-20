@@ -15,7 +15,9 @@ export { ContentsDeleteContentStatusRequest } from "./ContentsDeleteContentStatu
 export { ContentsCreateDraftRequest } from "./ContentsCreateDraftRequest";
 export { ContentsDeleteVersionRequest } from "./ContentsDeleteVersionRequest";
 export { ContentsGetGraphQlRequest } from "./ContentsGetGraphQlRequest";
-export { ContentsGetGraphQl2Request } from "./ContentsGetGraphQl2Request";
+export { ContentsPostGraphQlRequest } from "./ContentsPostGraphQlRequest";
+export { ContentsGetGraphQlBatchRequest } from "./ContentsGetGraphQlBatchRequest";
+export { ContentsPostGraphQlBatchRequest } from "./ContentsPostGraphQlBatchRequest";
 export { ContentsGetAllContentsRequest } from "./ContentsGetAllContentsRequest";
 export { AllContentsByPostDto } from "./AllContentsByPostDto";
 export { ContentsBulkUpdateAllContentsRequest } from "./ContentsBulkUpdateAllContentsRequest";
