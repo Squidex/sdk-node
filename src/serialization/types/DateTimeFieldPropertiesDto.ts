@@ -11,9 +11,9 @@ export const DateTimeFieldPropertiesDto: core.serialization.ObjectSchema<
     Squidex.DateTimeFieldPropertiesDto
 > = core.serialization.object({
     defaultValues: core.serialization.lazy(async () => (await import("..")).LocalizedValueOfNullableInstant).optional(),
-    defaultValue: core.serialization.string().optional(),
-    maxValue: core.serialization.string().optional(),
-    minValue: core.serialization.string().optional(),
+    defaultValue: core.serialization.date().optional(),
+    maxValue: core.serialization.date().optional(),
+    minValue: core.serialization.date().optional(),
     format: core.serialization.string().optional(),
     editor: core.serialization.lazy(async () => (await import("..")).DateTimeFieldEditor).optional(),
     calculatedDefaultValue: core.serialization

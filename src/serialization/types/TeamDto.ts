@@ -11,8 +11,8 @@ export const TeamDto: core.serialization.ObjectSchema<serializers.TeamDto.Raw, S
         id: core.serialization.string(),
         name: core.serialization.string(),
         version: core.serialization.number(),
-        created: core.serialization.string(),
-        lastModified: core.serialization.string(),
+        created: core.serialization.date(),
+        lastModified: core.serialization.date(),
         roleName: core.serialization.string().optional(),
     })
     .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));

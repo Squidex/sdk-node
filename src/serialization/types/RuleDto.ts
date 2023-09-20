@@ -11,8 +11,8 @@ export const RuleDto: core.serialization.ObjectSchema<serializers.RuleDto.Raw, S
         id: core.serialization.string(),
         createdBy: core.serialization.string(),
         lastModifiedBy: core.serialization.string(),
-        created: core.serialization.string(),
-        lastModified: core.serialization.string(),
+        created: core.serialization.date(),
+        lastModified: core.serialization.date(),
         version: core.serialization.number(),
         isEnabled: core.serialization.boolean(),
         name: core.serialization.string().optional(),
@@ -20,7 +20,7 @@ export const RuleDto: core.serialization.ObjectSchema<serializers.RuleDto.Raw, S
         action: core.serialization.lazy(async () => (await import("..")).RuleActionDto),
         numSucceeded: core.serialization.number(),
         numFailed: core.serialization.number(),
-        lastExecuted: core.serialization.string().optional(),
+        lastExecuted: core.serialization.date().optional(),
     })
     .extend(core.serialization.lazyObject(async () => (await import("..")).Resource));
 

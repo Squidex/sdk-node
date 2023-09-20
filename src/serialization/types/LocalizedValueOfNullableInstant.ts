@@ -9,7 +9,7 @@ import * as core from "../../core";
 export const LocalizedValueOfNullableInstant: core.serialization.Schema<
     serializers.LocalizedValueOfNullableInstant.Raw,
     Squidex.LocalizedValueOfNullableInstant
-> = core.serialization.record(core.serialization.string(), core.serialization.string().optional());
+> = core.serialization.record(core.serialization.string(), core.serialization.date().optional());
 
 export declare namespace LocalizedValueOfNullableInstant {
     type Raw = Record<string, string | null | undefined>;

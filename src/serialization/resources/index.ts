@@ -1,4 +1,5 @@
 export * as users from "./users";
+export * as translations from "./translations";
 export * as teams from "./teams";
 export * as statistics from "./statistics";
 export * as search from "./search";
@@ -12,7 +13,7 @@ export * as assets from "./assets";
 export * as apps from "./apps";
 export * as userManagement from "./userManagement";
 export * from "./userManagement/client/requests";
-export * as translations from "./translations";
+export * from "./users/client/requests";
 export * from "./translations/client/requests";
 export * from "./teams/client/requests";
 export * from "./schemas/client/requests";

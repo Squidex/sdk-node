@@ -13,5 +13,6 @@ export interface UpsertSchemaNestedFieldDto {
     isLocked?: boolean;
     /** Defines if the field is disabled. */
     isDisabled?: boolean;
+    /** The field properties. */
     properties: Squidex.FieldPropertiesDto;
 }

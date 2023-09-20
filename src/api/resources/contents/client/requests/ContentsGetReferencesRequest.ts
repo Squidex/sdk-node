@@ -8,11 +8,15 @@ export interface ContentsGetReferencesRequest {
      */
     q?: string;
     /**
+     * The list of content fields (comma-separated).
+     */
+    fields?: string;
+    /**
      * Provide the data as flat object.
      */
     flatten?: boolean;
     /**
-     * Only resolve these languages (comma-separated).
+     * The list of languages to resolve (comma-separated).
      */
     languages?: string;
     /**

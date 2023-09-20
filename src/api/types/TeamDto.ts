@@ -12,9 +12,9 @@ export interface TeamDto extends Squidex.Resource {
     /** The version of the team. */
     version: number;
     /** The timestamp when the team has been created. */
-    created: string;
+    created: Date;
     /** The timestamp when the team has been modified last. */
-    lastModified: string;
+    lastModified: Date;
     /** The role name of the user. */
     roleName?: string;
 }

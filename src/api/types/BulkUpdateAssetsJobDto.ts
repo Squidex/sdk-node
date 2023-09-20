@@ -7,6 +7,7 @@ import * as Squidex from "..";
 export interface BulkUpdateAssetsJobDto {
     /** An optional ID of the asset to update. */
     id?: string;
+    /** The update type. */
     type?: Squidex.BulkUpdateAssetType;
     /** The parent folder id. */
     parentId?: string;

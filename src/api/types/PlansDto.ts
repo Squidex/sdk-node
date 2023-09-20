@@ -13,6 +13,8 @@ export interface PlansDto {
     planOwner?: string;
     /** The link to the management portal. */
     portalLink?: string;
+    /** The referral management. */
     referral?: Squidex.ReferralInfo;
+    /** The reason why the plan cannot be changed. */
     locked: Squidex.PlansLockedReason;
 }

@@ -50,7 +50,7 @@ export class News {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,

@@ -11,7 +11,7 @@ export const ChangeStatusDto: core.serialization.Schema<
     Omit<Squidex.ChangeStatusDto, "unpublished" | "languages">
 > = core.serialization.object({
     status: core.serialization.string(),
-    dueTime: core.serialization.string().optional(),
+    dueTime: core.serialization.date().optional(),
     checkReferrers: core.serialization.boolean().optional(),
 });
 

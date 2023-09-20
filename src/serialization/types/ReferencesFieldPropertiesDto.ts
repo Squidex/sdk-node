@@ -19,6 +19,7 @@ export const ReferencesFieldPropertiesDto: core.serialization.ObjectSchema<
     allowDuplicates: core.serialization.boolean().optional(),
     resolveReference: core.serialization.boolean().optional(),
     mustBePublished: core.serialization.boolean().optional(),
+    query: core.serialization.string().optional(),
     editor: core.serialization.lazy(async () => (await import("..")).ReferencesFieldEditor).optional(),
     schemaIds: core.serialization.list(core.serialization.string()).optional(),
 });
@@ -32,6 +33,7 @@ export declare namespace ReferencesFieldPropertiesDto {
         allowDuplicates?: boolean | null;
         resolveReference?: boolean | null;
         mustBePublished?: boolean | null;
+        query?: string | null;
         editor?: serializers.ReferencesFieldEditor.Raw | null;
         schemaIds?: string[] | null;
     }

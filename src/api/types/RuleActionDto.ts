@@ -9,6 +9,7 @@ export type RuleActionDto =
     | Squidex.RuleActionDto.AzureQueue
     | Squidex.RuleActionDto.Comment
     | Squidex.RuleActionDto.CreateContent
+    | Squidex.RuleActionDto.DeepDetect
     | Squidex.RuleActionDto.Discourse
     | Squidex.RuleActionDto.ElasticSearch
     | Squidex.RuleActionDto.Email
@@ -39,6 +40,10 @@ export declare namespace RuleActionDto {
 
     interface CreateContent extends Squidex.CreateContentRuleActionDto {
         actionType: "CreateContent";
+    }
+
+    interface DeepDetect extends Squidex.DeepDetectRuleActionDto {
+        actionType: "DeepDetect";
     }
 
     interface Discourse extends Squidex.DiscourseRuleActionDto {

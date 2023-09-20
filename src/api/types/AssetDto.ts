@@ -33,17 +33,19 @@ export interface AssetDto extends Squidex.Resource {
     fileSize: number;
     /** The version of the file. */
     fileVersion: number;
+    /** The type of the asset. */
     type: Squidex.AssetType;
     /** The user that has created the schema. */
     createdBy: string;
     /** The user that has updated the asset. */
     lastModifiedBy: string;
     /** The date and time when the asset has been created. */
-    created: string;
+    created: Date;
     /** The date and time when the asset has been modified last. */
-    lastModified: string;
+    lastModified: Date;
     /** The version of the asset. */
     version: number;
+    /** The metadata. */
     meta?: Squidex.AssetMeta;
     /** Determines of the created file is an image. */
     isImage: boolean;

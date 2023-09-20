@@ -10,8 +10,9 @@ export interface RestoreJobDto {
     /** The status log. */
     log: string[];
     /** The time when the job has been started. */
-    started: string;
+    started: Date;
     /** The time when the job has been stopped. */
-    stopped?: string;
+    stopped?: Date;
+    /** The status of the operation. */
     status: Squidex.JobStatus;
 }

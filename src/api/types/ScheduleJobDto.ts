@@ -8,7 +8,7 @@ export interface ScheduleJobDto {
     /** The new status. */
     status: string;
     /** The target date and time when the content should be scheduled. */
-    dueTime: string;
+    dueTime: Date;
     /** The color of the scheduled status. */
     color: string;
     /** The user who schedule the content. */

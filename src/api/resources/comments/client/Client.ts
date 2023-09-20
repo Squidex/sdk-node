@@ -31,10 +31,7 @@ export class Comments {
      * @throws {@link Squidex.NotFoundError}
      * @throws {@link Squidex.InternalServerError}
      */
-    public async getWatchingUsers(
-        resource: string | undefined,
-        requestOptions?: Comments.RequestOptions
-    ): Promise<string[]> {
+    public async getWatchingUsers(resource: string, requestOptions?: Comments.RequestOptions): Promise<string[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
@@ -45,7 +42,7 @@ export class Comments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -121,7 +118,7 @@ export class Comments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -192,7 +189,7 @@ export class Comments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
             },
             contentType: "application/json",
             body: await serializers.UpsertCommentDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -273,7 +270,7 @@ export class Comments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
             },
             contentType: "application/json",
             body: await serializers.UpsertCommentDto.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -348,7 +345,7 @@ export class Comments {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@squidex/squidex",
-                "X-Fern-SDK-Version": "1.1.0",
+                "X-Fern-SDK-Version": "1.2.0",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,

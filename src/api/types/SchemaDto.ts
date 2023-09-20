@@ -13,20 +13,23 @@ export interface SchemaDto extends Squidex.Resource {
     lastModifiedBy: string;
     /** The name of the schema. Unique within the app. <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
+    /** The type of the schema. */
     type: Squidex.SchemaType;
     /** The name of the category. */
     category?: string;
+    /** The schema properties. */
     properties: Squidex.SchemaPropertiesDto;
     /** Indicates if the schema is a singleton. */
     isSingleton: boolean;
     /** Indicates if the schema is published. */
     isPublished: boolean;
     /** The date and time when the schema has been created. */
-    created: string;
+    created: Date;
     /** The date and time when the schema has been modified last. */
-    lastModified: string;
+    lastModified: Date;
     /** The version of the schema. */
     version: number;
+    /** The scripts. */
     scripts: Squidex.SchemaScriptsDto;
     /** The preview Urls. */
     previewUrls: Record<string, string>;

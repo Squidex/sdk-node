@@ -12,11 +12,12 @@ export interface ContentDto extends Squidex.Resource {
     /** The user that has updated the content item. */
     lastModifiedBy: string;
     data?: unknown;
+    /** The reference data for the frontend UI. */
     referenceData?: Squidex.ContentData;
     /** The date and time when the content item has been created. */
-    created: string;
+    created: Date;
     /** The date and time when the content item has been modified last. */
-    lastModified: string;
+    lastModified: Date;
     /** The status of the content. */
     status: string;
     /** The new status of the content. */
@@ -27,6 +28,7 @@ export interface ContentDto extends Squidex.Resource {
     newStatusColor?: string;
     /** The UI token. */
     editToken?: string;
+    /** The scheduled status. */
     scheduleJob?: Squidex.ScheduleJobDto;
     /** The ID of the schema. */
     schemaId: string;

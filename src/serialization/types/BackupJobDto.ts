@@ -10,8 +10,8 @@ export const BackupJobDto: core.serialization.ObjectSchema<serializers.BackupJob
     core.serialization
         .object({
             id: core.serialization.string(),
-            started: core.serialization.string(),
-            stopped: core.serialization.string().optional(),
+            started: core.serialization.date(),
+            stopped: core.serialization.date().optional(),
             handledEvents: core.serialization.number(),
             handledAssets: core.serialization.number(),
             status: core.serialization.lazy(async () => (await import("..")).JobStatus),

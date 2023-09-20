@@ -5,7 +5,9 @@
 import * as Squidex from "..";
 
 export interface AssetsFieldPropertiesDto {
+    /** The preview mode for the asset. */
     previewMode?: Squidex.AssetPreviewMode;
+    /** The language specific default value as a list of asset ids. */
     defaultValues?: Squidex.LocalizedValueOfReadonlyListOfString;
     /** The default value as a list of asset ids. */
     defaultValue?: string[];
@@ -33,6 +35,7 @@ export interface AssetsFieldPropertiesDto {
     aspectWidth?: number;
     /** The image aspect height in pixels. */
     aspectHeight?: number;
+    /** The expected type. */
     expectedType?: Squidex.AssetType;
     /** True to resolve first asset in the content list. */
     resolveFirst?: boolean;

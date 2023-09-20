@@ -5,6 +5,8 @@
 import * as Squidex from "..";
 
 export interface CreateRuleDto {
+    /** The trigger properties. */
     trigger: Squidex.RuleTriggerDto;
+    /** The action properties. */
     action: Squidex.RuleActionDto;
 }

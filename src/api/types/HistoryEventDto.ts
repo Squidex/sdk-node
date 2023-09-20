@@ -12,7 +12,7 @@ export interface HistoryEventDto {
     /** Gets a unique id for the event. */
     eventId: string;
     /** The time when the event happened. */
-    created: string;
+    created: Date;
     /** The version identifier. */
     version: number;
 }

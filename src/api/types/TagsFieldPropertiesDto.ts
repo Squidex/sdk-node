@@ -5,6 +5,7 @@
 import * as Squidex from "..";
 
 export interface TagsFieldPropertiesDto {
+    /** The language specific default value for the field value. */
     defaultValues?: Squidex.LocalizedValueOfReadonlyListOfString;
     /** The default value. */
     defaultValue?: string[];
@@ -16,5 +17,6 @@ export interface TagsFieldPropertiesDto {
     allowedValues?: string[];
     /** Indicates whether GraphQL Enum should be created. */
     createEnum?: boolean;
+    /** The editor that is used to manage this field. */
     editor?: Squidex.TagsFieldEditor;
 }

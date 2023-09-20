@@ -6,9 +6,9 @@ import * as serializers from "..";
 import * as Squidex from "../../api";
 import * as core from "../../core";
 
-export const TranslationResultCode: core.serialization.Schema<
-    serializers.TranslationResultCode.Raw,
-    Squidex.TranslationResultCode
+export const TranslationStatus: core.serialization.Schema<
+    serializers.TranslationStatus.Raw,
+    Squidex.TranslationStatus
 > = core.serialization.enum_([
     "Translated",
     "LanguageNotSupported",
@@ -18,6 +18,6 @@ export const TranslationResultCode: core.serialization.Schema<
     "Failed",
 ]);
 
-export declare namespace TranslationResultCode {
+export declare namespace TranslationStatus {
     type Raw = "Translated" | "LanguageNotSupported" | "NotTranslated" | "NotConfigured" | "Unauthorized" | "Failed";
 }

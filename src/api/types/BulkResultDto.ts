@@ -5,6 +5,7 @@
 import * as Squidex from "..";
 
 export interface BulkResultDto {
+    /** The error when the bulk job failed. */
     error?: Squidex.ErrorDto;
     /** The index of the bulk job where the result belongs to. The order can change. */
     jobIndex: number;

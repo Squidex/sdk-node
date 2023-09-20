@@ -15,6 +15,7 @@ export interface UpsertSchemaFieldDto {
     isDisabled?: boolean;
     /** Determines the optional partitioning of the field. */
     partitioning?: string;
+    /** The field properties. */
     properties: Squidex.FieldPropertiesDto;
     /** The nested fields. */
     nested?: Squidex.UpsertSchemaNestedFieldDto[];

@@ -8,7 +8,7 @@ export interface RuleEventDto extends Squidex.Resource {
     /** The ID of the event. */
     id: string;
     /** The time when the event has been created. */
-    created: string;
+    created: Date;
     /** The description. */
     description: string;
     /** The name of the event. */
@@ -18,7 +18,9 @@ export interface RuleEventDto extends Squidex.Resource {
     /** The number of calls. */
     numCalls: number;
     /** The next attempt. */
-    nextAttempt?: string;
+    nextAttempt?: Date;
+    /** The result of the event. */
     result: Squidex.RuleResult;
+    /** The result of the job. */
     jobResult: Squidex.RuleJobResult;
 }

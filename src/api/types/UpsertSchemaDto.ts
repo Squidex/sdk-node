@@ -5,7 +5,9 @@
 import * as Squidex from "..";
 
 export interface UpsertSchemaDto {
+    /** The optional properties. */
     properties?: Squidex.SchemaPropertiesDto;
+    /** The optional scripts. */
     scripts?: Squidex.SchemaScriptsDto;
     /** The names of the fields that should be used in references. */
     fieldsInReferences?: string[];

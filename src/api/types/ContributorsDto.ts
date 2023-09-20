@@ -9,5 +9,6 @@ export interface ContributorsDto extends Squidex.Resource {
     items: Squidex.ContributorDto[];
     /** The maximum number of allowed contributors. */
     maxContributors: number;
+    /** The metadata to provide information about this request. */
     meta?: Squidex.ContributorsMetadata;
 }

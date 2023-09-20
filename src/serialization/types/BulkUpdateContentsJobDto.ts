@@ -14,7 +14,7 @@ export const BulkUpdateContentsJobDto: core.serialization.ObjectSchema<
     id: core.serialization.string().optional(),
     data: core.serialization.lazy(async () => (await import("..")).ContentData).optional(),
     status: core.serialization.string().optional(),
-    dueTime: core.serialization.string().optional(),
+    dueTime: core.serialization.date().optional(),
     type: core.serialization.lazy(async () => (await import("..")).BulkUpdateContentType).optional(),
     schema: core.serialization.string().optional(),
     patch: core.serialization.boolean().optional(),

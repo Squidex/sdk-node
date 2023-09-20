@@ -5,7 +5,7 @@
 /**
  *
  */
-export type TranslationResultCode =
+export type TranslationStatus =
     | "Translated"
     | "LanguageNotSupported"
     | "NotTranslated"
@@ -13,7 +13,7 @@ export type TranslationResultCode =
     | "Unauthorized"
     | "Failed";
 
-export const TranslationResultCode = {
+export const TranslationStatus = {
     Translated: "Translated",
     LanguageNotSupported: "LanguageNotSupported",
     NotTranslated: "NotTranslated",
