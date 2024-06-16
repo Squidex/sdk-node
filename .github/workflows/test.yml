@@ -15,7 +15,7 @@ jobs:
         working-directory: tests
 
       - name: Test - RUN
-        uses: kohlerdominik/docker-run-action@v1.1.0
+        uses: kohlerdominik/docker-run-action@v2.0.0
         with:
           image: node
           environment: |
