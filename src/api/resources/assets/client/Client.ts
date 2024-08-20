@@ -27,6 +27,13 @@ export declare namespace Assets {
     }
 }
 
+export interface AssetFileOptions {
+    fileName: string,
+    readable: stream.Readable|fs.ReadStream|File,
+}
+
+const isAssetFileOptions = (f: any): f is AssetFileOptions => 'fileName' in f && 'readable' in f;
+
 export class Assets {
     constructor(protected readonly _options: Assets.Options) {}
 
@@ -906,11 +913,15 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postAsset(
-        file: File | fs.ReadStream,
+        file: File | fs.ReadStream | AssetFileOptions,
         requestOptions?: Assets.RequestOptions
     ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
-        _request.append("file", file);
+        if (isAssetFileOptions(file)) {
+            _request.append("file", file.readable, file.fileName);
+        } else {
+            _request.append("file", file);
+        }
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
@@ -1147,12 +1158,17 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async postUpsertAsset(
-        file: File | fs.ReadStream,
+        file: File | fs.ReadStream | AssetFileOptions,
         id: string,
         requestOptions?: Assets.RequestOptions
     ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
-        _request.append("file", file);
+        if (isAssetFileOptions(file)) {
+            _request.append("file", file.readable, file.fileName);
+        }
+        else {
+            _request.append("file", file);
+        }
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
@@ -1485,12 +1501,17 @@ export class Assets {
      * @throws {@link Squidex.InternalServerError}
      */
     public async putAssetContent(
-        file: File | fs.ReadStream,
+        file: File | fs.ReadStream | AssetFileOptions,
         id: string,
         requestOptions?: Assets.RequestOptions
     ): Promise<Squidex.AssetDto> {
         const _request = new FormData();
-        _request.append("file", file);
+        if (isAssetFileOptions(file)) {
+            _request.append("file", file.readable, file.fileName);
+        }
+        else {
+            _request.append("file", file);
+        }
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.SquidexEnvironment.Default,
