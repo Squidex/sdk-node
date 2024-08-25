@@ -88,18 +88,12 @@ import {
     WorkflowsDtoToJSON,
 } from '../models/index';
 
-export interface AppAssetsGetAssetScriptsRequest {
-}
-
 export interface AppAssetsPutAssetScriptsRequest {
     updateAssetScriptsDto: UpdateAssetScriptsDto;
 }
 
 export interface AppClientsDeleteClientRequest {
     id: string;
-}
-
-export interface AppClientsGetClientsRequest {
 }
 
 export interface AppClientsPostClientRequest {
@@ -115,24 +109,12 @@ export interface AppContributorsDeleteContributorRequest {
     id: string;
 }
 
-export interface AppContributorsDeleteMyselfRequest {
-}
-
-export interface AppContributorsGetContributorsRequest {
-}
-
 export interface AppContributorsPostContributorRequest {
     assignContributorDto: AssignContributorDto;
 }
 
-export interface AppImageGetImageRequest {
-}
-
 export interface AppLanguagesDeleteLanguageRequest {
     language: string;
-}
-
-export interface AppLanguagesGetLanguagesRequest {
 }
 
 export interface AppLanguagesPostLanguageRequest {
@@ -148,12 +130,6 @@ export interface AppRolesDeleteRoleRequest {
     roleName: string;
 }
 
-export interface AppRolesGetPermissionsRequest {
-}
-
-export interface AppRolesGetRolesRequest {
-}
-
 export interface AppRolesPostRoleRequest {
     addRoleDto: AddRoleDto;
 }
@@ -161,9 +137,6 @@ export interface AppRolesPostRoleRequest {
 export interface AppRolesPutRoleRequest {
     roleName: string;
     updateRoleDto: UpdateRoleDto;
-}
-
-export interface AppSettingsGetSettingsRequest {
 }
 
 export interface AppSettingsPutSettingsRequest {
@@ -174,9 +147,6 @@ export interface AppWorkflowsDeleteWorkflowRequest {
     id: string;
 }
 
-export interface AppWorkflowsGetWorkflowsRequest {
-}
-
 export interface AppWorkflowsPostWorkflowRequest {
     addWorkflowDto: AddWorkflowDto;
 }
@@ -184,15 +154,6 @@ export interface AppWorkflowsPostWorkflowRequest {
 export interface AppWorkflowsPutWorkflowRequest {
     id: string;
     updateWorkflowDto: UpdateWorkflowDto;
-}
-
-export interface AppsDeleteAppRequest {
-}
-
-export interface AppsDeleteImageRequest {
-}
-
-export interface AppsGetAppRequest {
 }
 
 export interface AppsGetTeamAppsRequest {
@@ -231,12 +192,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getAssetScriptsRaw(requestParameters: AppAssetsGetAssetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetScriptsDto>>;
+    getAssetScriptsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetScriptsDto>>;
 
     /**
      * Get the app asset scripts.
      */
-    getAssetScripts(requestParameters: AppAssetsGetAssetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetScriptsDto>;
+    getAssetScripts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetScriptsDto>;
 
     /**
      * 
@@ -276,13 +237,13 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getClientsRaw(requestParameters: AppClientsGetClientsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>>;
+    getClientsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>>;
 
     /**
      * Gets all configured clients for the app with the specified name.
      * Get app clients.
      */
-    getClients(requestParameters: AppClientsGetClientsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto>;
+    getClients(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto>;
 
     /**
      * Create a new client for the app with the specified name. The client secret is auto generated on the server and returned. The client does not expire, the access token is valid for 30 days.
@@ -339,12 +300,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    deleteMyselfRaw(requestParameters: AppContributorsDeleteMyselfRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
+    deleteMyselfRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
 
     /**
      * Remove yourself.
      */
-    deleteMyself(requestParameters: AppContributorsDeleteMyselfRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
+    deleteMyself(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
 
     /**
      * 
@@ -353,12 +314,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getContributorsRaw(requestParameters: AppContributorsGetContributorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
+    getContributorsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
 
     /**
      * Get app contributors.
      */
-    getContributors(requestParameters: AppContributorsGetContributorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
+    getContributors(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
 
     /**
      * 
@@ -382,12 +343,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getImageRaw(requestParameters: AppImageGetImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
+    getImageRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
 
     /**
      * Get the app image.
      */
-    getImage(requestParameters: AppImageGetImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
+    getImage(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
 
     /**
      * 
@@ -411,12 +372,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getLanguagesRaw(requestParameters: AppLanguagesGetLanguagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>>;
+    getLanguagesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>>;
 
     /**
      * Get app languages.
      */
-    getLanguages(requestParameters: AppLanguagesGetLanguagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto>;
+    getLanguages(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto>;
 
     /**
      * 
@@ -471,12 +432,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getPermissionsRaw(requestParameters: AppRolesGetPermissionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>>;
+    getPermissionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>>;
 
     /**
      * Get app permissions.
      */
-    getPermissions(requestParameters: AppRolesGetPermissionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>>;
+    getPermissions(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>>;
 
     /**
      * 
@@ -485,12 +446,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getRolesRaw(requestParameters: AppRolesGetRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>>;
+    getRolesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>>;
 
     /**
      * Get app roles.
      */
-    getRoles(requestParameters: AppRolesGetRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto>;
+    getRoles(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto>;
 
     /**
      * 
@@ -530,12 +491,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getSettingsRaw(requestParameters: AppSettingsGetSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppSettingsDto>>;
+    getSettingsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppSettingsDto>>;
 
     /**
      * Get the app settings.
      */
-    getSettings(requestParameters: AppSettingsGetSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppSettingsDto>;
+    getSettings(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppSettingsDto>;
 
     /**
      * 
@@ -574,12 +535,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getWorkflowsRaw(requestParameters: AppWorkflowsGetWorkflowsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>>;
+    getWorkflowsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>>;
 
     /**
      * Get app workflow.
      */
-    getWorkflows(requestParameters: AppWorkflowsGetWorkflowsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto>;
+    getWorkflows(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto>;
 
     /**
      * 
@@ -619,12 +580,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    deleteAppRaw(requestParameters: AppsDeleteAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteAppRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete the app.
      */
-    deleteApp(requestParameters: AppsDeleteAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteApp(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -633,12 +594,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    deleteImageRaw(requestParameters: AppsDeleteImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
+    deleteImageRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
 
     /**
      * Remove the app image.
      */
-    deleteImage(requestParameters: AppsDeleteImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
+    deleteImage(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
 
     /**
      * 
@@ -647,12 +608,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getAppRaw(requestParameters: AppsGetAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
+    getAppRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
 
     /**
      * Get an app by name.
      */
-    getApp(requestParameters: AppsGetAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
+    getApp(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
 
     /**
      * You can only retrieve the list of apps when you are authenticated as a user (OpenID implicit flow). You will retrieve all apps, where you are assigned as a contributor.
@@ -758,14 +719,13 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get the app asset scripts.
      */
-    async getAssetScriptsRaw(requestParameters: AppAssetsGetAssetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetScriptsDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getAssetScriptsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetScriptsDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/assets/scripts`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/assets/scripts`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -777,8 +737,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get the app asset scripts.
      */
-    async getAssetScripts(requestParameters: AppAssetsGetAssetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetScriptsDto> {
-        const response = await this.getAssetScriptsRaw(requestParameters, initOverrides);
+    async getAssetScripts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetScriptsDto> {
+        const response = await this.getAssetScriptsRaw(initOverrides);
         return await response.value();
     }
 
@@ -793,7 +753,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -801,7 +760,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/assets/scripts`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/assets/scripts`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -831,13 +790,12 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/clients/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/clients/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -859,14 +817,13 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Gets all configured clients for the app with the specified name.
      * Get app clients.
      */
-    async getClientsRaw(requestParameters: AppClientsGetClientsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getClientsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/clients`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/clients`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -879,8 +836,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Gets all configured clients for the app with the specified name.
      * Get app clients.
      */
-    async getClients(requestParameters: AppClientsGetClientsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto> {
-        const response = await this.getClientsRaw(requestParameters, initOverrides);
+    async getClients(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto> {
+        const response = await this.getClientsRaw(initOverrides);
         return await response.value();
     }
 
@@ -896,7 +853,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -904,7 +860,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/clients`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/clients`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -942,7 +898,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -950,7 +905,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/clients/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/clients/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -980,13 +935,12 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/contributors/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/contributors/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1006,14 +960,13 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Remove yourself.
      */
-    async deleteMyselfRaw(requestParameters: AppContributorsDeleteMyselfRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async deleteMyselfRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/contributors/me`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/contributors/me`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1025,22 +978,21 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Remove yourself.
      */
-    async deleteMyself(requestParameters: AppContributorsDeleteMyselfRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
-        const response = await this.deleteMyselfRaw(requestParameters, initOverrides);
+    async deleteMyself(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
+        const response = await this.deleteMyselfRaw(initOverrides);
         return await response.value();
     }
 
     /**
      * Get app contributors.
      */
-    async getContributorsRaw(requestParameters: AppContributorsGetContributorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getContributorsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/contributors`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/contributors`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1052,8 +1004,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get app contributors.
      */
-    async getContributors(requestParameters: AppContributorsGetContributorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
-        const response = await this.getContributorsRaw(requestParameters, initOverrides);
+    async getContributors(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
+        const response = await this.getContributorsRaw(initOverrides);
         return await response.value();
     }
 
@@ -1068,7 +1020,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1076,7 +1027,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/contributors`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/contributors`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1097,14 +1048,13 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get the app image.
      */
-    async getImageRaw(requestParameters: AppImageGetImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getImageRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/image`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/image`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1116,8 +1066,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get the app image.
      */
-    async getImage(requestParameters: AppImageGetImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getImageRaw(requestParameters, initOverrides);
+    async getImage(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getImageRaw(initOverrides);
         return await response.value();
     }
 
@@ -1132,13 +1082,12 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/languages/{language}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"language"}}`, encodeURIComponent(String((requestParameters as any)['language']))),
+            path: `/api/apps/$app$/languages/{language}`.replace(`{${"language"}}`, encodeURIComponent(String((requestParameters as any)['language']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1158,14 +1107,13 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get app languages.
      */
-    async getLanguagesRaw(requestParameters: AppLanguagesGetLanguagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getLanguagesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/languages`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/languages`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1177,8 +1125,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get app languages.
      */
-    async getLanguages(requestParameters: AppLanguagesGetLanguagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto> {
-        const response = await this.getLanguagesRaw(requestParameters, initOverrides);
+    async getLanguages(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto> {
+        const response = await this.getLanguagesRaw(initOverrides);
         return await response.value();
     }
 
@@ -1193,7 +1141,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1201,7 +1148,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/languages`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/languages`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1237,7 +1184,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1245,7 +1191,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/languages/{language}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"language"}}`, encodeURIComponent(String((requestParameters as any)['language']))),
+            path: `/api/apps/$app$/languages/{language}`.replace(`{${"language"}}`, encodeURIComponent(String((requestParameters as any)['language']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1274,13 +1220,12 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/roles/{roleName}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"roleName"}}`, encodeURIComponent(String((requestParameters as any)['roleName']))),
+            path: `/api/apps/$app$/roles/{roleName}`.replace(`{${"roleName"}}`, encodeURIComponent(String((requestParameters as any)['roleName']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1300,14 +1245,13 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get app permissions.
      */
-    async getPermissionsRaw(requestParameters: AppRolesGetPermissionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getPermissionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/roles/permissions`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/roles/permissions`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1319,22 +1263,21 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get app permissions.
      */
-    async getPermissions(requestParameters: AppRolesGetPermissionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
-        const response = await this.getPermissionsRaw(requestParameters, initOverrides);
+    async getPermissions(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
+        const response = await this.getPermissionsRaw(initOverrides);
         return await response.value();
     }
 
     /**
      * Get app roles.
      */
-    async getRolesRaw(requestParameters: AppRolesGetRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getRolesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/roles`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/roles`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1346,8 +1289,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get app roles.
      */
-    async getRoles(requestParameters: AppRolesGetRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto> {
-        const response = await this.getRolesRaw(requestParameters, initOverrides);
+    async getRoles(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto> {
+        const response = await this.getRolesRaw(initOverrides);
         return await response.value();
     }
 
@@ -1362,7 +1305,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1370,7 +1312,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/roles`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/roles`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1406,7 +1348,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1414,7 +1355,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/roles/{roleName}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"roleName"}}`, encodeURIComponent(String((requestParameters as any)['roleName']))),
+            path: `/api/apps/$app$/roles/{roleName}`.replace(`{${"roleName"}}`, encodeURIComponent(String((requestParameters as any)['roleName']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1435,14 +1376,13 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get the app settings.
      */
-    async getSettingsRaw(requestParameters: AppSettingsGetSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppSettingsDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getSettingsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppSettingsDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/settings`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/settings`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1454,8 +1394,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get the app settings.
      */
-    async getSettings(requestParameters: AppSettingsGetSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppSettingsDto> {
-        const response = await this.getSettingsRaw(requestParameters, initOverrides);
+    async getSettings(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppSettingsDto> {
+        const response = await this.getSettingsRaw(initOverrides);
         return await response.value();
     }
 
@@ -1470,7 +1410,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1478,7 +1417,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/settings`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/settings`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1507,13 +1446,12 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/workflows/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/workflows/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1533,14 +1471,13 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get app workflow.
      */
-    async getWorkflowsRaw(requestParameters: AppWorkflowsGetWorkflowsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getWorkflowsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/workflows`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/workflows`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1552,8 +1489,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get app workflow.
      */
-    async getWorkflows(requestParameters: AppWorkflowsGetWorkflowsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto> {
-        const response = await this.getWorkflowsRaw(requestParameters, initOverrides);
+    async getWorkflows(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto> {
+        const response = await this.getWorkflowsRaw(initOverrides);
         return await response.value();
     }
 
@@ -1568,7 +1505,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1576,7 +1512,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/workflows`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/workflows`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1612,7 +1548,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1620,7 +1555,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/workflows/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/workflows/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1641,14 +1576,13 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Delete the app.
      */
-    async deleteAppRaw(requestParameters: AppsDeleteAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        (requestParameters as any)['app'] = this.appName;
+    async deleteAppRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1660,21 +1594,20 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Delete the app.
      */
-    async deleteApp(requestParameters: AppsDeleteAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteAppRaw(requestParameters, initOverrides);
+    async deleteApp(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteAppRaw(initOverrides);
     }
 
     /**
      * Remove the app image.
      */
-    async deleteImageRaw(requestParameters: AppsDeleteImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async deleteImageRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/image`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/image`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1686,22 +1619,21 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Remove the app image.
      */
-    async deleteImage(requestParameters: AppsDeleteImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
-        const response = await this.deleteImageRaw(requestParameters, initOverrides);
+    async deleteImage(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
+        const response = await this.deleteImageRaw(initOverrides);
         return await response.value();
     }
 
     /**
      * Get an app by name.
      */
-    async getAppRaw(requestParameters: AppsGetAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getAppRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1713,8 +1645,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Get an app by name.
      */
-    async getApp(requestParameters: AppsGetAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
-        const response = await this.getAppRaw(requestParameters, initOverrides);
+    async getApp(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
+        const response = await this.getAppRaw(initOverrides);
         return await response.value();
     }
 
@@ -1728,7 +1660,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps`,
+            path: `/api/apps`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1758,13 +1690,12 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/apps`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}/apps`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1794,7 +1725,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1802,7 +1732,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps`,
+            path: `/api/apps`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1832,7 +1762,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1840,7 +1769,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1869,7 +1798,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1877,7 +1805,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/team`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/team`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1899,7 +1827,6 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Upload the app image.
      */
     async uploadImageRaw(requestParameters: AppsUploadImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1933,7 +1860,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         }
 
         const response = await this.request({
-            path: `/api/apps/{app}/image`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/image`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1946,7 +1873,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Upload the app image.
      */
-    async uploadImage(requestParameters: AppsUploadImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
+    async uploadImage(requestParameters: AppsUploadImageRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
         const response = await this.uploadImageRaw(requestParameters, initOverrides);
         return await response.value();
     }

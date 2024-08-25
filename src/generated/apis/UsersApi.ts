@@ -147,13 +147,12 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -181,13 +180,12 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/users/{id}/picture`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/users/{id}/picture`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -213,7 +211,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api`,
+            path: `/api`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -235,7 +233,6 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
      * Get users by query.
      */
     async getUsersRaw(requestParameters: UsersGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<UserDto>>> {
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         if (requestParameters['query'] != null) {
@@ -245,7 +242,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/users`,
+            path: `/api/users`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -274,7 +271,6 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -282,7 +278,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/user`,
+            path: `/api/user`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

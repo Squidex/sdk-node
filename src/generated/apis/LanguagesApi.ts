@@ -64,7 +64,7 @@ export class LanguagesApi extends runtime.BaseAPI implements LanguagesApiInterfa
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/languages`,
+            path: `/api/languages`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

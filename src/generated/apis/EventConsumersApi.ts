@@ -122,7 +122,7 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers`,
+            path: `/api/event-consumers`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -150,13 +150,12 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers/{consumerName}/reset`.replace(`{${"consumerName"}}`, encodeURIComponent(String((requestParameters as any)['consumerName']))),
+            path: `/api/event-consumers/{consumerName}/reset`.replace(`{${"consumerName"}}`, encodeURIComponent(String((requestParameters as any)['consumerName']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -184,13 +183,12 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers/{consumerName}/start`.replace(`{${"consumerName"}}`, encodeURIComponent(String((requestParameters as any)['consumerName']))),
+            path: `/api/event-consumers/{consumerName}/start`.replace(`{${"consumerName"}}`, encodeURIComponent(String((requestParameters as any)['consumerName']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -218,13 +216,12 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers/{consumerName}/stop`.replace(`{${"consumerName"}}`, encodeURIComponent(String((requestParameters as any)['consumerName']))),
+            path: `/api/event-consumers/{consumerName}/stop`.replace(`{${"consumerName"}}`, encodeURIComponent(String((requestParameters as any)['consumerName']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

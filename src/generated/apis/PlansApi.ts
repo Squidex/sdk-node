@@ -31,9 +31,6 @@ import {
     PlansDtoToJSON,
 } from '../models/index';
 
-export interface AppPlansGetPlansRequest {
-}
-
 export interface AppPlansPutPlanRequest {
     changePlanDto: ChangePlanDto;
 }
@@ -61,12 +58,12 @@ export interface PlansApiInterface {
      * @throws {RequiredError}
      * @memberof PlansApiInterface
      */
-    getPlansRaw(requestParameters: AppPlansGetPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlansDto>>;
+    getPlansRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlansDto>>;
 
     /**
      * Get app plan information.
      */
-    getPlans(requestParameters: AppPlansGetPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlansDto>;
+    getPlans(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlansDto>;
 
     /**
      * 
@@ -124,14 +121,13 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
     /**
      * Get app plan information.
      */
-    async getPlansRaw(requestParameters: AppPlansGetPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlansDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getPlansRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlansDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/plans`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/plans`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -143,8 +139,8 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
     /**
      * Get app plan information.
      */
-    async getPlans(requestParameters: AppPlansGetPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlansDto> {
-        const response = await this.getPlansRaw(requestParameters, initOverrides);
+    async getPlans(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlansDto> {
+        const response = await this.getPlansRaw(initOverrides);
         return await response.value();
     }
 
@@ -159,7 +155,6 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -167,7 +162,7 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/plan`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/plan`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -196,13 +191,12 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/plans`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}/plans`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -237,7 +231,6 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -245,7 +238,7 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}/plan`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}/plan`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

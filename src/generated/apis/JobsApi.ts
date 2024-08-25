@@ -34,9 +34,6 @@ export interface JobsDeleteJobRequest {
     id: string;
 }
 
-export interface JobsGetJobsRequest {
-}
-
 /**
  * JobsApi - interface
  * 
@@ -82,12 +79,12 @@ export interface JobsApiInterface {
      * @throws {RequiredError}
      * @memberof JobsApiInterface
      */
-    getJobsRaw(requestParameters: JobsGetJobsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobsDto>>;
+    getJobsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobsDto>>;
 
     /**
      * Get all jobs.
      */
-    getJobs(requestParameters: JobsGetJobsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JobsDto>;
+    getJobs(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JobsDto>;
 
 }
 
@@ -107,7 +104,6 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         if (requestParameters['appId'] != null) {
@@ -117,7 +113,7 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -145,13 +141,12 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/jobs/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -170,14 +165,13 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
     /**
      * Get all jobs.
      */
-    async getJobsRaw(requestParameters: JobsGetJobsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobsDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getJobsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobsDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/jobs`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/jobs`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -189,8 +183,8 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
     /**
      * Get all jobs.
      */
-    async getJobs(requestParameters: JobsGetJobsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JobsDto> {
-        const response = await this.getJobsRaw(requestParameters, initOverrides);
+    async getJobs(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JobsDto> {
+        const response = await this.getJobsRaw(initOverrides);
         return await response.value();
     }
 

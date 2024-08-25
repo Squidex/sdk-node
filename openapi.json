@@ -86,8 +86,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "userManagement",
-        "x-fern-sdk-method-name": "getUsers"
+        "x-method-name": "getUsers"
       },
       "post": {
         "tags": [
@@ -147,8 +146,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "userManagement",
-        "x-fern-sdk-method-name": "postUser"
+        "x-method-name": "postUser"
       }
     },
     "/api/user-management/{id}": {
@@ -202,8 +200,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "userManagement",
-        "x-fern-sdk-method-name": "getUser"
+        "x-method-name": "getUser"
       },
       "put": {
         "tags": [
@@ -278,8 +275,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "userManagement",
-        "x-fern-sdk-method-name": "putUser"
+        "x-method-name": "putUser"
       },
       "delete": {
         "tags": [
@@ -344,8 +340,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "userManagement",
-        "x-fern-sdk-method-name": "deleteUser"
+        "x-method-name": "deleteUser"
       }
     },
     "/api/user-management/{id}/lock": {
@@ -419,8 +414,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "userManagement",
-        "x-fern-sdk-method-name": "lockUser"
+        "x-method-name": "lockUser"
       }
     },
     "/api/user-management/{id}/unlock": {
@@ -494,8 +488,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "userManagement",
-        "x-fern-sdk-method-name": "unlockUser"
+        "x-method-name": "unlockUser"
       }
     },
     "/api": {
@@ -532,8 +525,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "users",
-        "x-fern-sdk-method-name": "getUserResources"
+        "x-method-name": "getUserResources"
       }
     },
     "/api/user": {
@@ -586,8 +578,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "users",
-        "x-fern-sdk-method-name": "postUser"
+        "x-method-name": "postUser"
       }
     },
     "/api/users": {
@@ -639,8 +630,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "users",
-        "x-fern-sdk-method-name": "getUsers"
+        "x-method-name": "getUsers"
       }
     },
     "/api/users/{id}": {
@@ -692,8 +682,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "users",
-        "x-fern-sdk-method-name": "getUser"
+        "x-method-name": "getUser"
       }
     },
     "/api/users/{id}/picture": {
@@ -741,31 +730,16 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "users",
-        "x-fern-sdk-method-name": "getUserPicture"
+        "x-method-name": "getUserPicture"
       }
     },
-    "/api/apps/{app}/translations": {
+    "/api/apps/$app$/translations": {
       "post": {
         "tags": [
           "Translations"
         ],
         "summary": "Translate a text.",
         "operationId": "Translations_PostTranslation",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The translation request.",
@@ -818,8 +792,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "translations",
-        "x-fern-sdk-method-name": "postTranslation"
+        "x-method-name": "postTranslation"
       }
     },
     "/api/templates": {
@@ -856,8 +829,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "templates",
-        "x-fern-sdk-method-name": "getTemplates"
+        "x-method-name": "getTemplates"
       }
     },
     "/api/templates/{name}": {
@@ -909,8 +881,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "templates",
-        "x-fern-sdk-method-name": "getTemplate"
+        "x-method-name": "getTemplate"
       }
     },
     "/api/teams/{team}/contributors": {
@@ -964,8 +935,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "getContributors"
+        "x-method-name": "getContributors"
       },
       "post": {
         "tags": [
@@ -1040,8 +1010,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "postContributor"
+        "x-method-name": "postContributor"
       }
     },
     "/api/teams/{team}/contributors/me": {
@@ -1103,8 +1072,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "deleteMyself"
+        "x-method-name": "deleteMyself"
       }
     },
     "/api/teams/{team}/contributors/{id}": {
@@ -1178,8 +1146,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "deleteContributor"
+        "x-method-name": "deleteContributor"
       }
     },
     "/api/teams": {
@@ -1220,8 +1187,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "getTeams"
+        "x-method-name": "getTeams"
       },
       "post": {
         "tags": [
@@ -1280,8 +1246,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "postTeam"
+        "x-method-name": "postTeam"
       }
     },
     "/api/teams/{team}": {
@@ -1333,8 +1298,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "getTeam"
+        "x-method-name": "getTeam"
       },
       "put": {
         "tags": [
@@ -1409,8 +1373,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "putTeam"
+        "x-method-name": "putTeam"
       },
       "delete": {
         "tags": [
@@ -1465,8 +1428,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "deleteTeam"
+        "x-method-name": "deleteTeam"
       }
     },
     "/api/teams/{team}/auth": {
@@ -1520,8 +1482,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "getTeamAuth"
+        "x-method-name": "getTeamAuth"
       },
       "put": {
         "tags": [
@@ -1596,31 +1557,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "teams",
-        "x-fern-sdk-method-name": "putTeamAuth"
+        "x-method-name": "putTeamAuth"
       }
     },
-    "/api/apps/{app}/usages/log": {
+    "/api/apps/$app$/usages/log": {
       "get": {
         "tags": [
           "Statistics"
         ],
         "summary": "Get api calls as log file.",
         "operationId": "Usages_GetLog",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Usage tracking results returned.",
@@ -1653,11 +1599,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "statistics",
-        "x-fern-sdk-method-name": "getLog"
+        "x-method-name": "getLog"
       }
     },
-    "/api/apps/{app}/usages/calls/{fromDate}/{toDate}": {
+    "/api/apps/$app$/usages/calls/{fromDate}/{toDate}": {
       "get": {
         "tags": [
           "Statistics"
@@ -1665,18 +1610,6 @@
         "summary": "Get api calls in date range for app.",
         "operationId": "Usages_GetUsages",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "fromDate",
             "in": "path",
@@ -1732,8 +1665,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "statistics",
-        "x-fern-sdk-method-name": "getUsages"
+        "x-method-name": "getUsages"
       }
     },
     "/api/teams/{team}/usages/calls/{fromDate}/{toDate}": {
@@ -1809,31 +1741,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "statistics",
-        "x-fern-sdk-method-name": "getUsagesForTeam"
+        "x-method-name": "getUsagesForTeam"
       }
     },
-    "/api/apps/{app}/usages/storage/today": {
+    "/api/apps/$app$/usages/storage/today": {
       "get": {
         "tags": [
           "Statistics"
         ],
         "summary": "Get total asset size for app.",
         "operationId": "Usages_GetCurrentStorageSize",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Storage usage returned.",
@@ -1866,8 +1783,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "statistics",
-        "x-fern-sdk-method-name": "getCurrentStorageSize"
+        "x-method-name": "getCurrentStorageSize"
       }
     },
     "/api/teams/{team}/usages/storage/today": {
@@ -1921,11 +1837,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "statistics",
-        "x-fern-sdk-method-name": "getTeamCurrentStorageSizeForTeam"
+        "x-method-name": "getTeamCurrentStorageSizeForTeam"
       }
     },
-    "/api/apps/{app}/usages/storage/{fromDate}/{toDate}": {
+    "/api/apps/$app$/usages/storage/{fromDate}/{toDate}": {
       "get": {
         "tags": [
           "Statistics"
@@ -1933,18 +1848,6 @@
         "summary": "Get asset usage by date for app.",
         "operationId": "Usages_GetStorageSizes",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "fromDate",
             "in": "path",
@@ -2003,8 +1906,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "statistics",
-        "x-fern-sdk-method-name": "getStorageSizes"
+        "x-method-name": "getStorageSizes"
       }
     },
     "/api/teams/{team}/usages/storage/{fromDate}/{toDate}": {
@@ -2083,11 +1985,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "statistics",
-        "x-fern-sdk-method-name": "getStorageSizesForTeam"
+        "x-method-name": "getStorageSizesForTeam"
       }
     },
-    "/api/apps/{app}/search": {
+    "/api/apps/$app$/search": {
       "get": {
         "tags": [
           "Search"
@@ -2095,18 +1996,6 @@
         "summary": "Get search results.",
         "operationId": "Search_GetSearchResults",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "query",
             "in": "query",
@@ -2153,11 +2042,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "search",
-        "x-fern-sdk-method-name": "getSearchResults"
+        "x-method-name": "getSearchResults"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields": {
+    "/api/apps/$app$/schemas/{schema}/fields": {
       "post": {
         "tags": [
           "Schemas"
@@ -2165,18 +2053,6 @@
         "summary": "Add a schema field.",
         "operationId": "SchemaFields_PostField",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -2253,11 +2129,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "postField"
+        "x-method-name": "postField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested": {
+    "/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested": {
       "post": {
         "tags": [
           "Schemas"
@@ -2265,18 +2140,6 @@
         "summary": "Add a nested field.",
         "operationId": "SchemaFields_PostNestedField",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -2364,11 +2227,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "postNestedField"
+        "x-method-name": "postNestedField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/ui": {
+    "/api/apps/$app$/schemas/{schema}/fields/ui": {
       "put": {
         "tags": [
           "Schemas"
@@ -2376,18 +2238,6 @@
         "summary": "Configure UI fields.",
         "operationId": "SchemaFields_PutSchemaUIFields",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -2454,11 +2304,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putSchemaUIFields"
+        "x-method-name": "putSchemaUIFields"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/ordering": {
+    "/api/apps/$app$/schemas/{schema}/fields/ordering": {
       "put": {
         "tags": [
           "Schemas"
@@ -2466,18 +2315,6 @@
         "summary": "Reorder all fields.",
         "operationId": "SchemaFields_PutSchemaFieldOrdering",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -2544,11 +2381,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putSchemaFieldOrdering"
+        "x-method-name": "putSchemaFieldOrdering"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/ordering": {
+    "/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/ordering": {
       "put": {
         "tags": [
           "Schemas"
@@ -2556,18 +2392,6 @@
         "summary": "Reorder all nested fields.",
         "operationId": "SchemaFields_PutNestedFieldOrdering",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -2645,11 +2469,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putNestedFieldOrdering"
+        "x-method-name": "putNestedFieldOrdering"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{id}": {
+    "/api/apps/$app$/schemas/{schema}/fields/{id}": {
       "put": {
         "tags": [
           "Schemas"
@@ -2657,18 +2480,6 @@
         "summary": "Update a schema field.",
         "operationId": "SchemaFields_PutField",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -2746,8 +2557,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putField"
+        "x-method-name": "putField"
       },
       "delete": {
         "tags": [
@@ -2756,18 +2566,6 @@
         "summary": "Delete a schema field.",
         "operationId": "SchemaFields_DeleteField",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -2832,11 +2630,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "deleteField"
+        "x-method-name": "deleteField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}": {
+    "/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}": {
       "put": {
         "tags": [
           "Schemas"
@@ -2844,18 +2641,6 @@
         "summary": "Update a nested field.",
         "operationId": "SchemaFields_PutNestedField",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -2944,8 +2729,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putNestedField"
+        "x-method-name": "putNestedField"
       },
       "delete": {
         "tags": [
@@ -2954,18 +2738,6 @@
         "summary": "Delete a nested field.",
         "operationId": "SchemaFields_DeleteNestedField",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -3041,11 +2813,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "deleteNestedField"
+        "x-method-name": "deleteNestedField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{id}/lock": {
+    "/api/apps/$app$/schemas/{schema}/fields/{id}/lock": {
       "put": {
         "tags": [
           "Schemas"
@@ -3055,18 +2826,6 @@
         "operationId": "SchemaFields_LockField",
         "parameters": [
           {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
-          {
             "name": "schema",
             "in": "path",
             "required": true,
@@ -3130,11 +2889,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "lockField"
+        "x-method-name": "lockField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}/lock": {
+    "/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/lock": {
       "put": {
         "tags": [
           "Schemas"
@@ -3144,18 +2902,6 @@
         "operationId": "SchemaFields_LockNestedField",
         "parameters": [
           {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
-          {
             "name": "schema",
             "in": "path",
             "required": true,
@@ -3230,11 +2976,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "lockNestedField"
+        "x-method-name": "lockNestedField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{id}/hide": {
+    "/api/apps/$app$/schemas/{schema}/fields/{id}/hide": {
       "put": {
         "tags": [
           "Schemas"
@@ -3243,18 +2988,6 @@
         "description": "A hidden field is not part of the API response, but can still be edited in the portal.",
         "operationId": "SchemaFields_HideField",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -3319,11 +3052,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "hideField"
+        "x-method-name": "hideField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}/hide": {
+    "/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/hide": {
       "put": {
         "tags": [
           "Schemas"
@@ -3332,18 +3064,6 @@
         "description": "A hidden field is not part of the API response, but can still be edited in the portal.",
         "operationId": "SchemaFields_HideNestedField",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -3419,11 +3139,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "hideNestedField"
+        "x-method-name": "hideNestedField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{id}/show": {
+    "/api/apps/$app$/schemas/{schema}/fields/{id}/show": {
       "put": {
         "tags": [
           "Schemas"
@@ -3433,18 +3152,6 @@
         "operationId": "SchemaFields_ShowField",
         "parameters": [
           {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
-          {
             "name": "schema",
             "in": "path",
             "required": true,
@@ -3508,11 +3215,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "showField"
+        "x-method-name": "showField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}/show": {
+    "/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/show": {
       "put": {
         "tags": [
           "Schemas"
@@ -3522,18 +3228,6 @@
         "operationId": "SchemaFields_ShowNestedField",
         "parameters": [
           {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
-          {
             "name": "schema",
             "in": "path",
             "required": true,
@@ -3608,11 +3302,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "showNestedField"
+        "x-method-name": "showNestedField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{id}/enable": {
+    "/api/apps/$app$/schemas/{schema}/fields/{id}/enable": {
       "put": {
         "tags": [
           "Schemas"
@@ -3622,18 +3315,6 @@
         "operationId": "SchemaFields_EnableField",
         "parameters": [
           {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
-          {
             "name": "schema",
             "in": "path",
             "required": true,
@@ -3697,11 +3378,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "enableField"
+        "x-method-name": "enableField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}/enable": {
+    "/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/enable": {
       "put": {
         "tags": [
           "Schemas"
@@ -3711,18 +3391,6 @@
         "operationId": "SchemaFields_EnableNestedField",
         "parameters": [
           {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
-          {
             "name": "schema",
             "in": "path",
             "required": true,
@@ -3797,11 +3465,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "enableNestedField"
+        "x-method-name": "enableNestedField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{id}/disable": {
+    "/api/apps/$app$/schemas/{schema}/fields/{id}/disable": {
       "put": {
         "tags": [
           "Schemas"
@@ -3810,18 +3477,6 @@
         "description": "A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.",
         "operationId": "SchemaFields_DisableField",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -3886,11 +3541,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "disableField"
+        "x-method-name": "disableField"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}/disable": {
+    "/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/disable": {
       "put": {
         "tags": [
           "Schemas"
@@ -3899,18 +3553,6 @@
         "description": "A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.",
         "operationId": "SchemaFields_DisableNestedField",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -3986,31 +3628,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "disableNestedField"
+        "x-method-name": "disableNestedField"
       }
     },
-    "/api/apps/{app}/schemas": {
+    "/api/apps/$app$/schemas": {
       "get": {
         "tags": [
           "Schemas"
         ],
         "summary": "Get schemas.",
         "operationId": "Schemas_GetSchemas",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Schemas returned.",
@@ -4043,8 +3670,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "getSchemas"
+        "x-method-name": "getSchemas"
       },
       "post": {
         "tags": [
@@ -4052,20 +3678,6 @@
         ],
         "summary": "Create a new schema.",
         "operationId": "Schemas_PostSchema",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The schema object that needs to be added to the app.",
@@ -4128,11 +3740,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "postSchema"
+        "x-method-name": "postSchema"
       }
     },
-    "/api/apps/{app}/schemas/{schema}": {
+    "/api/apps/$app$/schemas/{schema}": {
       "get": {
         "tags": [
           "Schemas"
@@ -4140,18 +3751,6 @@
         "summary": "Get a schema by name.",
         "operationId": "Schemas_GetSchema",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -4195,8 +3794,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "getSchema"
+        "x-method-name": "getSchema"
       },
       "put": {
         "tags": [
@@ -4205,18 +3803,6 @@
         "summary": "Update a schema.",
         "operationId": "Schemas_PutSchema",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -4283,8 +3869,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putSchema"
+        "x-method-name": "putSchema"
       },
       "delete": {
         "tags": [
@@ -4293,18 +3878,6 @@
         "summary": "Delete a schema.",
         "operationId": "Schemas_DeleteSchema",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -4351,11 +3924,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "deleteSchema"
+        "x-method-name": "deleteSchema"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/sync": {
+    "/api/apps/$app$/schemas/{schema}/sync": {
       "put": {
         "tags": [
           "Schemas"
@@ -4363,18 +3935,6 @@
         "summary": "Synchronize a schema.",
         "operationId": "Schemas_PutSchemaSync",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -4441,11 +4001,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putSchemaSync"
+        "x-method-name": "putSchemaSync"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/category": {
+    "/api/apps/$app$/schemas/{schema}/category": {
       "put": {
         "tags": [
           "Schemas"
@@ -4453,18 +4012,6 @@
         "summary": "Update a schema category.",
         "operationId": "Schemas_PutCategory",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -4531,11 +4078,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putCategory"
+        "x-method-name": "putCategory"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/preview-urls": {
+    "/api/apps/$app$/schemas/{schema}/preview-urls": {
       "put": {
         "tags": [
           "Schemas"
@@ -4543,18 +4089,6 @@
         "summary": "Update the preview urls.",
         "operationId": "Schemas_PutPreviewUrls",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -4621,11 +4155,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putPreviewUrls"
+        "x-method-name": "putPreviewUrls"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/scripts": {
+    "/api/apps/$app$/schemas/{schema}/scripts": {
       "put": {
         "tags": [
           "Schemas"
@@ -4633,18 +4166,6 @@
         "summary": "Update the scripts.",
         "operationId": "Schemas_PutScripts",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -4711,11 +4232,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putScripts"
+        "x-method-name": "putScripts"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/rules": {
+    "/api/apps/$app$/schemas/{schema}/rules": {
       "put": {
         "tags": [
           "Schemas"
@@ -4723,18 +4243,6 @@
         "summary": "Update the rules.",
         "operationId": "Schemas_PutRules",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -4801,11 +4309,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "putRules"
+        "x-method-name": "putRules"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/publish": {
+    "/api/apps/$app$/schemas/{schema}/publish": {
       "put": {
         "tags": [
           "Schemas"
@@ -4813,18 +4320,6 @@
         "summary": "Publish a schema.",
         "operationId": "Schemas_PublishSchema",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -4878,11 +4373,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "publishSchema"
+        "x-method-name": "publishSchema"
       }
     },
-    "/api/apps/{app}/schemas/{schema}/unpublish": {
+    "/api/apps/$app$/schemas/{schema}/unpublish": {
       "put": {
         "tags": [
           "Schemas"
@@ -4890,18 +4384,6 @@
         "summary": "Unpublish a schema.",
         "operationId": "Schemas_UnpublishSchema",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -4955,8 +4437,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "schemas",
-        "x-fern-sdk-method-name": "unpublishSchema"
+        "x-method-name": "unpublishSchema"
       }
     },
     "/api/rules/actions": {
@@ -4996,31 +4477,16 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "getActions"
+        "x-method-name": "getActions"
       }
     },
-    "/api/apps/{app}/rules": {
+    "/api/apps/$app$/rules": {
       "get": {
         "tags": [
           "Rules"
         ],
         "summary": "Get rules.",
         "operationId": "Rules_GetRules",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Rules returned.",
@@ -5053,8 +4519,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "getRules"
+        "x-method-name": "getRules"
       },
       "post": {
         "tags": [
@@ -5062,20 +4527,6 @@
         ],
         "summary": "Create a new rule.",
         "operationId": "Rules_PostRule",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The rule object that needs to be added to the app.",
@@ -5131,31 +4582,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "postRule"
+        "x-method-name": "postRule"
       }
     },
-    "/api/apps/{app}/rules/run": {
+    "/api/apps/$app$/rules/run": {
       "delete": {
         "tags": [
           "Rules"
         ],
         "summary": "Cancel the current run.",
         "operationId": "Rules_DeleteRuleRun",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "204": {
             "description": "Rule run cancelled."
@@ -5188,11 +4624,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "deleteRuleRun"
+        "x-method-name": "deleteRuleRun"
       }
     },
-    "/api/apps/{app}/rules/{id}": {
+    "/api/apps/$app$/rules/{id}": {
       "put": {
         "tags": [
           "Rules"
@@ -5200,18 +4635,6 @@
         "summary": "Update a rule.",
         "operationId": "Rules_PutRule",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -5278,8 +4701,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "putRule"
+        "x-method-name": "putRule"
       },
       "delete": {
         "tags": [
@@ -5288,18 +4710,6 @@
         "summary": "Delete a rule.",
         "operationId": "Rules_DeleteRule",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -5346,11 +4756,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "deleteRule"
+        "x-method-name": "deleteRule"
       }
     },
-    "/api/apps/{app}/rules/{id}/enable": {
+    "/api/apps/$app$/rules/{id}/enable": {
       "put": {
         "tags": [
           "Rules"
@@ -5358,18 +4767,6 @@
         "summary": "Enable a rule.",
         "operationId": "Rules_EnableRule",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -5423,11 +4820,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "enableRule"
+        "x-method-name": "enableRule"
       }
     },
-    "/api/apps/{app}/rules/{id}/disable": {
+    "/api/apps/$app$/rules/{id}/disable": {
       "put": {
         "tags": [
           "Rules"
@@ -5435,18 +4831,6 @@
         "summary": "Disable a rule.",
         "operationId": "Rules_DisableRule",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -5500,11 +4884,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "disableRule"
+        "x-method-name": "disableRule"
       }
     },
-    "/api/apps/{app}/rules/{id}/trigger": {
+    "/api/apps/$app$/rules/{id}/trigger": {
       "put": {
         "tags": [
           "Rules"
@@ -5512,18 +4895,6 @@
         "summary": "Trigger a rule.",
         "operationId": "Rules_TriggerRule",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -5570,11 +4941,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "triggerRule"
+        "x-method-name": "triggerRule"
       }
     },
-    "/api/apps/{app}/rules/{id}/run": {
+    "/api/apps/$app$/rules/{id}/run": {
       "put": {
         "tags": [
           "Rules"
@@ -5582,18 +4952,6 @@
         "summary": "Run a rule.",
         "operationId": "Rules_PutRuleRun",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -5647,11 +5005,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "putRuleRun"
+        "x-method-name": "putRuleRun"
       }
     },
-    "/api/apps/{app}/rules/{id}/events": {
+    "/api/apps/$app$/rules/{id}/events": {
       "delete": {
         "tags": [
           "Rules"
@@ -5659,18 +5016,6 @@
         "summary": "Cancels all rule events.",
         "operationId": "Rules_DeleteRuleEvents",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -5714,31 +5059,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "deleteRuleEvents"
+        "x-method-name": "deleteRuleEvents"
       }
     },
-    "/api/apps/{app}/rules/simulate": {
+    "/api/apps/$app$/rules/simulate": {
       "post": {
         "tags": [
           "Rules"
         ],
         "summary": "Simulate a rule.",
         "operationId": "Rules_SimulatePOST",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The rule to simulate.",
@@ -5794,11 +5124,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "simulatePOST"
+        "x-method-name": "simulatePOST"
       }
     },
-    "/api/apps/{app}/rules/{id}/simulate": {
+    "/api/apps/$app$/rules/{id}/simulate": {
       "get": {
         "tags": [
           "Rules"
@@ -5806,18 +5135,6 @@
         "summary": "Simulate a rule.",
         "operationId": "Rules_SimulateGET",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -5861,11 +5178,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "simulateGET"
+        "x-method-name": "simulateGET"
       }
     },
-    "/api/apps/{app}/rules/events": {
+    "/api/apps/$app$/rules/events": {
       "get": {
         "tags": [
           "Rules"
@@ -5873,18 +5189,6 @@
         "summary": "Get rule events.",
         "operationId": "Rules_GetEvents",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "ruleId",
             "in": "query",
@@ -5950,8 +5254,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "getEvents"
+        "x-method-name": "getEvents"
       },
       "delete": {
         "tags": [
@@ -5959,20 +5262,6 @@
         ],
         "summary": "Cancels all events.",
         "operationId": "Rules_DeleteEvents",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "204": {
             "description": "Events cancelled."
@@ -6005,11 +5294,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "deleteEvents"
+        "x-method-name": "deleteEvents"
       }
     },
-    "/api/apps/{app}/rules/events/{id}": {
+    "/api/apps/$app$/rules/events/{id}": {
       "put": {
         "tags": [
           "Rules"
@@ -6017,18 +5305,6 @@
         "summary": "Retry the event immediately.",
         "operationId": "Rules_PutEvent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -6075,8 +5351,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "putEvent"
+        "x-method-name": "putEvent"
       },
       "delete": {
         "tags": [
@@ -6085,18 +5360,6 @@
         "summary": "Cancels an event.",
         "operationId": "Rules_DeleteEvent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -6143,8 +5406,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "deleteEvent"
+        "x-method-name": "deleteEvent"
       }
     },
     "/api/rules/eventtypes": {
@@ -6179,8 +5441,7 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "getEventTypes"
+        "x-method-name": "getEventTypes"
       }
     },
     "/api/rules/eventtypes/{type}": {
@@ -6225,31 +5486,16 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "rules",
-        "x-fern-sdk-method-name": "getEventSchema"
+        "x-method-name": "getEventSchema"
       }
     },
-    "/api/apps/{app}/plans": {
+    "/api/apps/$app$/plans": {
       "get": {
         "tags": [
           "Plans"
         ],
         "summary": "Get app plan information.",
         "operationId": "AppPlans_GetPlans",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "App plan information returned.",
@@ -6282,31 +5528,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "plans",
-        "x-fern-sdk-method-name": "getPlans"
+        "x-method-name": "getPlans"
       }
     },
-    "/api/apps/{app}/plan": {
+    "/api/apps/$app$/plan": {
       "put": {
         "tags": [
           "Plans"
         ],
         "summary": "Change the app plan.",
         "operationId": "AppPlans_PutPlan",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "Plan object that needs to be changed.",
@@ -6362,8 +5593,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "plans",
-        "x-fern-sdk-method-name": "putPlan"
+        "x-method-name": "putPlan"
       }
     },
     "/api/teams/{team}/plans": {
@@ -6417,8 +5647,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "plans",
-        "x-fern-sdk-method-name": "getTeamPlans"
+        "x-method-name": "getTeamPlans"
       }
     },
     "/api/teams/{team}/plan": {
@@ -6495,8 +5724,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "plans",
-        "x-fern-sdk-method-name": "putTeamPlan"
+        "x-method-name": "putTeamPlan"
       }
     },
     "/api/info": {
@@ -6528,8 +5756,7 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "ping",
-        "x-fern-sdk-method-name": "getInfo"
+        "x-method-name": "getInfo"
       }
     },
     "/api/ping": {
@@ -6555,11 +5782,10 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "ping",
-        "x-fern-sdk-method-name": "getPing"
+        "x-method-name": "getPing"
       }
     },
-    "/api/ping/{app}": {
+    "/api/ping/$app$": {
       "get": {
         "tags": [
           "Ping"
@@ -6567,20 +5793,6 @@
         "summary": "Get ping status.",
         "description": "Can be used to test, if the Squidex API is alive and responding.",
         "operationId": "Ping_GetAppPing",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "204": {
             "description": "Service ping successful."
@@ -6603,8 +5815,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "ping",
-        "x-fern-sdk-method-name": "getAppPing"
+        "x-method-name": "getAppPing"
       }
     },
     "/api/news/features": {
@@ -6654,8 +5865,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "news",
-        "x-fern-sdk-method-name": "getNews"
+        "x-method-name": "getNews"
       }
     },
     "/api/languages": {
@@ -6696,8 +5906,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "languages",
-        "x-fern-sdk-method-name": "getLanguages"
+        "x-method-name": "getLanguages"
       }
     },
     "/api/apps/jobs/{id}": {
@@ -6754,31 +5963,16 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "jobs",
-        "x-fern-sdk-method-name": "getJobContent"
+        "x-method-name": "getJobContent"
       }
     },
-    "/api/apps/{app}/jobs": {
+    "/api/apps/$app$/jobs": {
       "get": {
         "tags": [
           "Jobs"
         ],
         "summary": "Get all jobs.",
         "operationId": "Jobs_GetJobs",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Jobs returned.",
@@ -6811,11 +6005,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "jobs",
-        "x-fern-sdk-method-name": "getJobs"
+        "x-method-name": "getJobs"
       }
     },
-    "/api/apps/{app}/jobs/{id}": {
+    "/api/apps/$app$/jobs/{id}": {
       "delete": {
         "tags": [
           "Jobs"
@@ -6823,18 +6016,6 @@
         "summary": "Delete a job.",
         "operationId": "Jobs_DeleteJob",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -6881,11 +6062,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "jobs",
-        "x-fern-sdk-method-name": "deleteJob"
+        "x-method-name": "deleteJob"
       }
     },
-    "/api/apps/{app}/history": {
+    "/api/apps/$app$/history": {
       "get": {
         "tags": [
           "History"
@@ -6893,18 +6073,6 @@
         "summary": "Get the app history.",
         "operationId": "History_GetAppHistory",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "channel",
             "in": "query",
@@ -6950,8 +6118,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "history",
-        "x-fern-sdk-method-name": "getAppHistory"
+        "x-method-name": "getAppHistory"
       }
     },
     "/api/teams/{team}/history": {
@@ -7017,8 +6184,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "history",
-        "x-fern-sdk-method-name": "getTeamHistory"
+        "x-method-name": "getTeamHistory"
       }
     },
     "/api/event-consumers": {
@@ -7057,8 +6223,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "eventConsumers",
-        "x-fern-sdk-method-name": "getEventConsumers"
+        "x-method-name": "getEventConsumers"
       }
     },
     "/api/event-consumers/{consumerName}/start": {
@@ -7122,8 +6287,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "eventConsumers",
-        "x-fern-sdk-method-name": "startEventConsumer"
+        "x-method-name": "startEventConsumer"
       }
     },
     "/api/event-consumers/{consumerName}/stop": {
@@ -7187,8 +6351,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "eventConsumers",
-        "x-fern-sdk-method-name": "stopEventConsumer"
+        "x-method-name": "stopEventConsumer"
       }
     },
     "/api/event-consumers/{consumerName}/reset": {
@@ -7252,8 +6415,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "eventConsumers",
-        "x-fern-sdk-method-name": "resetEventConsumer"
+        "x-method-name": "resetEventConsumer"
       }
     },
     "/api/diagnostics/dump": {
@@ -7295,8 +6457,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "diagnostics",
-        "x-fern-sdk-method-name": "getDump"
+        "x-method-name": "getDump"
       }
     },
     "/api/diagnostics/gcdump": {
@@ -7338,11 +6499,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "diagnostics",
-        "x-fern-sdk-method-name": "getGCDump"
+        "x-method-name": "getGCDump"
       }
     },
-    "/api/content/{app}/{schema}": {
+    "/api/content/$app$/{schema}": {
       "get": {
         "tags": [
           "Contents"
@@ -7351,18 +6511,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_GetContents",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -7523,8 +6671,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getContents"
+        "x-method-name": "getContents"
       },
       "post": {
         "tags": [
@@ -7534,18 +6681,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_PostContent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -7659,11 +6794,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "postContent"
+        "x-method-name": "postContent"
       }
     },
-    "/api/content/{app}/{schema}/query": {
+    "/api/content/$app$/{schema}/query": {
       "post": {
         "tags": [
           "Contents"
@@ -7672,18 +6806,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_GetContentsPost",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -7802,11 +6924,10 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getContentsPost"
+        "x-method-name": "getContentsPost"
       }
     },
-    "/api/content/{app}/{schema}/{id}": {
+    "/api/content/$app$/{schema}/{id}": {
       "get": {
         "tags": [
           "Contents"
@@ -7815,18 +6936,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_GetContent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -7925,8 +7034,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getContent"
+        "x-method-name": "getContent"
       },
       "post": {
         "tags": [
@@ -7936,18 +7044,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_PostUpsertContent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -8079,8 +7175,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "postUpsertContent"
+        "x-method-name": "postUpsertContent"
       },
       "put": {
         "tags": [
@@ -8090,18 +7185,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_PutContent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -8205,8 +7288,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "putContent"
+        "x-method-name": "putContent"
       },
       "patch": {
         "tags": [
@@ -8216,18 +7298,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_PatchContent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -8322,8 +7392,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "patchContent"
+        "x-method-name": "patchContent"
       },
       "delete": {
         "tags": [
@@ -8333,18 +7402,6 @@
         "description": "You can create an generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_DeleteContent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -8419,11 +7476,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "deleteContent"
+        "x-method-name": "deleteContent"
       }
     },
-    "/api/content/{app}/{schema}/{id}/validity": {
+    "/api/content/$app$/{schema}/{id}/validity": {
       "get": {
         "tags": [
           "Contents"
@@ -8432,18 +7488,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_GetContentValidity",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -8498,11 +7542,10 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getContentValidity"
+        "x-method-name": "getContentValidity"
       }
     },
-    "/api/content/{app}/{schema}/{id}/references": {
+    "/api/content/$app$/{schema}/{id}/references": {
       "get": {
         "tags": [
           "Contents"
@@ -8511,18 +7554,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_GetReferences",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -8638,11 +7669,10 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getReferences"
+        "x-method-name": "getReferences"
       }
     },
-    "/api/content/{app}/{schema}/{id}/referencing": {
+    "/api/content/$app$/{schema}/{id}/referencing": {
       "get": {
         "tags": [
           "Contents"
@@ -8651,18 +7681,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_GetReferencing",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -8778,11 +7796,10 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getReferencing"
+        "x-method-name": "getReferencing"
       }
     },
-    "/api/content/{app}/{schema}/{id}/{version}": {
+    "/api/content/$app$/{schema}/{id}/{version}": {
       "get": {
         "tags": [
           "Contents"
@@ -8791,18 +7808,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_GetContentVersion",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -8887,11 +7892,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getContentVersion"
+        "x-method-name": "getContentVersion"
       }
     },
-    "/api/content/{app}/{schema}/import": {
+    "/api/content/$app$/{schema}/import": {
       "post": {
         "tags": [
           "Contents"
@@ -8900,18 +7904,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_PostContents",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -8982,11 +7974,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "postContents"
+        "x-method-name": "postContents"
       }
     },
-    "/api/content/{app}/{schema}/bulk": {
+    "/api/content/$app$/{schema}/bulk": {
       "post": {
         "tags": [
           "Contents"
@@ -8995,18 +7986,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_BulkUpdateContents",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -9076,11 +8055,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "bulkUpdateContents"
+        "x-method-name": "bulkUpdateContents"
       }
     },
-    "/api/content/{app}/{schema}/{id}/defaults": {
+    "/api/content/$app$/{schema}/{id}/defaults": {
       "put": {
         "tags": [
           "Contents"
@@ -9089,18 +8067,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_PutContentDefaults",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -9191,11 +8157,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "putContentDefaults"
+        "x-method-name": "putContentDefaults"
       }
     },
-    "/api/content/{app}/{schema}/{id}/status": {
+    "/api/content/$app$/{schema}/{id}/status": {
       "put": {
         "tags": [
           "Contents"
@@ -9204,18 +8169,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_PutContentStatus",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -9310,8 +8263,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "putContentStatus"
+        "x-method-name": "putContentStatus"
       },
       "delete": {
         "tags": [
@@ -9321,18 +8273,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_DeleteContentStatus",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -9414,11 +8354,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "deleteContentStatus"
+        "x-method-name": "deleteContentStatus"
       }
     },
-    "/api/content/{app}/{schema}/{id}/draft": {
+    "/api/content/$app$/{schema}/{id}/draft": {
       "post": {
         "tags": [
           "Contents"
@@ -9427,18 +8366,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_CreateDraft",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -9520,8 +8447,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "createDraft"
+        "x-method-name": "createDraft"
       },
       "delete": {
         "tags": [
@@ -9531,18 +8457,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "Contents_DeleteVersion",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "path",
@@ -9624,11 +8538,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "deleteVersion"
+        "x-method-name": "deleteVersion"
       }
     },
-    "/api/content/{app}/graphql": {
+    "/api/content/$app$/graphql": {
       "get": {
         "tags": [
           "Contents"
@@ -9637,18 +8550,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "ContentsShared_GetGraphQL",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "The query string",
             "in": "query",
@@ -9716,8 +8617,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getGraphQL"
+        "x-method-name": "getGraphQL"
       },
       "post": {
         "tags": [
@@ -9728,18 +8628,6 @@
         "operationId": "ContentsShared_PostGraphQL",
         "parameters": [
           {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
-          {
             "name": "X-Unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
@@ -9797,11 +8685,10 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "postGraphQL"
+        "x-method-name": "postGraphQL"
       }
     },
-    "/api/content/{app}/graphql/batch": {
+    "/api/content/$app$/graphql/batch": {
       "get": {
         "tags": [
           "Contents"
@@ -9810,18 +8697,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "ContentsShared_GetGraphQLBatch",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "The query string",
             "in": "query",
@@ -9889,8 +8764,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getGraphQLBatch"
+        "x-method-name": "getGraphQLBatch"
       },
       "post": {
         "tags": [
@@ -9900,18 +8774,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "ContentsShared_PostGraphQLBatch",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "X-Unpublished",
             "in": "header",
@@ -9970,11 +8832,10 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "postGraphQLBatch"
+        "x-method-name": "postGraphQLBatch"
       }
     },
-    "/api/content/{app}": {
+    "/api/content/$app$": {
       "get": {
         "tags": [
           "Contents"
@@ -9983,18 +8844,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "ContentsShared_GetAllContents",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "ids",
             "in": "query",
@@ -10142,8 +8991,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getAllContents"
+        "x-method-name": "getAllContents"
       },
       "post": {
         "tags": [
@@ -10153,18 +9001,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "ContentsShared_GetAllContentsPost",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "X-Fields",
             "in": "header",
@@ -10273,11 +9109,10 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "getAllContentsPost"
+        "x-method-name": "getAllContentsPost"
       }
     },
-    "/api/content/{app}/bulk": {
+    "/api/content/$app$/bulk": {
       "post": {
         "tags": [
           "Contents"
@@ -10286,18 +9121,6 @@
         "description": "You can read the generated documentation for your app at /api/content/{appName}/docs.",
         "operationId": "ContentsShared_BulkUpdateAllContents",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "schema",
             "in": "query",
@@ -10366,11 +9189,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "contents",
-        "x-fern-sdk-method-name": "bulkUpdateAllContents"
+        "x-method-name": "bulkUpdateAllContents"
       }
     },
-    "/api/apps/{app}/backups/{id}": {
+    "/api/apps/$app$/backups/{id}": {
       "get": {
         "tags": [
           "Backups"
@@ -10378,18 +9200,6 @@
         "summary": "Get the backup content.",
         "operationId": "BackupContent_GetBackupContent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -10428,8 +9238,7 @@
           }
         },
         "deprecated": true,
-        "x-fern-sdk-group-name": "backups",
-        "x-fern-sdk-method-name": "getBackupContent"
+        "x-method-name": "getBackupContent"
       },
       "delete": {
         "tags": [
@@ -10438,18 +9247,6 @@
         "summary": "Delete a backup.",
         "operationId": "Backups_DeleteBackup",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -10497,8 +9294,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "backups",
-        "x-fern-sdk-method-name": "deleteBackup"
+        "x-method-name": "deleteBackup"
       }
     },
     "/api/apps/backups/{id}": {
@@ -10566,31 +9362,16 @@
           }
         },
         "deprecated": true,
-        "x-fern-sdk-group-name": "backups",
-        "x-fern-sdk-method-name": "getBackupContentV2"
+        "x-method-name": "getBackupContentV2"
       }
     },
-    "/api/apps/{app}/backups": {
+    "/api/apps/$app$/backups": {
       "get": {
         "tags": [
           "Backups"
         ],
         "summary": "Get all backup jobs.",
         "operationId": "Backups_GetBackups",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Backups returned.",
@@ -10624,8 +9405,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "backups",
-        "x-fern-sdk-method-name": "getBackups"
+        "x-method-name": "getBackups"
       },
       "post": {
         "tags": [
@@ -10633,20 +9413,6 @@
         ],
         "summary": "Start a new backup.",
         "operationId": "Backups_PostBackup",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "204": {
             "description": "Backup started."
@@ -10682,8 +9448,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "backups",
-        "x-fern-sdk-method-name": "postBackup"
+        "x-method-name": "postBackup"
       }
     },
     "/api/apps/restore": {
@@ -10722,8 +9487,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "backups",
-        "x-fern-sdk-method-name": "getRestoreJob"
+        "x-method-name": "getRestoreJob"
       },
       "post": {
         "tags": [
@@ -10776,11 +9540,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "backups",
-        "x-fern-sdk-method-name": "postRestoreJob"
+        "x-method-name": "postRestoreJob"
       }
     },
-    "/api/assets/{app}/{idOrSlug}/{more}": {
+    "/api/assets/$app$/{idOrSlug}/": {
       "get": {
         "tags": [
           "Assets"
@@ -10788,18 +9551,6 @@
         "summary": "Get the asset content.",
         "operationId": "AssetContent_GetAssetContentBySlug",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "idOrSlug",
             "in": "path",
@@ -10960,16 +9711,6 @@
               "$ref": "#/components/schemas/ImageFormat"
             },
             "x-position": 17
-          },
-          {
-            "name": "more",
-            "in": "path",
-            "required": true,
-            "description": "Optional suffix that can be used to seo-optimize the link to the image Has not effect.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 18
           }
         ],
         "responses": {
@@ -11003,8 +9744,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "getAssetContentBySlug"
+        "x-method-name": "getAssetContentBySlug"
       }
     },
     "/api/assets/{id}": {
@@ -11209,11 +9949,10 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "getAssetContent"
+        "x-method-name": "getAssetContent"
       }
     },
-    "/api/apps/{app}/assets/folders": {
+    "/api/apps/$app$/assets/folders": {
       "get": {
         "tags": [
           "Assets"
@@ -11222,18 +9961,6 @@
         "description": "Get all asset folders for the app.",
         "operationId": "AssetFolders_GetAssetFolders",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "parentId",
             "in": "query",
@@ -11287,8 +10014,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "getAssetFolders"
+        "x-method-name": "getAssetFolders"
       },
       "post": {
         "tags": [
@@ -11296,20 +10022,6 @@
         ],
         "summary": "Create an asset folder.",
         "operationId": "AssetFolders_PostAssetFolder",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The asset folder object that needs to be added to the App.",
@@ -11365,11 +10077,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "postAssetFolder"
+        "x-method-name": "postAssetFolder"
       }
     },
-    "/api/apps/{app}/assets/folders/{id}": {
+    "/api/apps/$app$/assets/folders/{id}": {
       "put": {
         "tags": [
           "Assets"
@@ -11377,18 +10088,6 @@
         "summary": "Update an asset folder.",
         "operationId": "AssetFolders_PutAssetFolder",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -11455,8 +10154,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "putAssetFolder"
+        "x-method-name": "putAssetFolder"
       },
       "delete": {
         "tags": [
@@ -11465,18 +10163,6 @@
         "summary": "Delete an asset folder.",
         "operationId": "AssetFolders_DeleteAssetFolder",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -11523,11 +10209,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "deleteAssetFolder"
+        "x-method-name": "deleteAssetFolder"
       }
     },
-    "/api/apps/{app}/assets/folders/{id}/parent": {
+    "/api/apps/$app$/assets/folders/{id}/parent": {
       "put": {
         "tags": [
           "Assets"
@@ -11535,18 +10220,6 @@
         "summary": "Move an asset folder.",
         "operationId": "AssetFolders_PutAssetFolderParent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -11613,11 +10286,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "putAssetFolderParent"
+        "x-method-name": "putAssetFolderParent"
       }
     },
-    "/api/apps/{app}/assets/tags": {
+    "/api/apps/$app$/assets/tags": {
       "get": {
         "tags": [
           "Assets"
@@ -11625,20 +10297,6 @@
         "summary": "Get assets tags.",
         "description": "Get all tags for assets.",
         "operationId": "Assets_GetTags",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Assets tags returned.",
@@ -11675,11 +10333,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "getTags"
+        "x-method-name": "getTags"
       }
     },
-    "/api/apps/{app}/assets/tags/{name}": {
+    "/api/apps/$app$/assets/tags/{name}": {
       "put": {
         "tags": [
           "Assets"
@@ -11687,18 +10344,6 @@
         "summary": "Rename an asset tag.",
         "operationId": "Assets_PutTag",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "name",
             "in": "path",
@@ -11769,11 +10414,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "putTag"
+        "x-method-name": "putTag"
       }
     },
-    "/api/apps/{app}/assets": {
+    "/api/apps/$app$/assets": {
       "get": {
         "tags": [
           "Assets"
@@ -11782,18 +10426,6 @@
         "description": "Get all assets for the app.",
         "operationId": "Assets_GetAssets",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "parentId",
             "in": "query",
@@ -11911,8 +10543,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "getAssets"
+        "x-method-name": "getAssets"
       },
       "post": {
         "tags": [
@@ -11922,18 +10553,6 @@
         "description": "You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.",
         "operationId": "Assets_PostAsset",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "ParentId",
             "in": "query",
@@ -12036,11 +10655,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "postAsset"
+        "x-method-name": "postAsset"
       }
     },
-    "/api/apps/{app}/assets/query": {
+    "/api/apps/$app$/assets/query": {
       "post": {
         "tags": [
           "Assets"
@@ -12049,18 +10667,6 @@
         "description": "Get all assets for the app.",
         "operationId": "Assets_GetAssetsPost",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 0,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "X-NoTotal",
             "in": "header",
@@ -12135,11 +10741,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "getAssetsPost"
+        "x-method-name": "getAssetsPost"
       }
     },
-    "/api/apps/{app}/assets/{id}": {
+    "/api/apps/$app$/assets/{id}": {
       "get": {
         "tags": [
           "Assets"
@@ -12147,18 +10752,6 @@
         "summary": "Get an asset by id.",
         "operationId": "Assets_GetAsset",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -12202,8 +10795,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "getAsset"
+        "x-method-name": "getAsset"
       },
       "post": {
         "tags": [
@@ -12213,18 +10805,6 @@
         "description": "You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.",
         "operationId": "Assets_PostUpsertAsset",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -12327,8 +10907,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "postUpsertAsset"
+        "x-method-name": "postUpsertAsset"
       },
       "put": {
         "tags": [
@@ -12337,18 +10916,6 @@
         "summary": "Update an asset.",
         "operationId": "Assets_PutAsset",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -12415,8 +10982,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "putAsset"
+        "x-method-name": "putAsset"
       },
       "delete": {
         "tags": [
@@ -12425,18 +10991,6 @@
         "summary": "Delete an asset.",
         "operationId": "Assets_DeleteAsset",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -12501,31 +11055,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "deleteAsset"
+        "x-method-name": "deleteAsset"
       }
     },
-    "/api/apps/{app}/assets/bulk": {
+    "/api/apps/$app$/assets/bulk": {
       "post": {
         "tags": [
           "Assets"
         ],
         "summary": "Bulk update assets.",
         "operationId": "Assets_BulkUpdateAssets",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The bulk update request.",
@@ -12584,11 +11123,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "bulkUpdateAssets"
+        "x-method-name": "bulkUpdateAssets"
       }
     },
-    "/api/apps/{app}/assets/{id}/content": {
+    "/api/apps/$app$/assets/{id}/content": {
       "put": {
         "tags": [
           "Assets"
@@ -12597,18 +11135,6 @@
         "description": "Use multipart request to upload an asset.",
         "operationId": "Assets_PutAssetContent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -12693,11 +11219,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "putAssetContent"
+        "x-method-name": "putAssetContent"
       }
     },
-    "/api/apps/{app}/assets/{id}/parent": {
+    "/api/apps/$app$/assets/{id}/parent": {
       "put": {
         "tags": [
           "Assets"
@@ -12705,18 +11230,6 @@
         "summary": "Moves the asset.",
         "operationId": "Assets_PutAssetParent",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -12783,31 +11296,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "assets",
-        "x-fern-sdk-method-name": "putAssetParent"
+        "x-method-name": "putAssetParent"
       }
     },
-    "/api/apps/{app}/assets/scripts": {
+    "/api/apps/$app$/assets/scripts": {
       "get": {
         "tags": [
           "Apps"
         ],
         "summary": "Get the app asset scripts.",
         "operationId": "AppAssets_GetAssetScripts",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app to get the asset scripts for.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Asset scripts returned.",
@@ -12840,8 +11338,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getAssetScripts"
+        "x-method-name": "getAssetScripts"
       },
       "put": {
         "tags": [
@@ -12849,20 +11346,6 @@
         ],
         "summary": "Update the asset scripts.",
         "operationId": "AppAssets_PutAssetScripts",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app to update.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The values to update.",
@@ -12918,11 +11401,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "putAssetScripts"
+        "x-method-name": "putAssetScripts"
       }
     },
-    "/api/apps/{app}/clients": {
+    "/api/apps/$app$/clients": {
       "get": {
         "tags": [
           "Apps"
@@ -12930,20 +11412,6 @@
         "summary": "Get app clients.",
         "description": "Gets all configured clients for the app with the specified name.",
         "operationId": "AppClients_GetClients",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Clients returned.",
@@ -12976,8 +11444,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getClients"
+        "x-method-name": "getClients"
       },
       "post": {
         "tags": [
@@ -12986,20 +11453,6 @@
         "summary": "Create a new app client.",
         "description": "Create a new client for the app with the specified name.\nThe client secret is auto generated on the server and returned. The client does not expire, the access token is valid for 30 days.",
         "operationId": "AppClients_PostClient",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "Client object that needs to be added to the app.",
@@ -13055,11 +11508,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "postClient"
+        "x-method-name": "postClient"
       }
     },
-    "/api/apps/{app}/clients/{id}": {
+    "/api/apps/$app$/clients/{id}": {
       "put": {
         "tags": [
           "Apps"
@@ -13068,18 +11520,6 @@
         "description": "Only the display name can be changed, create a new client if necessary.",
         "operationId": "AppClients_PutClient",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -13146,8 +11586,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "putClient"
+        "x-method-name": "putClient"
       },
       "delete": {
         "tags": [
@@ -13157,18 +11596,6 @@
         "description": "The application that uses this client credentials cannot access the API after it has been revoked.",
         "operationId": "AppClients_DeleteClient",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -13222,31 +11649,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "deleteClient"
+        "x-method-name": "deleteClient"
       }
     },
-    "/api/apps/{app}/contributors": {
+    "/api/apps/$app$/contributors": {
       "get": {
         "tags": [
           "Apps"
         ],
         "summary": "Get app contributors.",
         "operationId": "AppContributors_GetContributors",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Contributors returned.",
@@ -13279,8 +11691,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getContributors"
+        "x-method-name": "getContributors"
       },
       "post": {
         "tags": [
@@ -13288,20 +11699,6 @@
         ],
         "summary": "Assign contributor to app.",
         "operationId": "AppContributors_PostContributor",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "Contributor object that needs to be added to the app.",
@@ -13357,31 +11754,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "postContributor"
+        "x-method-name": "postContributor"
       }
     },
-    "/api/apps/{app}/contributors/me": {
+    "/api/apps/$app$/contributors/me": {
       "delete": {
         "tags": [
           "Apps"
         ],
         "summary": "Remove yourself.",
         "operationId": "AppContributors_DeleteMyself",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Contributor removed.",
@@ -13422,11 +11804,10 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "deleteMyself"
+        "x-method-name": "deleteMyself"
       }
     },
-    "/api/apps/{app}/contributors/{id}": {
+    "/api/apps/$app$/contributors/{id}": {
       "delete": {
         "tags": [
           "Apps"
@@ -13434,18 +11815,6 @@
         "summary": "Remove contributor.",
         "operationId": "AppContributors_DeleteContributor",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -13499,31 +11868,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "deleteContributor"
+        "x-method-name": "deleteContributor"
       }
     },
-    "/api/apps/{app}/image": {
+    "/api/apps/$app$/image": {
       "get": {
         "tags": [
           "Apps"
         ],
         "summary": "Get the app image.",
         "operationId": "AppImage_GetImage",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "App image found and content or (resized) image returned.",
@@ -13550,8 +11904,7 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getImage"
+        "x-method-name": "getImage"
       },
       "post": {
         "tags": [
@@ -13559,20 +11912,6 @@
         ],
         "summary": "Upload the app image.",
         "operationId": "Apps_UploadImage",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app to update.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -13636,8 +11975,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "uploadImage"
+        "x-method-name": "uploadImage"
       },
       "delete": {
         "tags": [
@@ -13645,20 +11983,6 @@
         ],
         "summary": "Remove the app image.",
         "operationId": "Apps_DeleteImage",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app to update.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "App image removed.",
@@ -13701,31 +12025,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "deleteImage"
+        "x-method-name": "deleteImage"
       }
     },
-    "/api/apps/{app}/languages": {
+    "/api/apps/$app$/languages": {
       "get": {
         "tags": [
           "Apps"
         ],
         "summary": "Get app languages.",
         "operationId": "AppLanguages_GetLanguages",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Languages returned.",
@@ -13758,8 +12067,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getLanguages"
+        "x-method-name": "getLanguages"
       },
       "post": {
         "tags": [
@@ -13767,20 +12075,6 @@
         ],
         "summary": "Add an app language.",
         "operationId": "AppLanguages_PostLanguage",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The language to add to the app.",
@@ -13836,11 +12130,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "postLanguage"
+        "x-method-name": "postLanguage"
       }
     },
-    "/api/apps/{app}/languages/{language}": {
+    "/api/apps/$app$/languages/{language}": {
       "put": {
         "tags": [
           "Apps"
@@ -13848,18 +12141,6 @@
         "summary": "Updates an app language.",
         "operationId": "AppLanguages_PutLanguage",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "language",
             "in": "path",
@@ -13926,8 +12207,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "putLanguage"
+        "x-method-name": "putLanguage"
       },
       "delete": {
         "tags": [
@@ -13936,18 +12216,6 @@
         "summary": "Deletes an app language.",
         "operationId": "AppLanguages_DeleteLanguage",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "language",
             "in": "path",
@@ -14001,31 +12269,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "deleteLanguage"
+        "x-method-name": "deleteLanguage"
       }
     },
-    "/api/apps/{app}/roles": {
+    "/api/apps/$app$/roles": {
       "get": {
         "tags": [
           "Apps"
         ],
         "summary": "Get app roles.",
         "operationId": "AppRoles_GetRoles",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Roles returned.",
@@ -14058,8 +12311,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getRoles"
+        "x-method-name": "getRoles"
       },
       "post": {
         "tags": [
@@ -14067,20 +12319,6 @@
         ],
         "summary": "Add role to app.",
         "operationId": "AppRoles_PostRole",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "Role object that needs to be added to the app.",
@@ -14136,31 +12374,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "postRole"
+        "x-method-name": "postRole"
       }
     },
-    "/api/apps/{app}/roles/permissions": {
+    "/api/apps/$app$/roles/permissions": {
       "get": {
         "tags": [
           "Apps"
         ],
         "summary": "Get app permissions.",
         "operationId": "AppRoles_GetPermissions",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "App permissions returned.",
@@ -14196,11 +12419,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getPermissions"
+        "x-method-name": "getPermissions"
       }
     },
-    "/api/apps/{app}/roles/{roleName}": {
+    "/api/apps/$app$/roles/{roleName}": {
       "put": {
         "tags": [
           "Apps"
@@ -14208,18 +12430,6 @@
         "summary": "Update an app role.",
         "operationId": "AppRoles_PutRole",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "roleName",
             "in": "path",
@@ -14286,8 +12496,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "putRole"
+        "x-method-name": "putRole"
       },
       "delete": {
         "tags": [
@@ -14296,18 +12505,6 @@
         "summary": "Remove role from app.",
         "operationId": "AppRoles_DeleteRole",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "roleName",
             "in": "path",
@@ -14361,8 +12558,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "deleteRole"
+        "x-method-name": "deleteRole"
       }
     },
     "/api/apps": {
@@ -14403,8 +12599,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getApps"
+        "x-method-name": "getApps"
       },
       "post": {
         "tags": [
@@ -14473,8 +12668,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "postApp"
+        "x-method-name": "postApp"
       }
     },
     "/api/teams/{team}/apps": {
@@ -14527,31 +12721,16 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getTeamApps"
+        "x-method-name": "getTeamApps"
       }
     },
-    "/api/apps/{app}": {
+    "/api/apps/$app$": {
       "get": {
         "tags": [
           "Apps"
         ],
         "summary": "Get an app by name.",
         "operationId": "Apps_GetApp",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Apps returned.",
@@ -14582,8 +12761,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getApp"
+        "x-method-name": "getApp"
       },
       "put": {
         "tags": [
@@ -14591,20 +12769,6 @@
         ],
         "summary": "Update the app.",
         "operationId": "Apps_PutApp",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app to update.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The values to update.",
@@ -14660,8 +12824,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "putApp"
+        "x-method-name": "putApp"
       },
       "delete": {
         "tags": [
@@ -14669,20 +12832,6 @@
         ],
         "summary": "Delete the app.",
         "operationId": "Apps_DeleteApp",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app to delete.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "204": {
             "description": "App deleted."
@@ -14718,31 +12867,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "deleteApp"
+        "x-method-name": "deleteApp"
       }
     },
-    "/api/apps/{app}/team": {
+    "/api/apps/$app$/team": {
       "put": {
         "tags": [
           "Apps"
         ],
         "summary": "Transfer the app.",
         "operationId": "Apps_PutAppTeam",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app to update.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The team information.",
@@ -14798,31 +12932,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "putAppTeam"
+        "x-method-name": "putAppTeam"
       }
     },
-    "/api/apps/{app}/settings": {
+    "/api/apps/$app$/settings": {
       "get": {
         "tags": [
           "Apps"
         ],
         "summary": "Get the app settings.",
         "operationId": "AppSettings_GetSettings",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app to get the settings for.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "App settings returned.",
@@ -14853,8 +12972,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getSettings"
+        "x-method-name": "getSettings"
       },
       "put": {
         "tags": [
@@ -14862,20 +12980,6 @@
         ],
         "summary": "Update the settings.",
         "operationId": "AppSettings_PutSettings",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app to update.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The values to update.",
@@ -14931,31 +13035,16 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "putSettings"
+        "x-method-name": "putSettings"
       }
     },
-    "/api/apps/{app}/workflows": {
+    "/api/apps/$app$/workflows": {
       "get": {
         "tags": [
           "Apps"
         ],
         "summary": "Get app workflow.",
         "operationId": "AppWorkflows_GetWorkflows",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Workflows returned.",
@@ -14988,8 +13077,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "getWorkflows"
+        "x-method-name": "getWorkflows"
       },
       "post": {
         "tags": [
@@ -14997,20 +13085,6 @@
         ],
         "summary": "Create a workflow.",
         "operationId": "AppWorkflows_PostWorkflow",
-        "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          }
-        ],
         "requestBody": {
           "x-name": "request",
           "description": "The new workflow.",
@@ -15066,11 +13140,10 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "postWorkflow"
+        "x-method-name": "postWorkflow"
       }
     },
-    "/api/apps/{app}/workflows/{id}": {
+    "/api/apps/$app$/workflows/{id}": {
       "put": {
         "tags": [
           "Apps"
@@ -15078,18 +13151,6 @@
         "summary": "Update a workflow.",
         "operationId": "AppWorkflows_PutWorkflow",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -15156,8 +13217,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "putWorkflow"
+        "x-method-name": "putWorkflow"
       },
       "delete": {
         "tags": [
@@ -15166,18 +13226,6 @@
         "summary": "Delete a workflow.",
         "operationId": "AppWorkflows_DeleteWorkflow",
         "parameters": [
-          {
-            "name": "app",
-            "in": "path",
-            "required": true,
-            "description": "The name of the app.",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1,
-            "x-fern-sdk-variable": "appName",
-            "x-hidden": "true"
-          },
           {
             "name": "id",
             "in": "path",
@@ -15231,8 +13279,7 @@
             ]
           }
         ],
-        "x-fern-sdk-group-name": "apps",
-        "x-fern-sdk-method-name": "deleteWorkflow"
+        "x-method-name": "deleteWorkflow"
       }
     }
   },
@@ -22097,10 +20144,5 @@
   ],
   "externalDocs": {
     "url": "https://docs.squidex.io"
-  },
-  "x-fern-sdk-variables": {
-    "appName": {
-      "type": "string"
-    }
   }
 }

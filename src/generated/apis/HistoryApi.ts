@@ -83,7 +83,6 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
      * Get the app history.
      */
     async getAppHistoryRaw(requestParameters: HistoryGetAppHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<HistoryEventDto>>> {
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         if (requestParameters['channel'] != null) {
@@ -93,7 +92,7 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/history`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/history`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -105,7 +104,7 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
     /**
      * Get the app history.
      */
-    async getAppHistory(requestParameters: HistoryGetAppHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<HistoryEventDto>> {
+    async getAppHistory(requestParameters: HistoryGetAppHistoryRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<HistoryEventDto>> {
         const response = await this.getAppHistoryRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -121,7 +120,6 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         if (requestParameters['channel'] != null) {
@@ -131,7 +129,7 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/history`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}/history`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

@@ -86,13 +86,12 @@ export class TemplatesApi extends runtime.BaseAPI implements TemplatesApiInterfa
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/templates/{name}`.replace(`{${"name"}}`, encodeURIComponent(String((requestParameters as any)['name']))),
+            path: `/api/templates/{name}`.replace(`{${"name"}}`, encodeURIComponent(String((requestParameters as any)['name']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -118,7 +117,7 @@ export class TemplatesApi extends runtime.BaseAPI implements TemplatesApiInterfa
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/templates`,
+            path: `/api/templates`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

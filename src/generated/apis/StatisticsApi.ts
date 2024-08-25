@@ -34,12 +34,6 @@ import {
     StorageUsagePerDateDtoToJSON,
 } from '../models/index';
 
-export interface UsagesGetCurrentStorageSizeRequest {
-}
-
-export interface UsagesGetLogRequest {
-}
-
 export interface UsagesGetStorageSizesRequest {
     fromDate: Date;
     toDate: Date;
@@ -80,12 +74,12 @@ export interface StatisticsApiInterface {
      * @throws {RequiredError}
      * @memberof StatisticsApiInterface
      */
-    getCurrentStorageSizeRaw(requestParameters: UsagesGetCurrentStorageSizeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CurrentStorageDto>>;
+    getCurrentStorageSizeRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CurrentStorageDto>>;
 
     /**
      * Get total asset size for app.
      */
-    getCurrentStorageSize(requestParameters: UsagesGetCurrentStorageSizeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CurrentStorageDto>;
+    getCurrentStorageSize(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CurrentStorageDto>;
 
     /**
      * 
@@ -94,12 +88,12 @@ export interface StatisticsApiInterface {
      * @throws {RequiredError}
      * @memberof StatisticsApiInterface
      */
-    getLogRaw(requestParameters: UsagesGetLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LogDownloadDto>>;
+    getLogRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LogDownloadDto>>;
 
     /**
      * Get api calls as log file.
      */
-    getLog(requestParameters: UsagesGetLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LogDownloadDto>;
+    getLog(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LogDownloadDto>;
 
     /**
      * 
@@ -192,14 +186,13 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get total asset size for app.
      */
-    async getCurrentStorageSizeRaw(requestParameters: UsagesGetCurrentStorageSizeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CurrentStorageDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getCurrentStorageSizeRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CurrentStorageDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/usages/storage/today`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/usages/storage/today`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -211,22 +204,21 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get total asset size for app.
      */
-    async getCurrentStorageSize(requestParameters: UsagesGetCurrentStorageSizeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CurrentStorageDto> {
-        const response = await this.getCurrentStorageSizeRaw(requestParameters, initOverrides);
+    async getCurrentStorageSize(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CurrentStorageDto> {
+        const response = await this.getCurrentStorageSizeRaw(initOverrides);
         return await response.value();
     }
 
     /**
      * Get api calls as log file.
      */
-    async getLogRaw(requestParameters: UsagesGetLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LogDownloadDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getLogRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LogDownloadDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/usages/log`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/usages/log`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -238,8 +230,8 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get api calls as log file.
      */
-    async getLog(requestParameters: UsagesGetLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LogDownloadDto> {
-        const response = await this.getLogRaw(requestParameters, initOverrides);
+    async getLog(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LogDownloadDto> {
+        const response = await this.getLogRaw(initOverrides);
         return await response.value();
     }
 
@@ -261,13 +253,12 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/usages/storage/{fromDate}/{toDate}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))),
+            path: `/api/apps/$app$/usages/storage/{fromDate}/{toDate}`.replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -309,13 +300,12 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/usages/storage/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))),
+            path: `/api/teams/{team}/usages/storage/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -343,13 +333,12 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/usages/storage/today`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}/usages/storage/today`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -384,13 +373,12 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/usages/calls/{fromDate}/{toDate}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))),
+            path: `/api/apps/$app$/usages/calls/{fromDate}/{toDate}`.replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -432,13 +420,12 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/usages/calls/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))),
+            path: `/api/teams/{team}/usages/calls/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

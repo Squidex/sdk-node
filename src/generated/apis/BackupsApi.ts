@@ -45,12 +45,6 @@ export interface BackupsDeleteBackupRequest {
     id: string;
 }
 
-export interface BackupsGetBackupsRequest {
-}
-
-export interface BackupsPostBackupRequest {
-}
-
 export interface RestorePostRestoreJobRequest {
     restoreRequestDto: RestoreRequestDto;
 }
@@ -123,13 +117,13 @@ export interface BackupsApiInterface {
      * @throws {RequiredError}
      * @memberof BackupsApiInterface
      */
-    getBackupsRaw(requestParameters: BackupsGetBackupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupJobsDto>>;
+    getBackupsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupJobsDto>>;
 
     /**
      * Get all backup jobs.
      * @deprecated
      */
-    getBackups(requestParameters: BackupsGetBackupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupJobsDto>;
+    getBackups(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupJobsDto>;
 
     /**
      * 
@@ -138,12 +132,12 @@ export interface BackupsApiInterface {
      * @throws {RequiredError}
      * @memberof BackupsApiInterface
      */
-    postBackupRaw(requestParameters: BackupsPostBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    postBackupRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Start a new backup.
      */
-    postBackup(requestParameters: BackupsPostBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    postBackup(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -193,13 +187,12 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/backups/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -229,7 +222,6 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         if (requestParameters['appId'] != null) {
@@ -243,7 +235,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -273,13 +265,12 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/backups/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -300,14 +291,13 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * Get all backup jobs.
      * @deprecated
      */
-    async getBackupsRaw(requestParameters: BackupsGetBackupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupJobsDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getBackupsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupJobsDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/backups`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/backups`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -320,22 +310,21 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * Get all backup jobs.
      * @deprecated
      */
-    async getBackups(requestParameters: BackupsGetBackupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupJobsDto> {
-        const response = await this.getBackupsRaw(requestParameters, initOverrides);
+    async getBackups(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupJobsDto> {
+        const response = await this.getBackupsRaw(initOverrides);
         return await response.value();
     }
 
     /**
      * Start a new backup.
      */
-    async postBackupRaw(requestParameters: BackupsPostBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        (requestParameters as any)['app'] = this.appName;
+    async postBackupRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/backups`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/backups`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -347,8 +336,8 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
     /**
      * Start a new backup.
      */
-    async postBackup(requestParameters: BackupsPostBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.postBackupRaw(requestParameters, initOverrides);
+    async postBackup(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.postBackupRaw(initOverrides);
     }
 
     /**
@@ -360,7 +349,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/restore`,
+            path: `/api/apps/restore`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -388,7 +377,6 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -396,7 +384,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/restore`,
+            path: `/api/apps/restore`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

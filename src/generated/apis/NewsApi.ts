@@ -62,7 +62,6 @@ export class NewsApi extends runtime.BaseAPI implements NewsApiInterface {
      * Get features since version.
      */
     async getNewsRaw(requestParameters: NewsGetNewsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FeaturesDto>> {
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         if (requestParameters['version'] != null) {
@@ -72,7 +71,7 @@ export class NewsApi extends runtime.BaseAPI implements NewsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/news/features`,
+            path: `/api/news/features`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

@@ -24,9 +24,7 @@ import {
 {{#allParams.0}}
 export interface {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request {
 {{#allParams}}
-{{^vendorExtensions.x-hidden}}
     {{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{#hasReadOnly}}Omit<{{{dataType}}}, {{#readOnlyVars}}'{{baseName}}'{{^-last}}|{{/-last}}{{/readOnlyVars}}>{{/hasReadOnly}}{{^hasReadOnly}}{{{dataType}}}{{/hasReadOnly}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}};
-{{/vendorExtensions.x-hidden}}
 {{/allParams}}
 }
 
@@ -49,9 +47,7 @@ export interface {{classname}}Interface {
      * @summary {{&summary}}
      {{/summary}}
      {{#allParams}}
-     {{^vendorExtensions.x-hidden}}
      * @param {{=<% %>=}}{<%&dataType%>}<%={{ }}=%> {{^required}}[{{/required}}{{paramName}}{{^required}}]{{/required}} {{description}}
-     {{/vendorExtensions.x-hidden}}
      {{/allParams}}
      * @param {*} [options] Override http request option.
     {{#isDeprecated}}
@@ -60,7 +56,7 @@ export interface {{classname}}Interface {
      * @throws {RequiredError}
      * @memberof {{classname}}Interface
      */
-    {{vendorExtensions.x-fern-sdk-method-name}}Raw({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request, {{/allParams.0}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}>>;
+    {{vendorExtensions.x-method-name}}Raw({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request, {{/allParams.0}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}>>;
 
     /**
      {{#notes}}
@@ -74,10 +70,10 @@ export interface {{classname}}Interface {
      {{/isDeprecated}}
      */
     {{^useSingleRequestParameter}}
-    {{vendorExtensions.x-fern-sdk-method-name}}({{#allParams}}{{^vendorExtensions.x-hidden}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/vendorExtensions.x-hidden}}{{/allParams}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>;
+    {{vendorExtensions.x-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>;
     {{/useSingleRequestParameter}}
     {{#useSingleRequestParameter}}
-    {{vendorExtensions.x-fern-sdk-method-name}}({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request, {{/allParams.0}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>;
+    {{vendorExtensions.x-method-name}}({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request, {{/allParams.0}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>;
     {{/useSingleRequestParameter}}
 
 {{/operation}}
@@ -108,23 +104,18 @@ export class {{classname}} extends runtime.BaseAPI {
      * @deprecated
      {{/isDeprecated}}
      */
-    async {{vendorExtensions.x-fern-sdk-method-name}}Raw({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request, {{/allParams.0}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}>> {
+    async {{vendorExtensions.x-method-name}}Raw({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request, {{/allParams.0}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}>> {
         {{#allParams}}
-        {{^vendorExtensions.x-hidden}}
         {{#required}}
         if (requestParameters['{{paramName}}'] == null) {
             throw new runtime.RequiredError(
                 '{{paramName}}',
-                'Required parameter "{{paramName}}" was null or undefined when calling {{vendorExtensions.x-fern-sdk-method-name}}().'
+                'Required parameter "{{paramName}}" was null or undefined when calling {{vendorExtensions.x-method-name}}().'
             );
         }
 
         {{/required}}
-        {{/vendorExtensions.x-hidden}}
         {{/allParams}}
-        {{#allParams.0}}
-        (requestParameters as any)['app'] = this.appName;
-        {{/allParams.0}}
         const queryParameters: any = {};
 
         {{#queryParams}}
@@ -287,7 +278,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {{/formParams}}
         {{/hasFormParams}}
         const response = await this.request({
-            path: `{{{path}}}`{{#pathParams}}.replace(`{${"{{baseName}}"}}`, encodeURIComponent(String((requestParameters as any)['{{paramName}}']))){{/pathParams}},
+            path: `{{{path}}}`{{#pathParams}}.replace(`{${"{{baseName}}"}}`, encodeURIComponent(String((requestParameters as any)['{{paramName}}']))){{/pathParams}}.replace("$app$", encodeURIComponent(this.appName)),
             method: '{{httpMethod}}',
             headers: headerParameters,
             query: queryParameters,
@@ -373,9 +364,9 @@ export class {{classname}} extends runtime.BaseAPI {
      {{/isDeprecated}}
      */
     {{^useSingleRequestParameter}}
-    async {{vendorExtensions.x-fern-sdk-method-name}}({{#allParams}}{{^vendorExtensions.x-hidden}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/vendorExtensions.x-hidden}}{{/allParams}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{{{returnType}}}{{#returnType}}{{#isResponseOptional}} | null | undefined {{/isResponseOptional}}{{/returnType}}{{^returnType}}void{{/returnType}}> {
+    async {{vendorExtensions.x-method-name}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{{{returnType}}}{{#returnType}}{{#isResponseOptional}} | null | undefined {{/isResponseOptional}}{{/returnType}}{{^returnType}}void{{/returnType}}> {
         {{#returnType}}
-        const response = await this.{{vendorExtensions.x-fern-sdk-method-name}}Raw({{#allParams.0}}{ {{#allParams}}{{^vendorExtensions.x-hidden}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/vendorExtensions.x-hidden}}{{/allParams}} }, {{/allParams.0}}initOverrides);
+        const response = await this.{{vendorExtensions.x-method-name}}Raw({{#allParams.0}}{ {{#allParams}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }, {{/allParams.0}}initOverrides);
         {{#isResponseOptional}}
         switch (response.raw.status) {
             {{#responses}}
@@ -393,14 +384,14 @@ export class {{classname}} extends runtime.BaseAPI {
         {{/isResponseOptional}}
         {{/returnType}}
         {{^returnType}}
-        await this.{{vendorExtensions.x-fern-sdk-method-name}}Raw({{#allParams.0}}{ {{#allParams}}{{^vendorExtensions.x-hidden}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/vendorExtensions.x-hidden}}{{/allParams}} }, {{/allParams.0}}initOverrides);
+        await this.{{vendorExtensions.x-method-name}}Raw({{#allParams.0}}{ {{#allParams}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }, {{/allParams.0}}initOverrides);
         {{/returnType}}
     }
     {{/useSingleRequestParameter}}
     {{#useSingleRequestParameter}}
-    async {{vendorExtensions.x-fern-sdk-method-name}}({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{{{returnType}}}{{#returnType}}{{#isResponseOptional}} | null | undefined {{/isResponseOptional}}{{/returnType}}{{^returnType}}void{{/returnType}}> {
+    async {{vendorExtensions.x-method-name}}({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{{{returnType}}}{{#returnType}}{{#isResponseOptional}} | null | undefined {{/isResponseOptional}}{{/returnType}}{{^returnType}}void{{/returnType}}> {
         {{#returnType}}
-        const response = await this.{{vendorExtensions.x-fern-sdk-method-name}}Raw({{#allParams.0}}requestParameters, {{/allParams.0}}initOverrides);
+        const response = await this.{{vendorExtensions.x-method-name}}Raw({{#allParams.0}}requestParameters, {{/allParams.0}}initOverrides);
         {{#isResponseOptional}}
         switch (response.raw.status) {
             {{#responses}}
@@ -418,7 +409,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {{/isResponseOptional}}
         {{/returnType}}
         {{^returnType}}
-        await this.{{vendorExtensions.x-fern-sdk-method-name}}Raw({{#allParams.0}}requestParameters, {{/allParams.0}}initOverrides);
+        await this.{{vendorExtensions.x-method-name}}Raw({{#allParams.0}}requestParameters, {{/allParams.0}}initOverrides);
         {{/returnType}}
     }
     {{/useSingleRequestParameter}}

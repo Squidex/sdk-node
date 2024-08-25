@@ -62,7 +62,6 @@ export class SearchApi extends runtime.BaseAPI implements SearchApiInterface {
      * Get search results.
      */
     async getSearchResultsRaw(requestParameters: SearchGetSearchResultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SearchResultDto>>> {
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         if (requestParameters['query'] != null) {
@@ -72,7 +71,7 @@ export class SearchApi extends runtime.BaseAPI implements SearchApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/search`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/search`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -84,7 +83,7 @@ export class SearchApi extends runtime.BaseAPI implements SearchApiInterface {
     /**
      * Get search results.
      */
-    async getSearchResults(requestParameters: SearchGetSearchResultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SearchResultDto>> {
+    async getSearchResults(requestParameters: SearchGetSearchResultsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SearchResultDto>> {
         const response = await this.getSearchResultsRaw(requestParameters, initOverrides);
         return await response.value();
     }

@@ -289,13 +289,12 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors/{id}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/teams/{team}/contributors/{id}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -323,13 +322,12 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors/me`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}/contributors/me`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -357,13 +355,12 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -398,7 +395,6 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -406,7 +402,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -435,13 +431,12 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -468,13 +463,12 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -502,13 +496,12 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -535,7 +528,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams`,
+            path: `/api/teams`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -565,7 +558,6 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -573,7 +565,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams`,
+            path: `/api/teams`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -610,7 +602,6 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -618,7 +609,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -654,7 +645,6 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -662,7 +652,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))),
+            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

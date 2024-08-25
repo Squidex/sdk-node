@@ -73,7 +73,7 @@ export class DiagnosticsApi extends runtime.BaseAPI implements DiagnosticsApiInt
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/diagnostics/dump`,
+            path: `/api/diagnostics/dump`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -98,7 +98,7 @@ export class DiagnosticsApi extends runtime.BaseAPI implements DiagnosticsApiInt
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/diagnostics/gcdump`,
+            path: `/api/diagnostics/gcdump`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

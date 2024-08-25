@@ -198,13 +198,12 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -231,13 +230,12 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -258,7 +256,6 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
      * Get users by query.
      */
     async getUsersRaw(requestParameters: UserManagementGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersDto>> {
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         if (requestParameters['query'] != null) {
@@ -276,7 +273,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management`,
+            path: `/api/user-management`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -304,13 +301,12 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}/lock`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/user-management/{id}/lock`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -338,7 +334,6 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -346,7 +341,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/user-management`,
+            path: `/api/user-management`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -382,7 +377,6 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -390,7 +384,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -419,13 +413,12 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}/unlock`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/user-management/{id}/unlock`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

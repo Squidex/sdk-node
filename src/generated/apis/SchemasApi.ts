@@ -172,9 +172,6 @@ export interface SchemasGetSchemaRequest {
     schema: string;
 }
 
-export interface SchemasGetSchemasRequest {
-}
-
 export interface SchemasPostSchemaRequest {
     createSchemaDto: CreateSchemaDto;
 }
@@ -586,12 +583,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    getSchemasRaw(requestParameters: SchemasGetSchemasRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemasDto>>;
+    getSchemasRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemasDto>>;
 
     /**
      * Get schemas.
      */
-    getSchemas(requestParameters: SchemasGetSchemasRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemasDto>;
+    getSchemas(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemasDto>;
 
     /**
      * 
@@ -759,13 +756,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -807,13 +803,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -849,13 +844,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{id}/disable`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/disable`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -899,13 +893,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}/disable`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/disable`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -942,13 +935,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{id}/enable`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/enable`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -992,13 +984,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}/enable`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/enable`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1035,13 +1026,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{id}/hide`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/hide`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1085,13 +1075,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}/hide`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/hide`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1128,13 +1117,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{id}/lock`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/lock`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1178,13 +1166,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}/lock`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/lock`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1220,7 +1207,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1228,7 +1214,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1271,7 +1257,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1279,7 +1264,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1322,7 +1307,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1330,7 +1314,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1380,7 +1364,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1388,7 +1371,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1431,7 +1414,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1439,7 +1421,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/ordering`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/ordering`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1475,7 +1457,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1483,7 +1464,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/ordering`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/ordering`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1519,7 +1500,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1527,7 +1507,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/ui`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/ui`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1564,13 +1544,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{id}/show`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/show`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1614,13 +1593,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/fields/{parentId}/nested/{id}/show`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/show`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1649,13 +1627,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1682,13 +1659,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1708,14 +1684,13 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Get schemas.
      */
-    async getSchemasRaw(requestParameters: SchemasGetSchemasRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemasDto>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getSchemasRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemasDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/schemas`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1727,8 +1702,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Get schemas.
      */
-    async getSchemas(requestParameters: SchemasGetSchemasRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemasDto> {
-        const response = await this.getSchemasRaw(requestParameters, initOverrides);
+    async getSchemas(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemasDto> {
+        const response = await this.getSchemasRaw(initOverrides);
         return await response.value();
     }
 
@@ -1743,7 +1718,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1751,7 +1725,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/apps/$app$/schemas`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1780,13 +1754,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/publish`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}/publish`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1821,7 +1794,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1829,7 +1801,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/category`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}/category`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1865,7 +1837,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1873,7 +1844,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/preview-urls`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}/preview-urls`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1909,7 +1880,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1917,7 +1887,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/rules`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}/rules`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1953,7 +1923,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1961,7 +1930,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1997,7 +1966,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -2005,7 +1973,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/sync`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}/sync`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -2041,7 +2009,6 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -2049,7 +2016,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/scripts`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}/scripts`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -2078,13 +2045,12 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             );
         }
 
-        (requestParameters as any)['app'] = this.appName;
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/{app}/schemas/{schema}/unpublish`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))).replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))),
+            path: `/api/apps/$app$/schemas/{schema}/unpublish`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

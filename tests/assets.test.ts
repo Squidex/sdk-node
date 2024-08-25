@@ -25,7 +25,7 @@ describe("Assets", () => {
 
         const createdAsset = await client.assets.postAsset({ file: fileBlob });
 
-        const assetResponse = await client.assets.getAssetContentBySlugRaw({ idOrSlug: createdAsset.id, more: "" });
+        const assetResponse = await client.assets.getAssetContentBySlugRaw({ idOrSlug: createdAsset.id });
         const assetBlob = await assetResponse.value();
 
         expect(assetResponse.raw.headers.get("Content-Type")).toEqual("image/png");

@@ -22,9 +22,6 @@ import {
     ErrorDtoToJSON,
 } from '../models/index';
 
-export interface PingGetAppPingRequest {
-}
-
 /**
  * PingApi - interface
  * 
@@ -39,13 +36,13 @@ export interface PingApiInterface {
      * @throws {RequiredError}
      * @memberof PingApiInterface
      */
-    getAppPingRaw(requestParameters: PingGetAppPingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    getAppPingRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Can be used to test, if the Squidex API is alive and responding.
      * Get ping status.
      */
-    getAppPing(requestParameters: PingGetAppPingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    getAppPing(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -87,14 +84,13 @@ export class PingApi extends runtime.BaseAPI implements PingApiInterface {
      * Can be used to test, if the Squidex API is alive and responding.
      * Get ping status.
      */
-    async getAppPingRaw(requestParameters: PingGetAppPingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        (requestParameters as any)['app'] = this.appName;
+    async getAppPingRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/ping/{app}`.replace(`{${"app"}}`, encodeURIComponent(String((requestParameters as any)['app']))),
+            path: `/api/ping/$app$`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -107,8 +103,8 @@ export class PingApi extends runtime.BaseAPI implements PingApiInterface {
      * Can be used to test, if the Squidex API is alive and responding.
      * Get ping status.
      */
-    async getAppPing(requestParameters: PingGetAppPingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.getAppPingRaw(requestParameters, initOverrides);
+    async getAppPing(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.getAppPingRaw(initOverrides);
     }
 
     /**
@@ -120,7 +116,7 @@ export class PingApi extends runtime.BaseAPI implements PingApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/info`,
+            path: `/api/info`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -147,7 +143,7 @@ export class PingApi extends runtime.BaseAPI implements PingApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/ping`,
+            path: `/api/ping`.replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
