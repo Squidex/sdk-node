@@ -1,7 +1,7 @@
 import { SquidexBadRequestError, SquidexError } from "../src";
 import { getEnvironment, getClient, delay } from "./_utils";
 
-async function setup() {
+export async function setup() {
     console.log("SETUP");
 
     const { client } = getClient();
@@ -56,8 +56,6 @@ async function setup() {
         }
     }
 }
-
-export default setup;
 
 function getTime() {
     return new Date().getTime();

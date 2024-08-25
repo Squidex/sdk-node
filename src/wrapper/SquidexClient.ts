@@ -1,5 +1,4 @@
 import * as environments from "../environments";
-import urlJoin from "url-join";
 import {
     AppsApi,
     AppsApiInterface,
@@ -322,10 +321,7 @@ export class SquidexClients {
                 }
 
                 const response = await this.configuration.fetchApi!(
-                    urlJoin(
-                        this.clientOptions.environment ?? environments.SquidexEnvironment.Default,
-                        "/identity-server/connect/token"
-                    ),
+                    `${this.configuration.basePath}/identity-server/connect/token`,
                     {
                         headers: {
                             "Content-Type": "application/x-www-form-urlencoded",

@@ -1,7 +1,7 @@
 /** @type {import('jest').Config} */
 const config = {
-    globalSetup: "./tests/globalSetup.ts",
-    globalTeardown: "./tests/globalTeardown.ts",
+    globalSetup: "./tests/_setup",
+    globalTeardown: "./tests/_teardown",
     testTimeout: 5000,
 };
 

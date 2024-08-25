@@ -12,7 +12,7 @@ jobs:
 
       - name: Test - Start Compose
         run: docker compose up -d
-        working-directory: tests
+        working-directory: tests/docker
 
       - name: Test - RUN
         uses: kohlerdominik/docker-run-action@v1.1.0
@@ -39,4 +39,4 @@ jobs:
       - name: Test - Cleanup
         if: always()
         run: docker compose down
-        working-directory: tests
+        working-directory: tests/docker
