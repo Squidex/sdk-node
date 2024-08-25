@@ -1,1 +1,0 @@
-export { CommentsGetCommentsRequest } from "./CommentsGetCommentsRequest";
