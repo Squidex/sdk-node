@@ -80,7 +80,7 @@ export interface NestedFieldDto {
 /**
  * Check if a given object implements the NestedFieldDto interface.
  */
-export function instanceOfNestedFieldDto(value: object): value is NestedFieldDto {
+export function instanceOfNestedFieldDto(value: any): value is NestedFieldDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('fieldId' in value) || value['fieldId'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
@@ -117,7 +117,7 @@ export function NestedFieldDtoToJSON(value?: NestedFieldDto | null, ignoreDiscri
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'fieldId': value['fieldId'],
         'name': value['name'],
         'isHidden': value['isHidden'],

@@ -37,7 +37,7 @@ export interface FeatureDto {
 /**
  * Check if a given object implements the FeatureDto interface.
  */
-export function instanceOfFeatureDto(value: object): value is FeatureDto {
+export function instanceOfFeatureDto(value: any): value is FeatureDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('text' in value) || value['text'] === undefined) return false;
     return true;

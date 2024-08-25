@@ -37,7 +37,7 @@ export interface RestoreRequestDto {
 /**
  * Check if a given object implements the RestoreRequestDto interface.
  */
-export function instanceOfRestoreRequestDto(value: object): value is RestoreRequestDto {
+export function instanceOfRestoreRequestDto(value: any): value is RestoreRequestDto {
     if (!('url' in value) || value['url'] === undefined) return false;
     return true;
 }

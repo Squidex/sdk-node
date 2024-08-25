@@ -56,7 +56,7 @@ export interface UpdateWorkflowDto {
 /**
  * Check if a given object implements the UpdateWorkflowDto interface.
  */
-export function instanceOfUpdateWorkflowDto(value: object): value is UpdateWorkflowDto {
+export function instanceOfUpdateWorkflowDto(value: any): value is UpdateWorkflowDto {
     if (!('steps' in value) || value['steps'] === undefined) return false;
     if (!('initial' in value) || value['initial'] === undefined) return false;
     return true;
@@ -86,7 +86,7 @@ export function UpdateWorkflowDtoToJSON(value?: UpdateWorkflowDto | null, ignore
     return {
         
         'name': value['name'],
-        'steps': (mapValues(value['steps'], WorkflowStepDtoToJSON)),
+        'steps': (mapValues(value['steps'], x => WorkflowStepDtoToJSON(x))),
         'schemaIds': value['schemaIds'],
         'initial': value['initial'],
     };

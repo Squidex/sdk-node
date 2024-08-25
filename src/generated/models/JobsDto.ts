@@ -50,7 +50,7 @@ export interface JobsDto {
 /**
  * Check if a given object implements the JobsDto interface.
  */
-export function instanceOfJobsDto(value: object): value is JobsDto {
+export function instanceOfJobsDto(value: any): value is JobsDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
     return true;
@@ -77,7 +77,7 @@ export function JobsDtoToJSON(value?: JobsDto | null, ignoreDiscriminator = fals
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
-        'items': ((value['items'] as Array<any>).map(JobDtoToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
+        'items': ((value['items'] as Array<any>).map(x => JobDtoToJSON(x))),
     };
 }

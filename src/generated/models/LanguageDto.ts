@@ -43,7 +43,7 @@ export interface LanguageDto {
 /**
  * Check if a given object implements the LanguageDto interface.
  */
-export function instanceOfLanguageDto(value: object): value is LanguageDto {
+export function instanceOfLanguageDto(value: any): value is LanguageDto {
     if (!('iso2Code' in value) || value['iso2Code'] === undefined) return false;
     if (!('englishName' in value) || value['englishName'] === undefined) return false;
     if (!('nativeName' in value) || value['nativeName'] === undefined) return false;

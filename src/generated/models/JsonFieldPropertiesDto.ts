@@ -38,7 +38,7 @@ export interface JsonFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the JsonFieldPropertiesDto interface.
  */
-export function instanceOfJsonFieldPropertiesDto(value: object): value is JsonFieldPropertiesDto {
+export function instanceOfJsonFieldPropertiesDto(value: any): value is JsonFieldPropertiesDto {
     return true;
 }
 

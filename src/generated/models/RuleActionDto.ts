@@ -121,7 +121,7 @@ export function isWebhookRuleActionDto(value: RuleActionDto): value is WebhookRu
 /**
  * Check if a given object implements the RuleActionDto interface.
  */
-export function instanceOfRuleActionDto(value: object): value is RuleActionDto {
+export function instanceOfRuleActionDto(value: any): value is RuleActionDto {
     if (!('actionType' in value) || value['actionType'] === undefined) return false;
     return true;
 }

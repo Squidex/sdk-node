@@ -62,7 +62,7 @@ export interface AssetFoldersDto {
 /**
  * Check if a given object implements the AssetFoldersDto interface.
  */
-export function instanceOfAssetFoldersDto(value: object): value is AssetFoldersDto {
+export function instanceOfAssetFoldersDto(value: any): value is AssetFoldersDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('total' in value) || value['total'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
@@ -93,9 +93,9 @@ export function AssetFoldersDtoToJSON(value?: AssetFoldersDto | null, ignoreDisc
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'total': value['total'],
-        'items': ((value['items'] as Array<any>).map(AssetFolderDtoToJSON)),
-        'path': ((value['path'] as Array<any>).map(AssetFolderDtoToJSON)),
+        'items': ((value['items'] as Array<any>).map(x => AssetFolderDtoToJSON(x))),
+        'path': ((value['path'] as Array<any>).map(x => AssetFolderDtoToJSON(x))),
     };
 }

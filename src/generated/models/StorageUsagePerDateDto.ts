@@ -43,7 +43,7 @@ export interface StorageUsagePerDateDto {
 /**
  * Check if a given object implements the StorageUsagePerDateDto interface.
  */
-export function instanceOfStorageUsagePerDateDto(value: object): value is StorageUsagePerDateDto {
+export function instanceOfStorageUsagePerDateDto(value: any): value is StorageUsagePerDateDto {
     if (!('date' in value) || value['date'] === undefined) return false;
     if (!('totalCount' in value) || value['totalCount'] === undefined) return false;
     if (!('totalSize' in value) || value['totalSize'] === undefined) return false;

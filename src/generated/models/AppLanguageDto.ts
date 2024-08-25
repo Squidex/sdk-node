@@ -68,7 +68,7 @@ export interface AppLanguageDto {
 /**
  * Check if a given object implements the AppLanguageDto interface.
  */
-export function instanceOfAppLanguageDto(value: object): value is AppLanguageDto {
+export function instanceOfAppLanguageDto(value: any): value is AppLanguageDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('iso2Code' in value) || value['iso2Code'] === undefined) return false;
     if (!('englishName' in value) || value['englishName'] === undefined) return false;
@@ -103,7 +103,7 @@ export function AppLanguageDtoToJSON(value?: AppLanguageDto | null, ignoreDiscri
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'iso2Code': value['iso2Code'],
         'englishName': value['englishName'],
         'fallback': value['fallback'],

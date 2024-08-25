@@ -31,7 +31,7 @@ export interface UpdateProfileDto {
 /**
  * Check if a given object implements the UpdateProfileDto interface.
  */
-export function instanceOfUpdateProfileDto(value: object): value is UpdateProfileDto {
+export function instanceOfUpdateProfileDto(value: any): value is UpdateProfileDto {
     return true;
 }
 

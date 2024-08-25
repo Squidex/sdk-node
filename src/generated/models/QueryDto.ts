@@ -49,7 +49,7 @@ export interface QueryDto {
 /**
  * Check if a given object implements the QueryDto interface.
  */
-export function instanceOfQueryDto(value: object): value is QueryDto {
+export function instanceOfQueryDto(value: any): value is QueryDto {
     return true;
 }
 

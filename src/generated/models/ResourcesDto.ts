@@ -38,7 +38,7 @@ export interface ResourcesDto {
 /**
  * Check if a given object implements the ResourcesDto interface.
  */
-export function instanceOfResourcesDto(value: object): value is ResourcesDto {
+export function instanceOfResourcesDto(value: any): value is ResourcesDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     return true;
 }
@@ -63,6 +63,6 @@ export function ResourcesDtoToJSON(value?: ResourcesDto | null, ignoreDiscrimina
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
     };
 }

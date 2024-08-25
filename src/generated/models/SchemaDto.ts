@@ -179,7 +179,7 @@ export interface SchemaDto {
 /**
  * Check if a given object implements the SchemaDto interface.
  */
-export function instanceOfSchemaDto(value: object): value is SchemaDto {
+export function instanceOfSchemaDto(value: any): value is SchemaDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('createdBy' in value) || value['createdBy'] === undefined) return false;
@@ -239,7 +239,7 @@ export function SchemaDtoToJSON(value?: SchemaDto | null, ignoreDiscriminator = 
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'id': value['id'],
         'createdBy': value['createdBy'],
         'lastModifiedBy': value['lastModifiedBy'],
@@ -256,7 +256,7 @@ export function SchemaDtoToJSON(value?: SchemaDto | null, ignoreDiscriminator = 
         'previewUrls': value['previewUrls'],
         'fieldsInLists': value['fieldsInLists'],
         'fieldsInReferences': value['fieldsInReferences'],
-        'fieldRules': ((value['fieldRules'] as Array<any>).map(FieldRuleDtoToJSON)),
-        'fields': ((value['fields'] as Array<any>).map(FieldDtoToJSON)),
+        'fieldRules': ((value['fieldRules'] as Array<any>).map(x => FieldRuleDtoToJSON(x))),
+        'fields': ((value['fields'] as Array<any>).map(x => FieldDtoToJSON(x))),
     };
 }

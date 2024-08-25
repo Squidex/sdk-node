@@ -46,7 +46,7 @@ export interface GeolocationFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the GeolocationFieldPropertiesDto interface.
  */
-export function instanceOfGeolocationFieldPropertiesDto(value: object): value is GeolocationFieldPropertiesDto {
+export function instanceOfGeolocationFieldPropertiesDto(value: any): value is GeolocationFieldPropertiesDto {
     return true;
 }
 

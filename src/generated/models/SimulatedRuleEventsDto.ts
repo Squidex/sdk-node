@@ -56,7 +56,7 @@ export interface SimulatedRuleEventsDto {
 /**
  * Check if a given object implements the SimulatedRuleEventsDto interface.
  */
-export function instanceOfSimulatedRuleEventsDto(value: object): value is SimulatedRuleEventsDto {
+export function instanceOfSimulatedRuleEventsDto(value: any): value is SimulatedRuleEventsDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('total' in value) || value['total'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
@@ -85,8 +85,8 @@ export function SimulatedRuleEventsDtoToJSON(value?: SimulatedRuleEventsDto | nu
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'total': value['total'],
-        'items': ((value['items'] as Array<any>).map(SimulatedRuleEventDtoToJSON)),
+        'items': ((value['items'] as Array<any>).map(x => SimulatedRuleEventDtoToJSON(x))),
     };
 }

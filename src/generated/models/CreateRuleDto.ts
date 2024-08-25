@@ -50,7 +50,7 @@ export interface CreateRuleDto {
 /**
  * Check if a given object implements the CreateRuleDto interface.
  */
-export function instanceOfCreateRuleDto(value: object): value is CreateRuleDto {
+export function instanceOfCreateRuleDto(value: any): value is CreateRuleDto {
     if (!('trigger' in value) || value['trigger'] === undefined) return false;
     if (!('action' in value) || value['action'] === undefined) return false;
     return true;

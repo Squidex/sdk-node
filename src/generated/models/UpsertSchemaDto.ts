@@ -104,7 +104,7 @@ export interface UpsertSchemaDto {
 /**
  * Check if a given object implements the UpsertSchemaDto interface.
  */
-export function instanceOfUpsertSchemaDto(value: object): value is UpsertSchemaDto {
+export function instanceOfUpsertSchemaDto(value: any): value is UpsertSchemaDto {
     return true;
 }
 
@@ -140,9 +140,9 @@ export function UpsertSchemaDtoToJSON(value?: UpsertSchemaDto | null, ignoreDisc
         'scripts': SchemaScriptsDtoToJSON(value['scripts']),
         'fieldsInReferences': value['fieldsInReferences'],
         'fieldsInLists': value['fieldsInLists'],
-        'fields': value['fields'] == null ? undefined : ((value['fields'] as Array<any>).map(UpsertSchemaFieldDtoToJSON)),
+        'fields': value['fields'] == null ? undefined : ((value['fields'] as Array<any>).map(x => UpsertSchemaFieldDtoToJSON(x))),
         'previewUrls': value['previewUrls'],
-        'fieldRules': value['fieldRules'] == null ? undefined : ((value['fieldRules'] as Array<any>).map(FieldRuleDtoToJSON)),
+        'fieldRules': value['fieldRules'] == null ? undefined : ((value['fieldRules'] as Array<any>).map(x => FieldRuleDtoToJSON(x))),
         'category': value['category'],
         'isPublished': value['isPublished'],
     };

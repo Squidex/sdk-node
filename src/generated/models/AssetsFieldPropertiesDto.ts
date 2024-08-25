@@ -174,7 +174,7 @@ export interface AssetsFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the AssetsFieldPropertiesDto interface.
  */
-export function instanceOfAssetsFieldPropertiesDto(value: object): value is AssetsFieldPropertiesDto {
+export function instanceOfAssetsFieldPropertiesDto(value: any): value is AssetsFieldPropertiesDto {
     return true;
 }
 

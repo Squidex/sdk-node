@@ -68,7 +68,7 @@ export interface WorkflowStepDto {
 /**
  * Check if a given object implements the WorkflowStepDto interface.
  */
-export function instanceOfWorkflowStepDto(value: object): value is WorkflowStepDto {
+export function instanceOfWorkflowStepDto(value: any): value is WorkflowStepDto {
     return true;
 }
 
@@ -97,7 +97,7 @@ export function WorkflowStepDtoToJSON(value?: WorkflowStepDto | null, ignoreDisc
     }
     return {
         
-        'transitions': value['transitions'] == null ? undefined : (mapValues(value['transitions'], WorkflowTransitionDtoToJSON)),
+        'transitions': value['transitions'] == null ? undefined : (mapValues(value['transitions'], x => WorkflowTransitionDtoToJSON(x))),
         'color': value['color'],
         'validate': value['validate'],
         'noUpdate': value['noUpdate'],

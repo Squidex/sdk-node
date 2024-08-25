@@ -37,7 +37,7 @@ export interface UserProperty {
 /**
  * Check if a given object implements the UserProperty interface.
  */
-export function instanceOfUserProperty(value: object): value is UserProperty {
+export function instanceOfUserProperty(value: any): value is UserProperty {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('value' in value) || value['value'] === undefined) return false;
     return true;

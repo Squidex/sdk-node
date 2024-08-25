@@ -55,7 +55,7 @@ export interface ScheduleJobDto {
 /**
  * Check if a given object implements the ScheduleJobDto interface.
  */
-export function instanceOfScheduleJobDto(value: object): value is ScheduleJobDto {
+export function instanceOfScheduleJobDto(value: any): value is ScheduleJobDto {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
     if (!('dueTime' in value) || value['dueTime'] === undefined) return false;

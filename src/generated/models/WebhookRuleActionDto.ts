@@ -76,7 +76,7 @@ export interface WebhookRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the WebhookRuleActionDto interface.
  */
-export function instanceOfWebhookRuleActionDto(value: object): value is WebhookRuleActionDto {
+export function instanceOfWebhookRuleActionDto(value: any): value is WebhookRuleActionDto {
     if (!('url' in value) || value['url'] === undefined) return false;
     if (!('method' in value) || value['method'] === undefined) return false;
     return true;

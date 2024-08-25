@@ -68,7 +68,7 @@ export interface OpenSearchRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the OpenSearchRuleActionDto interface.
  */
-export function instanceOfOpenSearchRuleActionDto(value: object): value is OpenSearchRuleActionDto {
+export function instanceOfOpenSearchRuleActionDto(value: any): value is OpenSearchRuleActionDto {
     if (!('host' in value) || value['host'] === undefined) return false;
     if (!('indexName' in value) || value['indexName'] === undefined) return false;
     return true;

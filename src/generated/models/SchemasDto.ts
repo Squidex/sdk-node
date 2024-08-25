@@ -50,7 +50,7 @@ export interface SchemasDto {
 /**
  * Check if a given object implements the SchemasDto interface.
  */
-export function instanceOfSchemasDto(value: object): value is SchemasDto {
+export function instanceOfSchemasDto(value: any): value is SchemasDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
     return true;
@@ -77,7 +77,7 @@ export function SchemasDtoToJSON(value?: SchemasDto | null, ignoreDiscriminator 
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
-        'items': ((value['items'] as Array<any>).map(SchemaDtoToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
+        'items': ((value['items'] as Array<any>).map(x => SchemaDtoToJSON(x))),
     };
 }

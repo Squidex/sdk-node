@@ -80,7 +80,7 @@ export interface UpsertSchemaFieldDto {
 /**
  * Check if a given object implements the UpsertSchemaFieldDto interface.
  */
-export function instanceOfUpsertSchemaFieldDto(value: object): value is UpsertSchemaFieldDto {
+export function instanceOfUpsertSchemaFieldDto(value: any): value is UpsertSchemaFieldDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('properties' in value) || value['properties'] === undefined) return false;
     return true;
@@ -118,6 +118,6 @@ export function UpsertSchemaFieldDtoToJSON(value?: UpsertSchemaFieldDto | null, 
         'isDisabled': value['isDisabled'],
         'partitioning': value['partitioning'],
         'properties': FieldPropertiesDtoToJSON(value['properties']),
-        'nested': value['nested'] == null ? undefined : ((value['nested'] as Array<any>).map(UpsertSchemaNestedFieldDtoToJSON)),
+        'nested': value['nested'] == null ? undefined : ((value['nested'] as Array<any>).map(x => UpsertSchemaNestedFieldDtoToJSON(x))),
     };
 }

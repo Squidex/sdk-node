@@ -74,7 +74,7 @@ export interface TeamDto {
 /**
  * Check if a given object implements the TeamDto interface.
  */
-export function instanceOfTeamDto(value: object): value is TeamDto {
+export function instanceOfTeamDto(value: any): value is TeamDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
@@ -110,7 +110,7 @@ export function TeamDtoToJSON(value?: TeamDto | null, ignoreDiscriminator = fals
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'id': value['id'],
         'name': value['name'],
         'version': value['version'],

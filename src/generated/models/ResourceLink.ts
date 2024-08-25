@@ -43,7 +43,7 @@ export interface ResourceLink {
 /**
  * Check if a given object implements the ResourceLink interface.
  */
-export function instanceOfResourceLink(value: object): value is ResourceLink {
+export function instanceOfResourceLink(value: any): value is ResourceLink {
     if (!('href' in value) || value['href'] === undefined) return false;
     if (!('method' in value) || value['method'] === undefined) return false;
     return true;

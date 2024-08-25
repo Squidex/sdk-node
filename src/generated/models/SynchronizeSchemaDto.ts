@@ -116,7 +116,7 @@ export interface SynchronizeSchemaDto {
 /**
  * Check if a given object implements the SynchronizeSchemaDto interface.
  */
-export function instanceOfSynchronizeSchemaDto(value: object): value is SynchronizeSchemaDto {
+export function instanceOfSynchronizeSchemaDto(value: any): value is SynchronizeSchemaDto {
     return true;
 }
 
@@ -154,9 +154,9 @@ export function SynchronizeSchemaDtoToJSON(value?: SynchronizeSchemaDto | null, 
         'scripts': SchemaScriptsDtoToJSON(value['scripts']),
         'fieldsInReferences': value['fieldsInReferences'],
         'fieldsInLists': value['fieldsInLists'],
-        'fields': value['fields'] == null ? undefined : ((value['fields'] as Array<any>).map(UpsertSchemaFieldDtoToJSON)),
+        'fields': value['fields'] == null ? undefined : ((value['fields'] as Array<any>).map(x => UpsertSchemaFieldDtoToJSON(x))),
         'previewUrls': value['previewUrls'],
-        'fieldRules': value['fieldRules'] == null ? undefined : ((value['fieldRules'] as Array<any>).map(FieldRuleDtoToJSON)),
+        'fieldRules': value['fieldRules'] == null ? undefined : ((value['fieldRules'] as Array<any>).map(x => FieldRuleDtoToJSON(x))),
         'category': value['category'],
         'isPublished': value['isPublished'],
         'noFieldDeletion': value['noFieldDeletion'],

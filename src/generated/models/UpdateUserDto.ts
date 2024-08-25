@@ -49,7 +49,7 @@ export interface UpdateUserDto {
 /**
  * Check if a given object implements the UpdateUserDto interface.
  */
-export function instanceOfUpdateUserDto(value: object): value is UpdateUserDto {
+export function instanceOfUpdateUserDto(value: any): value is UpdateUserDto {
     if (!('email' in value) || value['email'] === undefined) return false;
     if (!('displayName' in value) || value['displayName'] === undefined) return false;
     if (!('permissions' in value) || value['permissions'] === undefined) return false;

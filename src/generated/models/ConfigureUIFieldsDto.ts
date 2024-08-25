@@ -37,7 +37,7 @@ export interface ConfigureUIFieldsDto {
 /**
  * Check if a given object implements the ConfigureUIFieldsDto interface.
  */
-export function instanceOfConfigureUIFieldsDto(value: object): value is ConfigureUIFieldsDto {
+export function instanceOfConfigureUIFieldsDto(value: any): value is ConfigureUIFieldsDto {
     return true;
 }
 

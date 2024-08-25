@@ -56,7 +56,7 @@ export interface NotificationRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the NotificationRuleActionDto interface.
  */
-export function instanceOfNotificationRuleActionDto(value: object): value is NotificationRuleActionDto {
+export function instanceOfNotificationRuleActionDto(value: any): value is NotificationRuleActionDto {
     if (!('user' in value) || value['user'] === undefined) return false;
     if (!('text' in value) || value['text'] === undefined) return false;
     return true;

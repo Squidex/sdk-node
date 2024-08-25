@@ -106,7 +106,7 @@ export interface RuleEventDto {
 /**
  * Check if a given object implements the RuleEventDto interface.
  */
-export function instanceOfRuleEventDto(value: object): value is RuleEventDto {
+export function instanceOfRuleEventDto(value: any): value is RuleEventDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('created' in value) || value['created'] === undefined) return false;
@@ -147,7 +147,7 @@ export function RuleEventDtoToJSON(value?: RuleEventDto | null, ignoreDiscrimina
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'id': value['id'],
         'created': ((value['created']).toISOString()),
         'description': value['description'],

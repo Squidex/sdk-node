@@ -38,7 +38,7 @@ export interface AuthSchemeValueDto {
 /**
  * Check if a given object implements the AuthSchemeValueDto interface.
  */
-export function instanceOfAuthSchemeValueDto(value: object): value is AuthSchemeValueDto {
+export function instanceOfAuthSchemeValueDto(value: any): value is AuthSchemeValueDto {
     return true;
 }
 

@@ -55,7 +55,7 @@ export interface AnnotateAssetDto {
 /**
  * Check if a given object implements the AnnotateAssetDto interface.
  */
-export function instanceOfAnnotateAssetDto(value: object): value is AnnotateAssetDto {
+export function instanceOfAnnotateAssetDto(value: any): value is AnnotateAssetDto {
     return true;
 }
 

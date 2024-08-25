@@ -82,7 +82,7 @@ export interface BackupJobDto {
 /**
  * Check if a given object implements the BackupJobDto interface.
  */
-export function instanceOfBackupJobDto(value: object): value is BackupJobDto {
+export function instanceOfBackupJobDto(value: any): value is BackupJobDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('started' in value) || value['started'] === undefined) return false;
@@ -118,7 +118,7 @@ export function BackupJobDtoToJSON(value?: BackupJobDto | null, ignoreDiscrimina
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'id': value['id'],
         'started': ((value['started']).toISOString()),
         'stopped': value['stopped'] == null ? undefined : ((value['stopped'] as any).toISOString()),

@@ -31,7 +31,7 @@ export interface ChangeCategoryDto {
 /**
  * Check if a given object implements the ChangeCategoryDto interface.
  */
-export function instanceOfChangeCategoryDto(value: object): value is ChangeCategoryDto {
+export function instanceOfChangeCategoryDto(value: any): value is ChangeCategoryDto {
     return true;
 }
 

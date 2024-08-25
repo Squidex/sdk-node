@@ -50,7 +50,7 @@ export interface AuthSchemeResponseDto {
 /**
  * Check if a given object implements the AuthSchemeResponseDto interface.
  */
-export function instanceOfAuthSchemeResponseDto(value: object): value is AuthSchemeResponseDto {
+export function instanceOfAuthSchemeResponseDto(value: any): value is AuthSchemeResponseDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     return true;
 }
@@ -76,7 +76,7 @@ export function AuthSchemeResponseDtoToJSON(value?: AuthSchemeResponseDto | null
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'scheme': AuthSchemeDtoToJSON(value['scheme']),
     };
 }

@@ -88,7 +88,7 @@ export interface NumberFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the NumberFieldPropertiesDto interface.
  */
-export function instanceOfNumberFieldPropertiesDto(value: object): value is NumberFieldPropertiesDto {
+export function instanceOfNumberFieldPropertiesDto(value: any): value is NumberFieldPropertiesDto {
     return true;
 }
 

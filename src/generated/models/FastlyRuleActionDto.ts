@@ -44,7 +44,7 @@ export interface FastlyRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the FastlyRuleActionDto interface.
  */
-export function instanceOfFastlyRuleActionDto(value: object): value is FastlyRuleActionDto {
+export function instanceOfFastlyRuleActionDto(value: any): value is FastlyRuleActionDto {
     if (!('apiKey' in value) || value['apiKey'] === undefined) return false;
     if (!('serviceId' in value) || value['serviceId'] === undefined) return false;
     return true;

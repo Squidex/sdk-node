@@ -74,7 +74,7 @@ export interface QueryJsonDto {
 /**
  * Check if a given object implements the QueryJsonDto interface.
  */
-export function instanceOfQueryJsonDto(value: object): value is QueryJsonDto {
+export function instanceOfQueryJsonDto(value: any): value is QueryJsonDto {
     if (!('skip' in value) || value['skip'] === undefined) return false;
     if (!('take' in value) || value['take'] === undefined) return false;
     if (!('random' in value) || value['random'] === undefined) return false;
@@ -114,6 +114,6 @@ export function QueryJsonDtoToJSON(value?: QueryJsonDto | null, ignoreDiscrimina
         'take': value['take'],
         'random': value['random'],
         'top': value['top'],
-        'sort': value['sort'] == null ? undefined : ((value['sort'] as Array<any>).map(SortNodeToJSON)),
+        'sort': value['sort'] == null ? undefined : ((value['sort'] as Array<any>).map(x => SortNodeToJSON(x))),
     };
 }

@@ -37,7 +37,7 @@ export interface SchemaCondition {
 /**
  * Check if a given object implements the SchemaCondition interface.
  */
-export function instanceOfSchemaCondition(value: object): value is SchemaCondition {
+export function instanceOfSchemaCondition(value: any): value is SchemaCondition {
     if (!('schemaId' in value) || value['schemaId'] === undefined) return false;
     return true;
 }

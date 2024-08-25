@@ -49,7 +49,7 @@ export interface CreateUserDto {
 /**
  * Check if a given object implements the CreateUserDto interface.
  */
-export function instanceOfCreateUserDto(value: object): value is CreateUserDto {
+export function instanceOfCreateUserDto(value: any): value is CreateUserDto {
     if (!('email' in value) || value['email'] === undefined) return false;
     if (!('displayName' in value) || value['displayName'] === undefined) return false;
     if (!('password' in value) || value['password'] === undefined) return false;

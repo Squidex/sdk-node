@@ -56,7 +56,7 @@ export interface ContentChangedRuleTriggerDto extends RuleTriggerDto {
 /**
  * Check if a given object implements the ContentChangedRuleTriggerDto interface.
  */
-export function instanceOfContentChangedRuleTriggerDto(value: object): value is ContentChangedRuleTriggerDto {
+export function instanceOfContentChangedRuleTriggerDto(value: any): value is ContentChangedRuleTriggerDto {
     if (!('handleAll' in value) || value['handleAll'] === undefined) return false;
     return true;
 }
@@ -83,8 +83,8 @@ export function ContentChangedRuleTriggerDtoToJSON(value?: ContentChangedRuleTri
     }
     return {
         ...RuleTriggerDtoToJSON(value, true),
-        'schemas': value['schemas'] == null ? undefined : ((value['schemas'] as Array<any>).map(SchemaConditionToJSON)),
-        'referencedSchemas': value['referencedSchemas'] == null ? undefined : ((value['referencedSchemas'] as Array<any>).map(SchemaConditionToJSON)),
+        'schemas': value['schemas'] == null ? undefined : ((value['schemas'] as Array<any>).map(x => SchemaConditionToJSON(x))),
+        'referencedSchemas': value['referencedSchemas'] == null ? undefined : ((value['referencedSchemas'] as Array<any>).map(x => SchemaConditionToJSON(x))),
         'handleAll': value['handleAll'],
     };
 }

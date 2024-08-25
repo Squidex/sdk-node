@@ -62,7 +62,7 @@ export interface TemplateDto {
 /**
  * Check if a given object implements the TemplateDto interface.
  */
-export function instanceOfTemplateDto(value: object): value is TemplateDto {
+export function instanceOfTemplateDto(value: any): value is TemplateDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('title' in value) || value['title'] === undefined) return false;
@@ -95,7 +95,7 @@ export function TemplateDtoToJSON(value?: TemplateDto | null, ignoreDiscriminato
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'name': value['name'],
         'title': value['title'],
         'description': value['description'],

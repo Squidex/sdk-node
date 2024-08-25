@@ -43,7 +43,7 @@ export interface UpdateLanguageDto {
 /**
  * Check if a given object implements the UpdateLanguageDto interface.
  */
-export function instanceOfUpdateLanguageDto(value: object): value is UpdateLanguageDto {
+export function instanceOfUpdateLanguageDto(value: any): value is UpdateLanguageDto {
     return true;
 }
 

@@ -31,7 +31,7 @@ export interface RenameAssetFolderDto {
 /**
  * Check if a given object implements the RenameAssetFolderDto interface.
  */
-export function instanceOfRenameAssetFolderDto(value: object): value is RenameAssetFolderDto {
+export function instanceOfRenameAssetFolderDto(value: any): value is RenameAssetFolderDto {
     if (!('folderName' in value) || value['folderName'] === undefined) return false;
     return true;
 }

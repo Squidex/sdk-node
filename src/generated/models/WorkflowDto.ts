@@ -74,7 +74,7 @@ export interface WorkflowDto {
 /**
  * Check if a given object implements the WorkflowDto interface.
  */
-export function instanceOfWorkflowDto(value: object): value is WorkflowDto {
+export function instanceOfWorkflowDto(value: any): value is WorkflowDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('steps' in value) || value['steps'] === undefined) return false;
@@ -107,10 +107,10 @@ export function WorkflowDtoToJSON(value?: WorkflowDto | null, ignoreDiscriminato
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'id': value['id'],
         'name': value['name'],
-        'steps': (mapValues(value['steps'], WorkflowStepDtoToJSON)),
+        'steps': (mapValues(value['steps'], x => WorkflowStepDtoToJSON(x))),
         'schemaIds': value['schemaIds'],
         'initial': value['initial'],
     };

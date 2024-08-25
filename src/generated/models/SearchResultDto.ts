@@ -64,7 +64,7 @@ export interface SearchResultDto {
 /**
  * Check if a given object implements the SearchResultDto interface.
  */
-export function instanceOfSearchResultDto(value: object): value is SearchResultDto {
+export function instanceOfSearchResultDto(value: any): value is SearchResultDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
@@ -94,7 +94,7 @@ export function SearchResultDtoToJSON(value?: SearchResultDto | null, ignoreDisc
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'name': value['name'],
         'type': SearchResultTypeToJSON(value['type']),
         'label': value['label'],

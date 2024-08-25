@@ -131,7 +131,7 @@ export interface CreateSchemaDto {
 /**
  * Check if a given object implements the CreateSchemaDto interface.
  */
-export function instanceOfCreateSchemaDto(value: object): value is CreateSchemaDto {
+export function instanceOfCreateSchemaDto(value: any): value is CreateSchemaDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     return true;
 }
@@ -171,9 +171,9 @@ export function CreateSchemaDtoToJSON(value?: CreateSchemaDto | null, ignoreDisc
         'scripts': SchemaScriptsDtoToJSON(value['scripts']),
         'fieldsInReferences': value['fieldsInReferences'],
         'fieldsInLists': value['fieldsInLists'],
-        'fields': value['fields'] == null ? undefined : ((value['fields'] as Array<any>).map(UpsertSchemaFieldDtoToJSON)),
+        'fields': value['fields'] == null ? undefined : ((value['fields'] as Array<any>).map(x => UpsertSchemaFieldDtoToJSON(x))),
         'previewUrls': value['previewUrls'],
-        'fieldRules': value['fieldRules'] == null ? undefined : ((value['fieldRules'] as Array<any>).map(FieldRuleDtoToJSON)),
+        'fieldRules': value['fieldRules'] == null ? undefined : ((value['fieldRules'] as Array<any>).map(x => FieldRuleDtoToJSON(x))),
         'category': value['category'],
         'isPublished': value['isPublished'],
         'name': value['name'],

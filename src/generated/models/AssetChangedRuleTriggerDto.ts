@@ -38,7 +38,7 @@ export interface AssetChangedRuleTriggerDto extends RuleTriggerDto {
 /**
  * Check if a given object implements the AssetChangedRuleTriggerDto interface.
  */
-export function instanceOfAssetChangedRuleTriggerDto(value: object): value is AssetChangedRuleTriggerDto {
+export function instanceOfAssetChangedRuleTriggerDto(value: any): value is AssetChangedRuleTriggerDto {
     return true;
 }
 

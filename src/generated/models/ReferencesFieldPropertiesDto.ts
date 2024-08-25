@@ -100,7 +100,7 @@ export interface ReferencesFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the ReferencesFieldPropertiesDto interface.
  */
-export function instanceOfReferencesFieldPropertiesDto(value: object): value is ReferencesFieldPropertiesDto {
+export function instanceOfReferencesFieldPropertiesDto(value: any): value is ReferencesFieldPropertiesDto {
     return true;
 }
 

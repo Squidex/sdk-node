@@ -67,7 +67,7 @@ export interface UpdateAssetScriptsDto {
 /**
  * Check if a given object implements the UpdateAssetScriptsDto interface.
  */
-export function instanceOfUpdateAssetScriptsDto(value: object): value is UpdateAssetScriptsDto {
+export function instanceOfUpdateAssetScriptsDto(value: any): value is UpdateAssetScriptsDto {
     return true;
 }
 

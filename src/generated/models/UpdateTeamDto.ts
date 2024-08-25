@@ -31,7 +31,7 @@ export interface UpdateTeamDto {
 /**
  * Check if a given object implements the UpdateTeamDto interface.
  */
-export function instanceOfUpdateTeamDto(value: object): value is UpdateTeamDto {
+export function instanceOfUpdateTeamDto(value: any): value is UpdateTeamDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     return true;
 }

@@ -37,7 +37,7 @@ export interface StatusInfoDto {
 /**
  * Check if a given object implements the StatusInfoDto interface.
  */
-export function instanceOfStatusInfoDto(value: object): value is StatusInfoDto {
+export function instanceOfStatusInfoDto(value: any): value is StatusInfoDto {
     if (!('status' in value) || value['status'] === undefined) return false;
     if (!('color' in value) || value['color'] === undefined) return false;
     return true;

@@ -31,7 +31,7 @@ export interface AddLanguageDto {
 /**
  * Check if a given object implements the AddLanguageDto interface.
  */
-export function instanceOfAddLanguageDto(value: object): value is AddLanguageDto {
+export function instanceOfAddLanguageDto(value: any): value is AddLanguageDto {
     if (!('language' in value) || value['language'] === undefined) return false;
     return true;
 }

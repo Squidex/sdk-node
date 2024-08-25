@@ -38,7 +38,7 @@ export interface SchemaChangedRuleTriggerDto extends RuleTriggerDto {
 /**
  * Check if a given object implements the SchemaChangedRuleTriggerDto interface.
  */
-export function instanceOfSchemaChangedRuleTriggerDto(value: object): value is SchemaChangedRuleTriggerDto {
+export function instanceOfSchemaChangedRuleTriggerDto(value: any): value is SchemaChangedRuleTriggerDto {
     return true;
 }
 

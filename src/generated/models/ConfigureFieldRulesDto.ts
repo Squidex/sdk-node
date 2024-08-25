@@ -38,7 +38,7 @@ export interface ConfigureFieldRulesDto {
 /**
  * Check if a given object implements the ConfigureFieldRulesDto interface.
  */
-export function instanceOfConfigureFieldRulesDto(value: object): value is ConfigureFieldRulesDto {
+export function instanceOfConfigureFieldRulesDto(value: any): value is ConfigureFieldRulesDto {
     return true;
 }
 
@@ -62,6 +62,6 @@ export function ConfigureFieldRulesDtoToJSON(value?: ConfigureFieldRulesDto | nu
     }
     return {
         
-        'fieldRules': value['fieldRules'] == null ? undefined : ((value['fieldRules'] as Array<any>).map(FieldRuleDtoToJSON)),
+        'fieldRules': value['fieldRules'] == null ? undefined : ((value['fieldRules'] as Array<any>).map(x => FieldRuleDtoToJSON(x))),
     };
 }

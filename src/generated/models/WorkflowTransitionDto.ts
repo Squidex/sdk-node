@@ -37,7 +37,7 @@ export interface WorkflowTransitionDto {
 /**
  * Check if a given object implements the WorkflowTransitionDto interface.
  */
-export function instanceOfWorkflowTransitionDto(value: object): value is WorkflowTransitionDto {
+export function instanceOfWorkflowTransitionDto(value: any): value is WorkflowTransitionDto {
     return true;
 }
 

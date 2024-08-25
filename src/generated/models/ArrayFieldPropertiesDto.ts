@@ -64,7 +64,7 @@ export interface ArrayFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the ArrayFieldPropertiesDto interface.
  */
-export function instanceOfArrayFieldPropertiesDto(value: object): value is ArrayFieldPropertiesDto {
+export function instanceOfArrayFieldPropertiesDto(value: any): value is ArrayFieldPropertiesDto {
     return true;
 }
 

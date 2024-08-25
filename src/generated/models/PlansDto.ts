@@ -82,7 +82,7 @@ export interface PlansDto {
 /**
  * Check if a given object implements the PlansDto interface.
  */
-export function instanceOfPlansDto(value: object): value is PlansDto {
+export function instanceOfPlansDto(value: any): value is PlansDto {
     if (!('plans' in value) || value['plans'] === undefined) return false;
     if (!('locked' in value) || value['locked'] === undefined) return false;
     return true;
@@ -113,7 +113,7 @@ export function PlansDtoToJSON(value?: PlansDto | null, ignoreDiscriminator = fa
     }
     return {
         
-        'plans': ((value['plans'] as Array<any>).map(PlanDtoToJSON)),
+        'plans': ((value['plans'] as Array<any>).map(x => PlanDtoToJSON(x))),
         'currentPlanId': value['currentPlanId'],
         'planOwner': value['planOwner'],
         'portalLink': value['portalLink'],

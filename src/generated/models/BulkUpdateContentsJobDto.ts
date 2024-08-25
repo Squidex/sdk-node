@@ -112,7 +112,7 @@ export interface BulkUpdateContentsJobDto {
 /**
  * Check if a given object implements the BulkUpdateContentsJobDto interface.
  */
-export function instanceOfBulkUpdateContentsJobDto(value: object): value is BulkUpdateContentsJobDto {
+export function instanceOfBulkUpdateContentsJobDto(value: any): value is BulkUpdateContentsJobDto {
     return true;
 }
 

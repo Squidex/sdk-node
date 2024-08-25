@@ -62,7 +62,7 @@ export interface UpdateRuleDto {
 /**
  * Check if a given object implements the UpdateRuleDto interface.
  */
-export function instanceOfUpdateRuleDto(value: object): value is UpdateRuleDto {
+export function instanceOfUpdateRuleDto(value: any): value is UpdateRuleDto {
     return true;
 }
 

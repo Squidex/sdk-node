@@ -74,7 +74,7 @@ export interface RuleElementDto {
 /**
  * Check if a given object implements the RuleElementDto interface.
  */
-export function instanceOfRuleElementDto(value: object): value is RuleElementDto {
+export function instanceOfRuleElementDto(value: any): value is RuleElementDto {
     if (!('description' in value) || value['description'] === undefined) return false;
     if (!('display' in value) || value['display'] === undefined) return false;
     if (!('properties' in value) || value['properties'] === undefined) return false;
@@ -113,6 +113,6 @@ export function RuleElementDtoToJSON(value?: RuleElementDto | null, ignoreDiscri
         'iconColor': value['iconColor'],
         'iconImage': value['iconImage'],
         'readMore': value['readMore'],
-        'properties': ((value['properties'] as Array<any>).map(RuleElementPropertyDtoToJSON)),
+        'properties': ((value['properties'] as Array<any>).map(x => RuleElementPropertyDtoToJSON(x))),
     };
 }

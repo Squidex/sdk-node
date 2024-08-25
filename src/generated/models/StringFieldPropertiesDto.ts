@@ -166,7 +166,7 @@ export interface StringFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the StringFieldPropertiesDto interface.
  */
-export function instanceOfStringFieldPropertiesDto(value: object): value is StringFieldPropertiesDto {
+export function instanceOfStringFieldPropertiesDto(value: any): value is StringFieldPropertiesDto {
     return true;
 }
 

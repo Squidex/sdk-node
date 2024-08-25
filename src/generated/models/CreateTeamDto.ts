@@ -31,7 +31,7 @@ export interface CreateTeamDto {
 /**
  * Check if a given object implements the CreateTeamDto interface.
  */
-export function instanceOfCreateTeamDto(value: object): value is CreateTeamDto {
+export function instanceOfCreateTeamDto(value: any): value is CreateTeamDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     return true;
 }

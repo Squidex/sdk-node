@@ -46,7 +46,7 @@ export interface UIFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the UIFieldPropertiesDto interface.
  */
-export function instanceOfUIFieldPropertiesDto(value: object): value is UIFieldPropertiesDto {
+export function instanceOfUIFieldPropertiesDto(value: any): value is UIFieldPropertiesDto {
     return true;
 }
 

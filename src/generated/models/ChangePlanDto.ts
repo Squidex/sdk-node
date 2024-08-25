@@ -31,7 +31,7 @@ export interface ChangePlanDto {
 /**
  * Check if a given object implements the ChangePlanDto interface.
  */
-export function instanceOfChangePlanDto(value: object): value is ChangePlanDto {
+export function instanceOfChangePlanDto(value: any): value is ChangePlanDto {
     if (!('planId' in value) || value['planId'] === undefined) return false;
     return true;
 }

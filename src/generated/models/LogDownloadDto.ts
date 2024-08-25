@@ -31,7 +31,7 @@ export interface LogDownloadDto {
 /**
  * Check if a given object implements the LogDownloadDto interface.
  */
-export function instanceOfLogDownloadDto(value: object): value is LogDownloadDto {
+export function instanceOfLogDownloadDto(value: any): value is LogDownloadDto {
     return true;
 }
 

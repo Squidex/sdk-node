@@ -38,7 +38,7 @@ export interface CommentRuleTriggerDto extends RuleTriggerDto {
 /**
  * Check if a given object implements the CommentRuleTriggerDto interface.
  */
-export function instanceOfCommentRuleTriggerDto(value: object): value is CommentRuleTriggerDto {
+export function instanceOfCommentRuleTriggerDto(value: any): value is CommentRuleTriggerDto {
     return true;
 }
 

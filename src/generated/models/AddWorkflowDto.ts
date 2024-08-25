@@ -31,7 +31,7 @@ export interface AddWorkflowDto {
 /**
  * Check if a given object implements the AddWorkflowDto interface.
  */
-export function instanceOfAddWorkflowDto(value: object): value is AddWorkflowDto {
+export function instanceOfAddWorkflowDto(value: any): value is AddWorkflowDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     return true;
 }

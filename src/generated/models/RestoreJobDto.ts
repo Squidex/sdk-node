@@ -64,7 +64,7 @@ export interface RestoreJobDto {
 /**
  * Check if a given object implements the RestoreJobDto interface.
  */
-export function instanceOfRestoreJobDto(value: object): value is RestoreJobDto {
+export function instanceOfRestoreJobDto(value: any): value is RestoreJobDto {
     if (!('url' in value) || value['url'] === undefined) return false;
     if (!('log' in value) || value['log'] === undefined) return false;
     if (!('started' in value) || value['started'] === undefined) return false;

@@ -62,7 +62,7 @@ export interface UpsertSchemaNestedFieldDto {
 /**
  * Check if a given object implements the UpsertSchemaNestedFieldDto interface.
  */
-export function instanceOfUpsertSchemaNestedFieldDto(value: object): value is UpsertSchemaNestedFieldDto {
+export function instanceOfUpsertSchemaNestedFieldDto(value: any): value is UpsertSchemaNestedFieldDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('properties' in value) || value['properties'] === undefined) return false;
     return true;

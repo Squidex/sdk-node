@@ -31,7 +31,7 @@ export interface RenameTagDto {
 /**
  * Check if a given object implements the RenameTagDto interface.
  */
-export function instanceOfRenameTagDto(value: object): value is RenameTagDto {
+export function instanceOfRenameTagDto(value: any): value is RenameTagDto {
     if (!('tagName' in value) || value['tagName'] === undefined) return false;
     return true;
 }

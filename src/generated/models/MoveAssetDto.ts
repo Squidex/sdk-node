@@ -31,7 +31,7 @@ export interface MoveAssetDto {
 /**
  * Check if a given object implements the MoveAssetDto interface.
  */
-export function instanceOfMoveAssetDto(value: object): value is MoveAssetDto {
+export function instanceOfMoveAssetDto(value: any): value is MoveAssetDto {
     return true;
 }
 

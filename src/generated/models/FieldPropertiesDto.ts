@@ -149,7 +149,7 @@ export function isUIFieldPropertiesDto(value: FieldPropertiesDto): value is UIFi
 /**
  * Check if a given object implements the FieldPropertiesDto interface.
  */
-export function instanceOfFieldPropertiesDto(value: object): value is FieldPropertiesDto {
+export function instanceOfFieldPropertiesDto(value: any): value is FieldPropertiesDto {
     if (!('fieldType' in value) || value['fieldType'] === undefined) return false;
     return true;
 }

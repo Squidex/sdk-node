@@ -56,7 +56,7 @@ export interface CreateContentRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the CreateContentRuleActionDto interface.
  */
-export function instanceOfCreateContentRuleActionDto(value: object): value is CreateContentRuleActionDto {
+export function instanceOfCreateContentRuleActionDto(value: any): value is CreateContentRuleActionDto {
     if (!('data' in value) || value['data'] === undefined) return false;
     if (!('schema' in value) || value['schema'] === undefined) return false;
     if (!('client' in value) || value['client'] === undefined) return false;

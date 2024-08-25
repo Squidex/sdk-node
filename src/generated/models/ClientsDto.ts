@@ -50,7 +50,7 @@ export interface ClientsDto {
 /**
  * Check if a given object implements the ClientsDto interface.
  */
-export function instanceOfClientsDto(value: object): value is ClientsDto {
+export function instanceOfClientsDto(value: any): value is ClientsDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
     return true;
@@ -77,7 +77,7 @@ export function ClientsDtoToJSON(value?: ClientsDto | null, ignoreDiscriminator 
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
-        'items': ((value['items'] as Array<any>).map(ClientDtoToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
+        'items': ((value['items'] as Array<any>).map(x => ClientDtoToJSON(x))),
     };
 }

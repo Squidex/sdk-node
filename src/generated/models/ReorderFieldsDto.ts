@@ -31,7 +31,7 @@ export interface ReorderFieldsDto {
 /**
  * Check if a given object implements the ReorderFieldsDto interface.
  */
-export function instanceOfReorderFieldsDto(value: object): value is ReorderFieldsDto {
+export function instanceOfReorderFieldsDto(value: any): value is ReorderFieldsDto {
     if (!('fieldIds' in value) || value['fieldIds'] === undefined) return false;
     return true;
 }

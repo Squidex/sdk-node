@@ -259,7 +259,7 @@ export class SquidexClients {
             throw new Error("Configuration 'appName' is required.");
         }
 
-        this.tokenStore ||= this.clientOptions.tokenStore || new SquidexClients.InMemoryTokenStore();
+        this.tokenStore = this.clientOptions.tokenStore || new SquidexClients.InMemoryTokenStore();
 
         const originalFetch = this.clientOptions.fetcher || fetch;
         let fetchApi: FetchAPI = async (input, init) => {
@@ -372,7 +372,7 @@ export class SquidexClients {
 }
 
 function addOptions(init: RequestInit, clientOptions: SquidexClients.Options) {
-    if (clientOptions.timeout) {
+    if (clientOptions.timeout && typeof AbortSignal.timeout === 'function') {
         init.signal = AbortSignal.timeout(clientOptions.timeout);
     }
 

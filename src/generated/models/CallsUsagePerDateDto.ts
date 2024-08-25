@@ -49,7 +49,7 @@ export interface CallsUsagePerDateDto {
 /**
  * Check if a given object implements the CallsUsagePerDateDto interface.
  */
-export function instanceOfCallsUsagePerDateDto(value: object): value is CallsUsagePerDateDto {
+export function instanceOfCallsUsagePerDateDto(value: any): value is CallsUsagePerDateDto {
     if (!('date' in value) || value['date'] === undefined) return false;
     if (!('totalCalls' in value) || value['totalCalls'] === undefined) return false;
     if (!('totalBytes' in value) || value['totalBytes'] === undefined) return false;

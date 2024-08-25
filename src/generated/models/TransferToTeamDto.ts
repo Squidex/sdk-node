@@ -31,7 +31,7 @@ export interface TransferToTeamDto {
 /**
  * Check if a given object implements the TransferToTeamDto interface.
  */
-export function instanceOfTransferToTeamDto(value: object): value is TransferToTeamDto {
+export function instanceOfTransferToTeamDto(value: any): value is TransferToTeamDto {
     return true;
 }
 

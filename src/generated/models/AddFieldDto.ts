@@ -50,7 +50,7 @@ export interface AddFieldDto {
 /**
  * Check if a given object implements the AddFieldDto interface.
  */
-export function instanceOfAddFieldDto(value: object): value is AddFieldDto {
+export function instanceOfAddFieldDto(value: any): value is AddFieldDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('properties' in value) || value['properties'] === undefined) return false;
     return true;

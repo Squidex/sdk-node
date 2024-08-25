@@ -44,7 +44,7 @@ export interface UsageRuleTriggerDto extends RuleTriggerDto {
 /**
  * Check if a given object implements the UsageRuleTriggerDto interface.
  */
-export function instanceOfUsageRuleTriggerDto(value: object): value is UsageRuleTriggerDto {
+export function instanceOfUsageRuleTriggerDto(value: any): value is UsageRuleTriggerDto {
     if (!('limit' in value) || value['limit'] === undefined) return false;
     return true;
 }

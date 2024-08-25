@@ -55,7 +55,7 @@ export interface UpdateClientDto {
 /**
  * Check if a given object implements the UpdateClientDto interface.
  */
-export function instanceOfUpdateClientDto(value: object): value is UpdateClientDto {
+export function instanceOfUpdateClientDto(value: any): value is UpdateClientDto {
     return true;
 }
 

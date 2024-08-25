@@ -37,7 +37,7 @@ export interface UpdateAppDto {
 /**
  * Check if a given object implements the UpdateAppDto interface.
  */
-export function instanceOfUpdateAppDto(value: object): value is UpdateAppDto {
+export function instanceOfUpdateAppDto(value: any): value is UpdateAppDto {
     return true;
 }
 

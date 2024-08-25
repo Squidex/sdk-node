@@ -62,7 +62,7 @@ export interface TypesenseRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the TypesenseRuleActionDto interface.
  */
-export function instanceOfTypesenseRuleActionDto(value: object): value is TypesenseRuleActionDto {
+export function instanceOfTypesenseRuleActionDto(value: any): value is TypesenseRuleActionDto {
     if (!('host' in value) || value['host'] === undefined) return false;
     if (!('indexName' in value) || value['indexName'] === undefined) return false;
     if (!('apiKey' in value) || value['apiKey'] === undefined) return false;

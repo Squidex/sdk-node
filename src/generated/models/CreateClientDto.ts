@@ -31,7 +31,7 @@ export interface CreateClientDto {
 /**
  * Check if a given object implements the CreateClientDto interface.
  */
-export function instanceOfCreateClientDto(value: object): value is CreateClientDto {
+export function instanceOfCreateClientDto(value: any): value is CreateClientDto {
     if (!('id' in value) || value['id'] === undefined) return false;
     return true;
 }

@@ -44,7 +44,7 @@ export interface CommentRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the CommentRuleActionDto interface.
  */
-export function instanceOfCommentRuleActionDto(value: object): value is CommentRuleActionDto {
+export function instanceOfCommentRuleActionDto(value: any): value is CommentRuleActionDto {
     if (!('text' in value) || value['text'] === undefined) return false;
     return true;
 }

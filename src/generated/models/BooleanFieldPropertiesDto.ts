@@ -64,7 +64,7 @@ export interface BooleanFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the BooleanFieldPropertiesDto interface.
  */
-export function instanceOfBooleanFieldPropertiesDto(value: object): value is BooleanFieldPropertiesDto {
+export function instanceOfBooleanFieldPropertiesDto(value: any): value is BooleanFieldPropertiesDto {
     return true;
 }
 

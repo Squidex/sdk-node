@@ -31,7 +31,7 @@ export interface UpdateSettingDto {
 /**
  * Check if a given object implements the UpdateSettingDto interface.
  */
-export function instanceOfUpdateSettingDto(value: object): value is UpdateSettingDto {
+export function instanceOfUpdateSettingDto(value: any): value is UpdateSettingDto {
     if (!('value' in value) || value['value'] === undefined) return false;
     return true;
 }

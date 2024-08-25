@@ -61,7 +61,7 @@ export interface HistoryEventDto {
 /**
  * Check if a given object implements the HistoryEventDto interface.
  */
-export function instanceOfHistoryEventDto(value: object): value is HistoryEventDto {
+export function instanceOfHistoryEventDto(value: any): value is HistoryEventDto {
     if (!('message' in value) || value['message'] === undefined) return false;
     if (!('eventType' in value) || value['eventType'] === undefined) return false;
     if (!('actor' in value) || value['actor'] === undefined) return false;

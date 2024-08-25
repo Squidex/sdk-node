@@ -38,7 +38,7 @@ export interface Resource {
 /**
  * Check if a given object implements the Resource interface.
  */
-export function instanceOfResource(value: object): value is Resource {
+export function instanceOfResource(value: any): value is Resource {
     if (!('links' in value) || value['links'] === undefined) return false;
     return true;
 }
@@ -63,6 +63,6 @@ export function ResourceToJSON(value?: Resource | null, ignoreDiscriminator = fa
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
     };
 }

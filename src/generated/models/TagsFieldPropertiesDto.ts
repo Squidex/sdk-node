@@ -82,7 +82,7 @@ export interface TagsFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the TagsFieldPropertiesDto interface.
  */
-export function instanceOfTagsFieldPropertiesDto(value: object): value is TagsFieldPropertiesDto {
+export function instanceOfTagsFieldPropertiesDto(value: any): value is TagsFieldPropertiesDto {
     return true;
 }
 

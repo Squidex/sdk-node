@@ -117,7 +117,7 @@ export interface AppDto {
 /**
  * Check if a given object implements the AppDto interface.
  */
-export function instanceOfAppDto(value: object): value is AppDto {
+export function instanceOfAppDto(value: any): value is AppDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
@@ -164,7 +164,7 @@ export function AppDtoToJSON(value?: AppDto | null, ignoreDiscriminator = false)
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'id': value['id'],
         'name': value['name'],
         'label': value['label'],

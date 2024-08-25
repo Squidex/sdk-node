@@ -86,7 +86,7 @@ export interface AssetScriptsDto {
 /**
  * Check if a given object implements the AssetScriptsDto interface.
  */
-export function instanceOfAssetScriptsDto(value: object): value is AssetScriptsDto {
+export function instanceOfAssetScriptsDto(value: any): value is AssetScriptsDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('version' in value) || value['version'] === undefined) return false;
     return true;
@@ -120,7 +120,7 @@ export function AssetScriptsDtoToJSON(value?: AssetScriptsDto | null, ignoreDisc
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'query': value['query'],
         'queryPre': value['queryPre'],
         'create': value['create'],

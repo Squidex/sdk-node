@@ -56,7 +56,7 @@ export interface AssetsDto {
 /**
  * Check if a given object implements the AssetsDto interface.
  */
-export function instanceOfAssetsDto(value: object): value is AssetsDto {
+export function instanceOfAssetsDto(value: any): value is AssetsDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('total' in value) || value['total'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
@@ -85,8 +85,8 @@ export function AssetsDtoToJSON(value?: AssetsDto | null, ignoreDiscriminator = 
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'total': value['total'],
-        'items': ((value['items'] as Array<any>).map(AssetDtoToJSON)),
+        'items': ((value['items'] as Array<any>).map(x => AssetDtoToJSON(x))),
     };
 }

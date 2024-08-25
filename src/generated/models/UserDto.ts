@@ -68,7 +68,7 @@ export interface UserDto {
 /**
  * Check if a given object implements the UserDto interface.
  */
-export function instanceOfUserDto(value: object): value is UserDto {
+export function instanceOfUserDto(value: any): value is UserDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('email' in value) || value['email'] === undefined) return false;
@@ -103,7 +103,7 @@ export function UserDtoToJSON(value?: UserDto | null, ignoreDiscriminator = fals
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'id': value['id'],
         'email': value['email'],
         'displayName': value['displayName'],

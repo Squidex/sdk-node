@@ -44,7 +44,7 @@ export interface FeaturesDto {
 /**
  * Check if a given object implements the FeaturesDto interface.
  */
-export function instanceOfFeaturesDto(value: object): value is FeaturesDto {
+export function instanceOfFeaturesDto(value: any): value is FeaturesDto {
     if (!('features' in value) || value['features'] === undefined) return false;
     if (!('version' in value) || value['version'] === undefined) return false;
     return true;
@@ -71,7 +71,7 @@ export function FeaturesDtoToJSON(value?: FeaturesDto | null, ignoreDiscriminato
     }
     return {
         
-        'features': ((value['features'] as Array<any>).map(FeatureDtoToJSON)),
+        'features': ((value['features'] as Array<any>).map(x => FeatureDtoToJSON(x))),
         'version': value['version'],
     };
 }

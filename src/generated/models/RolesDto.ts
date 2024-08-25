@@ -50,7 +50,7 @@ export interface RolesDto {
 /**
  * Check if a given object implements the RolesDto interface.
  */
-export function instanceOfRolesDto(value: object): value is RolesDto {
+export function instanceOfRolesDto(value: any): value is RolesDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
     return true;
@@ -77,7 +77,7 @@ export function RolesDtoToJSON(value?: RolesDto | null, ignoreDiscriminator = fa
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
-        'items': ((value['items'] as Array<any>).map(RoleDtoToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
+        'items': ((value['items'] as Array<any>).map(x => RoleDtoToJSON(x))),
     };
 }

@@ -43,7 +43,7 @@ export interface PatternDto {
 /**
  * Check if a given object implements the PatternDto interface.
  */
-export function instanceOfPatternDto(value: object): value is PatternDto {
+export function instanceOfPatternDto(value: any): value is PatternDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('regex' in value) || value['regex'] === undefined) return false;
     return true;

@@ -68,7 +68,7 @@ export interface ElasticSearchRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the ElasticSearchRuleActionDto interface.
  */
-export function instanceOfElasticSearchRuleActionDto(value: object): value is ElasticSearchRuleActionDto {
+export function instanceOfElasticSearchRuleActionDto(value: any): value is ElasticSearchRuleActionDto {
     if (!('host' in value) || value['host'] === undefined) return false;
     if (!('indexName' in value) || value['indexName'] === undefined) return false;
     return true;

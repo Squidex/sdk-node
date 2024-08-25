@@ -50,7 +50,7 @@ export interface AzureQueueRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the AzureQueueRuleActionDto interface.
  */
-export function instanceOfAzureQueueRuleActionDto(value: object): value is AzureQueueRuleActionDto {
+export function instanceOfAzureQueueRuleActionDto(value: any): value is AzureQueueRuleActionDto {
     if (!('connectionString' in value) || value['connectionString'] === undefined) return false;
     if (!('queue' in value) || value['queue'] === undefined) return false;
     return true;

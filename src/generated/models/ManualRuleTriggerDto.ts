@@ -32,7 +32,7 @@ export interface ManualRuleTriggerDto extends RuleTriggerDto {
 /**
  * Check if a given object implements the ManualRuleTriggerDto interface.
  */
-export function instanceOfManualRuleTriggerDto(value: object): value is ManualRuleTriggerDto {
+export function instanceOfManualRuleTriggerDto(value: any): value is ManualRuleTriggerDto {
     return true;
 }
 

@@ -38,7 +38,7 @@ export interface ComponentFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the ComponentFieldPropertiesDto interface.
  */
-export function instanceOfComponentFieldPropertiesDto(value: object): value is ComponentFieldPropertiesDto {
+export function instanceOfComponentFieldPropertiesDto(value: any): value is ComponentFieldPropertiesDto {
     return true;
 }
 

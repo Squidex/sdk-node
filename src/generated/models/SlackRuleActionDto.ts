@@ -44,7 +44,7 @@ export interface SlackRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the SlackRuleActionDto interface.
  */
-export function instanceOfSlackRuleActionDto(value: object): value is SlackRuleActionDto {
+export function instanceOfSlackRuleActionDto(value: any): value is SlackRuleActionDto {
     if (!('webhookUrl' in value) || value['webhookUrl'] === undefined) return false;
     if (!('text' in value) || value['text'] === undefined) return false;
     return true;

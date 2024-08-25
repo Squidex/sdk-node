@@ -76,7 +76,7 @@ export interface RuleElementPropertyDto {
 /**
  * Check if a given object implements the RuleElementPropertyDto interface.
  */
-export function instanceOfRuleElementPropertyDto(value: object): value is RuleElementPropertyDto {
+export function instanceOfRuleElementPropertyDto(value: any): value is RuleElementPropertyDto {
     if (!('editor' in value) || value['editor'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('display' in value) || value['display'] === undefined) return false;

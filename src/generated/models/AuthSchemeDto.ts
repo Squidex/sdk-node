@@ -61,7 +61,7 @@ export interface AuthSchemeDto {
 /**
  * Check if a given object implements the AuthSchemeDto interface.
  */
-export function instanceOfAuthSchemeDto(value: object): value is AuthSchemeDto {
+export function instanceOfAuthSchemeDto(value: any): value is AuthSchemeDto {
     if (!('domain' in value) || value['domain'] === undefined) return false;
     if (!('displayName' in value) || value['displayName'] === undefined) return false;
     if (!('clientId' in value) || value['clientId'] === undefined) return false;

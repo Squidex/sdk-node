@@ -61,7 +61,7 @@ export function isUsageRuleTriggerDto(value: RuleTriggerDto): value is UsageRule
 /**
  * Check if a given object implements the RuleTriggerDto interface.
  */
-export function instanceOfRuleTriggerDto(value: object): value is RuleTriggerDto {
+export function instanceOfRuleTriggerDto(value: any): value is RuleTriggerDto {
     if (!('triggerType' in value) || value['triggerType'] === undefined) return false;
     return true;
 }

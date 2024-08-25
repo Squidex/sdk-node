@@ -38,7 +38,7 @@ export interface UpdateFieldDto {
 /**
  * Check if a given object implements the UpdateFieldDto interface.
  */
-export function instanceOfUpdateFieldDto(value: object): value is UpdateFieldDto {
+export function instanceOfUpdateFieldDto(value: any): value is UpdateFieldDto {
     if (!('properties' in value) || value['properties'] === undefined) return false;
     return true;
 }

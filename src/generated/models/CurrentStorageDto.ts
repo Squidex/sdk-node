@@ -37,7 +37,7 @@ export interface CurrentStorageDto {
 /**
  * Check if a given object implements the CurrentStorageDto interface.
  */
-export function instanceOfCurrentStorageDto(value: object): value is CurrentStorageDto {
+export function instanceOfCurrentStorageDto(value: any): value is CurrentStorageDto {
     if (!('size' in value) || value['size'] === undefined) return false;
     if (!('maxAllowed' in value) || value['maxAllowed'] === undefined) return false;
     return true;

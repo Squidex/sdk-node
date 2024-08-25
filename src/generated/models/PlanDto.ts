@@ -91,7 +91,7 @@ export interface PlanDto {
 /**
  * Check if a given object implements the PlanDto interface.
  */
-export function instanceOfPlanDto(value: object): value is PlanDto {
+export function instanceOfPlanDto(value: any): value is PlanDto {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('costs' in value) || value['costs'] === undefined) return false;

@@ -62,7 +62,7 @@ export interface UpdateAppSettingsDto {
 /**
  * Check if a given object implements the UpdateAppSettingsDto interface.
  */
-export function instanceOfUpdateAppSettingsDto(value: object): value is UpdateAppSettingsDto {
+export function instanceOfUpdateAppSettingsDto(value: any): value is UpdateAppSettingsDto {
     if (!('patterns' in value) || value['patterns'] === undefined) return false;
     if (!('editors' in value) || value['editors'] === undefined) return false;
     return true;
@@ -91,8 +91,8 @@ export function UpdateAppSettingsDtoToJSON(value?: UpdateAppSettingsDto | null, 
     }
     return {
         
-        'patterns': ((value['patterns'] as Array<any>).map(PatternDtoToJSON)),
-        'editors': ((value['editors'] as Array<any>).map(EditorDtoToJSON)),
+        'patterns': ((value['patterns'] as Array<any>).map(x => PatternDtoToJSON(x))),
+        'editors': ((value['editors'] as Array<any>).map(x => EditorDtoToJSON(x))),
         'hideScheduler': value['hideScheduler'],
         'hideDateTimeModeButton': value['hideDateTimeModeButton'],
     };

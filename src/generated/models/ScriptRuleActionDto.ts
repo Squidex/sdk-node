@@ -38,7 +38,7 @@ export interface ScriptRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the ScriptRuleActionDto interface.
  */
-export function instanceOfScriptRuleActionDto(value: object): value is ScriptRuleActionDto {
+export function instanceOfScriptRuleActionDto(value: any): value is ScriptRuleActionDto {
     if (!('script' in value) || value['script'] === undefined) return false;
     return true;
 }

@@ -82,7 +82,7 @@ export interface BulkUpdateContentsDto {
 /**
  * Check if a given object implements the BulkUpdateContentsDto interface.
  */
-export function instanceOfBulkUpdateContentsDto(value: object): value is BulkUpdateContentsDto {
+export function instanceOfBulkUpdateContentsDto(value: any): value is BulkUpdateContentsDto {
     if (!('jobs' in value) || value['jobs'] === undefined) return false;
     return true;
 }
@@ -114,7 +114,7 @@ export function BulkUpdateContentsDtoToJSON(value?: BulkUpdateContentsDto | null
     }
     return {
         
-        'jobs': ((value['jobs'] as Array<any>).map(BulkUpdateContentsJobDtoToJSON)),
+        'jobs': ((value['jobs'] as Array<any>).map(x => BulkUpdateContentsJobDtoToJSON(x))),
         'publish': value['publish'],
         'doNotScript': value['doNotScript'],
         'enrichRequiredFields': value['enrichRequiredFields'],

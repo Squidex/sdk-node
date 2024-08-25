@@ -86,7 +86,7 @@ export interface RichTextFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the RichTextFieldPropertiesDto interface.
  */
-export function instanceOfRichTextFieldPropertiesDto(value: object): value is RichTextFieldPropertiesDto {
+export function instanceOfRichTextFieldPropertiesDto(value: any): value is RichTextFieldPropertiesDto {
     return true;
 }
 

@@ -67,7 +67,7 @@ export interface AllContentsByPostDto {
 /**
  * Check if a given object implements the AllContentsByPostDto interface.
  */
-export function instanceOfAllContentsByPostDto(value: object): value is AllContentsByPostDto {
+export function instanceOfAllContentsByPostDto(value: any): value is AllContentsByPostDto {
     return true;
 }
 

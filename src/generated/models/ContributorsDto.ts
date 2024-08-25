@@ -68,7 +68,7 @@ export interface ContributorsDto {
 /**
  * Check if a given object implements the ContributorsDto interface.
  */
-export function instanceOfContributorsDto(value: object): value is ContributorsDto {
+export function instanceOfContributorsDto(value: any): value is ContributorsDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
     if (!('maxContributors' in value) || value['maxContributors'] === undefined) return false;
@@ -98,8 +98,8 @@ export function ContributorsDtoToJSON(value?: ContributorsDto | null, ignoreDisc
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
-        'items': ((value['items'] as Array<any>).map(ContributorDtoToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
+        'items': ((value['items'] as Array<any>).map(x => ContributorDtoToJSON(x))),
         'maxContributors': value['maxContributors'],
         '_meta': ContributorsMetadataToJSON(value['meta']),
     };

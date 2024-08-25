@@ -37,7 +37,7 @@ export interface CreateAppDto {
 /**
  * Check if a given object implements the CreateAppDto interface.
  */
-export function instanceOfCreateAppDto(value: object): value is CreateAppDto {
+export function instanceOfCreateAppDto(value: any): value is CreateAppDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     return true;
 }

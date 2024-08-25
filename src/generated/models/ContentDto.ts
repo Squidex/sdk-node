@@ -164,7 +164,7 @@ export interface ContentDto {
 /**
  * Check if a given object implements the ContentDto interface.
  */
-export function instanceOfContentDto(value: object): value is ContentDto {
+export function instanceOfContentDto(value: any): value is ContentDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('createdBy' in value) || value['createdBy'] === undefined) return false;
@@ -219,7 +219,7 @@ export function ContentDtoToJSON(value?: ContentDto | null, ignoreDiscriminator 
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'id': value['id'],
         'createdBy': value['createdBy'],
         'lastModifiedBy': value['lastModifiedBy'],
@@ -236,7 +236,7 @@ export function ContentDtoToJSON(value?: ContentDto | null, ignoreDiscriminator 
         'schemaId': value['schemaId'],
         'schemaName': value['schemaName'],
         'schemaDisplayName': value['schemaDisplayName'],
-        'referenceFields': value['referenceFields'] == null ? undefined : ((value['referenceFields'] as Array<any>).map(FieldDtoToJSON)),
+        'referenceFields': value['referenceFields'] == null ? undefined : ((value['referenceFields'] as Array<any>).map(x => FieldDtoToJSON(x))),
         'isDeleted': value['isDeleted'],
         'version': value['version'],
     };

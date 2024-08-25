@@ -31,7 +31,7 @@ export interface PlanChangedDto {
 /**
  * Check if a given object implements the PlanChangedDto interface.
  */
-export function instanceOfPlanChangedDto(value: object): value is PlanChangedDto {
+export function instanceOfPlanChangedDto(value: any): value is PlanChangedDto {
     return true;
 }
 

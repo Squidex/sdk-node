@@ -74,7 +74,7 @@ export interface MediumRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the MediumRuleActionDto interface.
  */
-export function instanceOfMediumRuleActionDto(value: object): value is MediumRuleActionDto {
+export function instanceOfMediumRuleActionDto(value: any): value is MediumRuleActionDto {
     if (!('accessToken' in value) || value['accessToken'] === undefined) return false;
     if (!('title' in value) || value['title'] === undefined) return false;
     if (!('content' in value) || value['content'] === undefined) return false;

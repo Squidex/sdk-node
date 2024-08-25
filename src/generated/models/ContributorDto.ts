@@ -62,7 +62,7 @@ export interface ContributorDto {
 /**
  * Check if a given object implements the ContributorDto interface.
  */
-export function instanceOfContributorDto(value: object): value is ContributorDto {
+export function instanceOfContributorDto(value: any): value is ContributorDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('contributorId' in value) || value['contributorId'] === undefined) return false;
     if (!('contributorName' in value) || value['contributorName'] === undefined) return false;
@@ -94,7 +94,7 @@ export function ContributorDtoToJSON(value?: ContributorDto | null, ignoreDiscri
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'contributorId': value['contributorId'],
         'contributorName': value['contributorName'],
         'contributorEmail': value['contributorEmail'],

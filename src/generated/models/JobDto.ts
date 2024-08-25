@@ -106,7 +106,7 @@ export interface JobDto {
 /**
  * Check if a given object implements the JobDto interface.
  */
-export function instanceOfJobDto(value: object): value is JobDto {
+export function instanceOfJobDto(value: any): value is JobDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('started' in value) || value['started'] === undefined) return false;
@@ -148,7 +148,7 @@ export function JobDtoToJSON(value?: JobDto | null, ignoreDiscriminator = false)
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'id': value['id'],
         'started': ((value['started']).toISOString()),
         'stopped': value['stopped'] == null ? undefined : ((value['stopped'] as any).toISOString()),
@@ -156,7 +156,7 @@ export function JobDtoToJSON(value?: JobDto | null, ignoreDiscriminator = false)
         'taskName': value['taskName'],
         'description': value['description'],
         'taskArguments': value['taskArguments'],
-        'log': ((value['log'] as Array<any>).map(JobLogMessageDtoToJSON)),
+        'log': ((value['log'] as Array<any>).map(x => JobLogMessageDtoToJSON(x))),
         'canDownload': value['canDownload'],
     };
 }

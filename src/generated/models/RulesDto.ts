@@ -56,7 +56,7 @@ export interface RulesDto {
 /**
  * Check if a given object implements the RulesDto interface.
  */
-export function instanceOfRulesDto(value: object): value is RulesDto {
+export function instanceOfRulesDto(value: any): value is RulesDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
     return true;
@@ -84,8 +84,8 @@ export function RulesDtoToJSON(value?: RulesDto | null, ignoreDiscriminator = fa
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
-        'items': ((value['items'] as Array<any>).map(RuleDtoToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
+        'items': ((value['items'] as Array<any>).map(x => RuleDtoToJSON(x))),
         'runningRuleId': value['runningRuleId'],
     };
 }

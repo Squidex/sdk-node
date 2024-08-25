@@ -43,7 +43,7 @@ export interface ReferralInfo {
 /**
  * Check if a given object implements the ReferralInfo interface.
  */
-export function instanceOfReferralInfo(value: object): value is ReferralInfo {
+export function instanceOfReferralInfo(value: any): value is ReferralInfo {
     if (!('code' in value) || value['code'] === undefined) return false;
     if (!('earned' in value) || value['earned'] === undefined) return false;
     if (!('condition' in value) || value['condition'] === undefined) return false;

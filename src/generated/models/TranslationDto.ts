@@ -52,7 +52,7 @@ export interface TranslationDto {
 /**
  * Check if a given object implements the TranslationDto interface.
  */
-export function instanceOfTranslationDto(value: object): value is TranslationDto {
+export function instanceOfTranslationDto(value: any): value is TranslationDto {
     if (!('status' in value) || value['status'] === undefined) return false;
     if (!('result' in value) || value['result'] === undefined) return false;
     return true;

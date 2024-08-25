@@ -29,7 +29,7 @@ export function is{{modelName}}(value: {{classname}}): value is {{modelName}} {
 /**
  * Check if a given object implements the {{classname}} interface.
  */
-export function instanceOf{{classname}}(value: object): value is {{classname}} {
+export function instanceOf{{classname}}(value: any): value is {{classname}} {
     {{#vars}}
     {{#required}}
     if (!('{{name}}' in value) || value['{{name}}'] === undefined) return false;
@@ -148,14 +148,14 @@ export function {{classname}}ToJSON(value?: {{#hasReadOnly}}Omit<{{classname}}, 
         {{^isPrimitiveType}}
         {{#isArray}}
         {{#uniqueItems}}
-        '{{baseName}}': {{^required}}value['{{name}}'] == null ? undefined : {{/required}}({{#required}}{{#isNullable}}value['{{name}}'] == null ? null : {{/isNullable}}{{/required}}Array.from(value['{{name}}'] as Set<any>).map({{#items}}{{datatype}}{{/items}}ToJSON)),
+        '{{baseName}}': {{^required}}value['{{name}}'] == null ? undefined : {{/required}}({{#required}}{{#isNullable}}value['{{name}}'] == null ? null : {{/isNullable}}{{/required}}Array.from(value['{{name}}'] as Set<any>).map(x => {{#items}}{{datatype}}{{/items}}ToJSON(x))),
         {{/uniqueItems}}
         {{^uniqueItems}}
-        '{{baseName}}': {{^required}}value['{{name}}'] == null ? undefined : {{/required}}({{#required}}{{#isNullable}}value['{{name}}'] == null ? null : {{/isNullable}}{{/required}}(value['{{name}}'] as Array<any>).map({{#items}}{{datatype}}{{/items}}ToJSON)),
+        '{{baseName}}': {{^required}}value['{{name}}'] == null ? undefined : {{/required}}({{#required}}{{#isNullable}}value['{{name}}'] == null ? null : {{/isNullable}}{{/required}}(value['{{name}}'] as Array<any>).map(x => {{#items}}{{datatype}}{{/items}}ToJSON(x))),
         {{/uniqueItems}}
         {{/isArray}}
         {{#isMap}}
-        '{{baseName}}': {{^required}}value['{{name}}'] == null ? undefined : {{/required}}({{#required}}{{#isNullable}}value['{{name}}'] == null ? null : {{/isNullable}}{{/required}}mapValues(value['{{name}}'], {{#items}}{{datatype}}{{/items}}ToJSON)),
+        '{{baseName}}': {{^required}}value['{{name}}'] == null ? undefined : {{/required}}({{#required}}{{#isNullable}}value['{{name}}'] == null ? null : {{/isNullable}}{{/required}}mapValues(value['{{name}}'], x => {{#items}}{{datatype}}{{/items}}ToJSON(x))),
         {{/isMap}}
         {{^isArray}}
         {{^isMap}}

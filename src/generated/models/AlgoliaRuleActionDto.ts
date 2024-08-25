@@ -62,7 +62,7 @@ export interface AlgoliaRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the AlgoliaRuleActionDto interface.
  */
-export function instanceOfAlgoliaRuleActionDto(value: object): value is AlgoliaRuleActionDto {
+export function instanceOfAlgoliaRuleActionDto(value: any): value is AlgoliaRuleActionDto {
     if (!('appId' in value) || value['appId'] === undefined) return false;
     if (!('apiKey' in value) || value['apiKey'] === undefined) return false;
     if (!('indexName' in value) || value['indexName'] === undefined) return false;

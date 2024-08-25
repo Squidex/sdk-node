@@ -61,7 +61,7 @@ export interface ErrorDto {
 /**
  * Check if a given object implements the ErrorDto interface.
  */
-export function instanceOfErrorDto(value: object): value is ErrorDto {
+export function instanceOfErrorDto(value: any): value is ErrorDto {
     if (!('message' in value) || value['message'] === undefined) return false;
     if (!('statusCode' in value) || value['statusCode'] === undefined) return false;
     return true;

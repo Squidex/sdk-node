@@ -46,7 +46,7 @@ export interface SortNode {
 /**
  * Check if a given object implements the SortNode interface.
  */
-export function instanceOfSortNode(value: object): value is SortNode {
+export function instanceOfSortNode(value: any): value is SortNode {
     if (!('path' in value) || value['path'] === undefined) return false;
     if (!('order' in value) || value['order'] === undefined) return false;
     return true;

@@ -61,7 +61,7 @@ export interface SchemaScriptsDto {
 /**
  * Check if a given object implements the SchemaScriptsDto interface.
  */
-export function instanceOfSchemaScriptsDto(value: object): value is SchemaScriptsDto {
+export function instanceOfSchemaScriptsDto(value: any): value is SchemaScriptsDto {
     return true;
 }
 

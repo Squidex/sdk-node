@@ -31,7 +31,7 @@ export interface AddRoleDto {
 /**
  * Check if a given object implements the AddRoleDto interface.
  */
-export function instanceOfAddRoleDto(value: object): value is AddRoleDto {
+export function instanceOfAddRoleDto(value: any): value is AddRoleDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     return true;
 }

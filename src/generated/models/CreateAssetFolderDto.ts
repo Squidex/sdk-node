@@ -37,7 +37,7 @@ export interface CreateAssetFolderDto {
 /**
  * Check if a given object implements the CreateAssetFolderDto interface.
  */
-export function instanceOfCreateAssetFolderDto(value: object): value is CreateAssetFolderDto {
+export function instanceOfCreateAssetFolderDto(value: any): value is CreateAssetFolderDto {
     if (!('folderName' in value) || value['folderName'] === undefined) return false;
     return true;
 }

@@ -80,7 +80,7 @@ export interface EmailRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the EmailRuleActionDto interface.
  */
-export function instanceOfEmailRuleActionDto(value: object): value is EmailRuleActionDto {
+export function instanceOfEmailRuleActionDto(value: any): value is EmailRuleActionDto {
     if (!('serverHost' in value) || value['serverHost'] === undefined) return false;
     if (!('serverPort' in value) || value['serverPort'] === undefined) return false;
     if (!('serverUsername' in value) || value['serverUsername'] === undefined) return false;

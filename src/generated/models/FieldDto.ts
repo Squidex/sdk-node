@@ -98,7 +98,7 @@ export interface FieldDto {
 /**
  * Check if a given object implements the FieldDto interface.
  */
-export function instanceOfFieldDto(value: object): value is FieldDto {
+export function instanceOfFieldDto(value: any): value is FieldDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('fieldId' in value) || value['fieldId'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
@@ -138,7 +138,7 @@ export function FieldDtoToJSON(value?: FieldDto | null, ignoreDiscriminator = fa
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'fieldId': value['fieldId'],
         'name': value['name'],
         'isHidden': value['isHidden'],
@@ -146,6 +146,6 @@ export function FieldDtoToJSON(value?: FieldDto | null, ignoreDiscriminator = fa
         'isDisabled': value['isDisabled'],
         'partitioning': value['partitioning'],
         'properties': FieldPropertiesDtoToJSON(value['properties']),
-        'nested': value['nested'] == null ? undefined : ((value['nested'] as Array<any>).map(NestedFieldDtoToJSON)),
+        'nested': value['nested'] == null ? undefined : ((value['nested'] as Array<any>).map(x => NestedFieldDtoToJSON(x))),
     };
 }

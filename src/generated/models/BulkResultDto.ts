@@ -57,7 +57,7 @@ export interface BulkResultDto {
 /**
  * Check if a given object implements the BulkResultDto interface.
  */
-export function instanceOfBulkResultDto(value: object): value is BulkResultDto {
+export function instanceOfBulkResultDto(value: any): value is BulkResultDto {
     if (!('jobIndex' in value) || value['jobIndex'] === undefined) return false;
     return true;
 }

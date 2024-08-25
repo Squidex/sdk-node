@@ -86,7 +86,7 @@ export interface CallsUsageDtoDto {
 /**
  * Check if a given object implements the CallsUsageDtoDto interface.
  */
-export function instanceOfCallsUsageDtoDto(value: object): value is CallsUsageDtoDto {
+export function instanceOfCallsUsageDtoDto(value: any): value is CallsUsageDtoDto {
     if (!('totalCalls' in value) || value['totalCalls'] === undefined) return false;
     if (!('totalBytes' in value) || value['totalBytes'] === undefined) return false;
     if (!('monthCalls' in value) || value['monthCalls'] === undefined) return false;

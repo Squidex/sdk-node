@@ -52,7 +52,7 @@ export interface FieldRuleDto {
 /**
  * Check if a given object implements the FieldRuleDto interface.
  */
-export function instanceOfFieldRuleDto(value: object): value is FieldRuleDto {
+export function instanceOfFieldRuleDto(value: any): value is FieldRuleDto {
     if (!('action' in value) || value['action'] === undefined) return false;
     if (!('field' in value) || value['field'] === undefined) return false;
     return true;

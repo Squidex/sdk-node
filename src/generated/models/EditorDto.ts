@@ -37,7 +37,7 @@ export interface EditorDto {
 /**
  * Check if a given object implements the EditorDto interface.
  */
-export function instanceOfEditorDto(value: object): value is EditorDto {
+export function instanceOfEditorDto(value: any): value is EditorDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('url' in value) || value['url'] === undefined) return false;
     return true;

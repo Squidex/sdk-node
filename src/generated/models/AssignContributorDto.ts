@@ -43,7 +43,7 @@ export interface AssignContributorDto {
 /**
  * Check if a given object implements the AssignContributorDto interface.
  */
-export function instanceOfAssignContributorDto(value: object): value is AssignContributorDto {
+export function instanceOfAssignContributorDto(value: any): value is AssignContributorDto {
     if (!('contributorId' in value) || value['contributorId'] === undefined) return false;
     return true;
 }

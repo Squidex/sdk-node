@@ -43,7 +43,7 @@ export interface ChangeStatusDto {
 /**
  * Check if a given object implements the ChangeStatusDto interface.
  */
-export function instanceOfChangeStatusDto(value: object): value is ChangeStatusDto {
+export function instanceOfChangeStatusDto(value: any): value is ChangeStatusDto {
     if (!('status' in value) || value['status'] === undefined) return false;
     return true;
 }

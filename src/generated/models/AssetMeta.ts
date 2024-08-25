@@ -31,7 +31,7 @@ export interface AssetMeta {
 /**
  * Check if a given object implements the AssetMeta interface.
  */
-export function instanceOfAssetMeta(value: object): value is AssetMeta {
+export function instanceOfAssetMeta(value: any): value is AssetMeta {
     if (!('isDuplicate' in value) || value['isDuplicate'] === undefined) return false;
     return true;
 }

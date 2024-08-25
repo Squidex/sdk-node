@@ -44,7 +44,7 @@ export interface PrerenderRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the PrerenderRuleActionDto interface.
  */
-export function instanceOfPrerenderRuleActionDto(value: object): value is PrerenderRuleActionDto {
+export function instanceOfPrerenderRuleActionDto(value: any): value is PrerenderRuleActionDto {
     if (!('token' in value) || value['token'] === undefined) return false;
     if (!('url' in value) || value['url'] === undefined) return false;
     return true;

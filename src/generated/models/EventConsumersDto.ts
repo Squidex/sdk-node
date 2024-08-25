@@ -50,7 +50,7 @@ export interface EventConsumersDto {
 /**
  * Check if a given object implements the EventConsumersDto interface.
  */
-export function instanceOfEventConsumersDto(value: object): value is EventConsumersDto {
+export function instanceOfEventConsumersDto(value: any): value is EventConsumersDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('items' in value) || value['items'] === undefined) return false;
     return true;
@@ -77,7 +77,7 @@ export function EventConsumersDtoToJSON(value?: EventConsumersDto | null, ignore
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
-        'items': ((value['items'] as Array<any>).map(EventConsumerDtoToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
+        'items': ((value['items'] as Array<any>).map(x => EventConsumerDtoToJSON(x))),
     };
 }

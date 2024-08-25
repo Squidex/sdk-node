@@ -88,7 +88,7 @@ export interface DateTimeFieldPropertiesDto extends FieldPropertiesDto {
 /**
  * Check if a given object implements the DateTimeFieldPropertiesDto interface.
  */
-export function instanceOfDateTimeFieldPropertiesDto(value: object): value is DateTimeFieldPropertiesDto {
+export function instanceOfDateTimeFieldPropertiesDto(value: any): value is DateTimeFieldPropertiesDto {
     return true;
 }
 

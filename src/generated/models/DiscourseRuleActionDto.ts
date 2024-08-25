@@ -74,7 +74,7 @@ export interface DiscourseRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the DiscourseRuleActionDto interface.
  */
-export function instanceOfDiscourseRuleActionDto(value: object): value is DiscourseRuleActionDto {
+export function instanceOfDiscourseRuleActionDto(value: any): value is DiscourseRuleActionDto {
     if (!('url' in value) || value['url'] === undefined) return false;
     if (!('apiKey' in value) || value['apiKey'] === undefined) return false;
     if (!('apiUsername' in value) || value['apiUsername'] === undefined) return false;

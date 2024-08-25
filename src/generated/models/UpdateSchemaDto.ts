@@ -67,7 +67,7 @@ export interface UpdateSchemaDto {
 /**
  * Check if a given object implements the UpdateSchemaDto interface.
  */
-export function instanceOfUpdateSchemaDto(value: object): value is UpdateSchemaDto {
+export function instanceOfUpdateSchemaDto(value: any): value is UpdateSchemaDto {
     return true;
 }
 

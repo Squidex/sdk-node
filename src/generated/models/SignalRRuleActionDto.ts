@@ -76,7 +76,7 @@ export interface SignalRRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the SignalRRuleActionDto interface.
  */
-export function instanceOfSignalRRuleActionDto(value: object): value is SignalRRuleActionDto {
+export function instanceOfSignalRRuleActionDto(value: any): value is SignalRRuleActionDto {
     if (!('connectionString' in value) || value['connectionString'] === undefined) return false;
     if (!('hubName' in value) || value['hubName'] === undefined) return false;
     if (!('action' in value) || value['action'] === undefined) return false;

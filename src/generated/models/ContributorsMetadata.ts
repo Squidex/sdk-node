@@ -31,7 +31,7 @@ export interface ContributorsMetadata {
 /**
  * Check if a given object implements the ContributorsMetadata interface.
  */
-export function instanceOfContributorsMetadata(value: object): value is ContributorsMetadata {
+export function instanceOfContributorsMetadata(value: any): value is ContributorsMetadata {
     if (!('isInvited' in value) || value['isInvited'] === undefined) return false;
     return true;
 }

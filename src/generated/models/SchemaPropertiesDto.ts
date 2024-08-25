@@ -79,7 +79,7 @@ export interface SchemaPropertiesDto {
 /**
  * Check if a given object implements the SchemaPropertiesDto interface.
  */
-export function instanceOfSchemaPropertiesDto(value: object): value is SchemaPropertiesDto {
+export function instanceOfSchemaPropertiesDto(value: any): value is SchemaPropertiesDto {
     if (!('validateOnPublish' in value) || value['validateOnPublish'] === undefined) return false;
     return true;
 }

@@ -50,7 +50,7 @@ export interface ImportContentsDto {
 /**
  * Check if a given object implements the ImportContentsDto interface.
  */
-export function instanceOfImportContentsDto(value: object): value is ImportContentsDto {
+export function instanceOfImportContentsDto(value: any): value is ImportContentsDto {
     if (!('datas' in value) || value['datas'] === undefined) return false;
     return true;
 }

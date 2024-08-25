@@ -37,7 +37,7 @@ export interface JobLogMessageDto {
 /**
  * Check if a given object implements the JobLogMessageDto interface.
  */
-export function instanceOfJobLogMessageDto(value: object): value is JobLogMessageDto {
+export function instanceOfJobLogMessageDto(value: any): value is JobLogMessageDto {
     if (!('timestamp' in value) || value['timestamp'] === undefined) return false;
     if (!('message' in value) || value['message'] === undefined) return false;
     return true;

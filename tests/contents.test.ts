@@ -58,7 +58,7 @@ describe("Contents", () => {
         const content = await client.contents.getContent({
             schema: createdSchema.name,
             id: createdContent.id,
-            xUnpublished: true,
+            unpublished: true,
         });
         expect(content.data).toEqual({ field1: { iv: value } });
         expect(content.lastModified).toBeDefined();

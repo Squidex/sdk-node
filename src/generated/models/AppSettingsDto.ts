@@ -80,7 +80,7 @@ export interface AppSettingsDto {
 /**
  * Check if a given object implements the AppSettingsDto interface.
  */
-export function instanceOfAppSettingsDto(value: object): value is AppSettingsDto {
+export function instanceOfAppSettingsDto(value: any): value is AppSettingsDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('patterns' in value) || value['patterns'] === undefined) return false;
     if (!('editors' in value) || value['editors'] === undefined) return false;
@@ -115,9 +115,9 @@ export function AppSettingsDtoToJSON(value?: AppSettingsDto | null, ignoreDiscri
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
-        'patterns': ((value['patterns'] as Array<any>).map(PatternDtoToJSON)),
-        'editors': ((value['editors'] as Array<any>).map(EditorDtoToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
+        'patterns': ((value['patterns'] as Array<any>).map(x => PatternDtoToJSON(x))),
+        'editors': ((value['editors'] as Array<any>).map(x => EditorDtoToJSON(x))),
         'hideScheduler': value['hideScheduler'],
         'hideDateTimeModeButton': value['hideDateTimeModeButton'],
         'version': value['version'],

@@ -37,7 +37,7 @@ export interface UpdateRoleDto {
 /**
  * Check if a given object implements the UpdateRoleDto interface.
  */
-export function instanceOfUpdateRoleDto(value: object): value is UpdateRoleDto {
+export function instanceOfUpdateRoleDto(value: any): value is UpdateRoleDto {
     if (!('permissions' in value) || value['permissions'] === undefined) return false;
     return true;
 }

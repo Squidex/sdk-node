@@ -50,7 +50,7 @@ export interface TweetRuleActionDto extends RuleActionDto {
 /**
  * Check if a given object implements the TweetRuleActionDto interface.
  */
-export function instanceOfTweetRuleActionDto(value: object): value is TweetRuleActionDto {
+export function instanceOfTweetRuleActionDto(value: any): value is TweetRuleActionDto {
     if (!('accessToken' in value) || value['accessToken'] === undefined) return false;
     if (!('accessSecret' in value) || value['accessSecret'] === undefined) return false;
     if (!('text' in value) || value['text'] === undefined) return false;

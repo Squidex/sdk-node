@@ -74,7 +74,7 @@ export interface EventConsumerDto {
 /**
  * Check if a given object implements the EventConsumerDto interface.
  */
-export function instanceOfEventConsumerDto(value: object): value is EventConsumerDto {
+export function instanceOfEventConsumerDto(value: any): value is EventConsumerDto {
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('isStopped' in value) || value['isStopped'] === undefined) return false;
     if (!('isResetting' in value) || value['isResetting'] === undefined) return false;
@@ -109,7 +109,7 @@ export function EventConsumerDtoToJSON(value?: EventConsumerDto | null, ignoreDi
     }
     return {
         
-        '_links': (mapValues(value['links'], ResourceLinkToJSON)),
+        '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'isStopped': value['isStopped'],
         'isResetting': value['isResetting'],
         'count': value['count'],

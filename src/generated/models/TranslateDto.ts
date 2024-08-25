@@ -43,7 +43,7 @@ export interface TranslateDto {
 /**
  * Check if a given object implements the TranslateDto interface.
  */
-export function instanceOfTranslateDto(value: object): value is TranslateDto {
+export function instanceOfTranslateDto(value: any): value is TranslateDto {
     if (!('text' in value) || value['text'] === undefined) return false;
     if (!('targetLanguage' in value) || value['targetLanguage'] === undefined) return false;
     return true;
