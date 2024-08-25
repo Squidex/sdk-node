@@ -48,6 +48,7 @@ export interface FieldRuleDto {
 
 
 
+
 /**
  * Check if a given object implements the FieldRuleDto interface.
  */

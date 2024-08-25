@@ -113,6 +113,7 @@ export interface AppDto {
     roleProperties: { [key: string]: any; };
 }
 
+
 /**
  * Check if a given object implements the AppDto interface.
  */

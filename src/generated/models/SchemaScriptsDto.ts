@@ -57,6 +57,7 @@ export interface SchemaScriptsDto {
     change?: string | null;
 }
 
+
 /**
  * Check if a given object implements the SchemaScriptsDto interface.
  */

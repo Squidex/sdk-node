@@ -70,6 +70,7 @@ export interface RoleDto {
     properties: { [key: string]: any; };
 }
 
+
 /**
  * Check if a given object implements the RoleDto interface.
  */

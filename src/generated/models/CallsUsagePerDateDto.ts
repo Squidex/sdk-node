@@ -45,6 +45,7 @@ export interface CallsUsagePerDateDto {
     averageElapsedMs: number;
 }
 
+
 /**
  * Check if a given object implements the CallsUsagePerDateDto interface.
  */

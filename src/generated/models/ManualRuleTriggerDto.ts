@@ -28,6 +28,7 @@ import {
 export interface ManualRuleTriggerDto extends RuleTriggerDto {
 }
 
+
 /**
  * Check if a given object implements the ManualRuleTriggerDto interface.
  */

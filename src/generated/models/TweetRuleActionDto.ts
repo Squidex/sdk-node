@@ -46,6 +46,7 @@ export interface TweetRuleActionDto extends RuleActionDto {
     text: string;
 }
 
+
 /**
  * Check if a given object implements the TweetRuleActionDto interface.
  */

@@ -39,6 +39,7 @@ export interface LanguageDto {
     nativeName: string;
 }
 
+
 /**
  * Check if a given object implements the LanguageDto interface.
  */

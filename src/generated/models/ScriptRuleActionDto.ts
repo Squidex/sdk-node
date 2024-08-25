@@ -34,6 +34,7 @@ export interface ScriptRuleActionDto extends RuleActionDto {
     script: string;
 }
 
+
 /**
  * Check if a given object implements the ScriptRuleActionDto interface.
  */

@@ -72,6 +72,7 @@ export interface SignalRRuleActionDto extends RuleActionDto {
 
 
 
+
 /**
  * Check if a given object implements the SignalRRuleActionDto interface.
  */

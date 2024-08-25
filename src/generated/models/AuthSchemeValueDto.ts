@@ -34,6 +34,7 @@ export interface AuthSchemeValueDto {
     scheme?: AuthSchemeDto;
 }
 
+
 /**
  * Check if a given object implements the AuthSchemeValueDto interface.
  */

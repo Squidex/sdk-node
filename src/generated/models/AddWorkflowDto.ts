@@ -27,6 +27,7 @@ export interface AddWorkflowDto {
     name: string;
 }
 
+
 /**
  * Check if a given object implements the AddWorkflowDto interface.
  */

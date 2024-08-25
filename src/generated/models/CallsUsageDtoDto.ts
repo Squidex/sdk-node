@@ -82,6 +82,7 @@ export interface CallsUsageDtoDto {
     details: { [key: string]: Array<CallsUsagePerDateDto>; };
 }
 
+
 /**
  * Check if a given object implements the CallsUsageDtoDto interface.
  */

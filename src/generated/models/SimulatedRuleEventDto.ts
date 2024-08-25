@@ -82,6 +82,7 @@ export interface SimulatedRuleEventDto {
     skipReasons: Array<SkipReason>;
 }
 
+
 /**
  * Check if a given object implements the SimulatedRuleEventDto interface.
  */

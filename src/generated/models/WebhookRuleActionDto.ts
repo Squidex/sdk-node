@@ -72,6 +72,7 @@ export interface WebhookRuleActionDto extends RuleActionDto {
 
 
 
+
 /**
  * Check if a given object implements the WebhookRuleActionDto interface.
  */

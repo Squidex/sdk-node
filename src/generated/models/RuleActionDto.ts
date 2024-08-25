@@ -45,6 +45,79 @@ export interface RuleActionDto {
     actionType: string;
 }
 
+export function isAlgoliaRuleActionDto(value: RuleActionDto): value is AlgoliaRuleActionDto {
+    return value['actionType'] === 'Algolia';
+}
+
+export function isAzureQueueRuleActionDto(value: RuleActionDto): value is AzureQueueRuleActionDto {
+    return value['actionType'] === 'AzureQueue';
+}
+
+export function isCommentRuleActionDto(value: RuleActionDto): value is CommentRuleActionDto {
+    return value['actionType'] === 'Comment';
+}
+
+export function isCreateContentRuleActionDto(value: RuleActionDto): value is CreateContentRuleActionDto {
+    return value['actionType'] === 'CreateContent';
+}
+
+export function isDiscourseRuleActionDto(value: RuleActionDto): value is DiscourseRuleActionDto {
+    return value['actionType'] === 'Discourse';
+}
+
+export function isElasticSearchRuleActionDto(value: RuleActionDto): value is ElasticSearchRuleActionDto {
+    return value['actionType'] === 'ElasticSearch';
+}
+
+export function isEmailRuleActionDto(value: RuleActionDto): value is EmailRuleActionDto {
+    return value['actionType'] === 'Email';
+}
+
+export function isFastlyRuleActionDto(value: RuleActionDto): value is FastlyRuleActionDto {
+    return value['actionType'] === 'Fastly';
+}
+
+export function isMediumRuleActionDto(value: RuleActionDto): value is MediumRuleActionDto {
+    return value['actionType'] === 'Medium';
+}
+
+export function isNotificationRuleActionDto(value: RuleActionDto): value is NotificationRuleActionDto {
+    return value['actionType'] === 'Notification';
+}
+
+export function isOpenSearchRuleActionDto(value: RuleActionDto): value is OpenSearchRuleActionDto {
+    return value['actionType'] === 'OpenSearch';
+}
+
+export function isPrerenderRuleActionDto(value: RuleActionDto): value is PrerenderRuleActionDto {
+    return value['actionType'] === 'Prerender';
+}
+
+export function isScriptRuleActionDto(value: RuleActionDto): value is ScriptRuleActionDto {
+    return value['actionType'] === 'Script';
+}
+
+export function isSignalRRuleActionDto(value: RuleActionDto): value is SignalRRuleActionDto {
+    return value['actionType'] === 'SignalR';
+}
+
+export function isSlackRuleActionDto(value: RuleActionDto): value is SlackRuleActionDto {
+    return value['actionType'] === 'Slack';
+}
+
+export function isTweetRuleActionDto(value: RuleActionDto): value is TweetRuleActionDto {
+    return value['actionType'] === 'Tweet';
+}
+
+export function isTypesenseRuleActionDto(value: RuleActionDto): value is TypesenseRuleActionDto {
+    return value['actionType'] === 'Typesense';
+}
+
+export function isWebhookRuleActionDto(value: RuleActionDto): value is WebhookRuleActionDto {
+    return value['actionType'] === 'Webhook';
+}
+
+
 /**
  * Check if a given object implements the RuleActionDto interface.
  */

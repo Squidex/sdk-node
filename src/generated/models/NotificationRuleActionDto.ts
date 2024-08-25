@@ -52,6 +52,7 @@ export interface NotificationRuleActionDto extends RuleActionDto {
     client?: string | null;
 }
 
+
 /**
  * Check if a given object implements the NotificationRuleActionDto interface.
  */

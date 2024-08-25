@@ -51,6 +51,7 @@ export interface AnnotateAssetDto {
     metadata?: { [key: string]: any; } | null;
 }
 
+
 /**
  * Check if a given object implements the AnnotateAssetDto interface.
  */

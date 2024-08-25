@@ -40,6 +40,7 @@ export interface TemplateDetailsDto {
     details: string;
 }
 
+
 /**
  * Check if a given object implements the TemplateDetailsDto interface.
  */

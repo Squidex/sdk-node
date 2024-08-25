@@ -72,6 +72,7 @@ export interface RuleElementPropertyDto {
 
 
 
+
 /**
  * Check if a given object implements the RuleElementPropertyDto interface.
  */

@@ -46,6 +46,7 @@ export interface AzureQueueRuleActionDto extends RuleActionDto {
     payload?: string | null;
 }
 
+
 /**
  * Check if a given object implements the AzureQueueRuleActionDto interface.
  */

@@ -70,6 +70,7 @@ export interface DiscourseRuleActionDto extends RuleActionDto {
     category?: number | null;
 }
 
+
 /**
  * Check if a given object implements the DiscourseRuleActionDto interface.
  */

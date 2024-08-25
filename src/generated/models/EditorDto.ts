@@ -33,6 +33,7 @@ export interface EditorDto {
     url: string;
 }
 
+
 /**
  * Check if a given object implements the EditorDto interface.
  */

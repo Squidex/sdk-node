@@ -39,6 +39,7 @@ export interface StorageUsagePerDateDto {
     totalSize: number;
 }
 
+
 /**
  * Check if a given object implements the StorageUsagePerDateDto interface.
  */

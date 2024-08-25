@@ -45,6 +45,7 @@ export interface CreateUserDto {
     permissions: Array<string>;
 }
 
+
 /**
  * Check if a given object implements the CreateUserDto interface.
  */

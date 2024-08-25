@@ -40,6 +40,7 @@ export interface FastlyRuleActionDto extends RuleActionDto {
     serviceId: string;
 }
 
+
 /**
  * Check if a given object implements the FastlyRuleActionDto interface.
  */

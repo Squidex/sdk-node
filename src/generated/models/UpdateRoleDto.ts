@@ -33,6 +33,7 @@ export interface UpdateRoleDto {
     properties?: { [key: string]: any; };
 }
 
+
 /**
  * Check if a given object implements the UpdateRoleDto interface.
  */

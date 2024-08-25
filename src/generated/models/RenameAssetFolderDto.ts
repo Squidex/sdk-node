@@ -27,6 +27,7 @@ export interface RenameAssetFolderDto {
     folderName: string;
 }
 
+
 /**
  * Check if a given object implements the RenameAssetFolderDto interface.
  */

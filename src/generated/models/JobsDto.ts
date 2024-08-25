@@ -46,6 +46,7 @@ export interface JobsDto {
     items: Array<JobDto>;
 }
 
+
 /**
  * Check if a given object implements the JobsDto interface.
  */

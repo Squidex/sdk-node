@@ -70,6 +70,7 @@ export interface EventConsumerDto {
     position?: string | null;
 }
 
+
 /**
  * Check if a given object implements the EventConsumerDto interface.
  */

@@ -39,6 +39,7 @@ export interface ReferralInfo {
     condition: string;
 }
 
+
 /**
  * Check if a given object implements the ReferralInfo interface.
  */

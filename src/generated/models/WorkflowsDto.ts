@@ -52,6 +52,7 @@ export interface WorkflowsDto {
     errors: Array<string>;
 }
 
+
 /**
  * Check if a given object implements the WorkflowsDto interface.
  */

@@ -40,6 +40,7 @@ export interface UsageRuleTriggerDto extends RuleTriggerDto {
     numDays?: number | null;
 }
 
+
 /**
  * Check if a given object implements the UsageRuleTriggerDto interface.
  */

@@ -33,6 +33,7 @@ export interface UpdateAppDto {
     description?: string | null;
 }
 
+
 /**
  * Check if a given object implements the UpdateAppDto interface.
  */

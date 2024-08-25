@@ -76,6 +76,7 @@ export interface EmailRuleActionDto extends RuleActionDto {
     messageBody: string;
 }
 
+
 /**
  * Check if a given object implements the EmailRuleActionDto interface.
  */

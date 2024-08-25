@@ -52,6 +52,7 @@ export interface BulkUpdateAssetsDto {
     doNotScript?: boolean;
 }
 
+
 /**
  * Check if a given object implements the BulkUpdateAssetsDto interface.
  */

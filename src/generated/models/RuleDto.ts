@@ -125,6 +125,7 @@ export interface RuleDto {
     lastExecuted?: Date | null;
 }
 
+
 /**
  * Check if a given object implements the RuleDto interface.
  */

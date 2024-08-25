@@ -58,6 +58,7 @@ export interface UpdateRuleDto {
     isEnabled?: boolean | null;
 }
 
+
 /**
  * Check if a given object implements the UpdateRuleDto interface.
  */

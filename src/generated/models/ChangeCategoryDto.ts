@@ -27,6 +27,7 @@ export interface ChangeCategoryDto {
     name?: string | null;
 }
 
+
 /**
  * Check if a given object implements the ChangeCategoryDto interface.
  */

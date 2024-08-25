@@ -76,6 +76,7 @@ export interface AppSettingsDto {
     version: number;
 }
 
+
 /**
  * Check if a given object implements the AppSettingsDto interface.
  */

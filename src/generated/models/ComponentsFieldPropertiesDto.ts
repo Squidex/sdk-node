@@ -66,6 +66,7 @@ export interface ComponentsFieldPropertiesDto extends FieldPropertiesDto {
 
 
 
+
 /**
  * Check if a given object implements the ComponentsFieldPropertiesDto interface.
  */

@@ -40,6 +40,7 @@ export interface CommentRuleActionDto extends RuleActionDto {
     client?: string | null;
 }
 
+
 /**
  * Check if a given object implements the CommentRuleActionDto interface.
  */

@@ -195,6 +195,7 @@ export interface AssetDto {
 
 
 
+
 /**
  * Check if a given object implements the AssetDto interface.
  */

@@ -102,6 +102,7 @@ export interface RuleEventDto {
 
 
 
+
 /**
  * Check if a given object implements the RuleEventDto interface.
  */

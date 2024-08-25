@@ -17,6 +17,15 @@ import { {{modelName}}, {{modelName}}FromJSONTyped, {{modelName}}ToJSON } from '
 {{/discriminator}}
 {{>modelGenericInterfaces}}
 
+{{#discriminator}}
+{{#discriminator.mappedModels}}
+export function is{{modelName}}(value: {{classname}}): value is {{modelName}} {
+    return value['{{discriminator.propertyBaseName}}'] === '{{mappingName}}';
+}
+
+{{/discriminator.mappedModels}}
+{{/discriminator}}
+
 /**
  * Check if a given object implements the {{classname}} interface.
  */

@@ -57,6 +57,7 @@ export interface HistoryEventDto {
     version: number;
 }
 
+
 /**
  * Check if a given object implements the HistoryEventDto interface.
  */

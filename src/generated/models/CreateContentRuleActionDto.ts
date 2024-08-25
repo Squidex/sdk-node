@@ -52,6 +52,7 @@ export interface CreateContentRuleActionDto extends RuleActionDto {
     publish: boolean;
 }
 
+
 /**
  * Check if a given object implements the CreateContentRuleActionDto interface.
  */

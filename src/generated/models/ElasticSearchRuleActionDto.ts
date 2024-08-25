@@ -64,6 +64,7 @@ export interface ElasticSearchRuleActionDto extends RuleActionDto {
     _delete?: string | null;
 }
 
+
 /**
  * Check if a given object implements the ElasticSearchRuleActionDto interface.
  */

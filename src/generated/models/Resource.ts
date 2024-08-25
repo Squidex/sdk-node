@@ -34,6 +34,7 @@ export interface Resource {
     links: { [key: string]: ResourceLink; };
 }
 
+
 /**
  * Check if a given object implements the Resource interface.
  */

@@ -48,6 +48,7 @@ export interface TranslationDto {
 
 
 
+
 /**
  * Check if a given object implements the TranslationDto interface.
  */

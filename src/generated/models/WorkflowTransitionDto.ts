@@ -33,6 +33,7 @@ export interface WorkflowTransitionDto {
     roles?: Array<string> | null;
 }
 
+
 /**
  * Check if a given object implements the WorkflowTransitionDto interface.
  */

@@ -70,6 +70,7 @@ export interface RuleElementDto {
     properties: Array<RuleElementPropertyDto>;
 }
 
+
 /**
  * Check if a given object implements the RuleElementDto interface.
  */

@@ -40,6 +40,7 @@ export interface SlackRuleActionDto extends RuleActionDto {
     text: string;
 }
 
+
 /**
  * Check if a given object implements the SlackRuleActionDto interface.
  */

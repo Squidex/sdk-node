@@ -33,6 +33,7 @@ export interface CreateAppDto {
     template?: string | null;
 }
 
+
 /**
  * Check if a given object implements the CreateAppDto interface.
  */

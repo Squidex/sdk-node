@@ -63,6 +63,7 @@ export interface UpdateSchemaDto {
     tags?: Array<string> | null;
 }
 
+
 /**
  * Check if a given object implements the UpdateSchemaDto interface.
  */

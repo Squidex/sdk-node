@@ -34,6 +34,7 @@ export interface JsonFieldPropertiesDto extends FieldPropertiesDto {
     graphQLSchema?: string | null;
 }
 
+
 /**
  * Check if a given object implements the JsonFieldPropertiesDto interface.
  */

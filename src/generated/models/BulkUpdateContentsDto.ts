@@ -78,6 +78,7 @@ export interface BulkUpdateContentsDto {
     optimizeValidation?: boolean;
 }
 
+
 /**
  * Check if a given object implements the BulkUpdateContentsDto interface.
  */

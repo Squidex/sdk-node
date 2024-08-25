@@ -27,6 +27,7 @@ export interface CreateTeamDto {
     name: string;
 }
 
+
 /**
  * Check if a given object implements the CreateTeamDto interface.
  */

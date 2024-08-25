@@ -34,6 +34,7 @@ export interface ResourcesDto {
     links: { [key: string]: ResourceLink; };
 }
 
+
 /**
  * Check if a given object implements the ResourcesDto interface.
  */

@@ -70,6 +70,7 @@ export interface QueryJsonDto {
     sort?: Array<SortNode> | null;
 }
 
+
 /**
  * Check if a given object implements the QueryJsonDto interface.
  */

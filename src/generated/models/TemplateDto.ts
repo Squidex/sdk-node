@@ -58,6 +58,7 @@ export interface TemplateDto {
     isStarter: boolean;
 }
 
+
 /**
  * Check if a given object implements the TemplateDto interface.
  */

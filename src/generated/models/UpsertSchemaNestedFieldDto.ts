@@ -58,6 +58,7 @@ export interface UpsertSchemaNestedFieldDto {
     properties: FieldPropertiesDto;
 }
 
+
 /**
  * Check if a given object implements the UpsertSchemaNestedFieldDto interface.
  */

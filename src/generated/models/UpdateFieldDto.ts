@@ -34,6 +34,7 @@ export interface UpdateFieldDto {
     properties: FieldPropertiesDto;
 }
 
+
 /**
  * Check if a given object implements the UpdateFieldDto interface.
  */

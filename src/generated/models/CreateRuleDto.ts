@@ -46,6 +46,7 @@ export interface CreateRuleDto {
     action: RuleActionDto;
 }
 
+
 /**
  * Check if a given object implements the CreateRuleDto interface.
  */

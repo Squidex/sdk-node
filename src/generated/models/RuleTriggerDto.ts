@@ -33,6 +33,31 @@ export interface RuleTriggerDto {
     triggerType: string;
 }
 
+export function isAssetChangedRuleTriggerDto(value: RuleTriggerDto): value is AssetChangedRuleTriggerDto {
+    return value['triggerType'] === 'AssetChanged';
+}
+
+export function isCommentRuleTriggerDto(value: RuleTriggerDto): value is CommentRuleTriggerDto {
+    return value['triggerType'] === 'Comment';
+}
+
+export function isContentChangedRuleTriggerDto(value: RuleTriggerDto): value is ContentChangedRuleTriggerDto {
+    return value['triggerType'] === 'ContentChanged';
+}
+
+export function isManualRuleTriggerDto(value: RuleTriggerDto): value is ManualRuleTriggerDto {
+    return value['triggerType'] === 'Manual';
+}
+
+export function isSchemaChangedRuleTriggerDto(value: RuleTriggerDto): value is SchemaChangedRuleTriggerDto {
+    return value['triggerType'] === 'SchemaChanged';
+}
+
+export function isUsageRuleTriggerDto(value: RuleTriggerDto): value is UsageRuleTriggerDto {
+    return value['triggerType'] === 'Usage';
+}
+
+
 /**
  * Check if a given object implements the RuleTriggerDto interface.
  */

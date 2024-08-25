@@ -33,6 +33,7 @@ export interface CreateAssetFolderDto {
     parentId?: string;
 }
 
+
 /**
  * Check if a given object implements the CreateAssetFolderDto interface.
  */

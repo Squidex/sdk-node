@@ -46,6 +46,7 @@ export interface RolesDto {
     items: Array<RoleDto>;
 }
 
+
 /**
  * Check if a given object implements the RolesDto interface.
  */

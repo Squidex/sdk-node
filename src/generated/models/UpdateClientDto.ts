@@ -51,6 +51,7 @@ export interface UpdateClientDto {
     apiTrafficLimit?: number | null;
 }
 
+
 /**
  * Check if a given object implements the UpdateClientDto interface.
  */

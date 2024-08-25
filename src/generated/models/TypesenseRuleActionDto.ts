@@ -58,6 +58,7 @@ export interface TypesenseRuleActionDto extends RuleActionDto {
     _delete?: string | null;
 }
 
+
 /**
  * Check if a given object implements the TypesenseRuleActionDto interface.
  */

@@ -58,6 +58,7 @@ export interface AssetFoldersDto {
     path: Array<AssetFolderDto>;
 }
 
+
 /**
  * Check if a given object implements the AssetFoldersDto interface.
  */

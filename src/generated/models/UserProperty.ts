@@ -33,6 +33,7 @@ export interface UserProperty {
     value: string;
 }
 
+
 /**
  * Check if a given object implements the UserProperty interface.
  */

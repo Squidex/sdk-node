@@ -58,6 +58,7 @@ export interface AlgoliaRuleActionDto extends RuleActionDto {
     _delete?: string | null;
 }
 
+
 /**
  * Check if a given object implements the AlgoliaRuleActionDto interface.
  */

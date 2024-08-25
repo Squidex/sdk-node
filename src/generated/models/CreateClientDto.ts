@@ -27,6 +27,7 @@ export interface CreateClientDto {
     id: string;
 }
 
+
 /**
  * Check if a given object implements the CreateClientDto interface.
  */

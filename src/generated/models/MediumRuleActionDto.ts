@@ -70,6 +70,7 @@ export interface MediumRuleActionDto extends RuleActionDto {
     isHtml: boolean;
 }
 
+
 /**
  * Check if a given object implements the MediumRuleActionDto interface.
  */

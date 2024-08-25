@@ -89,6 +89,63 @@ export interface FieldPropertiesDto {
     fieldType: string;
 }
 
+export function isArrayFieldPropertiesDto(value: FieldPropertiesDto): value is ArrayFieldPropertiesDto {
+    return value['fieldType'] === 'Array';
+}
+
+export function isAssetsFieldPropertiesDto(value: FieldPropertiesDto): value is AssetsFieldPropertiesDto {
+    return value['fieldType'] === 'Assets';
+}
+
+export function isBooleanFieldPropertiesDto(value: FieldPropertiesDto): value is BooleanFieldPropertiesDto {
+    return value['fieldType'] === 'Boolean';
+}
+
+export function isComponentFieldPropertiesDto(value: FieldPropertiesDto): value is ComponentFieldPropertiesDto {
+    return value['fieldType'] === 'Component';
+}
+
+export function isComponentsFieldPropertiesDto(value: FieldPropertiesDto): value is ComponentsFieldPropertiesDto {
+    return value['fieldType'] === 'Components';
+}
+
+export function isDateTimeFieldPropertiesDto(value: FieldPropertiesDto): value is DateTimeFieldPropertiesDto {
+    return value['fieldType'] === 'DateTime';
+}
+
+export function isGeolocationFieldPropertiesDto(value: FieldPropertiesDto): value is GeolocationFieldPropertiesDto {
+    return value['fieldType'] === 'Geolocation';
+}
+
+export function isJsonFieldPropertiesDto(value: FieldPropertiesDto): value is JsonFieldPropertiesDto {
+    return value['fieldType'] === 'Json';
+}
+
+export function isNumberFieldPropertiesDto(value: FieldPropertiesDto): value is NumberFieldPropertiesDto {
+    return value['fieldType'] === 'Number';
+}
+
+export function isReferencesFieldPropertiesDto(value: FieldPropertiesDto): value is ReferencesFieldPropertiesDto {
+    return value['fieldType'] === 'References';
+}
+
+export function isRichTextFieldPropertiesDto(value: FieldPropertiesDto): value is RichTextFieldPropertiesDto {
+    return value['fieldType'] === 'RichText';
+}
+
+export function isStringFieldPropertiesDto(value: FieldPropertiesDto): value is StringFieldPropertiesDto {
+    return value['fieldType'] === 'String';
+}
+
+export function isTagsFieldPropertiesDto(value: FieldPropertiesDto): value is TagsFieldPropertiesDto {
+    return value['fieldType'] === 'Tags';
+}
+
+export function isUIFieldPropertiesDto(value: FieldPropertiesDto): value is UIFieldPropertiesDto {
+    return value['fieldType'] === 'UI';
+}
+
+
 /**
  * Check if a given object implements the FieldPropertiesDto interface.
  */

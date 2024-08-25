@@ -63,6 +63,7 @@ export interface AllContentsByPostDto {
     q?: any | null;
 }
 
+
 /**
  * Check if a given object implements the AllContentsByPostDto interface.
  */

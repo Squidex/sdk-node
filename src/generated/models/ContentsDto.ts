@@ -64,6 +64,7 @@ export interface ContentsDto {
     statuses: Array<StatusInfoDto>;
 }
 
+
 /**
  * Check if a given object implements the ContentsDto interface.
  */

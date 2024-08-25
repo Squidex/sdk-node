@@ -76,6 +76,7 @@ export interface ClientDto {
     allowAnonymous: boolean;
 }
 
+
 /**
  * Check if a given object implements the ClientDto interface.
  */

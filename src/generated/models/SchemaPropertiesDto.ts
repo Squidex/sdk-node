@@ -75,6 +75,7 @@ export interface SchemaPropertiesDto {
     tags?: Array<string> | null;
 }
 
+
 /**
  * Check if a given object implements the SchemaPropertiesDto interface.
  */

@@ -60,6 +60,7 @@ export interface ArrayFieldPropertiesDto extends FieldPropertiesDto {
 
 
 
+
 /**
  * Check if a given object implements the ArrayFieldPropertiesDto interface.
  */

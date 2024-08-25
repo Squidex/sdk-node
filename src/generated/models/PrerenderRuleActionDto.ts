@@ -40,6 +40,7 @@ export interface PrerenderRuleActionDto extends RuleActionDto {
     url: string;
 }
 
+
 /**
  * Check if a given object implements the PrerenderRuleActionDto interface.
  */

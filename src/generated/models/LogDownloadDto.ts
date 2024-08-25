@@ -27,6 +27,7 @@ export interface LogDownloadDto {
     downloadUrl?: string | null;
 }
 
+
 /**
  * Check if a given object implements the LogDownloadDto interface.
  */

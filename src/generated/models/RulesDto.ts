@@ -52,6 +52,7 @@ export interface RulesDto {
     runningRuleId?: string | null;
 }
 
+
 /**
  * Check if a given object implements the RulesDto interface.
  */

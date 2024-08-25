@@ -46,6 +46,7 @@ export interface TemplatesDto {
     items: Array<TemplateDto>;
 }
 
+
 /**
  * Check if a given object implements the TemplatesDto interface.
  */

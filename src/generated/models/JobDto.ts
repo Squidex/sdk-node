@@ -102,6 +102,7 @@ export interface JobDto {
 
 
 
+
 /**
  * Check if a given object implements the JobDto interface.
  */

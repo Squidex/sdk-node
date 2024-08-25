@@ -112,6 +112,7 @@ export interface SynchronizeSchemaDto {
     noFieldRecreation?: boolean;
 }
 
+
 /**
  * Check if a given object implements the SynchronizeSchemaDto interface.
  */

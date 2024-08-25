@@ -33,6 +33,7 @@ export interface JobLogMessageDto {
     message: string;
 }
 
+
 /**
  * Check if a given object implements the JobLogMessageDto interface.
  */

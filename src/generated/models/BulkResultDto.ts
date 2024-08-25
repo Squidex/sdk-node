@@ -53,6 +53,7 @@ export interface BulkResultDto {
     contentId?: string | null;
 }
 
+
 /**
  * Check if a given object implements the BulkResultDto interface.
  */

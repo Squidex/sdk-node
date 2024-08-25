@@ -76,6 +76,7 @@ export interface NestedFieldDto {
     properties: FieldPropertiesDto;
 }
 
+
 /**
  * Check if a given object implements the NestedFieldDto interface.
  */

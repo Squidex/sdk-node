@@ -52,6 +52,7 @@ export interface AssetsDto {
     items: Array<AssetDto>;
 }
 
+
 /**
  * Check if a given object implements the AssetsDto interface.
  */

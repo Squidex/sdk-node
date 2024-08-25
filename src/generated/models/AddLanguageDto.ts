@@ -27,6 +27,7 @@ export interface AddLanguageDto {
     language: string;
 }
 
+
 /**
  * Check if a given object implements the AddLanguageDto interface.
  */

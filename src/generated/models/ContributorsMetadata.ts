@@ -27,6 +27,7 @@ export interface ContributorsMetadata {
     isInvited: string;
 }
 
+
 /**
  * Check if a given object implements the ContributorsMetadata interface.
  */

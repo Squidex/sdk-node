@@ -57,6 +57,7 @@ export interface ErrorDto {
     statusCode: number;
 }
 
+
 /**
  * Check if a given object implements the ErrorDto interface.
  */

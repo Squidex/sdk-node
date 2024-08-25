@@ -27,6 +27,7 @@ export interface UpdateTeamDto {
     name: string;
 }
 
+
 /**
  * Check if a given object implements the UpdateTeamDto interface.
  */
