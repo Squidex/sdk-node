@@ -26,8 +26,8 @@ jobs:
           volumes: ${{ github.workspace }}:/src
           run: |
             cd /src
-            yarn install
-            ./test.sh
+            npm install
+            npm test
        
       - name: Test - Dump docker logs on failure
         if: failure()
