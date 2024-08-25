@@ -20,7 +20,7 @@ export function getClient() {
         environment,
         middleware: {
             pre: async ({ init }) => {
-                (init as any)['agent'] = new https.Agent({
+                (init as any)["agent"] = new https.Agent({
                     rejectUnauthorized: false,
                 });
             },

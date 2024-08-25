@@ -162,13 +162,13 @@ export class {{classname}} extends runtime.BaseAPI {
         {{#headerParams}}
         {{#isArray}}
         if (requestParameters['{{paramName}}'] != null) {
-            headerParameters['{{baseName}}'] = {{#uniqueItems}}Array.from({{/uniqueItems}}requestParameters['{{paramName}}']{{#uniqueItems}}){{/uniqueItems}}!.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]);
+            headerParameters['{{vendorExtensions.x-header-name}}'] = {{#uniqueItems}}Array.from({{/uniqueItems}}requestParameters['{{paramName}}']{{#uniqueItems}}){{/uniqueItems}}!.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]);
         }
 
         {{/isArray}}
         {{^isArray}}
         if (requestParameters['{{paramName}}'] != null) {
-            headerParameters['{{baseName}}'] = String(requestParameters['{{paramName}}']);
+            headerParameters['{{vendorExtensions.x-header-name}}'] = String(requestParameters['{{paramName}}']);
         }
 
         {{/isArray}}

@@ -1,6 +1,6 @@
 export function getHeader(init: RequestInit, key: string) {
     if (Array.isArray(init.headers)) {
-        return init.headers.find(x => x[0] === key)?.[1];
+        return init.headers.find((x) => x[0] === key)?.[1];
     } else if (init.headers instanceof Headers) {
         return init.headers.get(key);
     } else if (init.headers) {

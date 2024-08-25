@@ -1,9 +1,9 @@
 globalProperties:
-  apiDocs: false
-  apiTests: false
-  modelDocs: false
-  modelTests: false
+    apiDocs: false
+    apiTests: false
+    modelDocs: false
+    modelTests: false
 
 additionalProperties:
-  withInterfaces: true
-  useSingleRequestParameter: true
+    withInterfaces: true
+    useSingleRequestParameter: true

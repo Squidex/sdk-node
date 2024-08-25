@@ -18,12 +18,12 @@ async function setup() {
             console.log("Waiting for server is skipped.");
             return;
         }
-    
+
         console.log(`Waiting ${waitTime} seconds to access server.`);
-    
+
         const timeout = waitTime * 1000;
         const timeStart = getTime();
-    
+
         while (true) {
             try {
                 await client.ping.getPing();
@@ -32,21 +32,21 @@ async function setup() {
                 if (error instanceof SquidexError) {
                     throw error;
                 }
-    
+
                 const elapsed = getTime() - timeStart;
-    
+
                 if (elapsed > timeout) {
                     throw new Error(`Cannot connect to test system with: ${error}.`);
                 }
             }
-    
+
             await delay(100);
         }
-    
-        console.log("Connected to server.");
-    }
 
-    await waitForServer();    
+        console.log("Connected to server.");
+    };
+
+    await waitForServer();
 
     try {
         await client.apps.postApp({ createAppDto: { name: client.appName } });

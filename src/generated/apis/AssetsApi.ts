@@ -153,14 +153,14 @@ export interface AssetsGetAssetsRequest {
     $skip?: number;
     $orderby?: string;
     $filter?: string;
-    xNoTotal?: boolean;
-    xNoSlowTotal?: boolean;
+    noTotal?: boolean;
+    noSlowTotal?: boolean;
 }
 
 export interface AssetsGetAssetsPostRequest {
     queryDto: QueryDto;
-    xNoTotal?: boolean;
-    xNoSlowTotal?: boolean;
+    noTotal?: boolean;
+    noSlowTotal?: boolean;
 }
 
 export interface AssetsPostAssetRequest {
@@ -408,8 +408,8 @@ export interface AssetsApiInterface {
      * @param {number} [$skip] Optional number of items to skip.
      * @param {string} [$orderby] Optional OData order definition.
      * @param {string} [$filter] Optional OData filter.
-     * @param {boolean} [xNoTotal] Do not return the total amount.
-     * @param {boolean} [xNoSlowTotal] Do not return the total amount, if it would be slow.
+     * @param {boolean} [noTotal] Do not return the total amount.
+     * @param {boolean} [noSlowTotal] Do not return the total amount, if it would be slow.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
@@ -426,8 +426,8 @@ export interface AssetsApiInterface {
      * Get all assets for the app.
      * @summary Get assets.
      * @param {QueryDto} queryDto The required query object.
-     * @param {boolean} [xNoTotal] Do not return the total amount.
-     * @param {boolean} [xNoSlowTotal] Do not return the total amount, if it would be slow.
+     * @param {boolean} [noTotal] Do not return the total amount.
+     * @param {boolean} [noSlowTotal] Do not return the total amount, if it would be slow.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
@@ -1095,12 +1095,12 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xNoTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['xNoTotal']);
+        if (requestParameters['noTotal'] != null) {
+            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
         }
 
-        if (requestParameters['xNoSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['xNoSlowTotal']);
+        if (requestParameters['noSlowTotal'] != null) {
+            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
         }
 
         const response = await this.request({
@@ -1140,12 +1140,12 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xNoTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['xNoTotal']);
+        if (requestParameters['noTotal'] != null) {
+            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
         }
 
-        if (requestParameters['xNoSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['xNoSlowTotal']);
+        if (requestParameters['noSlowTotal'] != null) {
+            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
         }
 
         const response = await this.request({

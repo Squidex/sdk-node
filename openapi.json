@@ -6587,58 +6587,64 @@
             "x-position": 8
           },
           {
-            "name": "X-Fields",
+            "name": "fields",
             "in": "header",
             "description": "The list of content fields (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 9
+            "x-position": 9,
+            "x-header-name": "X-Fields"
           },
           {
-            "name": "X-Flatten",
+            "name": "flatten",
             "in": "header",
             "description": "Provide the data as flat object.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 10
+            "x-position": 10,
+            "x-header-name": "X-Flatten"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 11
+            "x-position": 11,
+            "x-header-name": "X-Languages"
           },
           {
-            "name": "X-NoSlowTotal",
+            "name": "noSlowTotal",
             "in": "header",
             "description": "Do not return the total amount, if it would be slow.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 12
+            "x-position": 12,
+            "x-header-name": "X-NoSlowTotal"
           },
           {
-            "name": "X-NoTotal",
+            "name": "noTotal",
             "in": "header",
             "description": "Do not return the total amount.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 13
+            "x-position": 13,
+            "x-header-name": "X-NoTotal"
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 14
+            "x-position": 14,
+            "x-header-name": "X-Unpublished"
           }
         ],
         "responses": {
@@ -6721,22 +6727,24 @@
             "x-position": 5
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 6
+            "x-position": 6,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 7
+            "x-position": 7,
+            "x-header-name": "X-Languages"
           }
         ],
         "requestBody": {
@@ -6817,58 +6825,64 @@
             "x-position": 1
           },
           {
-            "name": "X-Fields",
+            "name": "fields",
             "in": "header",
             "description": "The list of content fields (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 3
+            "x-position": 3,
+            "x-header-name": "X-Fields"
           },
           {
-            "name": "X-Flatten",
+            "name": "flatten",
             "in": "header",
             "description": "Provide the data as flat object.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Flatten"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 5
+            "x-position": 5,
+            "x-header-name": "X-Languages"
           },
           {
-            "name": "X-NoSlowTotal",
+            "name": "noSlowTotal",
             "in": "header",
             "description": "Do not return the total amount, if it would be slow.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 6
+            "x-position": 6,
+            "x-header-name": "X-NoSlowTotal"
           },
           {
-            "name": "X-NoTotal",
+            "name": "noTotal",
             "in": "header",
             "description": "Do not return the total amount.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 7
+            "x-position": 7,
+            "x-header-name": "X-NoTotal"
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 8
+            "x-position": 8,
+            "x-header-name": "X-Unpublished"
           }
         ],
         "requestBody": {
@@ -6968,40 +6982,44 @@
             "x-position": 3
           },
           {
-            "name": "X-Fields",
+            "name": "fields",
             "in": "header",
             "description": "The list of content fields (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Fields"
           },
           {
-            "name": "X-Flatten",
+            "name": "flatten",
             "in": "header",
             "description": "Provide the data as flat object.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 5
+            "x-position": 5,
+            "x-header-name": "X-Flatten"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 6
+            "x-position": 6,
+            "x-header-name": "X-Languages"
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 7
+            "x-position": 7,
+            "x-header-name": "X-Unpublished"
           }
         ],
         "responses": {
@@ -7102,22 +7120,24 @@
             "x-position": 7
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 8
+            "x-position": 8,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 9
+            "x-position": 9,
+            "x-header-name": "X-Languages"
           }
         ],
         "requestBody": {
@@ -7215,22 +7235,24 @@
             "x-position": 4
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 5
+            "x-position": 5,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 6
+            "x-position": 6,
+            "x-header-name": "X-Languages"
           }
         ],
         "requestBody": {
@@ -7319,22 +7341,24 @@
             "x-position": 2
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 5
+            "x-position": 5,
+            "x-header-name": "X-Languages"
           }
         ],
         "requestBody": {
@@ -7585,58 +7609,64 @@
             "x-position": 3
           },
           {
-            "name": "X-Fields",
+            "name": "fields",
             "in": "header",
             "description": "The list of content fields (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Fields"
           },
           {
-            "name": "X-Flatten",
+            "name": "flatten",
             "in": "header",
             "description": "Provide the data as flat object.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 5
+            "x-position": 5,
+            "x-header-name": "X-Flatten"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 6
+            "x-position": 6,
+            "x-header-name": "X-Languages"
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 7
+            "x-position": 7,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-NoSlowTotal",
+            "name": "noSlowTotal",
             "in": "header",
             "description": "Do not return the total amount, if it would be slow.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 8
+            "x-position": 8,
+            "x-header-name": "X-NoSlowTotal"
           },
           {
-            "name": "X-NoTotal",
+            "name": "noTotal",
             "in": "header",
             "description": "Do not return the total amount.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 9
+            "x-position": 9,
+            "x-header-name": "X-NoTotal"
           }
         ],
         "responses": {
@@ -7712,58 +7742,64 @@
             "x-position": 3
           },
           {
-            "name": "X-Fields",
+            "name": "fields",
             "in": "header",
             "description": "The list of content fields (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Fields"
           },
           {
-            "name": "X-Flatten",
+            "name": "flatten",
             "in": "header",
             "description": "Provide the data as flat object.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 5
+            "x-position": 5,
+            "x-header-name": "X-Flatten"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 6
+            "x-position": 6,
+            "x-header-name": "X-Languages"
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 7
+            "x-position": 7,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-NoSlowTotal",
+            "name": "noSlowTotal",
             "in": "header",
             "description": "Do not return the total amount, if it would be slow.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 8
+            "x-position": 8,
+            "x-header-name": "X-NoSlowTotal"
           },
           {
-            "name": "X-NoTotal",
+            "name": "noTotal",
             "in": "header",
             "description": "Do not return the total amount.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 9
+            "x-position": 9,
+            "x-header-name": "X-NoTotal"
           }
         ],
         "responses": {
@@ -7840,22 +7876,24 @@
             "x-position": 3
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 5
+            "x-position": 5,
+            "x-header-name": "X-Languages"
           }
         ],
         "responses": {
@@ -8097,22 +8135,24 @@
             "x-position": 3
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 5
+            "x-position": 5,
+            "x-header-name": "X-Languages"
           }
         ],
         "responses": {
@@ -8190,22 +8230,24 @@
             "x-position": 2
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 5
+            "x-position": 5,
+            "x-header-name": "X-Languages"
           }
         ],
         "requestBody": {
@@ -8294,22 +8336,24 @@
             "x-position": 2
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 3
+            "x-position": 3,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Languages"
           }
         ],
         "responses": {
@@ -8387,22 +8431,24 @@
             "x-position": 2
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 3
+            "x-position": 3,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Languages"
           }
         ],
         "responses": {
@@ -8478,22 +8524,24 @@
             "x-position": 2
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 3
+            "x-position": 3,
+            "x-header-name": "X-Unpublished"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Languages"
           }
         ],
         "responses": {
@@ -8580,13 +8628,14 @@
             "x-position": 3
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Unpublished"
           }
         ],
         "responses": {
@@ -8628,13 +8677,14 @@
         "operationId": "ContentsShared_PostGraphQL",
         "parameters": [
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 2
+            "x-position": 2,
+            "x-header-name": "X-Unpublished"
           }
         ],
         "requestBody": {
@@ -8727,13 +8777,14 @@
             "x-position": 3
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Unpublished"
           }
         ],
         "responses": {
@@ -8775,13 +8826,14 @@
         "operationId": "ContentsShared_PostGraphQLBatch",
         "parameters": [
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 2
+            "x-position": 2,
+            "x-header-name": "X-Unpublished"
           }
         ],
         "requestBody": {
@@ -8907,58 +8959,64 @@
             "x-position": 6
           },
           {
-            "name": "X-Fields",
+            "name": "fields",
             "in": "header",
             "description": "The list of content fields (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 7
+            "x-position": 7,
+            "x-header-name": "X-Fields"
           },
           {
-            "name": "X-Flatten",
+            "name": "flatten",
             "in": "header",
             "description": "Provide the data as flat object.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 8
+            "x-position": 8,
+            "x-header-name": "X-Flatten"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 9
+            "x-position": 9,
+            "x-header-name": "X-Languages"
           },
           {
-            "name": "X-NoSlowTotal",
+            "name": "noSlowTotal",
             "in": "header",
             "description": "Do not return the total amount, if it would be slow.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 10
+            "x-position": 10,
+            "x-header-name": "X-NoSlowTotal"
           },
           {
-            "name": "X-NoTotal",
+            "name": "noTotal",
             "in": "header",
             "description": "Do not return the total amount.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 11
+            "x-position": 11,
+            "x-header-name": "X-NoTotal"
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 12
+            "x-position": 12,
+            "x-header-name": "X-Unpublished"
           }
         ],
         "responses": {
@@ -9002,58 +9060,64 @@
         "operationId": "ContentsShared_GetAllContentsPost",
         "parameters": [
           {
-            "name": "X-Fields",
+            "name": "fields",
             "in": "header",
             "description": "The list of content fields (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 2
+            "x-position": 2,
+            "x-header-name": "X-Fields"
           },
           {
-            "name": "X-Flatten",
+            "name": "flatten",
             "in": "header",
             "description": "Provide the data as flat object.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 3
+            "x-position": 3,
+            "x-header-name": "X-Flatten"
           },
           {
-            "name": "X-Languages",
+            "name": "languages",
             "in": "header",
             "description": "The list of languages to resolve (comma-separated).",
             "schema": {
               "type": "string"
             },
-            "x-position": 4
+            "x-position": 4,
+            "x-header-name": "X-Languages"
           },
           {
-            "name": "X-NoSlowTotal",
+            "name": "noSlowTotal",
             "in": "header",
             "description": "Do not return the total amount, if it would be slow.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 5
+            "x-position": 5,
+            "x-header-name": "X-NoSlowTotal"
           },
           {
-            "name": "X-NoTotal",
+            "name": "noTotal",
             "in": "header",
             "description": "Do not return the total amount.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 6
+            "x-position": 6,
+            "x-header-name": "X-NoTotal"
           },
           {
-            "name": "X-Unpublished",
+            "name": "unpublished",
             "in": "header",
             "description": "Return unpublished content items.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 7
+            "x-position": 7,
+            "x-header-name": "X-Unpublished"
           }
         ],
         "requestBody": {
@@ -10493,22 +10557,24 @@
             "x-position": 7
           },
           {
-            "name": "X-NoTotal",
+            "name": "noTotal",
             "in": "header",
             "description": "Do not return the total amount.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 8
+            "x-position": 8,
+            "x-header-name": "X-NoTotal"
           },
           {
-            "name": "X-NoSlowTotal",
+            "name": "noSlowTotal",
             "in": "header",
             "description": "Do not return the total amount, if it would be slow.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 9
+            "x-position": 9,
+            "x-header-name": "X-NoSlowTotal"
           }
         ],
         "responses": {
@@ -10668,22 +10734,24 @@
         "operationId": "Assets_GetAssetsPost",
         "parameters": [
           {
-            "name": "X-NoTotal",
+            "name": "noTotal",
             "in": "header",
             "description": "Do not return the total amount.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 2
+            "x-position": 2,
+            "x-header-name": "X-NoTotal"
           },
           {
-            "name": "X-NoSlowTotal",
+            "name": "noSlowTotal",
             "in": "header",
             "description": "Do not return the total amount, if it would be slow.",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 3
+            "x-position": 3,
+            "x-header-name": "X-NoSlowTotal"
           }
         ],
         "requestBody": {

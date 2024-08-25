@@ -341,7 +341,7 @@ export class SquidexClients {
                     }
                 );
 
-                const body = await response.json() as { access_token: string; expires_in: number };
+                const body = (await response.json()) as { access_token: string; expires_in: number };
 
                 if (typeof body.access_token !== "string") {
                     throw new SquidexUnauthorizedError(undefined, undefined, "Token is not a string");

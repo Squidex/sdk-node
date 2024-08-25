@@ -54,8 +54,8 @@ export interface ContentsBulkUpdateContentsRequest {
 export interface ContentsCreateDraftRequest {
     schema: string;
     id: string;
-    xUnpublished?: boolean;
-    xLanguages?: string;
+    unpublished?: boolean;
+    languages?: string;
 }
 
 export interface ContentsDeleteContentRequest {
@@ -68,25 +68,25 @@ export interface ContentsDeleteContentRequest {
 export interface ContentsDeleteContentStatusRequest {
     schema: string;
     id: string;
-    xUnpublished?: boolean;
-    xLanguages?: string;
+    unpublished?: boolean;
+    languages?: string;
 }
 
 export interface ContentsDeleteVersionRequest {
     schema: string;
     id: string;
-    xUnpublished?: boolean;
-    xLanguages?: string;
+    unpublished?: boolean;
+    languages?: string;
 }
 
 export interface ContentsGetContentRequest {
     schema: string;
     id: string;
     version?: number;
-    xFields?: string;
-    xFlatten?: boolean;
-    xLanguages?: string;
-    xUnpublished?: boolean;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    unpublished?: boolean;
 }
 
 export interface ContentsGetContentValidityRequest {
@@ -98,8 +98,8 @@ export interface ContentsGetContentVersionRequest {
     schema: string;
     id: string;
     version: number;
-    xUnpublished?: boolean;
-    xLanguages?: string;
+    unpublished?: boolean;
+    languages?: string;
 }
 
 export interface ContentsGetContentsRequest {
@@ -111,55 +111,55 @@ export interface ContentsGetContentsRequest {
     $skip?: number;
     $orderby?: string;
     $filter?: string;
-    xFields?: string;
-    xFlatten?: boolean;
-    xLanguages?: string;
-    xNoSlowTotal?: boolean;
-    xNoTotal?: boolean;
-    xUnpublished?: boolean;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
+    unpublished?: boolean;
 }
 
 export interface ContentsGetContentsPostRequest {
     schema: string;
     queryDto: QueryDto;
-    xFields?: string;
-    xFlatten?: boolean;
-    xLanguages?: string;
-    xNoSlowTotal?: boolean;
-    xNoTotal?: boolean;
-    xUnpublished?: boolean;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
+    unpublished?: boolean;
 }
 
 export interface ContentsGetReferencesRequest {
     schema: string;
     id: string;
     q?: string | null;
-    xFields?: string;
-    xFlatten?: boolean;
-    xLanguages?: string;
-    xUnpublished?: boolean;
-    xNoSlowTotal?: boolean;
-    xNoTotal?: boolean;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    unpublished?: boolean;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
 }
 
 export interface ContentsGetReferencingRequest {
     schema: string;
     id: string;
     q?: string | null;
-    xFields?: string;
-    xFlatten?: boolean;
-    xLanguages?: string;
-    xUnpublished?: boolean;
-    xNoSlowTotal?: boolean;
-    xNoTotal?: boolean;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    unpublished?: boolean;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
 }
 
 export interface ContentsPatchContentRequest {
     schema: string;
     id: string;
     requestBody: { [key: string]: { [key: string]: any; }; };
-    xUnpublished?: boolean;
-    xLanguages?: string;
+    unpublished?: boolean;
+    languages?: string;
 }
 
 export interface ContentsPostContentRequest {
@@ -168,8 +168,8 @@ export interface ContentsPostContentRequest {
     status?: string | null;
     id?: string | null;
     publish?: boolean;
-    xUnpublished?: boolean;
-    xLanguages?: string;
+    unpublished?: boolean;
+    languages?: string;
 }
 
 export interface ContentsPostContentsRequest {
@@ -185,8 +185,8 @@ export interface ContentsPostUpsertContentRequest {
     patch?: boolean;
     enrichDefaults?: boolean;
     publish?: boolean;
-    xUnpublished?: boolean;
-    xLanguages?: string;
+    unpublished?: boolean;
+    languages?: string;
 }
 
 export interface ContentsPutContentRequest {
@@ -194,24 +194,24 @@ export interface ContentsPutContentRequest {
     id: string;
     requestBody: { [key: string]: { [key: string]: any; }; };
     enrichDefaults?: boolean;
-    xUnpublished?: boolean;
-    xLanguages?: string;
+    unpublished?: boolean;
+    languages?: string;
 }
 
 export interface ContentsPutContentDefaultsRequest {
     schema: string;
     id: string;
     enrichRequiredFields?: boolean;
-    xUnpublished?: boolean;
-    xLanguages?: string;
+    unpublished?: boolean;
+    languages?: string;
 }
 
 export interface ContentsPutContentStatusRequest {
     schema: string;
     id: string;
     changeStatusDto: ChangeStatusDto;
-    xUnpublished?: boolean;
-    xLanguages?: string;
+    unpublished?: boolean;
+    languages?: string;
 }
 
 export interface ContentsSharedBulkUpdateAllContentsRequest {
@@ -226,45 +226,45 @@ export interface ContentsSharedGetAllContentsRequest {
     referencing?: string | null;
     references?: string | null;
     q?: string | null;
-    xFields?: string;
-    xFlatten?: boolean;
-    xLanguages?: string;
-    xNoSlowTotal?: boolean;
-    xNoTotal?: boolean;
-    xUnpublished?: boolean;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
+    unpublished?: boolean;
 }
 
 export interface ContentsSharedGetAllContentsPostRequest {
     allContentsByPostDto: AllContentsByPostDto;
-    xFields?: string;
-    xFlatten?: boolean;
-    xLanguages?: string;
-    xNoSlowTotal?: boolean;
-    xNoTotal?: boolean;
-    xUnpublished?: boolean;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
+    unpublished?: boolean;
 }
 
 export interface ContentsSharedGetGraphQLRequest {
     theQueryString?: string;
     variables?: string | null;
     operationName?: string | null;
-    xUnpublished?: boolean;
+    unpublished?: boolean;
 }
 
 export interface ContentsSharedGetGraphQLBatchRequest {
     theQueryString?: string;
     variables?: string | null;
     operationName?: string | null;
-    xUnpublished?: boolean;
+    unpublished?: boolean;
 }
 
 export interface ContentsSharedPostGraphQLRequest {
-    xUnpublished?: boolean;
+    unpublished?: boolean;
     body?: any | null;
 }
 
 export interface ContentsSharedPostGraphQLBatchRequest {
-    xUnpublished?: boolean;
+    unpublished?: boolean;
     body?: any | null;
 }
 
@@ -297,8 +297,8 @@ export interface ContentsApiInterface {
      * @summary Create a new draft version.
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content item to create the draft for.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -335,8 +335,8 @@ export interface ContentsApiInterface {
      * @summary Cancel status change of a content item.
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content item to cancel.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -354,8 +354,8 @@ export interface ContentsApiInterface {
      * @summary Delete the draft version.
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content item to delete the draft from.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -374,10 +374,10 @@ export interface ContentsApiInterface {
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content to fetch.
      * @param {number} [version] The optional version.
-     * @param {string} [xFields] The list of content fields (comma-separated).
-     * @param {boolean} [xFlatten] Provide the data as flat object.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
-     * @param {boolean} [xUnpublished] Return unpublished content items.
+     * @param {string} [fields] The list of content fields (comma-separated).
+     * @param {boolean} [flatten] Provide the data as flat object.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -413,8 +413,8 @@ export interface ContentsApiInterface {
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content to fetch.
      * @param {number} version The version fo the content to fetch.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
      * @deprecated
      * @throws {RequiredError}
@@ -440,12 +440,12 @@ export interface ContentsApiInterface {
      * @param {number} [$skip] Optional number of items to skip.
      * @param {string} [$orderby] Optional OData order definition.
      * @param {string} [$filter] Optional OData filter.
-     * @param {string} [xFields] The list of content fields (comma-separated).
-     * @param {boolean} [xFlatten] Provide the data as flat object.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
-     * @param {boolean} [xNoSlowTotal] Do not return the total amount, if it would be slow.
-     * @param {boolean} [xNoTotal] Do not return the total amount.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
+     * @param {string} [fields] The list of content fields (comma-separated).
+     * @param {boolean} [flatten] Provide the data as flat object.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [noSlowTotal] Do not return the total amount, if it would be slow.
+     * @param {boolean} [noTotal] Do not return the total amount.
+     * @param {boolean} [unpublished] Return unpublished content items.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -463,12 +463,12 @@ export interface ContentsApiInterface {
      * @summary Queries contents.
      * @param {string} schema The name of the schema.
      * @param {QueryDto} queryDto The required query object.
-     * @param {string} [xFields] The list of content fields (comma-separated).
-     * @param {boolean} [xFlatten] Provide the data as flat object.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
-     * @param {boolean} [xNoSlowTotal] Do not return the total amount, if it would be slow.
-     * @param {boolean} [xNoTotal] Do not return the total amount.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
+     * @param {string} [fields] The list of content fields (comma-separated).
+     * @param {boolean} [flatten] Provide the data as flat object.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [noSlowTotal] Do not return the total amount, if it would be slow.
+     * @param {boolean} [noTotal] Do not return the total amount.
+     * @param {boolean} [unpublished] Return unpublished content items.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -487,12 +487,12 @@ export interface ContentsApiInterface {
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content to fetch.
      * @param {string} [q] The optional json query.
-     * @param {string} [xFields] The list of content fields (comma-separated).
-     * @param {boolean} [xFlatten] Provide the data as flat object.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {boolean} [xNoSlowTotal] Do not return the total amount, if it would be slow.
-     * @param {boolean} [xNoTotal] Do not return the total amount.
+     * @param {string} [fields] The list of content fields (comma-separated).
+     * @param {boolean} [flatten] Provide the data as flat object.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {boolean} [noSlowTotal] Do not return the total amount, if it would be slow.
+     * @param {boolean} [noTotal] Do not return the total amount.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -511,12 +511,12 @@ export interface ContentsApiInterface {
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content to fetch.
      * @param {string} [q] The optional json query.
-     * @param {string} [xFields] The list of content fields (comma-separated).
-     * @param {boolean} [xFlatten] Provide the data as flat object.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {boolean} [xNoSlowTotal] Do not return the total amount, if it would be slow.
-     * @param {boolean} [xNoTotal] Do not return the total amount.
+     * @param {string} [fields] The list of content fields (comma-separated).
+     * @param {boolean} [flatten] Provide the data as flat object.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {boolean} [noSlowTotal] Do not return the total amount, if it would be slow.
+     * @param {boolean} [noTotal] Do not return the total amount.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -535,8 +535,8 @@ export interface ContentsApiInterface {
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content item to patch.
      * @param {{ [key: string]: { [key: string]: any; }; }} requestBody The patch for the content item.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -557,8 +557,8 @@ export interface ContentsApiInterface {
      * @param {string} [status] The initial status.
      * @param {string} [id] The optional custom content id.
      * @param {boolean} [publish] True to automatically publish the content.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -600,8 +600,8 @@ export interface ContentsApiInterface {
      * @param {boolean} [patch] Makes the update as patch.
      * @param {boolean} [enrichDefaults] Enrich the content with defaults.
      * @param {boolean} [publish] True to automatically publish the content.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -621,8 +621,8 @@ export interface ContentsApiInterface {
      * @param {string} id The ID of the content item to update.
      * @param {{ [key: string]: { [key: string]: any; }; }} requestBody The full data for the content item.
      * @param {boolean} [enrichDefaults] Enrich the content with defaults.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -641,8 +641,8 @@ export interface ContentsApiInterface {
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content item to update.
      * @param {boolean} [enrichRequiredFields] True, to also enrich required fields. Default: false.             
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -661,8 +661,8 @@ export interface ContentsApiInterface {
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content item to change.
      * @param {ChangeStatusDto} changeStatusDto The status request.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [unpublished] Return unpublished content items.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -701,12 +701,12 @@ export interface ContentsApiInterface {
      * @param {string} [referencing] The ID of the referencing content item.
      * @param {string} [references] The ID of the reference content item.
      * @param {string} [q] The optional json query.
-     * @param {string} [xFields] The list of content fields (comma-separated).
-     * @param {boolean} [xFlatten] Provide the data as flat object.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
-     * @param {boolean} [xNoSlowTotal] Do not return the total amount, if it would be slow.
-     * @param {boolean} [xNoTotal] Do not return the total amount.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
+     * @param {string} [fields] The list of content fields (comma-separated).
+     * @param {boolean} [flatten] Provide the data as flat object.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [noSlowTotal] Do not return the total amount, if it would be slow.
+     * @param {boolean} [noTotal] Do not return the total amount.
+     * @param {boolean} [unpublished] Return unpublished content items.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -723,12 +723,12 @@ export interface ContentsApiInterface {
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * @summary Queries contents.
      * @param {AllContentsByPostDto} allContentsByPostDto The required query object.
-     * @param {string} [xFields] The list of content fields (comma-separated).
-     * @param {boolean} [xFlatten] Provide the data as flat object.
-     * @param {string} [xLanguages] The list of languages to resolve (comma-separated).
-     * @param {boolean} [xNoSlowTotal] Do not return the total amount, if it would be slow.
-     * @param {boolean} [xNoTotal] Do not return the total amount.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
+     * @param {string} [fields] The list of content fields (comma-separated).
+     * @param {boolean} [flatten] Provide the data as flat object.
+     * @param {string} [languages] The list of languages to resolve (comma-separated).
+     * @param {boolean} [noSlowTotal] Do not return the total amount, if it would be slow.
+     * @param {boolean} [noTotal] Do not return the total amount.
+     * @param {boolean} [unpublished] Return unpublished content items.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -747,7 +747,7 @@ export interface ContentsApiInterface {
      * @param {string} [theQueryString] The optional version of the asset.
      * @param {string} [variables] The optional operation variables.
      * @param {string} [operationName] The optional operation name.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
+     * @param {boolean} [unpublished] Return unpublished content items.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -766,7 +766,7 @@ export interface ContentsApiInterface {
      * @param {string} [theQueryString] The optional version of the asset.
      * @param {string} [variables] The optional operation variables.
      * @param {string} [operationName] The optional operation name.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
+     * @param {boolean} [unpublished] Return unpublished content items.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
@@ -782,7 +782,7 @@ export interface ContentsApiInterface {
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * @summary GraphQL endpoint.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
+     * @param {boolean} [unpublished] Return unpublished content items.
      * @param {any} [body] The graphql request.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -799,7 +799,7 @@ export interface ContentsApiInterface {
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * @summary GraphQL batch endpoint.
-     * @param {boolean} [xUnpublished] Return unpublished content items.
+     * @param {boolean} [unpublished] Return unpublished content items.
      * @param {any} [body] The graphql request.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -888,12 +888,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
         const response = await this.request({
@@ -987,12 +987,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
         const response = await this.request({
@@ -1037,12 +1037,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
         const response = await this.request({
@@ -1091,20 +1091,20 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xFields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['xFields']);
+        if (requestParameters['fields'] != null) {
+            headerParameters['X-Fields'] = String(requestParameters['fields']);
         }
 
-        if (requestParameters['xFlatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['xFlatten']);
+        if (requestParameters['flatten'] != null) {
+            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
         const response = await this.request({
@@ -1198,12 +1198,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
         const response = await this.request({
@@ -1270,28 +1270,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xFields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['xFields']);
+        if (requestParameters['fields'] != null) {
+            headerParameters['X-Fields'] = String(requestParameters['fields']);
         }
 
-        if (requestParameters['xFlatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['xFlatten']);
+        if (requestParameters['flatten'] != null) {
+            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
-        if (requestParameters['xNoSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['xNoSlowTotal']);
+        if (requestParameters['noSlowTotal'] != null) {
+            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
         }
 
-        if (requestParameters['xNoTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['xNoTotal']);
+        if (requestParameters['noTotal'] != null) {
+            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
         }
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
         const response = await this.request({
@@ -1338,28 +1338,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xFields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['xFields']);
+        if (requestParameters['fields'] != null) {
+            headerParameters['X-Fields'] = String(requestParameters['fields']);
         }
 
-        if (requestParameters['xFlatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['xFlatten']);
+        if (requestParameters['flatten'] != null) {
+            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
-        if (requestParameters['xNoSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['xNoSlowTotal']);
+        if (requestParameters['noSlowTotal'] != null) {
+            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
         }
 
-        if (requestParameters['xNoTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['xNoTotal']);
+        if (requestParameters['noTotal'] != null) {
+            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
         }
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
         const response = await this.request({
@@ -1409,28 +1409,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xFields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['xFields']);
+        if (requestParameters['fields'] != null) {
+            headerParameters['X-Fields'] = String(requestParameters['fields']);
         }
 
-        if (requestParameters['xFlatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['xFlatten']);
+        if (requestParameters['flatten'] != null) {
+            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xNoSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['xNoSlowTotal']);
+        if (requestParameters['noSlowTotal'] != null) {
+            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
         }
 
-        if (requestParameters['xNoTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['xNoTotal']);
+        if (requestParameters['noTotal'] != null) {
+            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
         }
 
         const response = await this.request({
@@ -1479,28 +1479,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xFields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['xFields']);
+        if (requestParameters['fields'] != null) {
+            headerParameters['X-Fields'] = String(requestParameters['fields']);
         }
 
-        if (requestParameters['xFlatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['xFlatten']);
+        if (requestParameters['flatten'] != null) {
+            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xNoSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['xNoSlowTotal']);
+        if (requestParameters['noSlowTotal'] != null) {
+            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
         }
 
-        if (requestParameters['xNoTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['xNoTotal']);
+        if (requestParameters['noTotal'] != null) {
+            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
         }
 
         const response = await this.request({
@@ -1554,12 +1554,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
         const response = await this.request({
@@ -1619,12 +1619,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
         const response = await this.request({
@@ -1742,12 +1742,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
         const response = await this.request({
@@ -1806,12 +1806,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
         const response = await this.request({
@@ -1861,12 +1861,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
         const response = await this.request({
@@ -1920,12 +1920,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
         const response = await this.request({
@@ -2023,28 +2023,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xFields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['xFields']);
+        if (requestParameters['fields'] != null) {
+            headerParameters['X-Fields'] = String(requestParameters['fields']);
         }
 
-        if (requestParameters['xFlatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['xFlatten']);
+        if (requestParameters['flatten'] != null) {
+            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
-        if (requestParameters['xNoSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['xNoSlowTotal']);
+        if (requestParameters['noSlowTotal'] != null) {
+            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
         }
 
-        if (requestParameters['xNoTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['xNoTotal']);
+        if (requestParameters['noTotal'] != null) {
+            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
         }
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
         const response = await this.request({
@@ -2084,28 +2084,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xFields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['xFields']);
+        if (requestParameters['fields'] != null) {
+            headerParameters['X-Fields'] = String(requestParameters['fields']);
         }
 
-        if (requestParameters['xFlatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['xFlatten']);
+        if (requestParameters['flatten'] != null) {
+            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
         }
 
-        if (requestParameters['xLanguages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['xLanguages']);
+        if (requestParameters['languages'] != null) {
+            headerParameters['X-Languages'] = String(requestParameters['languages']);
         }
 
-        if (requestParameters['xNoSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['xNoSlowTotal']);
+        if (requestParameters['noSlowTotal'] != null) {
+            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
         }
 
-        if (requestParameters['xNoTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['xNoTotal']);
+        if (requestParameters['noTotal'] != null) {
+            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
         }
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
         const response = await this.request({
@@ -2149,8 +2149,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
         const response = await this.request({
@@ -2197,8 +2197,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
         const response = await this.request({
@@ -2235,8 +2235,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
         const response = await this.request({
@@ -2274,8 +2274,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['xUnpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['xUnpublished']);
+        if (requestParameters['unpublished'] != null) {
+            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
         }
 
         const response = await this.request({
