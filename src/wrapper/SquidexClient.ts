@@ -49,72 +49,70 @@ import {
 import { buildError, SquidexUnauthorizedError } from "./errors";
 import { addHeader, getHeader } from "./headers";
 
-export declare namespace SquidexClients {
-    interface Options {
-        /**
-         * The name of the app.
-         */
-        appName: string;
+export interface SquidexOptions {
+    /**
+     * The name of the app.
+     */
+    appName: string;
 
-        /**
-         * The secret of the client.
-         */
-        clientId: string;
+    /**
+     * The secret of the client.
+     */
+    clientId: string;
 
-        /**
-         * The secret of the client.
-         */
-        clientSecret: string;
+    /**
+     * The secret of the client.
+     */
+    clientSecret: string;
 
-        /**
-         * Custom headers to be added to each request.
-         */
-        customHeader?: Record<string, string>;
+    /**
+     * Custom headers to be added to each request.
+     */
+    customHeader?: Record<string, string>;
 
-        /**
-         * The URL to your Squidex installation (cloud by default).
-         */
-        environment?: environments.SquidexEnvironment | string;
+    /**
+     * The URL to your Squidex installation (cloud by default).
+     */
+    environment?: environments.SquidexEnvironment | string;
 
-        /**
-         * A custom fetcher for normal requests.
-         */
-        fetcher?: FetchAPI;
+    /**
+     * A custom fetcher for normal requests.
+     */
+    fetcher?: FetchAPI;
 
-        /**
-         * A function to create a new fetcher based on the default fetcher.
-         */
-        middleware?: Middleware;
+    /**
+     * A function to create a new fetcher based on the default fetcher.
+     */
+    middleware?: Middleware;
 
-        /**
-         * The timeout in milliseconds.
-         */
-        timeout?: number;
+    /**
+     * The timeout in milliseconds.
+     */
+    timeout?: number;
 
-        /**
-         * The store for tokens. By default it is in memory.
-         */
-        tokenStore?: TokenStore;
-    }
+    /**
+     * The store for tokens. By default it is in memory.
+     */
+    tokenStore?: TokenStore;
+}
 
-    export interface TokenStore {
-        get(): Token | undefined;
+export interface TokenStore {
+    get(): Token | undefined;
 
-        set(token: Token): void;
+    set(token: Token): void;
 
-        clear(): void;
-    }
+    clear(): void;
+}
 
-    export interface Token {
-        accessToken: string;
-        expiresIn: number;
-        expiresAt: number;
-    }
+export interface Token {
+    accessToken: string;
+    expiresIn: number;
+    expiresAt: number;
 }
 
 export class SquidexClients {
     private readonly configuration: Configuration;
-    private readonly tokenStore: SquidexClients.TokenStore;
+    private readonly tokenStore: TokenStore;
     private tokenPromise?: Promise<string>;
     private appsApi?: AppsApi;
     private assetsApi?: AssetsApi;
@@ -245,7 +243,7 @@ export class SquidexClients {
         return this.clientOptions.environment || environments.SquidexEnvironment.Default;
     }
 
-    constructor(readonly clientOptions: SquidexClients.Options) {
+    constructor(readonly clientOptions: SquidexOptions) {
         if (!clientOptions.clientId) {
             throw new Error("Configuration 'clientId' is required.");
         }
@@ -258,10 +256,10 @@ export class SquidexClients {
             throw new Error("Configuration 'appName' is required.");
         }
 
-        this.tokenStore = this.clientOptions.tokenStore || new SquidexClients.InMemoryTokenStore();
+        this.tokenStore = this.clientOptions.tokenStore || new InMemoryTokenStore();
 
         const originalFetch = this.clientOptions.fetcher || fetch;
-        let fetchApi: FetchAPI = async (input, init) => {
+        const fetchApi: FetchAPI = async (input, init) => {
             init ||= {};
 
             addOptions(init, clientOptions);
@@ -334,7 +332,7 @@ export class SquidexClients {
                             scope: "squidex-api",
                         }),
                         method: "POST",
-                    }
+                    },
                 );
 
                 const body = (await response.json()) as { access_token: string; expires_in: number };
@@ -367,7 +365,7 @@ export class SquidexClients {
     }
 }
 
-function addOptions(init: RequestInit, clientOptions: SquidexClients.Options) {
+function addOptions(init: RequestInit, clientOptions: SquidexOptions) {
     if (clientOptions.timeout) {
         init.signal = AbortSignal.timeout(clientOptions.timeout);
     }
@@ -379,42 +377,43 @@ function addOptions(init: RequestInit, clientOptions: SquidexClients.Options) {
     }
 }
 
-export namespace SquidexClients {
-    export class InMemoryTokenStore implements TokenStore {
-        private token: Token | undefined;
+export class InMemoryTokenStore implements TokenStore {
+    private token: Token | undefined;
 
-        get(): Token | undefined {
-            return this.token;
-        }
-
-        set(token: Token): void {
-            this.token = token;
-        }
-
-        clear() {
-            this.token = undefined;
-        }
+    get(): Token | undefined {
+        return this.token;
     }
 
-    export class StorageTokenStore implements TokenStore {
-        constructor(readonly store: Storage = localStorage, readonly key = "SquidexToken") {}
+    set(token: Token): void {
+        this.token = token;
+    }
 
-        get(): Token | undefined {
-            const value = this.store.getItem(this.key);
+    clear() {
+        this.token = undefined;
+    }
+}
 
-            if (!value) {
-                return undefined;
-            }
+export class StorageTokenStore implements TokenStore {
+    constructor(
+        readonly store: Storage = localStorage,
+        readonly key = "SquidexToken",
+    ) {}
 
-            return JSON.parse(value);
+    get(): Token | undefined {
+        const value = this.store.getItem(this.key);
+
+        if (!value) {
+            return undefined;
         }
 
-        set(token: Token): void {
-            this.store.setItem(this.key, JSON.stringify(token));
-        }
+        return JSON.parse(value);
+    }
 
-        clear() {
-            this.store.removeItem(this.key);
-        }
+    set(token: Token): void {
+        this.store.setItem(this.key, JSON.stringify(token));
+    }
+
+    clear() {
+        this.store.removeItem(this.key);
     }
 }

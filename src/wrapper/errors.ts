@@ -5,7 +5,7 @@ export class SquidexError<T = unknown> extends Error {
         public readonly statusCode?: number,
         public readonly body?: T,
         public readonly cause?: Error,
-        message?: string
+        message?: string,
     ) {
         super(buildMessage(statusCode, body, message, cause));
 
@@ -114,7 +114,7 @@ export async function buildError(error: unknown) {
 }
 
 function buildMessage(statusCode?: number, body?: unknown, message?: string, cause?: Error): string {
-    let lines: string[] = [];
+    const lines: string[] = [];
     if (message) {
         lines.push(message);
     }
