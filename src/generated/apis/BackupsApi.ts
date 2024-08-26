@@ -23,21 +23,26 @@ import {
     RestoreRequestDtoToJSON,
 } from '../models/index';
 
-export interface BackupContentGetBackupContentRequest {
+export interface BackupContentGetBackupContentRequestRaw {
     id: string;
 }
 
 export interface BackupContentGetBackupContentV2Request {
+    appId?: string;
+    app?: string;
+}
+
+export interface BackupContentGetBackupContentV2RequestRaw {
     id: string;
     appId?: string;
     app?: string;
 }
 
-export interface BackupsDeleteBackupRequest {
+export interface BackupsDeleteBackupRequestRaw {
     id: string;
 }
 
-export interface RestorePostRestoreJobRequest {
+export interface RestorePostRestoreJobRequestRaw {
     restoreRequestDto: RestoreRequestDto;
 }
 
@@ -57,13 +62,13 @@ export interface BackupsApiInterface {
      * @throws {RequiredError}
      * @memberof BackupsApiInterface
      */
-    getBackupContentRaw(requestParameters: BackupContentGetBackupContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
+    getBackupContentRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
 
     /**
      * Get the backup content.
      * @deprecated
      */
-    getBackupContent(requestParameters: BackupContentGetBackupContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
+    getBackupContent(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
 
     /**
      * 
@@ -76,13 +81,13 @@ export interface BackupsApiInterface {
      * @throws {RequiredError}
      * @memberof BackupsApiInterface
      */
-    getBackupContentV2Raw(requestParameters: BackupContentGetBackupContentV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
+    getBackupContentV2Raw(id: string, requestParameters?: BackupContentGetBackupContentV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
 
     /**
      * Get the backup content.
      * @deprecated
      */
-    getBackupContentV2(requestParameters: BackupContentGetBackupContentV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
+    getBackupContentV2(id: string, requestParameters?: BackupContentGetBackupContentV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
 
     /**
      * 
@@ -93,13 +98,13 @@ export interface BackupsApiInterface {
      * @throws {RequiredError}
      * @memberof BackupsApiInterface
      */
-    deleteBackupRaw(requestParameters: BackupsDeleteBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteBackupRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete a backup.
      * @deprecated
      */
-    deleteBackup(requestParameters: BackupsDeleteBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteBackup(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -153,12 +158,12 @@ export interface BackupsApiInterface {
      * @throws {RequiredError}
      * @memberof BackupsApiInterface
      */
-    postRestoreJobRaw(requestParameters: RestorePostRestoreJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    postRestoreJobRaw(restoreRequestDto: RestoreRequestDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Restore a backup.
      */
-    postRestoreJob(requestParameters: RestorePostRestoreJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    postRestoreJob(restoreRequestDto: RestoreRequestDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
 }
 
@@ -171,8 +176,10 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * Get the backup content.
      * @deprecated
      */
-    async getBackupContentRaw(requestParameters: BackupContentGetBackupContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters['id'] == null) {
+    async getBackupContentRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -184,7 +191,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -197,8 +204,8 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * Get the backup content.
      * @deprecated
      */
-    async getBackupContent(requestParameters: BackupContentGetBackupContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getBackupContentRaw(requestParameters, initOverrides);
+    async getBackupContent(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getBackupContentRaw(id, initOverrides);
         return await response.value();
     }
 
@@ -206,8 +213,12 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * Get the backup content.
      * @deprecated
      */
-    async getBackupContentV2Raw(requestParameters: BackupContentGetBackupContentV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters['id'] == null) {
+    async getBackupContentV2Raw(id: string, requestParameters: BackupContentGetBackupContentV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const _id = id;
+        const _appId = requestParameters?.['appId'];
+        const _app = requestParameters?.['app'];
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -216,18 +227,18 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
 
         const queryParameters: any = {};
 
-        if (requestParameters['appId'] != null) {
-            queryParameters['appId'] = requestParameters['appId'];
+        if (_appId != null) {
+            queryParameters['appId'] = _appId;
         }
 
-        if (requestParameters['app'] != null) {
-            queryParameters['app'] = requestParameters['app'];
+        if (_app != null) {
+            queryParameters['app'] = _app;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -240,8 +251,8 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * Get the backup content.
      * @deprecated
      */
-    async getBackupContentV2(requestParameters: BackupContentGetBackupContentV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getBackupContentV2Raw(requestParameters, initOverrides);
+    async getBackupContentV2(id: string, requestParameters: BackupContentGetBackupContentV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getBackupContentV2Raw(id, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -249,8 +260,10 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * Delete a backup.
      * @deprecated
      */
-    async deleteBackupRaw(requestParameters: BackupsDeleteBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async deleteBackupRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -262,7 +275,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -275,8 +288,8 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * Delete a backup.
      * @deprecated
      */
-    async deleteBackup(requestParameters: BackupsDeleteBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteBackupRaw(requestParameters, initOverrides);
+    async deleteBackup(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteBackupRaw(id, initOverrides);
     }
 
     /**
@@ -284,6 +297,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * @deprecated
      */
     async getBackupsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupJobsDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -311,6 +325,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * Start a new backup.
      */
     async postBackupRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -336,6 +351,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
      * Get current restore status.
      */
     async getRestoreJobRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RestoreJobDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -361,8 +377,10 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
     /**
      * Restore a backup.
      */
-    async postRestoreJobRaw(requestParameters: RestorePostRestoreJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['restoreRequestDto'] == null) {
+    async postRestoreJobRaw(restoreRequestDto: RestoreRequestDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _restoreRequestDto = restoreRequestDto;
+
+        if (_restoreRequestDto == null) {
             throw new runtime.RequiredError(
                 'restoreRequestDto',
                 'Required parameter "restoreRequestDto" was null or undefined when calling ().'
@@ -380,7 +398,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: RestoreRequestDtoToJSON(requestParameters['restoreRequestDto']),
+            body: RestoreRequestDtoToJSON(_restoreRequestDto),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -389,8 +407,8 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
     /**
      * Restore a backup.
      */
-    async postRestoreJob(requestParameters: RestorePostRestoreJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.postRestoreJobRaw(requestParameters, initOverrides);
+    async postRestoreJob(restoreRequestDto: RestoreRequestDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.postRestoreJobRaw(restoreRequestDto, initOverrides);
     }
 
 }

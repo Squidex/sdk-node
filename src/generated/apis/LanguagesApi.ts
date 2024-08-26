@@ -53,6 +53,7 @@ export class LanguagesApi extends runtime.BaseAPI implements LanguagesApiInterfa
      * Get supported languages.
      */
     async getLanguagesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LanguageDto>>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};

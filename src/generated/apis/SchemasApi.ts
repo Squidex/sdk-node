@@ -41,159 +41,159 @@ import {
     UpdateSchemaDtoToJSON,
 } from '../models/index';
 
-export interface SchemaFieldsDeleteFieldRequest {
+export interface SchemaFieldsDeleteFieldRequestRaw {
     schema: string;
     id: number;
 }
 
-export interface SchemaFieldsDeleteNestedFieldRequest {
-    schema: string;
-    parentId: number;
-    id: number;
-}
-
-export interface SchemaFieldsDisableFieldRequest {
-    schema: string;
-    id: number;
-}
-
-export interface SchemaFieldsDisableNestedFieldRequest {
+export interface SchemaFieldsDeleteNestedFieldRequestRaw {
     schema: string;
     parentId: number;
     id: number;
 }
 
-export interface SchemaFieldsEnableFieldRequest {
+export interface SchemaFieldsDisableFieldRequestRaw {
     schema: string;
     id: number;
 }
 
-export interface SchemaFieldsEnableNestedFieldRequest {
-    schema: string;
-    parentId: number;
-    id: number;
-}
-
-export interface SchemaFieldsHideFieldRequest {
-    schema: string;
-    id: number;
-}
-
-export interface SchemaFieldsHideNestedFieldRequest {
+export interface SchemaFieldsDisableNestedFieldRequestRaw {
     schema: string;
     parentId: number;
     id: number;
 }
 
-export interface SchemaFieldsLockFieldRequest {
+export interface SchemaFieldsEnableFieldRequestRaw {
     schema: string;
     id: number;
 }
 
-export interface SchemaFieldsLockNestedFieldRequest {
+export interface SchemaFieldsEnableNestedFieldRequestRaw {
     schema: string;
     parentId: number;
     id: number;
 }
 
-export interface SchemaFieldsPostFieldRequest {
+export interface SchemaFieldsHideFieldRequestRaw {
+    schema: string;
+    id: number;
+}
+
+export interface SchemaFieldsHideNestedFieldRequestRaw {
+    schema: string;
+    parentId: number;
+    id: number;
+}
+
+export interface SchemaFieldsLockFieldRequestRaw {
+    schema: string;
+    id: number;
+}
+
+export interface SchemaFieldsLockNestedFieldRequestRaw {
+    schema: string;
+    parentId: number;
+    id: number;
+}
+
+export interface SchemaFieldsPostFieldRequestRaw {
     schema: string;
     addFieldDto: AddFieldDto;
 }
 
-export interface SchemaFieldsPostNestedFieldRequest {
+export interface SchemaFieldsPostNestedFieldRequestRaw {
     schema: string;
     parentId: number;
     addFieldDto: AddFieldDto;
 }
 
-export interface SchemaFieldsPutFieldRequest {
+export interface SchemaFieldsPutFieldRequestRaw {
     schema: string;
     id: number;
     updateFieldDto: UpdateFieldDto;
 }
 
-export interface SchemaFieldsPutNestedFieldRequest {
+export interface SchemaFieldsPutNestedFieldRequestRaw {
     schema: string;
     parentId: number;
     id: number;
     updateFieldDto: UpdateFieldDto;
 }
 
-export interface SchemaFieldsPutNestedFieldOrderingRequest {
+export interface SchemaFieldsPutNestedFieldOrderingRequestRaw {
     schema: string;
     parentId: number;
     reorderFieldsDto: ReorderFieldsDto;
 }
 
-export interface SchemaFieldsPutSchemaFieldOrderingRequest {
+export interface SchemaFieldsPutSchemaFieldOrderingRequestRaw {
     schema: string;
     reorderFieldsDto: ReorderFieldsDto;
 }
 
-export interface SchemaFieldsPutSchemaUIFieldsRequest {
+export interface SchemaFieldsPutSchemaUIFieldsRequestRaw {
     schema: string;
     configureUIFieldsDto: ConfigureUIFieldsDto;
 }
 
-export interface SchemaFieldsShowFieldRequest {
+export interface SchemaFieldsShowFieldRequestRaw {
     schema: string;
     id: number;
 }
 
-export interface SchemaFieldsShowNestedFieldRequest {
+export interface SchemaFieldsShowNestedFieldRequestRaw {
     schema: string;
     parentId: number;
     id: number;
 }
 
-export interface SchemasDeleteSchemaRequest {
+export interface SchemasDeleteSchemaRequestRaw {
     schema: string;
 }
 
-export interface SchemasGetSchemaRequest {
+export interface SchemasGetSchemaRequestRaw {
     schema: string;
 }
 
-export interface SchemasPostSchemaRequest {
+export interface SchemasPostSchemaRequestRaw {
     createSchemaDto: CreateSchemaDto;
 }
 
-export interface SchemasPublishSchemaRequest {
+export interface SchemasPublishSchemaRequestRaw {
     schema: string;
 }
 
-export interface SchemasPutCategoryRequest {
+export interface SchemasPutCategoryRequestRaw {
     schema: string;
     changeCategoryDto: ChangeCategoryDto;
 }
 
-export interface SchemasPutPreviewUrlsRequest {
+export interface SchemasPutPreviewUrlsRequestRaw {
     schema: string;
     requestBody: { [key: string]: string; };
 }
 
-export interface SchemasPutRulesRequest {
+export interface SchemasPutRulesRequestRaw {
     schema: string;
     configureFieldRulesDto: ConfigureFieldRulesDto;
 }
 
-export interface SchemasPutSchemaRequest {
+export interface SchemasPutSchemaRequestRaw {
     schema: string;
     updateSchemaDto: UpdateSchemaDto;
 }
 
-export interface SchemasPutSchemaSyncRequest {
+export interface SchemasPutSchemaSyncRequestRaw {
     schema: string;
     synchronizeSchemaDto: SynchronizeSchemaDto;
 }
 
-export interface SchemasPutScriptsRequest {
+export interface SchemasPutScriptsRequestRaw {
     schema: string;
     schemaScriptsDto: SchemaScriptsDto;
 }
 
-export interface SchemasUnpublishSchemaRequest {
+export interface SchemasUnpublishSchemaRequestRaw {
     schema: string;
 }
 
@@ -213,12 +213,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    deleteFieldRaw(requestParameters: SchemaFieldsDeleteFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    deleteFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Delete a schema field.
      */
-    deleteField(requestParameters: SchemaFieldsDeleteFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    deleteField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -230,12 +230,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    deleteNestedFieldRaw(requestParameters: SchemaFieldsDeleteNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    deleteNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Delete a nested field.
      */
-    deleteNestedField(requestParameters: SchemaFieldsDeleteNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    deleteNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
@@ -246,13 +246,13 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    disableFieldRaw(requestParameters: SchemaFieldsDisableFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    disableFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Disable a schema field.
      */
-    disableField(requestParameters: SchemaFieldsDisableFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    disableField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
@@ -264,13 +264,13 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    disableNestedFieldRaw(requestParameters: SchemaFieldsDisableNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    disableNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Disable a nested field.
      */
-    disableNestedField(requestParameters: SchemaFieldsDisableNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    disableNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
@@ -281,13 +281,13 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    enableFieldRaw(requestParameters: SchemaFieldsEnableFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    enableFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Enable a schema field.
      */
-    enableField(requestParameters: SchemaFieldsEnableFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    enableField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
@@ -299,13 +299,13 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    enableNestedFieldRaw(requestParameters: SchemaFieldsEnableNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    enableNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Enable a nested field.
      */
-    enableNestedField(requestParameters: SchemaFieldsEnableNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    enableNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
@@ -316,13 +316,13 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    hideFieldRaw(requestParameters: SchemaFieldsHideFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    hideFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Hide a schema field.
      */
-    hideField(requestParameters: SchemaFieldsHideFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    hideField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
@@ -334,13 +334,13 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    hideNestedFieldRaw(requestParameters: SchemaFieldsHideNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    hideNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Hide a nested field.
      */
-    hideNestedField(requestParameters: SchemaFieldsHideNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    hideNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * A locked field cannot be updated or deleted.
@@ -351,13 +351,13 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    lockFieldRaw(requestParameters: SchemaFieldsLockFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    lockFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * A locked field cannot be updated or deleted.
      * Lock a schema field.
      */
-    lockField(requestParameters: SchemaFieldsLockFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    lockField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * A locked field cannot be edited or deleted.
@@ -369,13 +369,13 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    lockNestedFieldRaw(requestParameters: SchemaFieldsLockNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    lockNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * A locked field cannot be edited or deleted.
      * Lock a nested field.
      */
-    lockNestedField(requestParameters: SchemaFieldsLockNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    lockNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -386,12 +386,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    postFieldRaw(requestParameters: SchemaFieldsPostFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    postFieldRaw(schema: string, addFieldDto: AddFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Add a schema field.
      */
-    postField(requestParameters: SchemaFieldsPostFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    postField(schema: string, addFieldDto: AddFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -403,12 +403,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    postNestedFieldRaw(requestParameters: SchemaFieldsPostNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    postNestedFieldRaw(schema: string, parentId: number, addFieldDto: AddFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Add a nested field.
      */
-    postNestedField(requestParameters: SchemaFieldsPostNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    postNestedField(schema: string, parentId: number, addFieldDto: AddFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -420,12 +420,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putFieldRaw(requestParameters: SchemaFieldsPutFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putFieldRaw(schema: string, id: number, updateFieldDto: UpdateFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Update a schema field.
      */
-    putField(requestParameters: SchemaFieldsPutFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putField(schema: string, id: number, updateFieldDto: UpdateFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -438,12 +438,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putNestedFieldRaw(requestParameters: SchemaFieldsPutNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putNestedFieldRaw(schema: string, parentId: number, id: number, updateFieldDto: UpdateFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Update a nested field.
      */
-    putNestedField(requestParameters: SchemaFieldsPutNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putNestedField(schema: string, parentId: number, id: number, updateFieldDto: UpdateFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -455,12 +455,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putNestedFieldOrderingRaw(requestParameters: SchemaFieldsPutNestedFieldOrderingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putNestedFieldOrderingRaw(schema: string, parentId: number, reorderFieldsDto: ReorderFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Reorder all nested fields.
      */
-    putNestedFieldOrdering(requestParameters: SchemaFieldsPutNestedFieldOrderingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putNestedFieldOrdering(schema: string, parentId: number, reorderFieldsDto: ReorderFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -471,12 +471,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putSchemaFieldOrderingRaw(requestParameters: SchemaFieldsPutSchemaFieldOrderingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putSchemaFieldOrderingRaw(schema: string, reorderFieldsDto: ReorderFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Reorder all fields.
      */
-    putSchemaFieldOrdering(requestParameters: SchemaFieldsPutSchemaFieldOrderingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putSchemaFieldOrdering(schema: string, reorderFieldsDto: ReorderFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -487,12 +487,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putSchemaUIFieldsRaw(requestParameters: SchemaFieldsPutSchemaUIFieldsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putSchemaUIFieldsRaw(schema: string, configureUIFieldsDto: ConfigureUIFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Configure UI fields.
      */
-    putSchemaUIFields(requestParameters: SchemaFieldsPutSchemaUIFieldsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putSchemaUIFields(schema: string, configureUIFieldsDto: ConfigureUIFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
@@ -503,13 +503,13 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    showFieldRaw(requestParameters: SchemaFieldsShowFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    showFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Show a schema field.
      */
-    showField(requestParameters: SchemaFieldsShowFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    showField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
@@ -521,13 +521,13 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    showNestedFieldRaw(requestParameters: SchemaFieldsShowNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    showNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Show a nested field.
      */
-    showNestedField(requestParameters: SchemaFieldsShowNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    showNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -537,12 +537,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    deleteSchemaRaw(requestParameters: SchemasDeleteSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteSchemaRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete a schema.
      */
-    deleteSchema(requestParameters: SchemasDeleteSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteSchema(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -552,12 +552,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    getSchemaRaw(requestParameters: SchemasGetSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    getSchemaRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Get a schema by name.
      */
-    getSchema(requestParameters: SchemasGetSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    getSchema(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -581,12 +581,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    postSchemaRaw(requestParameters: SchemasPostSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    postSchemaRaw(createSchemaDto: CreateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Create a new schema.
      */
-    postSchema(requestParameters: SchemasPostSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    postSchema(createSchemaDto: CreateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -596,12 +596,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    publishSchemaRaw(requestParameters: SchemasPublishSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    publishSchemaRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Publish a schema.
      */
-    publishSchema(requestParameters: SchemasPublishSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    publishSchema(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -612,12 +612,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putCategoryRaw(requestParameters: SchemasPutCategoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putCategoryRaw(schema: string, changeCategoryDto: ChangeCategoryDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Update a schema category.
      */
-    putCategory(requestParameters: SchemasPutCategoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putCategory(schema: string, changeCategoryDto: ChangeCategoryDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -628,12 +628,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putPreviewUrlsRaw(requestParameters: SchemasPutPreviewUrlsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putPreviewUrlsRaw(schema: string, requestBody: { [key: string]: string; }, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Update the preview urls.
      */
-    putPreviewUrls(requestParameters: SchemasPutPreviewUrlsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putPreviewUrls(schema: string, requestBody: { [key: string]: string; }, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -644,12 +644,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putRulesRaw(requestParameters: SchemasPutRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putRulesRaw(schema: string, configureFieldRulesDto: ConfigureFieldRulesDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Update the rules.
      */
-    putRules(requestParameters: SchemasPutRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putRules(schema: string, configureFieldRulesDto: ConfigureFieldRulesDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -660,12 +660,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putSchemaRaw(requestParameters: SchemasPutSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putSchemaRaw(schema: string, updateSchemaDto: UpdateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Update a schema.
      */
-    putSchema(requestParameters: SchemasPutSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putSchema(schema: string, updateSchemaDto: UpdateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -676,12 +676,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putSchemaSyncRaw(requestParameters: SchemasPutSchemaSyncRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putSchemaSyncRaw(schema: string, synchronizeSchemaDto: SynchronizeSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Synchronize a schema.
      */
-    putSchemaSync(requestParameters: SchemasPutSchemaSyncRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putSchemaSync(schema: string, synchronizeSchemaDto: SynchronizeSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -692,12 +692,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    putScriptsRaw(requestParameters: SchemasPutScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    putScriptsRaw(schema: string, schemaScriptsDto: SchemaScriptsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Update the scripts.
      */
-    putScripts(requestParameters: SchemasPutScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    putScripts(schema: string, schemaScriptsDto: SchemaScriptsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
     /**
      * 
@@ -707,12 +707,12 @@ export interface SchemasApiInterface {
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    unpublishSchemaRaw(requestParameters: SchemasUnpublishSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
+    unpublishSchemaRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>>;
 
     /**
      * Unpublish a schema.
      */
-    unpublishSchema(requestParameters: SchemasUnpublishSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+    unpublishSchema(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
 
 }
 
@@ -724,15 +724,18 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Delete a schema field.
      */
-    async deleteFieldRaw(requestParameters: SchemaFieldsDeleteFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async deleteFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -744,7 +747,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -756,30 +759,34 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Delete a schema field.
      */
-    async deleteField(requestParameters: SchemaFieldsDeleteFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.deleteFieldRaw(requestParameters, initOverrides);
+    async deleteField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.deleteFieldRaw(schema, id, initOverrides);
         return await response.value();
     }
 
     /**
      * Delete a nested field.
      */
-    async deleteNestedFieldRaw(requestParameters: SchemaFieldsDeleteNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async deleteNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _parentId = parentId;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['parentId'] == null) {
+        if (_parentId == null) {
             throw new runtime.RequiredError(
                 'parentId',
                 'Required parameter "parentId" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -791,7 +798,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"parentId"}}`, encodeURIComponent(String(_parentId))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -803,8 +810,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Delete a nested field.
      */
-    async deleteNestedField(requestParameters: SchemaFieldsDeleteNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.deleteNestedFieldRaw(requestParameters, initOverrides);
+    async deleteNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.deleteNestedFieldRaw(schema, parentId, id, initOverrides);
         return await response.value();
     }
 
@@ -812,15 +819,18 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Disable a schema field.
      */
-    async disableFieldRaw(requestParameters: SchemaFieldsDisableFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async disableFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -832,7 +842,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/disable`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/disable`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -845,8 +855,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Disable a schema field.
      */
-    async disableField(requestParameters: SchemaFieldsDisableFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.disableFieldRaw(requestParameters, initOverrides);
+    async disableField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.disableFieldRaw(schema, id, initOverrides);
         return await response.value();
     }
 
@@ -854,22 +864,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Disable a nested field.
      */
-    async disableNestedFieldRaw(requestParameters: SchemaFieldsDisableNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async disableNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _parentId = parentId;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['parentId'] == null) {
+        if (_parentId == null) {
             throw new runtime.RequiredError(
                 'parentId',
                 'Required parameter "parentId" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -881,7 +895,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/disable`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/disable`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"parentId"}}`, encodeURIComponent(String(_parentId))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -894,8 +908,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Disable a nested field.
      */
-    async disableNestedField(requestParameters: SchemaFieldsDisableNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.disableNestedFieldRaw(requestParameters, initOverrides);
+    async disableNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.disableNestedFieldRaw(schema, parentId, id, initOverrides);
         return await response.value();
     }
 
@@ -903,15 +917,18 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Enable a schema field.
      */
-    async enableFieldRaw(requestParameters: SchemaFieldsEnableFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async enableFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -923,7 +940,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/enable`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/enable`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -936,8 +953,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Enable a schema field.
      */
-    async enableField(requestParameters: SchemaFieldsEnableFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.enableFieldRaw(requestParameters, initOverrides);
+    async enableField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.enableFieldRaw(schema, id, initOverrides);
         return await response.value();
     }
 
@@ -945,22 +962,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Enable a nested field.
      */
-    async enableNestedFieldRaw(requestParameters: SchemaFieldsEnableNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async enableNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _parentId = parentId;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['parentId'] == null) {
+        if (_parentId == null) {
             throw new runtime.RequiredError(
                 'parentId',
                 'Required parameter "parentId" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -972,7 +993,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/enable`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/enable`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"parentId"}}`, encodeURIComponent(String(_parentId))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -985,8 +1006,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A disabled field cannot not be edited in the squidex portal anymore, but will be part of the API response.
      * Enable a nested field.
      */
-    async enableNestedField(requestParameters: SchemaFieldsEnableNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.enableNestedFieldRaw(requestParameters, initOverrides);
+    async enableNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.enableNestedFieldRaw(schema, parentId, id, initOverrides);
         return await response.value();
     }
 
@@ -994,15 +1015,18 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Hide a schema field.
      */
-    async hideFieldRaw(requestParameters: SchemaFieldsHideFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async hideFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1014,7 +1038,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/hide`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/hide`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1027,8 +1051,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Hide a schema field.
      */
-    async hideField(requestParameters: SchemaFieldsHideFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.hideFieldRaw(requestParameters, initOverrides);
+    async hideField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.hideFieldRaw(schema, id, initOverrides);
         return await response.value();
     }
 
@@ -1036,22 +1060,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Hide a nested field.
      */
-    async hideNestedFieldRaw(requestParameters: SchemaFieldsHideNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async hideNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _parentId = parentId;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['parentId'] == null) {
+        if (_parentId == null) {
             throw new runtime.RequiredError(
                 'parentId',
                 'Required parameter "parentId" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1063,7 +1091,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/hide`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/hide`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"parentId"}}`, encodeURIComponent(String(_parentId))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1076,8 +1104,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Hide a nested field.
      */
-    async hideNestedField(requestParameters: SchemaFieldsHideNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.hideNestedFieldRaw(requestParameters, initOverrides);
+    async hideNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.hideNestedFieldRaw(schema, parentId, id, initOverrides);
         return await response.value();
     }
 
@@ -1085,15 +1113,18 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A locked field cannot be updated or deleted.
      * Lock a schema field.
      */
-    async lockFieldRaw(requestParameters: SchemaFieldsLockFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async lockFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1105,7 +1136,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/lock`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/lock`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1118,8 +1149,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A locked field cannot be updated or deleted.
      * Lock a schema field.
      */
-    async lockField(requestParameters: SchemaFieldsLockFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.lockFieldRaw(requestParameters, initOverrides);
+    async lockField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.lockFieldRaw(schema, id, initOverrides);
         return await response.value();
     }
 
@@ -1127,22 +1158,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A locked field cannot be edited or deleted.
      * Lock a nested field.
      */
-    async lockNestedFieldRaw(requestParameters: SchemaFieldsLockNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async lockNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _parentId = parentId;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['parentId'] == null) {
+        if (_parentId == null) {
             throw new runtime.RequiredError(
                 'parentId',
                 'Required parameter "parentId" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1154,7 +1189,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/lock`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/lock`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"parentId"}}`, encodeURIComponent(String(_parentId))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1167,23 +1202,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A locked field cannot be edited or deleted.
      * Lock a nested field.
      */
-    async lockNestedField(requestParameters: SchemaFieldsLockNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.lockNestedFieldRaw(requestParameters, initOverrides);
+    async lockNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.lockNestedFieldRaw(schema, parentId, id, initOverrides);
         return await response.value();
     }
 
     /**
      * Add a schema field.
      */
-    async postFieldRaw(requestParameters: SchemaFieldsPostFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async postFieldRaw(schema: string, addFieldDto: AddFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _addFieldDto = addFieldDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['addFieldDto'] == null) {
+        if (_addFieldDto == null) {
             throw new runtime.RequiredError(
                 'addFieldDto',
                 'Required parameter "addFieldDto" was null or undefined when calling ().'
@@ -1197,11 +1235,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AddFieldDtoToJSON(requestParameters['addFieldDto']),
+            body: AddFieldDtoToJSON(_addFieldDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1210,30 +1248,34 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Add a schema field.
      */
-    async postField(requestParameters: SchemaFieldsPostFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.postFieldRaw(requestParameters, initOverrides);
+    async postField(schema: string, addFieldDto: AddFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.postFieldRaw(schema, addFieldDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Add a nested field.
      */
-    async postNestedFieldRaw(requestParameters: SchemaFieldsPostNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async postNestedFieldRaw(schema: string, parentId: number, addFieldDto: AddFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _parentId = parentId;
+        const _addFieldDto = addFieldDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['parentId'] == null) {
+        if (_parentId == null) {
             throw new runtime.RequiredError(
                 'parentId',
                 'Required parameter "parentId" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['addFieldDto'] == null) {
+        if (_addFieldDto == null) {
             throw new runtime.RequiredError(
                 'addFieldDto',
                 'Required parameter "addFieldDto" was null or undefined when calling ().'
@@ -1247,11 +1289,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"parentId"}}`, encodeURIComponent(String(_parentId))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AddFieldDtoToJSON(requestParameters['addFieldDto']),
+            body: AddFieldDtoToJSON(_addFieldDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1260,30 +1302,34 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Add a nested field.
      */
-    async postNestedField(requestParameters: SchemaFieldsPostNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.postNestedFieldRaw(requestParameters, initOverrides);
+    async postNestedField(schema: string, parentId: number, addFieldDto: AddFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.postNestedFieldRaw(schema, parentId, addFieldDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update a schema field.
      */
-    async putFieldRaw(requestParameters: SchemaFieldsPutFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putFieldRaw(schema: string, id: number, updateFieldDto: UpdateFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _updateFieldDto = updateFieldDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['updateFieldDto'] == null) {
+        if (_updateFieldDto == null) {
             throw new runtime.RequiredError(
                 'updateFieldDto',
                 'Required parameter "updateFieldDto" was null or undefined when calling ().'
@@ -1297,11 +1343,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateFieldDtoToJSON(requestParameters['updateFieldDto']),
+            body: UpdateFieldDtoToJSON(_updateFieldDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1310,37 +1356,42 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Update a schema field.
      */
-    async putField(requestParameters: SchemaFieldsPutFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putFieldRaw(requestParameters, initOverrides);
+    async putField(schema: string, id: number, updateFieldDto: UpdateFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putFieldRaw(schema, id, updateFieldDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update a nested field.
      */
-    async putNestedFieldRaw(requestParameters: SchemaFieldsPutNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putNestedFieldRaw(schema: string, parentId: number, id: number, updateFieldDto: UpdateFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _parentId = parentId;
+        const _id = id;
+        const _updateFieldDto = updateFieldDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['parentId'] == null) {
+        if (_parentId == null) {
             throw new runtime.RequiredError(
                 'parentId',
                 'Required parameter "parentId" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['updateFieldDto'] == null) {
+        if (_updateFieldDto == null) {
             throw new runtime.RequiredError(
                 'updateFieldDto',
                 'Required parameter "updateFieldDto" was null or undefined when calling ().'
@@ -1354,11 +1405,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"parentId"}}`, encodeURIComponent(String(_parentId))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateFieldDtoToJSON(requestParameters['updateFieldDto']),
+            body: UpdateFieldDtoToJSON(_updateFieldDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1367,30 +1418,34 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Update a nested field.
      */
-    async putNestedField(requestParameters: SchemaFieldsPutNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putNestedFieldRaw(requestParameters, initOverrides);
+    async putNestedField(schema: string, parentId: number, id: number, updateFieldDto: UpdateFieldDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putNestedFieldRaw(schema, parentId, id, updateFieldDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Reorder all nested fields.
      */
-    async putNestedFieldOrderingRaw(requestParameters: SchemaFieldsPutNestedFieldOrderingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putNestedFieldOrderingRaw(schema: string, parentId: number, reorderFieldsDto: ReorderFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _parentId = parentId;
+        const _reorderFieldsDto = reorderFieldsDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['parentId'] == null) {
+        if (_parentId == null) {
             throw new runtime.RequiredError(
                 'parentId',
                 'Required parameter "parentId" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['reorderFieldsDto'] == null) {
+        if (_reorderFieldsDto == null) {
             throw new runtime.RequiredError(
                 'reorderFieldsDto',
                 'Required parameter "reorderFieldsDto" was null or undefined when calling ().'
@@ -1404,11 +1459,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/ordering`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/ordering`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"parentId"}}`, encodeURIComponent(String(_parentId))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ReorderFieldsDtoToJSON(requestParameters['reorderFieldsDto']),
+            body: ReorderFieldsDtoToJSON(_reorderFieldsDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1417,23 +1472,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Reorder all nested fields.
      */
-    async putNestedFieldOrdering(requestParameters: SchemaFieldsPutNestedFieldOrderingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putNestedFieldOrderingRaw(requestParameters, initOverrides);
+    async putNestedFieldOrdering(schema: string, parentId: number, reorderFieldsDto: ReorderFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putNestedFieldOrderingRaw(schema, parentId, reorderFieldsDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Reorder all fields.
      */
-    async putSchemaFieldOrderingRaw(requestParameters: SchemaFieldsPutSchemaFieldOrderingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putSchemaFieldOrderingRaw(schema: string, reorderFieldsDto: ReorderFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _reorderFieldsDto = reorderFieldsDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['reorderFieldsDto'] == null) {
+        if (_reorderFieldsDto == null) {
             throw new runtime.RequiredError(
                 'reorderFieldsDto',
                 'Required parameter "reorderFieldsDto" was null or undefined when calling ().'
@@ -1447,11 +1505,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/ordering`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/ordering`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ReorderFieldsDtoToJSON(requestParameters['reorderFieldsDto']),
+            body: ReorderFieldsDtoToJSON(_reorderFieldsDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1460,23 +1518,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Reorder all fields.
      */
-    async putSchemaFieldOrdering(requestParameters: SchemaFieldsPutSchemaFieldOrderingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putSchemaFieldOrderingRaw(requestParameters, initOverrides);
+    async putSchemaFieldOrdering(schema: string, reorderFieldsDto: ReorderFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putSchemaFieldOrderingRaw(schema, reorderFieldsDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Configure UI fields.
      */
-    async putSchemaUIFieldsRaw(requestParameters: SchemaFieldsPutSchemaUIFieldsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putSchemaUIFieldsRaw(schema: string, configureUIFieldsDto: ConfigureUIFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _configureUIFieldsDto = configureUIFieldsDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['configureUIFieldsDto'] == null) {
+        if (_configureUIFieldsDto == null) {
             throw new runtime.RequiredError(
                 'configureUIFieldsDto',
                 'Required parameter "configureUIFieldsDto" was null or undefined when calling ().'
@@ -1490,11 +1551,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/ui`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/ui`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ConfigureUIFieldsDtoToJSON(requestParameters['configureUIFieldsDto']),
+            body: ConfigureUIFieldsDtoToJSON(_configureUIFieldsDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1503,8 +1564,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Configure UI fields.
      */
-    async putSchemaUIFields(requestParameters: SchemaFieldsPutSchemaUIFieldsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putSchemaUIFieldsRaw(requestParameters, initOverrides);
+    async putSchemaUIFields(schema: string, configureUIFieldsDto: ConfigureUIFieldsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putSchemaUIFieldsRaw(schema, configureUIFieldsDto, initOverrides);
         return await response.value();
     }
 
@@ -1512,15 +1573,18 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Show a schema field.
      */
-    async showFieldRaw(requestParameters: SchemaFieldsShowFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async showFieldRaw(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1532,7 +1596,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/show`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{id}/show`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1545,8 +1609,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Show a schema field.
      */
-    async showField(requestParameters: SchemaFieldsShowFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.showFieldRaw(requestParameters, initOverrides);
+    async showField(schema: string, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.showFieldRaw(schema, id, initOverrides);
         return await response.value();
     }
 
@@ -1554,22 +1618,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Show a nested field.
      */
-    async showNestedFieldRaw(requestParameters: SchemaFieldsShowNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async showNestedFieldRaw(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _parentId = parentId;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['parentId'] == null) {
+        if (_parentId == null) {
             throw new runtime.RequiredError(
                 'parentId',
                 'Required parameter "parentId" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1581,7 +1649,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/show`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"parentId"}}`, encodeURIComponent(String((requestParameters as any)['parentId']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/fields/{parentId}/nested/{id}/show`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"parentId"}}`, encodeURIComponent(String(_parentId))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1594,16 +1662,18 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * A hidden field is not part of the API response, but can still be edited in the portal.
      * Show a nested field.
      */
-    async showNestedField(requestParameters: SchemaFieldsShowNestedFieldRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.showNestedFieldRaw(requestParameters, initOverrides);
+    async showNestedField(schema: string, parentId: number, id: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.showNestedFieldRaw(schema, parentId, id, initOverrides);
         return await response.value();
     }
 
     /**
      * Delete a schema.
      */
-    async deleteSchemaRaw(requestParameters: SchemasDeleteSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['schema'] == null) {
+    async deleteSchemaRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _schema = schema;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
@@ -1615,7 +1685,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1627,15 +1697,17 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Delete a schema.
      */
-    async deleteSchema(requestParameters: SchemasDeleteSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteSchemaRaw(requestParameters, initOverrides);
+    async deleteSchema(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSchemaRaw(schema, initOverrides);
     }
 
     /**
      * Get a schema by name.
      */
-    async getSchemaRaw(requestParameters: SchemasGetSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async getSchemaRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
@@ -1647,7 +1719,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1659,8 +1731,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Get a schema by name.
      */
-    async getSchema(requestParameters: SchemasGetSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.getSchemaRaw(requestParameters, initOverrides);
+    async getSchema(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.getSchemaRaw(schema, initOverrides);
         return await response.value();
     }
 
@@ -1668,6 +1740,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      * Get schemas.
      */
     async getSchemasRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemasDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1693,8 +1766,10 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Create a new schema.
      */
-    async postSchemaRaw(requestParameters: SchemasPostSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['createSchemaDto'] == null) {
+    async postSchemaRaw(createSchemaDto: CreateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _createSchemaDto = createSchemaDto;
+
+        if (_createSchemaDto == null) {
             throw new runtime.RequiredError(
                 'createSchemaDto',
                 'Required parameter "createSchemaDto" was null or undefined when calling ().'
@@ -1712,7 +1787,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateSchemaDtoToJSON(requestParameters['createSchemaDto']),
+            body: CreateSchemaDtoToJSON(_createSchemaDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1721,16 +1796,18 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Create a new schema.
      */
-    async postSchema(requestParameters: SchemasPostSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.postSchemaRaw(requestParameters, initOverrides);
+    async postSchema(createSchemaDto: CreateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.postSchemaRaw(createSchemaDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Publish a schema.
      */
-    async publishSchemaRaw(requestParameters: SchemasPublishSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async publishSchemaRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
@@ -1742,7 +1819,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/publish`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/publish`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1754,23 +1831,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Publish a schema.
      */
-    async publishSchema(requestParameters: SchemasPublishSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.publishSchemaRaw(requestParameters, initOverrides);
+    async publishSchema(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.publishSchemaRaw(schema, initOverrides);
         return await response.value();
     }
 
     /**
      * Update a schema category.
      */
-    async putCategoryRaw(requestParameters: SchemasPutCategoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putCategoryRaw(schema: string, changeCategoryDto: ChangeCategoryDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _changeCategoryDto = changeCategoryDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['changeCategoryDto'] == null) {
+        if (_changeCategoryDto == null) {
             throw new runtime.RequiredError(
                 'changeCategoryDto',
                 'Required parameter "changeCategoryDto" was null or undefined when calling ().'
@@ -1784,11 +1864,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/category`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/category`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ChangeCategoryDtoToJSON(requestParameters['changeCategoryDto']),
+            body: ChangeCategoryDtoToJSON(_changeCategoryDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1797,23 +1877,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Update a schema category.
      */
-    async putCategory(requestParameters: SchemasPutCategoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putCategoryRaw(requestParameters, initOverrides);
+    async putCategory(schema: string, changeCategoryDto: ChangeCategoryDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putCategoryRaw(schema, changeCategoryDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update the preview urls.
      */
-    async putPreviewUrlsRaw(requestParameters: SchemasPutPreviewUrlsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putPreviewUrlsRaw(schema: string, requestBody: { [key: string]: string; }, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _requestBody = requestBody;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['requestBody'] == null) {
+        if (_requestBody == null) {
             throw new runtime.RequiredError(
                 'requestBody',
                 'Required parameter "requestBody" was null or undefined when calling ().'
@@ -1827,11 +1910,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/preview-urls`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/preview-urls`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters['requestBody'],
+            body: _requestBody,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1840,23 +1923,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Update the preview urls.
      */
-    async putPreviewUrls(requestParameters: SchemasPutPreviewUrlsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putPreviewUrlsRaw(requestParameters, initOverrides);
+    async putPreviewUrls(schema: string, requestBody: { [key: string]: string; }, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putPreviewUrlsRaw(schema, requestBody, initOverrides);
         return await response.value();
     }
 
     /**
      * Update the rules.
      */
-    async putRulesRaw(requestParameters: SchemasPutRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putRulesRaw(schema: string, configureFieldRulesDto: ConfigureFieldRulesDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _configureFieldRulesDto = configureFieldRulesDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['configureFieldRulesDto'] == null) {
+        if (_configureFieldRulesDto == null) {
             throw new runtime.RequiredError(
                 'configureFieldRulesDto',
                 'Required parameter "configureFieldRulesDto" was null or undefined when calling ().'
@@ -1870,11 +1956,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/rules`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/rules`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ConfigureFieldRulesDtoToJSON(requestParameters['configureFieldRulesDto']),
+            body: ConfigureFieldRulesDtoToJSON(_configureFieldRulesDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1883,23 +1969,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Update the rules.
      */
-    async putRules(requestParameters: SchemasPutRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putRulesRaw(requestParameters, initOverrides);
+    async putRules(schema: string, configureFieldRulesDto: ConfigureFieldRulesDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putRulesRaw(schema, configureFieldRulesDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update a schema.
      */
-    async putSchemaRaw(requestParameters: SchemasPutSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putSchemaRaw(schema: string, updateSchemaDto: UpdateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _updateSchemaDto = updateSchemaDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['updateSchemaDto'] == null) {
+        if (_updateSchemaDto == null) {
             throw new runtime.RequiredError(
                 'updateSchemaDto',
                 'Required parameter "updateSchemaDto" was null or undefined when calling ().'
@@ -1913,11 +2002,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateSchemaDtoToJSON(requestParameters['updateSchemaDto']),
+            body: UpdateSchemaDtoToJSON(_updateSchemaDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1926,23 +2015,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Update a schema.
      */
-    async putSchema(requestParameters: SchemasPutSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putSchemaRaw(requestParameters, initOverrides);
+    async putSchema(schema: string, updateSchemaDto: UpdateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putSchemaRaw(schema, updateSchemaDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Synchronize a schema.
      */
-    async putSchemaSyncRaw(requestParameters: SchemasPutSchemaSyncRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putSchemaSyncRaw(schema: string, synchronizeSchemaDto: SynchronizeSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _synchronizeSchemaDto = synchronizeSchemaDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['synchronizeSchemaDto'] == null) {
+        if (_synchronizeSchemaDto == null) {
             throw new runtime.RequiredError(
                 'synchronizeSchemaDto',
                 'Required parameter "synchronizeSchemaDto" was null or undefined when calling ().'
@@ -1956,11 +2048,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/sync`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/sync`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: SynchronizeSchemaDtoToJSON(requestParameters['synchronizeSchemaDto']),
+            body: SynchronizeSchemaDtoToJSON(_synchronizeSchemaDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -1969,23 +2061,26 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Synchronize a schema.
      */
-    async putSchemaSync(requestParameters: SchemasPutSchemaSyncRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putSchemaSyncRaw(requestParameters, initOverrides);
+    async putSchemaSync(schema: string, synchronizeSchemaDto: SynchronizeSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putSchemaSyncRaw(schema, synchronizeSchemaDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update the scripts.
      */
-    async putScriptsRaw(requestParameters: SchemasPutScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async putScriptsRaw(schema: string, schemaScriptsDto: SchemaScriptsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+        const _schemaScriptsDto = schemaScriptsDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['schemaScriptsDto'] == null) {
+        if (_schemaScriptsDto == null) {
             throw new runtime.RequiredError(
                 'schemaScriptsDto',
                 'Required parameter "schemaScriptsDto" was null or undefined when calling ().'
@@ -1999,11 +2094,11 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/scripts`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/scripts`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: SchemaScriptsDtoToJSON(requestParameters['schemaScriptsDto']),
+            body: SchemaScriptsDtoToJSON(_schemaScriptsDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SchemaDtoFromJSON(jsonValue));
@@ -2012,16 +2107,18 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Update the scripts.
      */
-    async putScripts(requestParameters: SchemasPutScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.putScriptsRaw(requestParameters, initOverrides);
+    async putScripts(schema: string, schemaScriptsDto: SchemaScriptsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.putScriptsRaw(schema, schemaScriptsDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Unpublish a schema.
      */
-    async unpublishSchemaRaw(requestParameters: SchemasUnpublishSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
-        if (requestParameters['schema'] == null) {
+    async unpublishSchemaRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchemaDto>> {
+        const _schema = schema;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
@@ -2033,7 +2130,7 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/schemas/{schema}/unpublish`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/schemas/{schema}/unpublish`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -2045,8 +2142,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Unpublish a schema.
      */
-    async unpublishSchema(requestParameters: SchemasUnpublishSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
-        const response = await this.unpublishSchemaRaw(requestParameters, initOverrides);
+    async unpublishSchema(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
+        const response = await this.unpublishSchemaRaw(schema, initOverrides);
         return await response.value();
     }
 

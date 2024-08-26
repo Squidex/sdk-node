@@ -7,18 +7,16 @@ let createdSchema: SchemaDto;
 
 beforeAll(async () => {
     createdSchema = await client.schemas.postSchema({
-        createSchemaDto: {
-            name: `schema-${guid()}`,
-            fields: [
-                {
-                    name: "field1",
-                    properties: {
-                        fieldType: "String",
-                    },
+        name: `schema-${guid()}`,
+        fields: [
+            {
+                name: "field1",
+                properties: {
+                    fieldType: "String",
                 },
-            ],
-            isPublished: true,
-        },
+            },
+        ],
+        isPublished: true,
     });
 });
 
@@ -26,17 +24,19 @@ describe("Contents", () => {
     it("should create and fetch content", async () => {
         const value = guid();
 
-        const createdContent = await client.contents.postContent({
-            schema: createdSchema.name,
-            requestBody: {
+        const createdContent = await client.contents.postContent(
+            createdSchema.name,
+            {
                 field1: {
                     iv: value,
                 },
             },
-            publish: true,
-        });
+            {
+                publish: true,
+            },
+        );
 
-        const content = await client.contents.getContent({ schema: createdSchema.name, id: createdContent.id });
+        const content = await client.contents.getContent(createdSchema.name, createdContent.id);
         expect(content.data).toEqual({ field1: { iv: value } });
         expect(content.lastModified).toBeDefined();
         expect(content.lastModifiedBy).toBeDefined();
@@ -46,20 +46,13 @@ describe("Contents", () => {
     it("should create and fetch unpublished content", async () => {
         const value = guid();
 
-        const createdContent = await client.contents.postContent({
-            schema: createdSchema.name,
-            requestBody: {
-                field1: {
-                    iv: value,
-                },
+        const createdContent = await client.contents.postContent(createdSchema.name, {
+            field1: {
+                iv: value,
             },
         });
 
-        const content = await client.contents.getContent({
-            schema: createdSchema.name,
-            id: createdContent.id,
-            unpublished: true,
-        });
+        const content = await client.contents.getContent(createdSchema.name, createdContent.id, { unpublished: true });
         expect(content.data).toEqual({ field1: { iv: value } });
         expect(content.lastModified).toBeDefined();
         expect(content.lastModifiedBy).toBeDefined();

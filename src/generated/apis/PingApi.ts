@@ -80,6 +80,7 @@ export class PingApi extends runtime.BaseAPI implements PingApiInterface {
      * Get ping status.
      */
     async getAppPingRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -106,6 +107,7 @@ export class PingApi extends runtime.BaseAPI implements PingApiInterface {
      * Get API information.
      */
     async getInfoRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: string; }>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -133,6 +135,7 @@ export class PingApi extends runtime.BaseAPI implements PingApiInterface {
      * Get ping status of the API.
      */
     async getPingRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};

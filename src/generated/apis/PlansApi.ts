@@ -23,15 +23,15 @@ import {
     PlansDtoFromJSON,
 } from '../models/index';
 
-export interface AppPlansPutPlanRequest {
+export interface AppPlansPutPlanRequestRaw {
     changePlanDto: ChangePlanDto;
 }
 
-export interface TeamPlansGetTeamPlansRequest {
+export interface TeamPlansGetTeamPlansRequestRaw {
     team: string;
 }
 
-export interface TeamPlansPutTeamPlanRequest {
+export interface TeamPlansPutTeamPlanRequestRaw {
     team: string;
     changePlanDto: ChangePlanDto;
 }
@@ -65,12 +65,12 @@ export interface PlansApiInterface {
      * @throws {RequiredError}
      * @memberof PlansApiInterface
      */
-    putPlanRaw(requestParameters: AppPlansPutPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlanChangedDto>>;
+    putPlanRaw(changePlanDto: ChangePlanDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlanChangedDto>>;
 
     /**
      * Change the app plan.
      */
-    putPlan(requestParameters: AppPlansPutPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlanChangedDto>;
+    putPlan(changePlanDto: ChangePlanDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlanChangedDto>;
 
     /**
      * 
@@ -80,12 +80,12 @@ export interface PlansApiInterface {
      * @throws {RequiredError}
      * @memberof PlansApiInterface
      */
-    getTeamPlansRaw(requestParameters: TeamPlansGetTeamPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlansDto>>;
+    getTeamPlansRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlansDto>>;
 
     /**
      * Get team plan information.
      */
-    getTeamPlans(requestParameters: TeamPlansGetTeamPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlansDto>;
+    getTeamPlans(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlansDto>;
 
     /**
      * 
@@ -96,12 +96,12 @@ export interface PlansApiInterface {
      * @throws {RequiredError}
      * @memberof PlansApiInterface
      */
-    putTeamPlanRaw(requestParameters: TeamPlansPutTeamPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlanChangedDto>>;
+    putTeamPlanRaw(team: string, changePlanDto: ChangePlanDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlanChangedDto>>;
 
     /**
      * Change the team plan.
      */
-    putTeamPlan(requestParameters: TeamPlansPutTeamPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlanChangedDto>;
+    putTeamPlan(team: string, changePlanDto: ChangePlanDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlanChangedDto>;
 
 }
 
@@ -114,6 +114,7 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
      * Get app plan information.
      */
     async getPlansRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlansDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -139,8 +140,10 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
     /**
      * Change the app plan.
      */
-    async putPlanRaw(requestParameters: AppPlansPutPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlanChangedDto>> {
-        if (requestParameters['changePlanDto'] == null) {
+    async putPlanRaw(changePlanDto: ChangePlanDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlanChangedDto>> {
+        const _changePlanDto = changePlanDto;
+
+        if (_changePlanDto == null) {
             throw new runtime.RequiredError(
                 'changePlanDto',
                 'Required parameter "changePlanDto" was null or undefined when calling ().'
@@ -158,7 +161,7 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ChangePlanDtoToJSON(requestParameters['changePlanDto']),
+            body: ChangePlanDtoToJSON(_changePlanDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PlanChangedDtoFromJSON(jsonValue));
@@ -167,16 +170,18 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
     /**
      * Change the app plan.
      */
-    async putPlan(requestParameters: AppPlansPutPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlanChangedDto> {
-        const response = await this.putPlanRaw(requestParameters, initOverrides);
+    async putPlan(changePlanDto: ChangePlanDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlanChangedDto> {
+        const response = await this.putPlanRaw(changePlanDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Get team plan information.
      */
-    async getTeamPlansRaw(requestParameters: TeamPlansGetTeamPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlansDto>> {
-        if (requestParameters['team'] == null) {
+    async getTeamPlansRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlansDto>> {
+        const _team = team;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
@@ -188,7 +193,7 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/plans`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/plans`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -200,23 +205,26 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
     /**
      * Get team plan information.
      */
-    async getTeamPlans(requestParameters: TeamPlansGetTeamPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlansDto> {
-        const response = await this.getTeamPlansRaw(requestParameters, initOverrides);
+    async getTeamPlans(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlansDto> {
+        const response = await this.getTeamPlansRaw(team, initOverrides);
         return await response.value();
     }
 
     /**
      * Change the team plan.
      */
-    async putTeamPlanRaw(requestParameters: TeamPlansPutTeamPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlanChangedDto>> {
-        if (requestParameters['team'] == null) {
+    async putTeamPlanRaw(team: string, changePlanDto: ChangePlanDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PlanChangedDto>> {
+        const _team = team;
+        const _changePlanDto = changePlanDto;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['changePlanDto'] == null) {
+        if (_changePlanDto == null) {
             throw new runtime.RequiredError(
                 'changePlanDto',
                 'Required parameter "changePlanDto" was null or undefined when calling ().'
@@ -230,11 +238,11 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}/plan`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/plan`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ChangePlanDtoToJSON(requestParameters['changePlanDto']),
+            body: ChangePlanDtoToJSON(_changePlanDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PlanChangedDtoFromJSON(jsonValue));
@@ -243,8 +251,8 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
     /**
      * Change the team plan.
      */
-    async putTeamPlan(requestParameters: TeamPlansPutTeamPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlanChangedDto> {
-        const response = await this.putTeamPlanRaw(requestParameters, initOverrides);
+    async putTeamPlan(team: string, changePlanDto: ChangePlanDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PlanChangedDto> {
+        const response = await this.putTeamPlanRaw(team, changePlanDto, initOverrides);
         return await response.value();
     }
 

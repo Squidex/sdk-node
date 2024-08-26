@@ -49,7 +49,7 @@ export async function setup() {
     await waitForServer();
 
     try {
-        await client.apps.postApp({ createAppDto: { name: client.appName } });
+        await client.apps.postApp({ name: client.appName });
     } catch (ex) {
         if (!(ex instanceof SquidexBadRequestError)) {
             throw ex;

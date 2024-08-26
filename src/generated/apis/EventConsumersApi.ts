@@ -21,15 +21,15 @@ import {
     EventConsumersDtoFromJSON,
 } from '../models/index';
 
-export interface EventConsumersResetEventConsumerRequest {
+export interface EventConsumersResetEventConsumerRequestRaw {
     consumerName: string;
 }
 
-export interface EventConsumersStartEventConsumerRequest {
+export interface EventConsumersStartEventConsumerRequestRaw {
     consumerName: string;
 }
 
-export interface EventConsumersStopEventConsumerRequest {
+export interface EventConsumersStopEventConsumerRequestRaw {
     consumerName: string;
 }
 
@@ -62,12 +62,12 @@ export interface EventConsumersApiInterface {
      * @throws {RequiredError}
      * @memberof EventConsumersApiInterface
      */
-    resetEventConsumerRaw(requestParameters: EventConsumersResetEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>>;
+    resetEventConsumerRaw(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>>;
 
     /**
      * Reset an event consumer.
      */
-    resetEventConsumer(requestParameters: EventConsumersResetEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto>;
+    resetEventConsumer(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto>;
 
     /**
      * 
@@ -77,12 +77,12 @@ export interface EventConsumersApiInterface {
      * @throws {RequiredError}
      * @memberof EventConsumersApiInterface
      */
-    startEventConsumerRaw(requestParameters: EventConsumersStartEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>>;
+    startEventConsumerRaw(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>>;
 
     /**
      * Start an event consumer.
      */
-    startEventConsumer(requestParameters: EventConsumersStartEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto>;
+    startEventConsumer(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto>;
 
     /**
      * 
@@ -92,12 +92,12 @@ export interface EventConsumersApiInterface {
      * @throws {RequiredError}
      * @memberof EventConsumersApiInterface
      */
-    stopEventConsumerRaw(requestParameters: EventConsumersStopEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>>;
+    stopEventConsumerRaw(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>>;
 
     /**
      * Stop an event consumer.
      */
-    stopEventConsumer(requestParameters: EventConsumersStopEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto>;
+    stopEventConsumer(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto>;
 
 }
 
@@ -110,6 +110,7 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
      * Get event consumers.
      */
     async getEventConsumersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumersDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -135,8 +136,10 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
     /**
      * Reset an event consumer.
      */
-    async resetEventConsumerRaw(requestParameters: EventConsumersResetEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>> {
-        if (requestParameters['consumerName'] == null) {
+    async resetEventConsumerRaw(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>> {
+        const _consumerName = consumerName;
+
+        if (_consumerName == null) {
             throw new runtime.RequiredError(
                 'consumerName',
                 'Required parameter "consumerName" was null or undefined when calling ().'
@@ -148,7 +151,7 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers/{consumerName}/reset`.replace(`{${"consumerName"}}`, encodeURIComponent(String((requestParameters as any)['consumerName']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/event-consumers/{consumerName}/reset`.replace(`{${"consumerName"}}`, encodeURIComponent(String(_consumerName))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -160,16 +163,18 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
     /**
      * Reset an event consumer.
      */
-    async resetEventConsumer(requestParameters: EventConsumersResetEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto> {
-        const response = await this.resetEventConsumerRaw(requestParameters, initOverrides);
+    async resetEventConsumer(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto> {
+        const response = await this.resetEventConsumerRaw(consumerName, initOverrides);
         return await response.value();
     }
 
     /**
      * Start an event consumer.
      */
-    async startEventConsumerRaw(requestParameters: EventConsumersStartEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>> {
-        if (requestParameters['consumerName'] == null) {
+    async startEventConsumerRaw(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>> {
+        const _consumerName = consumerName;
+
+        if (_consumerName == null) {
             throw new runtime.RequiredError(
                 'consumerName',
                 'Required parameter "consumerName" was null or undefined when calling ().'
@@ -181,7 +186,7 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers/{consumerName}/start`.replace(`{${"consumerName"}}`, encodeURIComponent(String((requestParameters as any)['consumerName']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/event-consumers/{consumerName}/start`.replace(`{${"consumerName"}}`, encodeURIComponent(String(_consumerName))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -193,16 +198,18 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
     /**
      * Start an event consumer.
      */
-    async startEventConsumer(requestParameters: EventConsumersStartEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto> {
-        const response = await this.startEventConsumerRaw(requestParameters, initOverrides);
+    async startEventConsumer(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto> {
+        const response = await this.startEventConsumerRaw(consumerName, initOverrides);
         return await response.value();
     }
 
     /**
      * Stop an event consumer.
      */
-    async stopEventConsumerRaw(requestParameters: EventConsumersStopEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>> {
-        if (requestParameters['consumerName'] == null) {
+    async stopEventConsumerRaw(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EventConsumerDto>> {
+        const _consumerName = consumerName;
+
+        if (_consumerName == null) {
             throw new runtime.RequiredError(
                 'consumerName',
                 'Required parameter "consumerName" was null or undefined when calling ().'
@@ -214,7 +221,7 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers/{consumerName}/stop`.replace(`{${"consumerName"}}`, encodeURIComponent(String((requestParameters as any)['consumerName']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/event-consumers/{consumerName}/stop`.replace(`{${"consumerName"}}`, encodeURIComponent(String(_consumerName))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -226,8 +233,8 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
     /**
      * Stop an event consumer.
      */
-    async stopEventConsumer(requestParameters: EventConsumersStopEventConsumerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto> {
-        const response = await this.stopEventConsumerRaw(requestParameters, initOverrides);
+    async stopEventConsumer(consumerName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EventConsumerDto> {
+        const response = await this.stopEventConsumerRaw(consumerName, initOverrides);
         return await response.value();
     }
 

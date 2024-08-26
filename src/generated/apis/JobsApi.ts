@@ -20,11 +20,15 @@ import {
 } from '../models/index';
 
 export interface JobsContentGetJobContentRequest {
+    appId?: string;
+}
+
+export interface JobsContentGetJobContentRequestRaw {
     id: string;
     appId?: string;
 }
 
-export interface JobsDeleteJobRequest {
+export interface JobsDeleteJobRequestRaw {
     id: string;
 }
 
@@ -44,12 +48,12 @@ export interface JobsApiInterface {
      * @throws {RequiredError}
      * @memberof JobsApiInterface
      */
-    getJobContentRaw(requestParameters: JobsContentGetJobContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
+    getJobContentRaw(id: string, requestParameters?: JobsContentGetJobContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
 
     /**
      * Get the job content.
      */
-    getJobContent(requestParameters: JobsContentGetJobContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
+    getJobContent(id: string, requestParameters?: JobsContentGetJobContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
 
     /**
      * 
@@ -59,12 +63,12 @@ export interface JobsApiInterface {
      * @throws {RequiredError}
      * @memberof JobsApiInterface
      */
-    deleteJobRaw(requestParameters: JobsDeleteJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteJobRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete a job.
      */
-    deleteJob(requestParameters: JobsDeleteJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteJob(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -90,8 +94,11 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
     /**
      * Get the job content.
      */
-    async getJobContentRaw(requestParameters: JobsContentGetJobContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters['id'] == null) {
+    async getJobContentRaw(id: string, requestParameters: JobsContentGetJobContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const _id = id;
+        const _appId = requestParameters?.['appId'];
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -100,14 +107,14 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
 
         const queryParameters: any = {};
 
-        if (requestParameters['appId'] != null) {
-            queryParameters['appId'] = requestParameters['appId'];
+        if (_appId != null) {
+            queryParameters['appId'] = _appId;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -119,16 +126,18 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
     /**
      * Get the job content.
      */
-    async getJobContent(requestParameters: JobsContentGetJobContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getJobContentRaw(requestParameters, initOverrides);
+    async getJobContent(id: string, requestParameters: JobsContentGetJobContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getJobContentRaw(id, requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Delete a job.
      */
-    async deleteJobRaw(requestParameters: JobsDeleteJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async deleteJobRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -140,7 +149,7 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -152,14 +161,15 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
     /**
      * Delete a job.
      */
-    async deleteJob(requestParameters: JobsDeleteJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteJobRaw(requestParameters, initOverrides);
+    async deleteJob(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteJobRaw(id, initOverrides);
     }
 
     /**
      * Get all jobs.
      */
     async getJobsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobsDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};

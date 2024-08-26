@@ -1,5 +1,5 @@
 import { SquidexClient } from "../src";
-import https from "https";
+import { Agent, setGlobalDispatcher } from "undici";
 
 let singleClient: { client: SquidexClient; create: (app: string) => SquidexClient };
 
@@ -13,18 +13,19 @@ export function getClient() {
     const clientSecret = getEnvironment("CONFIG__CLIENT__SECRET", "xeLd6jFxqbXJrfmNLlO2j1apagGGGSyZJhFnIuHp4I0=");
     const environment = getEnvironment("CONFIG__SERVER__URL", "http://localhost:8080");
 
+    const httpsAgent = new Agent({
+        connect: {
+            rejectUnauthorized: false,
+        },
+    });
+
+    setGlobalDispatcher(httpsAgent);
+
     const client = new SquidexClient({
         appName,
         clientId,
         clientSecret,
         environment,
-        middleware: {
-            pre: async ({ init }) => {
-                (init as any)["agent"] = new https.Agent({
-                    rejectUnauthorized: false,
-                });
-            },
-        },
     });
 
     const create = (app: string) => {

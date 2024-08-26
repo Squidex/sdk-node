@@ -6,17 +6,15 @@ const { client } = getClient();
 describe("Rules", () => {
     it("should create and fetch rule", async () => {
         const createdRule = await client.rules.postRule({
-            createRuleDto: {
-                action: {
-                    actionType: "Webhook",
-                    method: "POST",
-                    payload: "payload",
-                    payloadType: "text/plain",
-                    url: "https://squidex.io",
-                } as WebhookRuleActionDto,
-                trigger: {
-                    triggerType: "Manual",
-                },
+            action: {
+                actionType: "Webhook",
+                method: "POST",
+                payload: "payload",
+                payloadType: "text/plain",
+                url: "https://squidex.io",
+            } as WebhookRuleActionDto,
+            trigger: {
+                triggerType: "Manual",
             },
         });
 

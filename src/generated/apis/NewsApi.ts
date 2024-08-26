@@ -23,6 +23,10 @@ export interface NewsGetNewsRequest {
     version?: number;
 }
 
+export interface NewsGetNewsRequestRaw {
+    version?: number;
+}
+
 /**
  * NewsApi - interface
  * 
@@ -38,12 +42,12 @@ export interface NewsApiInterface {
      * @throws {RequiredError}
      * @memberof NewsApiInterface
      */
-    getNewsRaw(requestParameters: NewsGetNewsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FeaturesDto>>;
+    getNewsRaw(requestParameters?: NewsGetNewsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FeaturesDto>>;
 
     /**
      * Get features since version.
      */
-    getNews(requestParameters: NewsGetNewsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FeaturesDto>;
+    getNews(requestParameters?: NewsGetNewsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FeaturesDto>;
 
 }
 
@@ -56,10 +60,12 @@ export class NewsApi extends runtime.BaseAPI implements NewsApiInterface {
      * Get features since version.
      */
     async getNewsRaw(requestParameters: NewsGetNewsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FeaturesDto>> {
+        const _version = requestParameters?.['version'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['version'] != null) {
-            queryParameters['version'] = requestParameters['version'];
+        if (_version != null) {
+            queryParameters['version'] = _version;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

@@ -47,6 +47,24 @@ import {
 } from '../models/index';
 
 export interface AssetContentGetAssetContentRequest {
+    version?: number;
+    cache?: number;
+    download?: number;
+    width?: number | null;
+    height?: number | null;
+    quality?: number | null;
+    mode?: ResizeMode;
+    bg?: string | null;
+    focusX?: number | null;
+    focusY?: number | null;
+    nofocus?: boolean;
+    auto?: boolean;
+    force?: boolean;
+    deleted?: boolean;
+    format?: ImageFormat;
+}
+
+export interface AssetContentGetAssetContentRequestRaw {
     id: string;
     version?: number;
     cache?: number;
@@ -66,6 +84,24 @@ export interface AssetContentGetAssetContentRequest {
 }
 
 export interface AssetContentGetAssetContentBySlugRequest {
+    version?: number;
+    cache?: number;
+    download?: number;
+    width?: number | null;
+    height?: number | null;
+    quality?: number | null;
+    mode?: ResizeMode;
+    bg?: string | null;
+    focusX?: number | null;
+    focusY?: number | null;
+    nofocus?: boolean;
+    auto?: boolean;
+    force?: boolean;
+    deleted?: boolean;
+    format?: ImageFormat;
+}
+
+export interface AssetContentGetAssetContentBySlugRequestRaw {
     idOrSlug: string;
     version?: number;
     cache?: number;
@@ -84,7 +120,7 @@ export interface AssetContentGetAssetContentBySlugRequest {
     format?: ImageFormat;
 }
 
-export interface AssetFoldersDeleteAssetFolderRequest {
+export interface AssetFoldersDeleteAssetFolderRequestRaw {
     id: string;
 }
 
@@ -93,31 +129,41 @@ export interface AssetFoldersGetAssetFoldersRequest {
     scope?: AssetFolderScope;
 }
 
-export interface AssetFoldersPostAssetFolderRequest {
+export interface AssetFoldersGetAssetFoldersRequestRaw {
+    parentId?: string | null;
+    scope?: AssetFolderScope;
+}
+
+export interface AssetFoldersPostAssetFolderRequestRaw {
     createAssetFolderDto: CreateAssetFolderDto;
 }
 
-export interface AssetFoldersPutAssetFolderRequest {
+export interface AssetFoldersPutAssetFolderRequestRaw {
     id: string;
     renameAssetFolderDto: RenameAssetFolderDto;
 }
 
-export interface AssetFoldersPutAssetFolderParentRequest {
+export interface AssetFoldersPutAssetFolderParentRequestRaw {
     id: string;
     moveAssetFolderDto: MoveAssetFolderDto;
 }
 
-export interface AssetsBulkUpdateAssetsRequest {
+export interface AssetsBulkUpdateAssetsRequestRaw {
     bulkUpdateAssetsDto: BulkUpdateAssetsDto;
 }
 
 export interface AssetsDeleteAssetRequest {
+    checkReferrers?: boolean;
+    permanent?: boolean;
+}
+
+export interface AssetsDeleteAssetRequestRaw {
     id: string;
     checkReferrers?: boolean;
     permanent?: boolean;
 }
 
-export interface AssetsGetAssetRequest {
+export interface AssetsGetAssetRequestRaw {
     id: string;
 }
 
@@ -133,7 +179,24 @@ export interface AssetsGetAssetsRequest {
     noSlowTotal?: boolean;
 }
 
+export interface AssetsGetAssetsRequestRaw {
+    parentId?: string | null;
+    ids?: string | null;
+    q?: string | null;
+    $top?: number;
+    $skip?: number;
+    $orderby?: string;
+    $filter?: string;
+    noTotal?: boolean;
+    noSlowTotal?: boolean;
+}
+
 export interface AssetsGetAssetsPostRequest {
+    noTotal?: boolean;
+    noSlowTotal?: boolean;
+}
+
+export interface AssetsGetAssetsPostRequestRaw {
     queryDto: QueryDto;
     noTotal?: boolean;
     noSlowTotal?: boolean;
@@ -144,37 +207,60 @@ export interface AssetsPostAssetRequest {
     id?: string | null;
     duplicate?: boolean;
     file?: Blob;
-    fileUrl?: string;
-    fileName?: string;
+    url?: string;
+    name?: string;
+}
+
+export interface AssetsPostAssetRequestRaw {
+    parentId?: string;
+    id?: string | null;
+    duplicate?: boolean;
+    file?: Blob;
+    url?: string;
+    name?: string;
 }
 
 export interface AssetsPostUpsertAssetRequest {
+    parentId?: string;
+    duplicate?: boolean;
+    file?: Blob;
+    url?: string;
+    name?: string;
+}
+
+export interface AssetsPostUpsertAssetRequestRaw {
     id: string;
     parentId?: string;
     duplicate?: boolean;
     file?: Blob;
-    fileUrl?: string;
-    fileName?: string;
+    url?: string;
+    name?: string;
 }
 
-export interface AssetsPutAssetRequest {
+export interface AssetsPutAssetRequestRaw {
     id: string;
     annotateAssetDto: AnnotateAssetDto;
 }
 
 export interface AssetsPutAssetContentRequest {
-    id: string;
     file?: Blob;
-    fileUrl?: string;
-    fileName?: string;
+    url?: string;
+    name?: string;
 }
 
-export interface AssetsPutAssetParentRequest {
+export interface AssetsPutAssetContentRequestRaw {
+    id: string;
+    file?: Blob;
+    url?: string;
+    name?: string;
+}
+
+export interface AssetsPutAssetParentRequestRaw {
     id: string;
     moveAssetDto: MoveAssetDto;
 }
 
-export interface AssetsPutTagRequest {
+export interface AssetsPutTagRequestRaw {
     name: string;
     renameTagDto: RenameTagDto;
 }
@@ -210,13 +296,13 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    getAssetContentRaw(requestParameters: AssetContentGetAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
+    getAssetContentRaw(id: string, requestParameters?: AssetContentGetAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
 
     /**
      * Get the asset content.
      * @deprecated
      */
-    getAssetContent(requestParameters: AssetContentGetAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
+    getAssetContent(id: string, requestParameters?: AssetContentGetAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
 
     /**
      * 
@@ -241,12 +327,12 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    getAssetContentBySlugRaw(requestParameters: AssetContentGetAssetContentBySlugRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
+    getAssetContentBySlugRaw(idOrSlug: string, requestParameters?: AssetContentGetAssetContentBySlugRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
 
     /**
      * Get the asset content.
      */
-    getAssetContentBySlug(requestParameters: AssetContentGetAssetContentBySlugRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
+    getAssetContentBySlug(idOrSlug: string, requestParameters?: AssetContentGetAssetContentBySlugRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
 
     /**
      * 
@@ -256,12 +342,12 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    deleteAssetFolderRaw(requestParameters: AssetFoldersDeleteAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteAssetFolderRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete an asset folder.
      */
-    deleteAssetFolder(requestParameters: AssetFoldersDeleteAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteAssetFolder(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * Get all asset folders for the app.
@@ -272,13 +358,13 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    getAssetFoldersRaw(requestParameters: AssetFoldersGetAssetFoldersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFoldersDto>>;
+    getAssetFoldersRaw(requestParameters?: AssetFoldersGetAssetFoldersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFoldersDto>>;
 
     /**
      * Get all asset folders for the app.
      * Get asset folders.
      */
-    getAssetFolders(requestParameters: AssetFoldersGetAssetFoldersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFoldersDto>;
+    getAssetFolders(requestParameters?: AssetFoldersGetAssetFoldersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFoldersDto>;
 
     /**
      * 
@@ -288,12 +374,12 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    postAssetFolderRaw(requestParameters: AssetFoldersPostAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>>;
+    postAssetFolderRaw(createAssetFolderDto: CreateAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>>;
 
     /**
      * Create an asset folder.
      */
-    postAssetFolder(requestParameters: AssetFoldersPostAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto>;
+    postAssetFolder(createAssetFolderDto: CreateAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto>;
 
     /**
      * 
@@ -304,12 +390,12 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    putAssetFolderRaw(requestParameters: AssetFoldersPutAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>>;
+    putAssetFolderRaw(id: string, renameAssetFolderDto: RenameAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>>;
 
     /**
      * Update an asset folder.
      */
-    putAssetFolder(requestParameters: AssetFoldersPutAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto>;
+    putAssetFolder(id: string, renameAssetFolderDto: RenameAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto>;
 
     /**
      * 
@@ -320,12 +406,12 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    putAssetFolderParentRaw(requestParameters: AssetFoldersPutAssetFolderParentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>>;
+    putAssetFolderParentRaw(id: string, moveAssetFolderDto: MoveAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>>;
 
     /**
      * Move an asset folder.
      */
-    putAssetFolderParent(requestParameters: AssetFoldersPutAssetFolderParentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto>;
+    putAssetFolderParent(id: string, moveAssetFolderDto: MoveAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto>;
 
     /**
      * 
@@ -335,12 +421,12 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    bulkUpdateAssetsRaw(requestParameters: AssetsBulkUpdateAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>>;
+    bulkUpdateAssetsRaw(bulkUpdateAssetsDto: BulkUpdateAssetsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>>;
 
     /**
      * Bulk update assets.
      */
-    bulkUpdateAssets(requestParameters: AssetsBulkUpdateAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>>;
+    bulkUpdateAssets(bulkUpdateAssetsDto: BulkUpdateAssetsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>>;
 
     /**
      * 
@@ -352,12 +438,12 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    deleteAssetRaw(requestParameters: AssetsDeleteAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteAssetRaw(id: string, requestParameters?: AssetsDeleteAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete an asset.
      */
-    deleteAsset(requestParameters: AssetsDeleteAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteAsset(id: string, requestParameters?: AssetsDeleteAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -367,12 +453,12 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    getAssetRaw(requestParameters: AssetsGetAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
+    getAssetRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
 
     /**
      * Get an asset by id.
      */
-    getAsset(requestParameters: AssetsGetAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
+    getAsset(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
 
     /**
      * Get all assets for the app.
@@ -390,13 +476,13 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    getAssetsRaw(requestParameters: AssetsGetAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetsDto>>;
+    getAssetsRaw(requestParameters?: AssetsGetAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetsDto>>;
 
     /**
      * Get all assets for the app.
      * Get assets.
      */
-    getAssets(requestParameters: AssetsGetAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetsDto>;
+    getAssets(requestParameters?: AssetsGetAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetsDto>;
 
     /**
      * Get all assets for the app.
@@ -408,13 +494,13 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    getAssetsPostRaw(requestParameters: AssetsGetAssetsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetsDto>>;
+    getAssetsPostRaw(queryDto: QueryDto, requestParameters?: AssetsGetAssetsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetsDto>>;
 
     /**
      * Get all assets for the app.
      * Get assets.
      */
-    getAssetsPost(requestParameters: AssetsGetAssetsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetsDto>;
+    getAssetsPost(queryDto: QueryDto, requestParameters?: AssetsGetAssetsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetsDto>;
 
     /**
      * Get all tags for assets.
@@ -438,19 +524,19 @@ export interface AssetsApiInterface {
      * @param {string} [id] The optional custom asset id.
      * @param {boolean} [duplicate] True to duplicate the asset, event if the file has been uploaded.
      * @param {Blob} [file] 
-     * @param {string} [fileUrl] 
-     * @param {string} [fileName] 
+     * @param {string} [url] 
+     * @param {string} [name] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    postAssetRaw(requestParameters: AssetsPostAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
+    postAssetRaw(requestParameters?: AssetsPostAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
 
     /**
      * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
      * Upload a new asset.
      */
-    postAsset(requestParameters: AssetsPostAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
+    postAsset(requestParameters?: AssetsPostAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
 
     /**
      * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
@@ -459,19 +545,19 @@ export interface AssetsApiInterface {
      * @param {string} [parentId] The optional parent folder id.
      * @param {boolean} [duplicate] True to duplicate the asset, event if the file has been uploaded.
      * @param {Blob} [file] 
-     * @param {string} [fileUrl] 
-     * @param {string} [fileName] 
+     * @param {string} [url] 
+     * @param {string} [name] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    postUpsertAssetRaw(requestParameters: AssetsPostUpsertAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
+    postUpsertAssetRaw(id: string, requestParameters?: AssetsPostUpsertAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
 
     /**
      * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
      * Upsert an asset.
      */
-    postUpsertAsset(requestParameters: AssetsPostUpsertAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
+    postUpsertAsset(id: string, requestParameters?: AssetsPostUpsertAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
 
     /**
      * 
@@ -482,31 +568,31 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    putAssetRaw(requestParameters: AssetsPutAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
+    putAssetRaw(id: string, annotateAssetDto: AnnotateAssetDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
 
     /**
      * Update an asset.
      */
-    putAsset(requestParameters: AssetsPutAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
+    putAsset(id: string, annotateAssetDto: AnnotateAssetDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
 
     /**
      * Use multipart request to upload an asset.
      * @summary Replace asset content.
      * @param {string} id The ID of the asset.
      * @param {Blob} [file] 
-     * @param {string} [fileUrl] 
-     * @param {string} [fileName] 
+     * @param {string} [url] 
+     * @param {string} [name] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    putAssetContentRaw(requestParameters: AssetsPutAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
+    putAssetContentRaw(id: string, requestParameters?: AssetsPutAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
 
     /**
      * Use multipart request to upload an asset.
      * Replace asset content.
      */
-    putAssetContent(requestParameters: AssetsPutAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
+    putAssetContent(id: string, requestParameters?: AssetsPutAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
 
     /**
      * 
@@ -517,12 +603,12 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    putAssetParentRaw(requestParameters: AssetsPutAssetParentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
+    putAssetParentRaw(id: string, moveAssetDto: MoveAssetDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>>;
 
     /**
      * Moves the asset.
      */
-    putAssetParent(requestParameters: AssetsPutAssetParentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
+    putAssetParent(id: string, moveAssetDto: MoveAssetDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto>;
 
     /**
      * 
@@ -533,12 +619,12 @@ export interface AssetsApiInterface {
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
      */
-    putTagRaw(requestParameters: AssetsPutTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: number; }>>;
+    putTagRaw(name: string, renameTagDto: RenameTagDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: number; }>>;
 
     /**
      * Rename an asset tag.
      */
-    putTag(requestParameters: AssetsPutTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: number; }>;
+    putTag(name: string, renameTagDto: RenameTagDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: number; }>;
 
 }
 
@@ -551,8 +637,25 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * Get the asset content.
      * @deprecated
      */
-    async getAssetContentRaw(requestParameters: AssetContentGetAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters['id'] == null) {
+    async getAssetContentRaw(id: string, requestParameters: AssetContentGetAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const _id = id;
+        const _version = requestParameters?.['version'];
+        const _cache = requestParameters?.['cache'];
+        const _download = requestParameters?.['download'];
+        const _width = requestParameters?.['width'];
+        const _height = requestParameters?.['height'];
+        const _quality = requestParameters?.['quality'];
+        const _mode = requestParameters?.['mode'];
+        const _bg = requestParameters?.['bg'];
+        const _focusX = requestParameters?.['focusX'];
+        const _focusY = requestParameters?.['focusY'];
+        const _nofocus = requestParameters?.['nofocus'];
+        const _auto = requestParameters?.['auto'];
+        const _force = requestParameters?.['force'];
+        const _deleted = requestParameters?.['deleted'];
+        const _format = requestParameters?.['format'];
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -561,70 +664,70 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
 
         const queryParameters: any = {};
 
-        if (requestParameters['version'] != null) {
-            queryParameters['version'] = requestParameters['version'];
+        if (_version != null) {
+            queryParameters['version'] = _version;
         }
 
-        if (requestParameters['cache'] != null) {
-            queryParameters['cache'] = requestParameters['cache'];
+        if (_cache != null) {
+            queryParameters['cache'] = _cache;
         }
 
-        if (requestParameters['download'] != null) {
-            queryParameters['download'] = requestParameters['download'];
+        if (_download != null) {
+            queryParameters['download'] = _download;
         }
 
-        if (requestParameters['width'] != null) {
-            queryParameters['width'] = requestParameters['width'];
+        if (_width != null) {
+            queryParameters['width'] = _width;
         }
 
-        if (requestParameters['height'] != null) {
-            queryParameters['height'] = requestParameters['height'];
+        if (_height != null) {
+            queryParameters['height'] = _height;
         }
 
-        if (requestParameters['quality'] != null) {
-            queryParameters['quality'] = requestParameters['quality'];
+        if (_quality != null) {
+            queryParameters['quality'] = _quality;
         }
 
-        if (requestParameters['mode'] != null) {
-            queryParameters['mode'] = requestParameters['mode'];
+        if (_mode != null) {
+            queryParameters['mode'] = _mode;
         }
 
-        if (requestParameters['bg'] != null) {
-            queryParameters['bg'] = requestParameters['bg'];
+        if (_bg != null) {
+            queryParameters['bg'] = _bg;
         }
 
-        if (requestParameters['focusX'] != null) {
-            queryParameters['focusX'] = requestParameters['focusX'];
+        if (_focusX != null) {
+            queryParameters['focusX'] = _focusX;
         }
 
-        if (requestParameters['focusY'] != null) {
-            queryParameters['focusY'] = requestParameters['focusY'];
+        if (_focusY != null) {
+            queryParameters['focusY'] = _focusY;
         }
 
-        if (requestParameters['nofocus'] != null) {
-            queryParameters['nofocus'] = requestParameters['nofocus'];
+        if (_nofocus != null) {
+            queryParameters['nofocus'] = _nofocus;
         }
 
-        if (requestParameters['auto'] != null) {
-            queryParameters['auto'] = requestParameters['auto'];
+        if (_auto != null) {
+            queryParameters['auto'] = _auto;
         }
 
-        if (requestParameters['force'] != null) {
-            queryParameters['force'] = requestParameters['force'];
+        if (_force != null) {
+            queryParameters['force'] = _force;
         }
 
-        if (requestParameters['deleted'] != null) {
-            queryParameters['deleted'] = requestParameters['deleted'];
+        if (_deleted != null) {
+            queryParameters['deleted'] = _deleted;
         }
 
-        if (requestParameters['format'] != null) {
-            queryParameters['format'] = requestParameters['format'];
+        if (_format != null) {
+            queryParameters['format'] = _format;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -637,16 +740,33 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * Get the asset content.
      * @deprecated
      */
-    async getAssetContent(requestParameters: AssetContentGetAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getAssetContentRaw(requestParameters, initOverrides);
+    async getAssetContent(id: string, requestParameters: AssetContentGetAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getAssetContentRaw(id, requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Get the asset content.
      */
-    async getAssetContentBySlugRaw(requestParameters: AssetContentGetAssetContentBySlugRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters['idOrSlug'] == null) {
+    async getAssetContentBySlugRaw(idOrSlug: string, requestParameters: AssetContentGetAssetContentBySlugRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const _idOrSlug = idOrSlug;
+        const _version = requestParameters?.['version'];
+        const _cache = requestParameters?.['cache'];
+        const _download = requestParameters?.['download'];
+        const _width = requestParameters?.['width'];
+        const _height = requestParameters?.['height'];
+        const _quality = requestParameters?.['quality'];
+        const _mode = requestParameters?.['mode'];
+        const _bg = requestParameters?.['bg'];
+        const _focusX = requestParameters?.['focusX'];
+        const _focusY = requestParameters?.['focusY'];
+        const _nofocus = requestParameters?.['nofocus'];
+        const _auto = requestParameters?.['auto'];
+        const _force = requestParameters?.['force'];
+        const _deleted = requestParameters?.['deleted'];
+        const _format = requestParameters?.['format'];
+
+        if (_idOrSlug == null) {
             throw new runtime.RequiredError(
                 'idOrSlug',
                 'Required parameter "idOrSlug" was null or undefined when calling ().'
@@ -655,70 +775,70 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
 
         const queryParameters: any = {};
 
-        if (requestParameters['version'] != null) {
-            queryParameters['version'] = requestParameters['version'];
+        if (_version != null) {
+            queryParameters['version'] = _version;
         }
 
-        if (requestParameters['cache'] != null) {
-            queryParameters['cache'] = requestParameters['cache'];
+        if (_cache != null) {
+            queryParameters['cache'] = _cache;
         }
 
-        if (requestParameters['download'] != null) {
-            queryParameters['download'] = requestParameters['download'];
+        if (_download != null) {
+            queryParameters['download'] = _download;
         }
 
-        if (requestParameters['width'] != null) {
-            queryParameters['width'] = requestParameters['width'];
+        if (_width != null) {
+            queryParameters['width'] = _width;
         }
 
-        if (requestParameters['height'] != null) {
-            queryParameters['height'] = requestParameters['height'];
+        if (_height != null) {
+            queryParameters['height'] = _height;
         }
 
-        if (requestParameters['quality'] != null) {
-            queryParameters['quality'] = requestParameters['quality'];
+        if (_quality != null) {
+            queryParameters['quality'] = _quality;
         }
 
-        if (requestParameters['mode'] != null) {
-            queryParameters['mode'] = requestParameters['mode'];
+        if (_mode != null) {
+            queryParameters['mode'] = _mode;
         }
 
-        if (requestParameters['bg'] != null) {
-            queryParameters['bg'] = requestParameters['bg'];
+        if (_bg != null) {
+            queryParameters['bg'] = _bg;
         }
 
-        if (requestParameters['focusX'] != null) {
-            queryParameters['focusX'] = requestParameters['focusX'];
+        if (_focusX != null) {
+            queryParameters['focusX'] = _focusX;
         }
 
-        if (requestParameters['focusY'] != null) {
-            queryParameters['focusY'] = requestParameters['focusY'];
+        if (_focusY != null) {
+            queryParameters['focusY'] = _focusY;
         }
 
-        if (requestParameters['nofocus'] != null) {
-            queryParameters['nofocus'] = requestParameters['nofocus'];
+        if (_nofocus != null) {
+            queryParameters['nofocus'] = _nofocus;
         }
 
-        if (requestParameters['auto'] != null) {
-            queryParameters['auto'] = requestParameters['auto'];
+        if (_auto != null) {
+            queryParameters['auto'] = _auto;
         }
 
-        if (requestParameters['force'] != null) {
-            queryParameters['force'] = requestParameters['force'];
+        if (_force != null) {
+            queryParameters['force'] = _force;
         }
 
-        if (requestParameters['deleted'] != null) {
-            queryParameters['deleted'] = requestParameters['deleted'];
+        if (_deleted != null) {
+            queryParameters['deleted'] = _deleted;
         }
 
-        if (requestParameters['format'] != null) {
-            queryParameters['format'] = requestParameters['format'];
+        if (_format != null) {
+            queryParameters['format'] = _format;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/assets/$app$/{idOrSlug}/`.replace(`{${"idOrSlug"}}`, encodeURIComponent(String((requestParameters as any)['idOrSlug']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/assets/$app$/{idOrSlug}/`.replace(`{${"idOrSlug"}}`, encodeURIComponent(String(_idOrSlug))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -730,16 +850,18 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Get the asset content.
      */
-    async getAssetContentBySlug(requestParameters: AssetContentGetAssetContentBySlugRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getAssetContentBySlugRaw(requestParameters, initOverrides);
+    async getAssetContentBySlug(idOrSlug: string, requestParameters: AssetContentGetAssetContentBySlugRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getAssetContentBySlugRaw(idOrSlug, requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Delete an asset folder.
      */
-    async deleteAssetFolderRaw(requestParameters: AssetFoldersDeleteAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async deleteAssetFolderRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -751,7 +873,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/folders/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/folders/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -763,8 +885,8 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Delete an asset folder.
      */
-    async deleteAssetFolder(requestParameters: AssetFoldersDeleteAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteAssetFolderRaw(requestParameters, initOverrides);
+    async deleteAssetFolder(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteAssetFolderRaw(id, initOverrides);
     }
 
     /**
@@ -772,14 +894,17 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * Get asset folders.
      */
     async getAssetFoldersRaw(requestParameters: AssetFoldersGetAssetFoldersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFoldersDto>> {
+        const _parentId = requestParameters?.['parentId'];
+        const _scope = requestParameters?.['scope'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['parentId'] != null) {
-            queryParameters['parentId'] = requestParameters['parentId'];
+        if (_parentId != null) {
+            queryParameters['parentId'] = _parentId;
         }
 
-        if (requestParameters['scope'] != null) {
-            queryParameters['scope'] = requestParameters['scope'];
+        if (_scope != null) {
+            queryParameters['scope'] = _scope;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -806,8 +931,10 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Create an asset folder.
      */
-    async postAssetFolderRaw(requestParameters: AssetFoldersPostAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>> {
-        if (requestParameters['createAssetFolderDto'] == null) {
+    async postAssetFolderRaw(createAssetFolderDto: CreateAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>> {
+        const _createAssetFolderDto = createAssetFolderDto;
+
+        if (_createAssetFolderDto == null) {
             throw new runtime.RequiredError(
                 'createAssetFolderDto',
                 'Required parameter "createAssetFolderDto" was null or undefined when calling ().'
@@ -825,7 +952,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateAssetFolderDtoToJSON(requestParameters['createAssetFolderDto']),
+            body: CreateAssetFolderDtoToJSON(_createAssetFolderDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFolderDtoFromJSON(jsonValue));
@@ -834,23 +961,26 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Create an asset folder.
      */
-    async postAssetFolder(requestParameters: AssetFoldersPostAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto> {
-        const response = await this.postAssetFolderRaw(requestParameters, initOverrides);
+    async postAssetFolder(createAssetFolderDto: CreateAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto> {
+        const response = await this.postAssetFolderRaw(createAssetFolderDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update an asset folder.
      */
-    async putAssetFolderRaw(requestParameters: AssetFoldersPutAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>> {
-        if (requestParameters['id'] == null) {
+    async putAssetFolderRaw(id: string, renameAssetFolderDto: RenameAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>> {
+        const _id = id;
+        const _renameAssetFolderDto = renameAssetFolderDto;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['renameAssetFolderDto'] == null) {
+        if (_renameAssetFolderDto == null) {
             throw new runtime.RequiredError(
                 'renameAssetFolderDto',
                 'Required parameter "renameAssetFolderDto" was null or undefined when calling ().'
@@ -864,11 +994,11 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/folders/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/folders/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: RenameAssetFolderDtoToJSON(requestParameters['renameAssetFolderDto']),
+            body: RenameAssetFolderDtoToJSON(_renameAssetFolderDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFolderDtoFromJSON(jsonValue));
@@ -877,23 +1007,26 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Update an asset folder.
      */
-    async putAssetFolder(requestParameters: AssetFoldersPutAssetFolderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto> {
-        const response = await this.putAssetFolderRaw(requestParameters, initOverrides);
+    async putAssetFolder(id: string, renameAssetFolderDto: RenameAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto> {
+        const response = await this.putAssetFolderRaw(id, renameAssetFolderDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Move an asset folder.
      */
-    async putAssetFolderParentRaw(requestParameters: AssetFoldersPutAssetFolderParentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>> {
-        if (requestParameters['id'] == null) {
+    async putAssetFolderParentRaw(id: string, moveAssetFolderDto: MoveAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetFolderDto>> {
+        const _id = id;
+        const _moveAssetFolderDto = moveAssetFolderDto;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['moveAssetFolderDto'] == null) {
+        if (_moveAssetFolderDto == null) {
             throw new runtime.RequiredError(
                 'moveAssetFolderDto',
                 'Required parameter "moveAssetFolderDto" was null or undefined when calling ().'
@@ -907,11 +1040,11 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/folders/{id}/parent`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/folders/{id}/parent`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: MoveAssetFolderDtoToJSON(requestParameters['moveAssetFolderDto']),
+            body: MoveAssetFolderDtoToJSON(_moveAssetFolderDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFolderDtoFromJSON(jsonValue));
@@ -920,16 +1053,18 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Move an asset folder.
      */
-    async putAssetFolderParent(requestParameters: AssetFoldersPutAssetFolderParentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto> {
-        const response = await this.putAssetFolderParentRaw(requestParameters, initOverrides);
+    async putAssetFolderParent(id: string, moveAssetFolderDto: MoveAssetFolderDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetFolderDto> {
+        const response = await this.putAssetFolderParentRaw(id, moveAssetFolderDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Bulk update assets.
      */
-    async bulkUpdateAssetsRaw(requestParameters: AssetsBulkUpdateAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>> {
-        if (requestParameters['bulkUpdateAssetsDto'] == null) {
+    async bulkUpdateAssetsRaw(bulkUpdateAssetsDto: BulkUpdateAssetsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>> {
+        const _bulkUpdateAssetsDto = bulkUpdateAssetsDto;
+
+        if (_bulkUpdateAssetsDto == null) {
             throw new runtime.RequiredError(
                 'bulkUpdateAssetsDto',
                 'Required parameter "bulkUpdateAssetsDto" was null or undefined when calling ().'
@@ -947,7 +1082,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: BulkUpdateAssetsDtoToJSON(requestParameters['bulkUpdateAssetsDto']),
+            body: BulkUpdateAssetsDtoToJSON(_bulkUpdateAssetsDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(BulkResultDtoFromJSON));
@@ -956,16 +1091,20 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Bulk update assets.
      */
-    async bulkUpdateAssets(requestParameters: AssetsBulkUpdateAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>> {
-        const response = await this.bulkUpdateAssetsRaw(requestParameters, initOverrides);
+    async bulkUpdateAssets(bulkUpdateAssetsDto: BulkUpdateAssetsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>> {
+        const response = await this.bulkUpdateAssetsRaw(bulkUpdateAssetsDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Delete an asset.
      */
-    async deleteAssetRaw(requestParameters: AssetsDeleteAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async deleteAssetRaw(id: string, requestParameters: AssetsDeleteAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+        const _checkReferrers = requestParameters?.['checkReferrers'];
+        const _permanent = requestParameters?.['permanent'];
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -974,18 +1113,18 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
 
         const queryParameters: any = {};
 
-        if (requestParameters['checkReferrers'] != null) {
-            queryParameters['checkReferrers'] = requestParameters['checkReferrers'];
+        if (_checkReferrers != null) {
+            queryParameters['checkReferrers'] = _checkReferrers;
         }
 
-        if (requestParameters['permanent'] != null) {
-            queryParameters['permanent'] = requestParameters['permanent'];
+        if (_permanent != null) {
+            queryParameters['permanent'] = _permanent;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -997,15 +1136,17 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Delete an asset.
      */
-    async deleteAsset(requestParameters: AssetsDeleteAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteAssetRaw(requestParameters, initOverrides);
+    async deleteAsset(id: string, requestParameters: AssetsDeleteAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteAssetRaw(id, requestParameters, initOverrides);
     }
 
     /**
      * Get an asset by id.
      */
-    async getAssetRaw(requestParameters: AssetsGetAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
-        if (requestParameters['id'] == null) {
+    async getAssetRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1017,7 +1158,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1029,8 +1170,8 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Get an asset by id.
      */
-    async getAsset(requestParameters: AssetsGetAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto> {
-        const response = await this.getAssetRaw(requestParameters, initOverrides);
+    async getAsset(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto> {
+        const response = await this.getAssetRaw(id, initOverrides);
         return await response.value();
     }
 
@@ -1039,44 +1180,54 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * Get assets.
      */
     async getAssetsRaw(requestParameters: AssetsGetAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetsDto>> {
+        const _parentId = requestParameters?.['parentId'];
+        const _ids = requestParameters?.['ids'];
+        const _q = requestParameters?.['q'];
+        const _$top = requestParameters?.['$top'];
+        const _$skip = requestParameters?.['$skip'];
+        const _$orderby = requestParameters?.['$orderby'];
+        const _$filter = requestParameters?.['$filter'];
+        const _noTotal = requestParameters?.['noTotal'];
+        const _noSlowTotal = requestParameters?.['noSlowTotal'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['parentId'] != null) {
-            queryParameters['parentId'] = requestParameters['parentId'];
+        if (_parentId != null) {
+            queryParameters['parentId'] = _parentId;
         }
 
-        if (requestParameters['ids'] != null) {
-            queryParameters['ids'] = requestParameters['ids'];
+        if (_ids != null) {
+            queryParameters['ids'] = _ids;
         }
 
-        if (requestParameters['q'] != null) {
-            queryParameters['q'] = requestParameters['q'];
+        if (_q != null) {
+            queryParameters['q'] = _q;
         }
 
-        if (requestParameters['$top'] != null) {
-            queryParameters['$top'] = requestParameters['$top'];
+        if (_$top != null) {
+            queryParameters['$top'] = _$top;
         }
 
-        if (requestParameters['$skip'] != null) {
-            queryParameters['$skip'] = requestParameters['$skip'];
+        if (_$skip != null) {
+            queryParameters['$skip'] = _$skip;
         }
 
-        if (requestParameters['$orderby'] != null) {
-            queryParameters['$orderby'] = requestParameters['$orderby'];
+        if (_$orderby != null) {
+            queryParameters['$orderby'] = _$orderby;
         }
 
-        if (requestParameters['$filter'] != null) {
-            queryParameters['$filter'] = requestParameters['$filter'];
+        if (_$filter != null) {
+            queryParameters['$filter'] = _$filter;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['noTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
+        if (_noTotal != null) {
+            headerParameters['X-NoTotal'] = String(_noTotal);
         }
 
-        if (requestParameters['noSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
+        if (_noSlowTotal != null) {
+            headerParameters['X-NoSlowTotal'] = String(_noSlowTotal);
         }
 
         const response = await this.request({
@@ -1102,8 +1253,12 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * Get all assets for the app.
      * Get assets.
      */
-    async getAssetsPostRaw(requestParameters: AssetsGetAssetsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetsDto>> {
-        if (requestParameters['queryDto'] == null) {
+    async getAssetsPostRaw(queryDto: QueryDto, requestParameters: AssetsGetAssetsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetsDto>> {
+        const _queryDto = queryDto;
+        const _noTotal = requestParameters?.['noTotal'];
+        const _noSlowTotal = requestParameters?.['noSlowTotal'];
+
+        if (_queryDto == null) {
             throw new runtime.RequiredError(
                 'queryDto',
                 'Required parameter "queryDto" was null or undefined when calling ().'
@@ -1116,12 +1271,12 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['noTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
+        if (_noTotal != null) {
+            headerParameters['X-NoTotal'] = String(_noTotal);
         }
 
-        if (requestParameters['noSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
+        if (_noSlowTotal != null) {
+            headerParameters['X-NoSlowTotal'] = String(_noSlowTotal);
         }
 
         const response = await this.request({
@@ -1129,7 +1284,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QueryDtoToJSON(requestParameters['queryDto']),
+            body: QueryDtoToJSON(_queryDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetsDtoFromJSON(jsonValue));
@@ -1139,8 +1294,8 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * Get all assets for the app.
      * Get assets.
      */
-    async getAssetsPost(requestParameters: AssetsGetAssetsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetsDto> {
-        const response = await this.getAssetsPostRaw(requestParameters, initOverrides);
+    async getAssetsPost(queryDto: QueryDto, requestParameters: AssetsGetAssetsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetsDto> {
+        const response = await this.getAssetsPostRaw(queryDto, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1149,6 +1304,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * Get assets tags.
      */
     async getTagsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: number; }>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1177,18 +1333,25 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * Upload a new asset.
      */
     async postAssetRaw(requestParameters: AssetsPostAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
+        const _parentId = requestParameters?.['parentId'];
+        const _id = requestParameters?.['id'];
+        const _duplicate = requestParameters?.['duplicate'];
+        const _file = requestParameters?.['file'];
+        const _url = requestParameters?.['url'];
+        const _name = requestParameters?.['name'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['parentId'] != null) {
-            queryParameters['ParentId'] = requestParameters['parentId'];
+        if (_parentId != null) {
+            queryParameters['ParentId'] = _parentId;
         }
 
-        if (requestParameters['id'] != null) {
-            queryParameters['id'] = requestParameters['id'];
+        if (_id != null) {
+            queryParameters['id'] = _id;
         }
 
-        if (requestParameters['duplicate'] != null) {
-            queryParameters['duplicate'] = requestParameters['duplicate'];
+        if (_duplicate != null) {
+            queryParameters['duplicate'] = _duplicate;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1209,16 +1372,16 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters['file'] != null) {
-            formParams.append('file', requestParameters['file'] as any);
+        if (_file != null) {
+            formParams.append('file', _file as any);
         }
 
-        if (requestParameters['fileUrl'] != null) {
-            formParams.append('fileUrl', requestParameters['fileUrl'] as any);
+        if (_url != null) {
+            formParams.append('url', _url as any);
         }
 
-        if (requestParameters['fileName'] != null) {
-            formParams.append('fileName', requestParameters['fileName'] as any);
+        if (_name != null) {
+            formParams.append('name', _name as any);
         }
 
         const response = await this.request({
@@ -1245,8 +1408,15 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
      * Upsert an asset.
      */
-    async postUpsertAssetRaw(requestParameters: AssetsPostUpsertAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
-        if (requestParameters['id'] == null) {
+    async postUpsertAssetRaw(id: string, requestParameters: AssetsPostUpsertAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
+        const _id = id;
+        const _parentId = requestParameters?.['parentId'];
+        const _duplicate = requestParameters?.['duplicate'];
+        const _file = requestParameters?.['file'];
+        const _url = requestParameters?.['url'];
+        const _name = requestParameters?.['name'];
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1255,12 +1425,12 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
 
         const queryParameters: any = {};
 
-        if (requestParameters['parentId'] != null) {
-            queryParameters['parentId'] = requestParameters['parentId'];
+        if (_parentId != null) {
+            queryParameters['parentId'] = _parentId;
         }
 
-        if (requestParameters['duplicate'] != null) {
-            queryParameters['duplicate'] = requestParameters['duplicate'];
+        if (_duplicate != null) {
+            queryParameters['duplicate'] = _duplicate;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1281,20 +1451,20 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters['file'] != null) {
-            formParams.append('file', requestParameters['file'] as any);
+        if (_file != null) {
+            formParams.append('file', _file as any);
         }
 
-        if (requestParameters['fileUrl'] != null) {
-            formParams.append('fileUrl', requestParameters['fileUrl'] as any);
+        if (_url != null) {
+            formParams.append('url', _url as any);
         }
 
-        if (requestParameters['fileName'] != null) {
-            formParams.append('fileName', requestParameters['fileName'] as any);
+        if (_name != null) {
+            formParams.append('name', _name as any);
         }
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1308,23 +1478,26 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * You can only upload one file at a time. The mime type of the file is not calculated by Squidex and is required correctly.
      * Upsert an asset.
      */
-    async postUpsertAsset(requestParameters: AssetsPostUpsertAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto> {
-        const response = await this.postUpsertAssetRaw(requestParameters, initOverrides);
+    async postUpsertAsset(id: string, requestParameters: AssetsPostUpsertAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto> {
+        const response = await this.postUpsertAssetRaw(id, requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Update an asset.
      */
-    async putAssetRaw(requestParameters: AssetsPutAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
-        if (requestParameters['id'] == null) {
+    async putAssetRaw(id: string, annotateAssetDto: AnnotateAssetDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
+        const _id = id;
+        const _annotateAssetDto = annotateAssetDto;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['annotateAssetDto'] == null) {
+        if (_annotateAssetDto == null) {
             throw new runtime.RequiredError(
                 'annotateAssetDto',
                 'Required parameter "annotateAssetDto" was null or undefined when calling ().'
@@ -1338,11 +1511,11 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: AnnotateAssetDtoToJSON(requestParameters['annotateAssetDto']),
+            body: AnnotateAssetDtoToJSON(_annotateAssetDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetDtoFromJSON(jsonValue));
@@ -1351,8 +1524,8 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Update an asset.
      */
-    async putAsset(requestParameters: AssetsPutAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto> {
-        const response = await this.putAssetRaw(requestParameters, initOverrides);
+    async putAsset(id: string, annotateAssetDto: AnnotateAssetDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto> {
+        const response = await this.putAssetRaw(id, annotateAssetDto, initOverrides);
         return await response.value();
     }
 
@@ -1360,8 +1533,13 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * Use multipart request to upload an asset.
      * Replace asset content.
      */
-    async putAssetContentRaw(requestParameters: AssetsPutAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
-        if (requestParameters['id'] == null) {
+    async putAssetContentRaw(id: string, requestParameters: AssetsPutAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
+        const _id = id;
+        const _file = requestParameters?.['file'];
+        const _url = requestParameters?.['url'];
+        const _name = requestParameters?.['name'];
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1388,20 +1566,20 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters['file'] != null) {
-            formParams.append('file', requestParameters['file'] as any);
+        if (_file != null) {
+            formParams.append('file', _file as any);
         }
 
-        if (requestParameters['fileUrl'] != null) {
-            formParams.append('fileUrl', requestParameters['fileUrl'] as any);
+        if (_url != null) {
+            formParams.append('url', _url as any);
         }
 
-        if (requestParameters['fileName'] != null) {
-            formParams.append('fileName', requestParameters['fileName'] as any);
+        if (_name != null) {
+            formParams.append('name', _name as any);
         }
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}/content`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}/content`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1415,23 +1593,26 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
      * Use multipart request to upload an asset.
      * Replace asset content.
      */
-    async putAssetContent(requestParameters: AssetsPutAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto> {
-        const response = await this.putAssetContentRaw(requestParameters, initOverrides);
+    async putAssetContent(id: string, requestParameters: AssetsPutAssetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto> {
+        const response = await this.putAssetContentRaw(id, requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Moves the asset.
      */
-    async putAssetParentRaw(requestParameters: AssetsPutAssetParentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
-        if (requestParameters['id'] == null) {
+    async putAssetParentRaw(id: string, moveAssetDto: MoveAssetDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetDto>> {
+        const _id = id;
+        const _moveAssetDto = moveAssetDto;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['moveAssetDto'] == null) {
+        if (_moveAssetDto == null) {
             throw new runtime.RequiredError(
                 'moveAssetDto',
                 'Required parameter "moveAssetDto" was null or undefined when calling ().'
@@ -1445,11 +1626,11 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}/parent`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}/parent`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: MoveAssetDtoToJSON(requestParameters['moveAssetDto']),
+            body: MoveAssetDtoToJSON(_moveAssetDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetDtoFromJSON(jsonValue));
@@ -1458,23 +1639,26 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Moves the asset.
      */
-    async putAssetParent(requestParameters: AssetsPutAssetParentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto> {
-        const response = await this.putAssetParentRaw(requestParameters, initOverrides);
+    async putAssetParent(id: string, moveAssetDto: MoveAssetDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetDto> {
+        const response = await this.putAssetParentRaw(id, moveAssetDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Rename an asset tag.
      */
-    async putTagRaw(requestParameters: AssetsPutTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: number; }>> {
-        if (requestParameters['name'] == null) {
+    async putTagRaw(name: string, renameTagDto: RenameTagDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: number; }>> {
+        const _name = name;
+        const _renameTagDto = renameTagDto;
+
+        if (_name == null) {
             throw new runtime.RequiredError(
                 'name',
                 'Required parameter "name" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['renameTagDto'] == null) {
+        if (_renameTagDto == null) {
             throw new runtime.RequiredError(
                 'renameTagDto',
                 'Required parameter "renameTagDto" was null or undefined when calling ().'
@@ -1488,11 +1672,11 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/tags/{name}`.replace(`{${"name"}}`, encodeURIComponent(String((requestParameters as any)['name']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/tags/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(_name))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: RenameTagDtoToJSON(requestParameters['renameTagDto']),
+            body: RenameTagDtoToJSON(_renameTagDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
@@ -1501,8 +1685,8 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
     /**
      * Rename an asset tag.
      */
-    async putTag(requestParameters: AssetsPutTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: number; }> {
-        const response = await this.putTagRaw(requestParameters, initOverrides);
+    async putTag(name: string, renameTagDto: RenameTagDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: number; }> {
+        const response = await this.putTagRaw(name, renameTagDto, initOverrides);
         return await response.value();
     }
 

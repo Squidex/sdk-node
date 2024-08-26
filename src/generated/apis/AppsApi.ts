@@ -61,94 +61,100 @@ import {
     WorkflowsDtoFromJSON,
 } from '../models/index';
 
-export interface AppAssetsPutAssetScriptsRequest {
+export interface AppAssetsPutAssetScriptsRequestRaw {
     updateAssetScriptsDto: UpdateAssetScriptsDto;
 }
 
-export interface AppClientsDeleteClientRequest {
+export interface AppClientsDeleteClientRequestRaw {
     id: string;
 }
 
-export interface AppClientsPostClientRequest {
+export interface AppClientsPostClientRequestRaw {
     createClientDto: CreateClientDto;
 }
 
-export interface AppClientsPutClientRequest {
+export interface AppClientsPutClientRequestRaw {
     id: string;
     updateClientDto: UpdateClientDto;
 }
 
-export interface AppContributorsDeleteContributorRequest {
+export interface AppContributorsDeleteContributorRequestRaw {
     id: string;
 }
 
-export interface AppContributorsPostContributorRequest {
+export interface AppContributorsPostContributorRequestRaw {
     assignContributorDto: AssignContributorDto;
 }
 
-export interface AppLanguagesDeleteLanguageRequest {
+export interface AppLanguagesDeleteLanguageRequestRaw {
     language: string;
 }
 
-export interface AppLanguagesPostLanguageRequest {
+export interface AppLanguagesPostLanguageRequestRaw {
     addLanguageDto: AddLanguageDto;
 }
 
-export interface AppLanguagesPutLanguageRequest {
+export interface AppLanguagesPutLanguageRequestRaw {
     language: string;
     updateLanguageDto: UpdateLanguageDto;
 }
 
-export interface AppRolesDeleteRoleRequest {
+export interface AppRolesDeleteRoleRequestRaw {
     roleName: string;
 }
 
-export interface AppRolesPostRoleRequest {
+export interface AppRolesPostRoleRequestRaw {
     addRoleDto: AddRoleDto;
 }
 
-export interface AppRolesPutRoleRequest {
+export interface AppRolesPutRoleRequestRaw {
     roleName: string;
     updateRoleDto: UpdateRoleDto;
 }
 
-export interface AppSettingsPutSettingsRequest {
+export interface AppSettingsPutSettingsRequestRaw {
     updateAppSettingsDto: UpdateAppSettingsDto;
 }
 
-export interface AppWorkflowsDeleteWorkflowRequest {
+export interface AppWorkflowsDeleteWorkflowRequestRaw {
     id: string;
 }
 
-export interface AppWorkflowsPostWorkflowRequest {
+export interface AppWorkflowsPostWorkflowRequestRaw {
     addWorkflowDto: AddWorkflowDto;
 }
 
-export interface AppWorkflowsPutWorkflowRequest {
+export interface AppWorkflowsPutWorkflowRequestRaw {
     id: string;
     updateWorkflowDto: UpdateWorkflowDto;
 }
 
-export interface AppsGetTeamAppsRequest {
+export interface AppsGetTeamAppsRequestRaw {
     team: string;
 }
 
-export interface AppsPostAppRequest {
+export interface AppsPostAppRequestRaw {
     createAppDto: CreateAppDto;
 }
 
-export interface AppsPutAppRequest {
+export interface AppsPutAppRequestRaw {
     updateAppDto: UpdateAppDto;
 }
 
-export interface AppsPutAppTeamRequest {
+export interface AppsPutAppTeamRequestRaw {
     transferToTeamDto: TransferToTeamDto;
 }
 
 export interface AppsUploadImageRequest {
     file?: Blob;
-    fileUrl?: string;
-    fileName?: string;
+    url?: string;
+    name?: string;
+}
+
+export interface AppsUploadImageRequestRaw {
+    file?: Blob;
+    url?: string;
+    name?: string;
 }
 
 /**
@@ -180,12 +186,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    putAssetScriptsRaw(requestParameters: AppAssetsPutAssetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetScriptsDto>>;
+    putAssetScriptsRaw(updateAssetScriptsDto: UpdateAssetScriptsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetScriptsDto>>;
 
     /**
      * Update the asset scripts.
      */
-    putAssetScripts(requestParameters: AppAssetsPutAssetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetScriptsDto>;
+    putAssetScripts(updateAssetScriptsDto: UpdateAssetScriptsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetScriptsDto>;
 
     /**
      * The application that uses this client credentials cannot access the API after it has been revoked.
@@ -195,13 +201,13 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    deleteClientRaw(requestParameters: AppClientsDeleteClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>>;
+    deleteClientRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>>;
 
     /**
      * The application that uses this client credentials cannot access the API after it has been revoked.
      * Revoke an app client.
      */
-    deleteClient(requestParameters: AppClientsDeleteClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto>;
+    deleteClient(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto>;
 
     /**
      * Gets all configured clients for the app with the specified name.
@@ -226,13 +232,13 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    postClientRaw(requestParameters: AppClientsPostClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>>;
+    postClientRaw(createClientDto: CreateClientDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>>;
 
     /**
      * Create a new client for the app with the specified name. The client secret is auto generated on the server and returned. The client does not expire, the access token is valid for 30 days.
      * Create a new app client.
      */
-    postClient(requestParameters: AppClientsPostClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto>;
+    postClient(createClientDto: CreateClientDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto>;
 
     /**
      * Only the display name can be changed, create a new client if necessary.
@@ -243,13 +249,13 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    putClientRaw(requestParameters: AppClientsPutClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>>;
+    putClientRaw(id: string, updateClientDto: UpdateClientDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>>;
 
     /**
      * Only the display name can be changed, create a new client if necessary.
      * Updates an app client.
      */
-    putClient(requestParameters: AppClientsPutClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto>;
+    putClient(id: string, updateClientDto: UpdateClientDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto>;
 
     /**
      * 
@@ -259,12 +265,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    deleteContributorRaw(requestParameters: AppContributorsDeleteContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
+    deleteContributorRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
 
     /**
      * Remove contributor.
      */
-    deleteContributor(requestParameters: AppContributorsDeleteContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
+    deleteContributor(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
 
     /**
      * 
@@ -302,12 +308,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    postContributorRaw(requestParameters: AppContributorsPostContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
+    postContributorRaw(assignContributorDto: AssignContributorDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
 
     /**
      * Assign contributor to app.
      */
-    postContributor(requestParameters: AppContributorsPostContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
+    postContributor(assignContributorDto: AssignContributorDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
 
     /**
      * 
@@ -331,12 +337,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    deleteLanguageRaw(requestParameters: AppLanguagesDeleteLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>>;
+    deleteLanguageRaw(language: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>>;
 
     /**
      * Deletes an app language.
      */
-    deleteLanguage(requestParameters: AppLanguagesDeleteLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto>;
+    deleteLanguage(language: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto>;
 
     /**
      * 
@@ -360,12 +366,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    postLanguageRaw(requestParameters: AppLanguagesPostLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>>;
+    postLanguageRaw(addLanguageDto: AddLanguageDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>>;
 
     /**
      * Add an app language.
      */
-    postLanguage(requestParameters: AppLanguagesPostLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto>;
+    postLanguage(addLanguageDto: AddLanguageDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto>;
 
     /**
      * 
@@ -376,12 +382,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    putLanguageRaw(requestParameters: AppLanguagesPutLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>>;
+    putLanguageRaw(language: string, updateLanguageDto: UpdateLanguageDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>>;
 
     /**
      * Updates an app language.
      */
-    putLanguage(requestParameters: AppLanguagesPutLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto>;
+    putLanguage(language: string, updateLanguageDto: UpdateLanguageDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto>;
 
     /**
      * 
@@ -391,12 +397,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    deleteRoleRaw(requestParameters: AppRolesDeleteRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>>;
+    deleteRoleRaw(roleName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>>;
 
     /**
      * Remove role from app.
      */
-    deleteRole(requestParameters: AppRolesDeleteRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto>;
+    deleteRole(roleName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto>;
 
     /**
      * 
@@ -434,12 +440,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    postRoleRaw(requestParameters: AppRolesPostRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>>;
+    postRoleRaw(addRoleDto: AddRoleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>>;
 
     /**
      * Add role to app.
      */
-    postRole(requestParameters: AppRolesPostRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto>;
+    postRole(addRoleDto: AddRoleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto>;
 
     /**
      * 
@@ -450,12 +456,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    putRoleRaw(requestParameters: AppRolesPutRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>>;
+    putRoleRaw(roleName: string, updateRoleDto: UpdateRoleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>>;
 
     /**
      * Update an app role.
      */
-    putRole(requestParameters: AppRolesPutRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto>;
+    putRole(roleName: string, updateRoleDto: UpdateRoleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto>;
 
     /**
      * 
@@ -479,12 +485,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    putSettingsRaw(requestParameters: AppSettingsPutSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppSettingsDto>>;
+    putSettingsRaw(updateAppSettingsDto: UpdateAppSettingsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppSettingsDto>>;
 
     /**
      * Update the settings.
      */
-    putSettings(requestParameters: AppSettingsPutSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppSettingsDto>;
+    putSettings(updateAppSettingsDto: UpdateAppSettingsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppSettingsDto>;
 
     /**
      * 
@@ -494,12 +500,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    deleteWorkflowRaw(requestParameters: AppWorkflowsDeleteWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>>;
+    deleteWorkflowRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>>;
 
     /**
      * Delete a workflow.
      */
-    deleteWorkflow(requestParameters: AppWorkflowsDeleteWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto>;
+    deleteWorkflow(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto>;
 
     /**
      * 
@@ -523,12 +529,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    postWorkflowRaw(requestParameters: AppWorkflowsPostWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>>;
+    postWorkflowRaw(addWorkflowDto: AddWorkflowDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>>;
 
     /**
      * Create a workflow.
      */
-    postWorkflow(requestParameters: AppWorkflowsPostWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto>;
+    postWorkflow(addWorkflowDto: AddWorkflowDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto>;
 
     /**
      * 
@@ -539,12 +545,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    putWorkflowRaw(requestParameters: AppWorkflowsPutWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>>;
+    putWorkflowRaw(id: string, updateWorkflowDto: UpdateWorkflowDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>>;
 
     /**
      * Update a workflow.
      */
-    putWorkflow(requestParameters: AppWorkflowsPutWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto>;
+    putWorkflow(id: string, updateWorkflowDto: UpdateWorkflowDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto>;
 
     /**
      * 
@@ -611,13 +617,13 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    getTeamAppsRaw(requestParameters: AppsGetTeamAppsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<AppDto>>>;
+    getTeamAppsRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<AppDto>>>;
 
     /**
      * You can only retrieve the list of apps when you are authenticated as a user (OpenID implicit flow). You will retrieve all apps, where you are assigned as a contributor.
      * Get team apps.
      */
-    getTeamApps(requestParameters: AppsGetTeamAppsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<AppDto>>;
+    getTeamApps(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<AppDto>>;
 
     /**
      * You can only create an app when you are authenticated as a user (OpenID implicit flow). You will be assigned as owner of the new app automatically.
@@ -627,13 +633,13 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    postAppRaw(requestParameters: AppsPostAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
+    postAppRaw(createAppDto: CreateAppDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
 
     /**
      * You can only create an app when you are authenticated as a user (OpenID implicit flow). You will be assigned as owner of the new app automatically.
      * Create a new app.
      */
-    postApp(requestParameters: AppsPostAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
+    postApp(createAppDto: CreateAppDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
 
     /**
      * 
@@ -643,12 +649,12 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    putAppRaw(requestParameters: AppsPutAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
+    putAppRaw(updateAppDto: UpdateAppDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
 
     /**
      * Update the app.
      */
-    putApp(requestParameters: AppsPutAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
+    putApp(updateAppDto: UpdateAppDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
 
     /**
      * 
@@ -658,29 +664,29 @@ export interface AppsApiInterface {
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    putAppTeamRaw(requestParameters: AppsPutAppTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
+    putAppTeamRaw(transferToTeamDto: TransferToTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
 
     /**
      * Transfer the app.
      */
-    putAppTeam(requestParameters: AppsPutAppTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
+    putAppTeam(transferToTeamDto: TransferToTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
 
     /**
      * 
      * @summary Upload the app image.
      * @param {Blob} [file] 
-     * @param {string} [fileUrl] 
-     * @param {string} [fileName] 
+     * @param {string} [url] 
+     * @param {string} [name] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    uploadImageRaw(requestParameters: AppsUploadImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
+    uploadImageRaw(requestParameters?: AppsUploadImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>>;
 
     /**
      * Upload the app image.
      */
-    uploadImage(requestParameters: AppsUploadImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
+    uploadImage(requestParameters?: AppsUploadImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto>;
 
 }
 
@@ -693,6 +699,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get the app asset scripts.
      */
     async getAssetScriptsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetScriptsDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -718,8 +725,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Update the asset scripts.
      */
-    async putAssetScriptsRaw(requestParameters: AppAssetsPutAssetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetScriptsDto>> {
-        if (requestParameters['updateAssetScriptsDto'] == null) {
+    async putAssetScriptsRaw(updateAssetScriptsDto: UpdateAssetScriptsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetScriptsDto>> {
+        const _updateAssetScriptsDto = updateAssetScriptsDto;
+
+        if (_updateAssetScriptsDto == null) {
             throw new runtime.RequiredError(
                 'updateAssetScriptsDto',
                 'Required parameter "updateAssetScriptsDto" was null or undefined when calling ().'
@@ -737,7 +746,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateAssetScriptsDtoToJSON(requestParameters['updateAssetScriptsDto']),
+            body: UpdateAssetScriptsDtoToJSON(_updateAssetScriptsDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetScriptsDtoFromJSON(jsonValue));
@@ -746,8 +755,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Update the asset scripts.
      */
-    async putAssetScripts(requestParameters: AppAssetsPutAssetScriptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetScriptsDto> {
-        const response = await this.putAssetScriptsRaw(requestParameters, initOverrides);
+    async putAssetScripts(updateAssetScriptsDto: UpdateAssetScriptsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetScriptsDto> {
+        const response = await this.putAssetScriptsRaw(updateAssetScriptsDto, initOverrides);
         return await response.value();
     }
 
@@ -755,8 +764,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * The application that uses this client credentials cannot access the API after it has been revoked.
      * Revoke an app client.
      */
-    async deleteClientRaw(requestParameters: AppClientsDeleteClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>> {
-        if (requestParameters['id'] == null) {
+    async deleteClientRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -768,7 +779,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/clients/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/clients/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -781,8 +792,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * The application that uses this client credentials cannot access the API after it has been revoked.
      * Revoke an app client.
      */
-    async deleteClient(requestParameters: AppClientsDeleteClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto> {
-        const response = await this.deleteClientRaw(requestParameters, initOverrides);
+    async deleteClient(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto> {
+        const response = await this.deleteClientRaw(id, initOverrides);
         return await response.value();
     }
 
@@ -791,6 +802,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get app clients.
      */
     async getClientsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -818,8 +830,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Create a new client for the app with the specified name. The client secret is auto generated on the server and returned. The client does not expire, the access token is valid for 30 days.
      * Create a new app client.
      */
-    async postClientRaw(requestParameters: AppClientsPostClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>> {
-        if (requestParameters['createClientDto'] == null) {
+    async postClientRaw(createClientDto: CreateClientDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>> {
+        const _createClientDto = createClientDto;
+
+        if (_createClientDto == null) {
             throw new runtime.RequiredError(
                 'createClientDto',
                 'Required parameter "createClientDto" was null or undefined when calling ().'
@@ -837,7 +851,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateClientDtoToJSON(requestParameters['createClientDto']),
+            body: CreateClientDtoToJSON(_createClientDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientsDtoFromJSON(jsonValue));
@@ -847,8 +861,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Create a new client for the app with the specified name. The client secret is auto generated on the server and returned. The client does not expire, the access token is valid for 30 days.
      * Create a new app client.
      */
-    async postClient(requestParameters: AppClientsPostClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto> {
-        const response = await this.postClientRaw(requestParameters, initOverrides);
+    async postClient(createClientDto: CreateClientDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto> {
+        const response = await this.postClientRaw(createClientDto, initOverrides);
         return await response.value();
     }
 
@@ -856,15 +870,18 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Only the display name can be changed, create a new client if necessary.
      * Updates an app client.
      */
-    async putClientRaw(requestParameters: AppClientsPutClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>> {
-        if (requestParameters['id'] == null) {
+    async putClientRaw(id: string, updateClientDto: UpdateClientDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientsDto>> {
+        const _id = id;
+        const _updateClientDto = updateClientDto;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['updateClientDto'] == null) {
+        if (_updateClientDto == null) {
             throw new runtime.RequiredError(
                 'updateClientDto',
                 'Required parameter "updateClientDto" was null or undefined when calling ().'
@@ -878,11 +895,11 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/clients/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/clients/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateClientDtoToJSON(requestParameters['updateClientDto']),
+            body: UpdateClientDtoToJSON(_updateClientDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientsDtoFromJSON(jsonValue));
@@ -892,16 +909,18 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Only the display name can be changed, create a new client if necessary.
      * Updates an app client.
      */
-    async putClient(requestParameters: AppClientsPutClientRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto> {
-        const response = await this.putClientRaw(requestParameters, initOverrides);
+    async putClient(id: string, updateClientDto: UpdateClientDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientsDto> {
+        const response = await this.putClientRaw(id, updateClientDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Remove contributor.
      */
-    async deleteContributorRaw(requestParameters: AppContributorsDeleteContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
-        if (requestParameters['id'] == null) {
+    async deleteContributorRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -913,7 +932,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/contributors/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/contributors/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -925,8 +944,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Remove contributor.
      */
-    async deleteContributor(requestParameters: AppContributorsDeleteContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
-        const response = await this.deleteContributorRaw(requestParameters, initOverrides);
+    async deleteContributor(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
+        const response = await this.deleteContributorRaw(id, initOverrides);
         return await response.value();
     }
 
@@ -934,6 +953,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Remove yourself.
      */
     async deleteMyselfRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -960,6 +980,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get app contributors.
      */
     async getContributorsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -985,8 +1006,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Assign contributor to app.
      */
-    async postContributorRaw(requestParameters: AppContributorsPostContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
-        if (requestParameters['assignContributorDto'] == null) {
+    async postContributorRaw(assignContributorDto: AssignContributorDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
+        const _assignContributorDto = assignContributorDto;
+
+        if (_assignContributorDto == null) {
             throw new runtime.RequiredError(
                 'assignContributorDto',
                 'Required parameter "assignContributorDto" was null or undefined when calling ().'
@@ -1004,7 +1027,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AssignContributorDtoToJSON(requestParameters['assignContributorDto']),
+            body: AssignContributorDtoToJSON(_assignContributorDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContributorsDtoFromJSON(jsonValue));
@@ -1013,8 +1036,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Assign contributor to app.
      */
-    async postContributor(requestParameters: AppContributorsPostContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
-        const response = await this.postContributorRaw(requestParameters, initOverrides);
+    async postContributor(assignContributorDto: AssignContributorDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
+        const response = await this.postContributorRaw(assignContributorDto, initOverrides);
         return await response.value();
     }
 
@@ -1022,6 +1045,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get the app image.
      */
     async getImageRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1047,8 +1071,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Deletes an app language.
      */
-    async deleteLanguageRaw(requestParameters: AppLanguagesDeleteLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>> {
-        if (requestParameters['language'] == null) {
+    async deleteLanguageRaw(language: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>> {
+        const _language = language;
+
+        if (_language == null) {
             throw new runtime.RequiredError(
                 'language',
                 'Required parameter "language" was null or undefined when calling ().'
@@ -1060,7 +1086,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/languages/{language}`.replace(`{${"language"}}`, encodeURIComponent(String((requestParameters as any)['language']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/languages/{language}`.replace(`{${"language"}}`, encodeURIComponent(String(_language))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1072,8 +1098,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Deletes an app language.
      */
-    async deleteLanguage(requestParameters: AppLanguagesDeleteLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto> {
-        const response = await this.deleteLanguageRaw(requestParameters, initOverrides);
+    async deleteLanguage(language: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto> {
+        const response = await this.deleteLanguageRaw(language, initOverrides);
         return await response.value();
     }
 
@@ -1081,6 +1107,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get app languages.
      */
     async getLanguagesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1106,8 +1133,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Add an app language.
      */
-    async postLanguageRaw(requestParameters: AppLanguagesPostLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>> {
-        if (requestParameters['addLanguageDto'] == null) {
+    async postLanguageRaw(addLanguageDto: AddLanguageDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>> {
+        const _addLanguageDto = addLanguageDto;
+
+        if (_addLanguageDto == null) {
             throw new runtime.RequiredError(
                 'addLanguageDto',
                 'Required parameter "addLanguageDto" was null or undefined when calling ().'
@@ -1125,7 +1154,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AddLanguageDtoToJSON(requestParameters['addLanguageDto']),
+            body: AddLanguageDtoToJSON(_addLanguageDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppLanguagesDtoFromJSON(jsonValue));
@@ -1134,23 +1163,26 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Add an app language.
      */
-    async postLanguage(requestParameters: AppLanguagesPostLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto> {
-        const response = await this.postLanguageRaw(requestParameters, initOverrides);
+    async postLanguage(addLanguageDto: AddLanguageDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto> {
+        const response = await this.postLanguageRaw(addLanguageDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Updates an app language.
      */
-    async putLanguageRaw(requestParameters: AppLanguagesPutLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>> {
-        if (requestParameters['language'] == null) {
+    async putLanguageRaw(language: string, updateLanguageDto: UpdateLanguageDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppLanguagesDto>> {
+        const _language = language;
+        const _updateLanguageDto = updateLanguageDto;
+
+        if (_language == null) {
             throw new runtime.RequiredError(
                 'language',
                 'Required parameter "language" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['updateLanguageDto'] == null) {
+        if (_updateLanguageDto == null) {
             throw new runtime.RequiredError(
                 'updateLanguageDto',
                 'Required parameter "updateLanguageDto" was null or undefined when calling ().'
@@ -1164,11 +1196,11 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/languages/{language}`.replace(`{${"language"}}`, encodeURIComponent(String((requestParameters as any)['language']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/languages/{language}`.replace(`{${"language"}}`, encodeURIComponent(String(_language))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateLanguageDtoToJSON(requestParameters['updateLanguageDto']),
+            body: UpdateLanguageDtoToJSON(_updateLanguageDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppLanguagesDtoFromJSON(jsonValue));
@@ -1177,16 +1209,18 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Updates an app language.
      */
-    async putLanguage(requestParameters: AppLanguagesPutLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto> {
-        const response = await this.putLanguageRaw(requestParameters, initOverrides);
+    async putLanguage(language: string, updateLanguageDto: UpdateLanguageDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppLanguagesDto> {
+        const response = await this.putLanguageRaw(language, updateLanguageDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Remove role from app.
      */
-    async deleteRoleRaw(requestParameters: AppRolesDeleteRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>> {
-        if (requestParameters['roleName'] == null) {
+    async deleteRoleRaw(roleName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>> {
+        const _roleName = roleName;
+
+        if (_roleName == null) {
             throw new runtime.RequiredError(
                 'roleName',
                 'Required parameter "roleName" was null or undefined when calling ().'
@@ -1198,7 +1232,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/roles/{roleName}`.replace(`{${"roleName"}}`, encodeURIComponent(String((requestParameters as any)['roleName']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/roles/{roleName}`.replace(`{${"roleName"}}`, encodeURIComponent(String(_roleName))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1210,8 +1244,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Remove role from app.
      */
-    async deleteRole(requestParameters: AppRolesDeleteRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto> {
-        const response = await this.deleteRoleRaw(requestParameters, initOverrides);
+    async deleteRole(roleName: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto> {
+        const response = await this.deleteRoleRaw(roleName, initOverrides);
         return await response.value();
     }
 
@@ -1219,6 +1253,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get app permissions.
      */
     async getPermissionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1245,6 +1280,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get app roles.
      */
     async getRolesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1270,8 +1306,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Add role to app.
      */
-    async postRoleRaw(requestParameters: AppRolesPostRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>> {
-        if (requestParameters['addRoleDto'] == null) {
+    async postRoleRaw(addRoleDto: AddRoleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>> {
+        const _addRoleDto = addRoleDto;
+
+        if (_addRoleDto == null) {
             throw new runtime.RequiredError(
                 'addRoleDto',
                 'Required parameter "addRoleDto" was null or undefined when calling ().'
@@ -1289,7 +1327,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AddRoleDtoToJSON(requestParameters['addRoleDto']),
+            body: AddRoleDtoToJSON(_addRoleDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RolesDtoFromJSON(jsonValue));
@@ -1298,23 +1336,26 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Add role to app.
      */
-    async postRole(requestParameters: AppRolesPostRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto> {
-        const response = await this.postRoleRaw(requestParameters, initOverrides);
+    async postRole(addRoleDto: AddRoleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto> {
+        const response = await this.postRoleRaw(addRoleDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update an app role.
      */
-    async putRoleRaw(requestParameters: AppRolesPutRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>> {
-        if (requestParameters['roleName'] == null) {
+    async putRoleRaw(roleName: string, updateRoleDto: UpdateRoleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RolesDto>> {
+        const _roleName = roleName;
+        const _updateRoleDto = updateRoleDto;
+
+        if (_roleName == null) {
             throw new runtime.RequiredError(
                 'roleName',
                 'Required parameter "roleName" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['updateRoleDto'] == null) {
+        if (_updateRoleDto == null) {
             throw new runtime.RequiredError(
                 'updateRoleDto',
                 'Required parameter "updateRoleDto" was null or undefined when calling ().'
@@ -1328,11 +1369,11 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/roles/{roleName}`.replace(`{${"roleName"}}`, encodeURIComponent(String((requestParameters as any)['roleName']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/roles/{roleName}`.replace(`{${"roleName"}}`, encodeURIComponent(String(_roleName))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateRoleDtoToJSON(requestParameters['updateRoleDto']),
+            body: UpdateRoleDtoToJSON(_updateRoleDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RolesDtoFromJSON(jsonValue));
@@ -1341,8 +1382,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Update an app role.
      */
-    async putRole(requestParameters: AppRolesPutRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto> {
-        const response = await this.putRoleRaw(requestParameters, initOverrides);
+    async putRole(roleName: string, updateRoleDto: UpdateRoleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RolesDto> {
+        const response = await this.putRoleRaw(roleName, updateRoleDto, initOverrides);
         return await response.value();
     }
 
@@ -1350,6 +1391,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get the app settings.
      */
     async getSettingsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppSettingsDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1375,8 +1417,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Update the settings.
      */
-    async putSettingsRaw(requestParameters: AppSettingsPutSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppSettingsDto>> {
-        if (requestParameters['updateAppSettingsDto'] == null) {
+    async putSettingsRaw(updateAppSettingsDto: UpdateAppSettingsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppSettingsDto>> {
+        const _updateAppSettingsDto = updateAppSettingsDto;
+
+        if (_updateAppSettingsDto == null) {
             throw new runtime.RequiredError(
                 'updateAppSettingsDto',
                 'Required parameter "updateAppSettingsDto" was null or undefined when calling ().'
@@ -1394,7 +1438,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateAppSettingsDtoToJSON(requestParameters['updateAppSettingsDto']),
+            body: UpdateAppSettingsDtoToJSON(_updateAppSettingsDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppSettingsDtoFromJSON(jsonValue));
@@ -1403,16 +1447,18 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Update the settings.
      */
-    async putSettings(requestParameters: AppSettingsPutSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppSettingsDto> {
-        const response = await this.putSettingsRaw(requestParameters, initOverrides);
+    async putSettings(updateAppSettingsDto: UpdateAppSettingsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppSettingsDto> {
+        const response = await this.putSettingsRaw(updateAppSettingsDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Delete a workflow.
      */
-    async deleteWorkflowRaw(requestParameters: AppWorkflowsDeleteWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>> {
-        if (requestParameters['id'] == null) {
+    async deleteWorkflowRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1424,7 +1470,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/workflows/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/workflows/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1436,8 +1482,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Delete a workflow.
      */
-    async deleteWorkflow(requestParameters: AppWorkflowsDeleteWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto> {
-        const response = await this.deleteWorkflowRaw(requestParameters, initOverrides);
+    async deleteWorkflow(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto> {
+        const response = await this.deleteWorkflowRaw(id, initOverrides);
         return await response.value();
     }
 
@@ -1445,6 +1491,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get app workflow.
      */
     async getWorkflowsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1470,8 +1517,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Create a workflow.
      */
-    async postWorkflowRaw(requestParameters: AppWorkflowsPostWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>> {
-        if (requestParameters['addWorkflowDto'] == null) {
+    async postWorkflowRaw(addWorkflowDto: AddWorkflowDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>> {
+        const _addWorkflowDto = addWorkflowDto;
+
+        if (_addWorkflowDto == null) {
             throw new runtime.RequiredError(
                 'addWorkflowDto',
                 'Required parameter "addWorkflowDto" was null or undefined when calling ().'
@@ -1489,7 +1538,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AddWorkflowDtoToJSON(requestParameters['addWorkflowDto']),
+            body: AddWorkflowDtoToJSON(_addWorkflowDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkflowsDtoFromJSON(jsonValue));
@@ -1498,23 +1547,26 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Create a workflow.
      */
-    async postWorkflow(requestParameters: AppWorkflowsPostWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto> {
-        const response = await this.postWorkflowRaw(requestParameters, initOverrides);
+    async postWorkflow(addWorkflowDto: AddWorkflowDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto> {
+        const response = await this.postWorkflowRaw(addWorkflowDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update a workflow.
      */
-    async putWorkflowRaw(requestParameters: AppWorkflowsPutWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>> {
-        if (requestParameters['id'] == null) {
+    async putWorkflowRaw(id: string, updateWorkflowDto: UpdateWorkflowDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowsDto>> {
+        const _id = id;
+        const _updateWorkflowDto = updateWorkflowDto;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['updateWorkflowDto'] == null) {
+        if (_updateWorkflowDto == null) {
             throw new runtime.RequiredError(
                 'updateWorkflowDto',
                 'Required parameter "updateWorkflowDto" was null or undefined when calling ().'
@@ -1528,11 +1580,11 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/workflows/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/workflows/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateWorkflowDtoToJSON(requestParameters['updateWorkflowDto']),
+            body: UpdateWorkflowDtoToJSON(_updateWorkflowDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkflowsDtoFromJSON(jsonValue));
@@ -1541,8 +1593,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Update a workflow.
      */
-    async putWorkflow(requestParameters: AppWorkflowsPutWorkflowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto> {
-        const response = await this.putWorkflowRaw(requestParameters, initOverrides);
+    async putWorkflow(id: string, updateWorkflowDto: UpdateWorkflowDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowsDto> {
+        const response = await this.putWorkflowRaw(id, updateWorkflowDto, initOverrides);
         return await response.value();
     }
 
@@ -1550,6 +1602,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Delete the app.
      */
     async deleteAppRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1575,6 +1628,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Remove the app image.
      */
     async deleteImageRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1601,6 +1655,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get an app by name.
      */
     async getAppRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1628,6 +1683,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Get your apps.
      */
     async getAppsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<AppDto>>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1655,8 +1711,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * You can only retrieve the list of apps when you are authenticated as a user (OpenID implicit flow). You will retrieve all apps, where you are assigned as a contributor.
      * Get team apps.
      */
-    async getTeamAppsRaw(requestParameters: AppsGetTeamAppsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<AppDto>>> {
-        if (requestParameters['team'] == null) {
+    async getTeamAppsRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<AppDto>>> {
+        const _team = team;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
@@ -1668,7 +1726,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/apps`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/apps`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1681,8 +1739,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * You can only retrieve the list of apps when you are authenticated as a user (OpenID implicit flow). You will retrieve all apps, where you are assigned as a contributor.
      * Get team apps.
      */
-    async getTeamApps(requestParameters: AppsGetTeamAppsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<AppDto>> {
-        const response = await this.getTeamAppsRaw(requestParameters, initOverrides);
+    async getTeamApps(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<AppDto>> {
+        const response = await this.getTeamAppsRaw(team, initOverrides);
         return await response.value();
     }
 
@@ -1690,8 +1748,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * You can only create an app when you are authenticated as a user (OpenID implicit flow). You will be assigned as owner of the new app automatically.
      * Create a new app.
      */
-    async postAppRaw(requestParameters: AppsPostAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
-        if (requestParameters['createAppDto'] == null) {
+    async postAppRaw(createAppDto: CreateAppDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
+        const _createAppDto = createAppDto;
+
+        if (_createAppDto == null) {
             throw new runtime.RequiredError(
                 'createAppDto',
                 'Required parameter "createAppDto" was null or undefined when calling ().'
@@ -1709,7 +1769,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateAppDtoToJSON(requestParameters['createAppDto']),
+            body: CreateAppDtoToJSON(_createAppDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppDtoFromJSON(jsonValue));
@@ -1719,16 +1779,18 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * You can only create an app when you are authenticated as a user (OpenID implicit flow). You will be assigned as owner of the new app automatically.
      * Create a new app.
      */
-    async postApp(requestParameters: AppsPostAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
-        const response = await this.postAppRaw(requestParameters, initOverrides);
+    async postApp(createAppDto: CreateAppDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
+        const response = await this.postAppRaw(createAppDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update the app.
      */
-    async putAppRaw(requestParameters: AppsPutAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
-        if (requestParameters['updateAppDto'] == null) {
+    async putAppRaw(updateAppDto: UpdateAppDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
+        const _updateAppDto = updateAppDto;
+
+        if (_updateAppDto == null) {
             throw new runtime.RequiredError(
                 'updateAppDto',
                 'Required parameter "updateAppDto" was null or undefined when calling ().'
@@ -1746,7 +1808,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateAppDtoToJSON(requestParameters['updateAppDto']),
+            body: UpdateAppDtoToJSON(_updateAppDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppDtoFromJSON(jsonValue));
@@ -1755,16 +1817,18 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Update the app.
      */
-    async putApp(requestParameters: AppsPutAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
-        const response = await this.putAppRaw(requestParameters, initOverrides);
+    async putApp(updateAppDto: UpdateAppDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
+        const response = await this.putAppRaw(updateAppDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Transfer the app.
      */
-    async putAppTeamRaw(requestParameters: AppsPutAppTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
-        if (requestParameters['transferToTeamDto'] == null) {
+    async putAppTeamRaw(transferToTeamDto: TransferToTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
+        const _transferToTeamDto = transferToTeamDto;
+
+        if (_transferToTeamDto == null) {
             throw new runtime.RequiredError(
                 'transferToTeamDto',
                 'Required parameter "transferToTeamDto" was null or undefined when calling ().'
@@ -1782,7 +1846,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: TransferToTeamDtoToJSON(requestParameters['transferToTeamDto']),
+            body: TransferToTeamDtoToJSON(_transferToTeamDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppDtoFromJSON(jsonValue));
@@ -1791,8 +1855,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Transfer the app.
      */
-    async putAppTeam(requestParameters: AppsPutAppTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
-        const response = await this.putAppTeamRaw(requestParameters, initOverrides);
+    async putAppTeam(transferToTeamDto: TransferToTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppDto> {
+        const response = await this.putAppTeamRaw(transferToTeamDto, initOverrides);
         return await response.value();
     }
 
@@ -1800,6 +1864,10 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
      * Upload the app image.
      */
     async uploadImageRaw(requestParameters: AppsUploadImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppDto>> {
+        const _file = requestParameters?.['file'];
+        const _url = requestParameters?.['url'];
+        const _name = requestParameters?.['name'];
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1820,16 +1888,16 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters['file'] != null) {
-            formParams.append('file', requestParameters['file'] as any);
+        if (_file != null) {
+            formParams.append('file', _file as any);
         }
 
-        if (requestParameters['fileUrl'] != null) {
-            formParams.append('fileUrl', requestParameters['fileUrl'] as any);
+        if (_url != null) {
+            formParams.append('url', _url as any);
         }
 
-        if (requestParameters['fileName'] != null) {
-            formParams.append('fileName', requestParameters['fileName'] as any);
+        if (_name != null) {
+            formParams.append('name', _name as any);
         }
 
         const response = await this.request({

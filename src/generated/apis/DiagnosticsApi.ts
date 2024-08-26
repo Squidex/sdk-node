@@ -63,6 +63,7 @@ export class DiagnosticsApi extends runtime.BaseAPI implements DiagnosticsApiInt
      * Creates a dump and writes it into storage..
      */
     async getDumpRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -88,6 +89,7 @@ export class DiagnosticsApi extends runtime.BaseAPI implements DiagnosticsApiInt
      * Creates a gc dump and writes it into storage.
      */
     async getGCDumpRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};

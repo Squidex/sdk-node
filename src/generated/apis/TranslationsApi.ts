@@ -21,7 +21,7 @@ import {
     TranslationDtoFromJSON,
 } from '../models/index';
 
-export interface TranslationsPostTranslationRequest {
+export interface TranslationsPostTranslationRequestRaw {
     translateDto: TranslateDto;
 }
 
@@ -40,12 +40,12 @@ export interface TranslationsApiInterface {
      * @throws {RequiredError}
      * @memberof TranslationsApiInterface
      */
-    postTranslationRaw(requestParameters: TranslationsPostTranslationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TranslationDto>>;
+    postTranslationRaw(translateDto: TranslateDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TranslationDto>>;
 
     /**
      * Translate a text.
      */
-    postTranslation(requestParameters: TranslationsPostTranslationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TranslationDto>;
+    postTranslation(translateDto: TranslateDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TranslationDto>;
 
 }
 
@@ -57,8 +57,10 @@ export class TranslationsApi extends runtime.BaseAPI implements TranslationsApiI
     /**
      * Translate a text.
      */
-    async postTranslationRaw(requestParameters: TranslationsPostTranslationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TranslationDto>> {
-        if (requestParameters['translateDto'] == null) {
+    async postTranslationRaw(translateDto: TranslateDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TranslationDto>> {
+        const _translateDto = translateDto;
+
+        if (_translateDto == null) {
             throw new runtime.RequiredError(
                 'translateDto',
                 'Required parameter "translateDto" was null or undefined when calling ().'
@@ -76,7 +78,7 @@ export class TranslationsApi extends runtime.BaseAPI implements TranslationsApiI
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TranslateDtoToJSON(requestParameters['translateDto']),
+            body: TranslateDtoToJSON(_translateDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TranslationDtoFromJSON(jsonValue));
@@ -85,8 +87,8 @@ export class TranslationsApi extends runtime.BaseAPI implements TranslationsApiI
     /**
      * Translate a text.
      */
-    async postTranslation(requestParameters: TranslationsPostTranslationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TranslationDto> {
-        const response = await this.postTranslationRaw(requestParameters, initOverrides);
+    async postTranslation(translateDto: TranslateDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TranslationDto> {
+        const response = await this.postTranslationRaw(translateDto, initOverrides);
         return await response.value();
     }
 

@@ -23,11 +23,11 @@ import {
     UserDtoFromJSON,
 } from '../models/index';
 
-export interface UsersGetUserRequest {
+export interface UsersGetUserRequestRaw {
     id: string;
 }
 
-export interface UsersGetUserPictureRequest {
+export interface UsersGetUserPictureRequestRaw {
     id: string;
 }
 
@@ -35,7 +35,11 @@ export interface UsersGetUsersRequest {
     query?: string;
 }
 
-export interface UsersPostUserRequest {
+export interface UsersGetUsersRequestRaw {
+    query?: string;
+}
+
+export interface UsersPostUserRequestRaw {
     updateProfileDto: UpdateProfileDto;
 }
 
@@ -54,12 +58,12 @@ export interface UsersApiInterface {
      * @throws {RequiredError}
      * @memberof UsersApiInterface
      */
-    getUserRaw(requestParameters: UsersGetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
+    getUserRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
 
     /**
      * Get user by id.
      */
-    getUser(requestParameters: UsersGetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
+    getUser(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
 
     /**
      * 
@@ -69,12 +73,12 @@ export interface UsersApiInterface {
      * @throws {RequiredError}
      * @memberof UsersApiInterface
      */
-    getUserPictureRaw(requestParameters: UsersGetUserPictureRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
+    getUserPictureRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
 
     /**
      * Get user picture by id.
      */
-    getUserPicture(requestParameters: UsersGetUserPictureRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
+    getUserPicture(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
 
     /**
      * 
@@ -98,13 +102,13 @@ export interface UsersApiInterface {
      * @throws {RequiredError}
      * @memberof UsersApiInterface
      */
-    getUsersRaw(requestParameters: UsersGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<UserDto>>>;
+    getUsersRaw(requestParameters?: UsersGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<UserDto>>>;
 
     /**
      * Search the user by query that contains the email address or the part of the email address.
      * Get users by query.
      */
-    getUsers(requestParameters: UsersGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<UserDto>>;
+    getUsers(requestParameters?: UsersGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<UserDto>>;
 
     /**
      * 
@@ -114,12 +118,12 @@ export interface UsersApiInterface {
      * @throws {RequiredError}
      * @memberof UsersApiInterface
      */
-    postUserRaw(requestParameters: UsersPostUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    postUserRaw(updateProfileDto: UpdateProfileDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Update the user profile.
      */
-    postUser(requestParameters: UsersPostUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    postUser(updateProfileDto: UpdateProfileDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
 }
 
@@ -131,8 +135,10 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
     /**
      * Get user by id.
      */
-    async getUserRaw(requestParameters: UsersGetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
-        if (requestParameters['id'] == null) {
+    async getUserRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -144,7 +150,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -156,16 +162,18 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
     /**
      * Get user by id.
      */
-    async getUser(requestParameters: UsersGetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
-        const response = await this.getUserRaw(requestParameters, initOverrides);
+    async getUser(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
+        const response = await this.getUserRaw(id, initOverrides);
         return await response.value();
     }
 
     /**
      * Get user picture by id.
      */
-    async getUserPictureRaw(requestParameters: UsersGetUserPictureRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters['id'] == null) {
+    async getUserPictureRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -177,7 +185,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/users/{id}/picture`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/users/{id}/picture`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -189,8 +197,8 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
     /**
      * Get user picture by id.
      */
-    async getUserPicture(requestParameters: UsersGetUserPictureRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getUserPictureRaw(requestParameters, initOverrides);
+    async getUserPicture(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getUserPictureRaw(id, initOverrides);
         return await response.value();
     }
 
@@ -198,6 +206,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
      * Get the user resources.
      */
     async getUserResourcesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResourcesDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -225,10 +234,12 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
      * Get users by query.
      */
     async getUsersRaw(requestParameters: UsersGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<UserDto>>> {
+        const _query = requestParameters?.['query'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['query'] != null) {
-            queryParameters['query'] = requestParameters['query'];
+        if (_query != null) {
+            queryParameters['query'] = _query;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -255,8 +266,10 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
     /**
      * Update the user profile.
      */
-    async postUserRaw(requestParameters: UsersPostUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['updateProfileDto'] == null) {
+    async postUserRaw(updateProfileDto: UpdateProfileDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _updateProfileDto = updateProfileDto;
+
+        if (_updateProfileDto == null) {
             throw new runtime.RequiredError(
                 'updateProfileDto',
                 'Required parameter "updateProfileDto" was null or undefined when calling ().'
@@ -274,7 +287,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateProfileDtoToJSON(requestParameters['updateProfileDto']),
+            body: UpdateProfileDtoToJSON(_updateProfileDto),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -283,8 +296,8 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
     /**
      * Update the user profile.
      */
-    async postUser(requestParameters: UsersPostUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.postUserRaw(requestParameters, initOverrides);
+    async postUser(updateProfileDto: UpdateProfileDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.postUserRaw(updateProfileDto, initOverrides);
     }
 
 }

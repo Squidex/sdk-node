@@ -25,11 +25,11 @@ import {
     UsersDtoFromJSON,
 } from '../models/index';
 
-export interface UserManagementDeleteUserRequest {
+export interface UserManagementDeleteUserRequestRaw {
     id: string;
 }
 
-export interface UserManagementGetUserRequest {
+export interface UserManagementGetUserRequestRaw {
     id: string;
 }
 
@@ -39,20 +39,26 @@ export interface UserManagementGetUsersRequest {
     take?: number;
 }
 
-export interface UserManagementLockUserRequest {
+export interface UserManagementGetUsersRequestRaw {
+    query?: string | null;
+    skip?: number;
+    take?: number;
+}
+
+export interface UserManagementLockUserRequestRaw {
     id: string;
 }
 
-export interface UserManagementPostUserRequest {
+export interface UserManagementPostUserRequestRaw {
     createUserDto: CreateUserDto;
 }
 
-export interface UserManagementPutUserRequest {
+export interface UserManagementPutUserRequestRaw {
     id: string;
     updateUserDto: UpdateUserDto;
 }
 
-export interface UserManagementUnlockUserRequest {
+export interface UserManagementUnlockUserRequestRaw {
     id: string;
 }
 
@@ -71,12 +77,12 @@ export interface UserManagementApiInterface {
      * @throws {RequiredError}
      * @memberof UserManagementApiInterface
      */
-    deleteUserRaw(requestParameters: UserManagementDeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteUserRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete a User.
      */
-    deleteUser(requestParameters: UserManagementDeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteUser(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -86,12 +92,12 @@ export interface UserManagementApiInterface {
      * @throws {RequiredError}
      * @memberof UserManagementApiInterface
      */
-    getUserRaw(requestParameters: UserManagementGetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
+    getUserRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
 
     /**
      * Get a user by ID.
      */
-    getUser(requestParameters: UserManagementGetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
+    getUser(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
 
     /**
      * 
@@ -103,12 +109,12 @@ export interface UserManagementApiInterface {
      * @throws {RequiredError}
      * @memberof UserManagementApiInterface
      */
-    getUsersRaw(requestParameters: UserManagementGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersDto>>;
+    getUsersRaw(requestParameters?: UserManagementGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersDto>>;
 
     /**
      * Get users by query.
      */
-    getUsers(requestParameters: UserManagementGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersDto>;
+    getUsers(requestParameters?: UserManagementGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersDto>;
 
     /**
      * 
@@ -118,12 +124,12 @@ export interface UserManagementApiInterface {
      * @throws {RequiredError}
      * @memberof UserManagementApiInterface
      */
-    lockUserRaw(requestParameters: UserManagementLockUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
+    lockUserRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
 
     /**
      * Lock a user.
      */
-    lockUser(requestParameters: UserManagementLockUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
+    lockUser(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
 
     /**
      * 
@@ -133,12 +139,12 @@ export interface UserManagementApiInterface {
      * @throws {RequiredError}
      * @memberof UserManagementApiInterface
      */
-    postUserRaw(requestParameters: UserManagementPostUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
+    postUserRaw(createUserDto: CreateUserDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
 
     /**
      * Create a new user.
      */
-    postUser(requestParameters: UserManagementPostUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
+    postUser(createUserDto: CreateUserDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
 
     /**
      * 
@@ -149,12 +155,12 @@ export interface UserManagementApiInterface {
      * @throws {RequiredError}
      * @memberof UserManagementApiInterface
      */
-    putUserRaw(requestParameters: UserManagementPutUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
+    putUserRaw(id: string, updateUserDto: UpdateUserDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
 
     /**
      * Update a user.
      */
-    putUser(requestParameters: UserManagementPutUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
+    putUser(id: string, updateUserDto: UpdateUserDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
 
     /**
      * 
@@ -164,12 +170,12 @@ export interface UserManagementApiInterface {
      * @throws {RequiredError}
      * @memberof UserManagementApiInterface
      */
-    unlockUserRaw(requestParameters: UserManagementUnlockUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
+    unlockUserRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>>;
 
     /**
      * Unlock a user.
      */
-    unlockUser(requestParameters: UserManagementUnlockUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
+    unlockUser(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto>;
 
 }
 
@@ -181,8 +187,10 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
     /**
      * Delete a User.
      */
-    async deleteUserRaw(requestParameters: UserManagementDeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async deleteUserRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -194,7 +202,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -206,15 +214,17 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
     /**
      * Delete a User.
      */
-    async deleteUser(requestParameters: UserManagementDeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteUserRaw(requestParameters, initOverrides);
+    async deleteUser(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteUserRaw(id, initOverrides);
     }
 
     /**
      * Get a user by ID.
      */
-    async getUserRaw(requestParameters: UserManagementGetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
-        if (requestParameters['id'] == null) {
+    async getUserRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -226,7 +236,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -238,8 +248,8 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
     /**
      * Get a user by ID.
      */
-    async getUser(requestParameters: UserManagementGetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
-        const response = await this.getUserRaw(requestParameters, initOverrides);
+    async getUser(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
+        const response = await this.getUserRaw(id, initOverrides);
         return await response.value();
     }
 
@@ -247,18 +257,22 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
      * Get users by query.
      */
     async getUsersRaw(requestParameters: UserManagementGetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersDto>> {
+        const _query = requestParameters?.['query'];
+        const _skip = requestParameters?.['skip'];
+        const _take = requestParameters?.['take'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['query'] != null) {
-            queryParameters['query'] = requestParameters['query'];
+        if (_query != null) {
+            queryParameters['query'] = _query;
         }
 
-        if (requestParameters['skip'] != null) {
-            queryParameters['skip'] = requestParameters['skip'];
+        if (_skip != null) {
+            queryParameters['skip'] = _skip;
         }
 
-        if (requestParameters['take'] != null) {
-            queryParameters['take'] = requestParameters['take'];
+        if (_take != null) {
+            queryParameters['take'] = _take;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -284,8 +298,10 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
     /**
      * Lock a user.
      */
-    async lockUserRaw(requestParameters: UserManagementLockUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
-        if (requestParameters['id'] == null) {
+    async lockUserRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -297,7 +313,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}/lock`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management/{id}/lock`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -309,16 +325,18 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
     /**
      * Lock a user.
      */
-    async lockUser(requestParameters: UserManagementLockUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
-        const response = await this.lockUserRaw(requestParameters, initOverrides);
+    async lockUser(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
+        const response = await this.lockUserRaw(id, initOverrides);
         return await response.value();
     }
 
     /**
      * Create a new user.
      */
-    async postUserRaw(requestParameters: UserManagementPostUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
-        if (requestParameters['createUserDto'] == null) {
+    async postUserRaw(createUserDto: CreateUserDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
+        const _createUserDto = createUserDto;
+
+        if (_createUserDto == null) {
             throw new runtime.RequiredError(
                 'createUserDto',
                 'Required parameter "createUserDto" was null or undefined when calling ().'
@@ -336,7 +354,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateUserDtoToJSON(requestParameters['createUserDto']),
+            body: CreateUserDtoToJSON(_createUserDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserDtoFromJSON(jsonValue));
@@ -345,23 +363,26 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
     /**
      * Create a new user.
      */
-    async postUser(requestParameters: UserManagementPostUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
-        const response = await this.postUserRaw(requestParameters, initOverrides);
+    async postUser(createUserDto: CreateUserDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
+        const response = await this.postUserRaw(createUserDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update a user.
      */
-    async putUserRaw(requestParameters: UserManagementPutUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
-        if (requestParameters['id'] == null) {
+    async putUserRaw(id: string, updateUserDto: UpdateUserDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
+        const _id = id;
+        const _updateUserDto = updateUserDto;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['updateUserDto'] == null) {
+        if (_updateUserDto == null) {
             throw new runtime.RequiredError(
                 'updateUserDto',
                 'Required parameter "updateUserDto" was null or undefined when calling ().'
@@ -375,11 +396,11 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateUserDtoToJSON(requestParameters['updateUserDto']),
+            body: UpdateUserDtoToJSON(_updateUserDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserDtoFromJSON(jsonValue));
@@ -388,16 +409,18 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
     /**
      * Update a user.
      */
-    async putUser(requestParameters: UserManagementPutUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
-        const response = await this.putUserRaw(requestParameters, initOverrides);
+    async putUser(id: string, updateUserDto: UpdateUserDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
+        const response = await this.putUserRaw(id, updateUserDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Unlock a user.
      */
-    async unlockUserRaw(requestParameters: UserManagementUnlockUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
-        if (requestParameters['id'] == null) {
+    async unlockUserRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -409,7 +432,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}/unlock`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management/{id}/unlock`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -421,8 +444,8 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
     /**
      * Unlock a user.
      */
-    async unlockUser(requestParameters: UserManagementUnlockUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
-        const response = await this.unlockUserRaw(requestParameters, initOverrides);
+    async unlockUser(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDto> {
+        const response = await this.unlockUserRaw(id, initOverrides);
         return await response.value();
     }
 

@@ -31,46 +31,46 @@ import {
     UpdateTeamDtoToJSON,
 } from '../models/index';
 
-export interface TeamContributorsDeleteContributorRequest {
+export interface TeamContributorsDeleteContributorRequestRaw {
     team: string;
     id: string;
 }
 
-export interface TeamContributorsDeleteMyselfRequest {
+export interface TeamContributorsDeleteMyselfRequestRaw {
     team: string;
 }
 
-export interface TeamContributorsGetContributorsRequest {
+export interface TeamContributorsGetContributorsRequestRaw {
     team: string;
 }
 
-export interface TeamContributorsPostContributorRequest {
+export interface TeamContributorsPostContributorRequestRaw {
     team: string;
     assignContributorDto: AssignContributorDto;
 }
 
-export interface TeamsDeleteTeamRequest {
+export interface TeamsDeleteTeamRequestRaw {
     team: string;
 }
 
-export interface TeamsGetTeamRequest {
+export interface TeamsGetTeamRequestRaw {
     team: string;
 }
 
-export interface TeamsGetTeamAuthRequest {
+export interface TeamsGetTeamAuthRequestRaw {
     team: string;
 }
 
-export interface TeamsPostTeamRequest {
+export interface TeamsPostTeamRequestRaw {
     createTeamDto: CreateTeamDto;
 }
 
-export interface TeamsPutTeamRequest {
+export interface TeamsPutTeamRequestRaw {
     team: string;
     updateTeamDto: UpdateTeamDto;
 }
 
-export interface TeamsPutTeamAuthRequest {
+export interface TeamsPutTeamAuthRequestRaw {
     team: string;
     authSchemeValueDto: AuthSchemeValueDto;
 }
@@ -91,12 +91,12 @@ export interface TeamsApiInterface {
      * @throws {RequiredError}
      * @memberof TeamsApiInterface
      */
-    deleteContributorRaw(requestParameters: TeamContributorsDeleteContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
+    deleteContributorRaw(team: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
 
     /**
      * Remove contributor.
      */
-    deleteContributor(requestParameters: TeamContributorsDeleteContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
+    deleteContributor(team: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
 
     /**
      * 
@@ -106,12 +106,12 @@ export interface TeamsApiInterface {
      * @throws {RequiredError}
      * @memberof TeamsApiInterface
      */
-    deleteMyselfRaw(requestParameters: TeamContributorsDeleteMyselfRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
+    deleteMyselfRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
 
     /**
      * Remove yourself.
      */
-    deleteMyself(requestParameters: TeamContributorsDeleteMyselfRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
+    deleteMyself(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
 
     /**
      * 
@@ -121,12 +121,12 @@ export interface TeamsApiInterface {
      * @throws {RequiredError}
      * @memberof TeamsApiInterface
      */
-    getContributorsRaw(requestParameters: TeamContributorsGetContributorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
+    getContributorsRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
 
     /**
      * Get team contributors.
      */
-    getContributors(requestParameters: TeamContributorsGetContributorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
+    getContributors(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
 
     /**
      * 
@@ -137,12 +137,12 @@ export interface TeamsApiInterface {
      * @throws {RequiredError}
      * @memberof TeamsApiInterface
      */
-    postContributorRaw(requestParameters: TeamContributorsPostContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
+    postContributorRaw(team: string, assignContributorDto: AssignContributorDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>>;
 
     /**
      * Assign contributor to team.
      */
-    postContributor(requestParameters: TeamContributorsPostContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
+    postContributor(team: string, assignContributorDto: AssignContributorDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto>;
 
     /**
      * 
@@ -152,12 +152,12 @@ export interface TeamsApiInterface {
      * @throws {RequiredError}
      * @memberof TeamsApiInterface
      */
-    deleteTeamRaw(requestParameters: TeamsDeleteTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteTeamRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete the team.
      */
-    deleteTeam(requestParameters: TeamsDeleteTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteTeam(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -167,12 +167,12 @@ export interface TeamsApiInterface {
      * @throws {RequiredError}
      * @memberof TeamsApiInterface
      */
-    getTeamRaw(requestParameters: TeamsGetTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>>;
+    getTeamRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>>;
 
     /**
      * Get an team by ID.
      */
-    getTeam(requestParameters: TeamsGetTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto>;
+    getTeam(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto>;
 
     /**
      * 
@@ -182,12 +182,12 @@ export interface TeamsApiInterface {
      * @throws {RequiredError}
      * @memberof TeamsApiInterface
      */
-    getTeamAuthRaw(requestParameters: TeamsGetTeamAuthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuthSchemeResponseDto>>;
+    getTeamAuthRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuthSchemeResponseDto>>;
 
     /**
      * Get the team auth settings.
      */
-    getTeamAuth(requestParameters: TeamsGetTeamAuthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthSchemeResponseDto>;
+    getTeamAuth(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthSchemeResponseDto>;
 
     /**
      * You can only retrieve the list of teams when you are authenticated as a user (OpenID implicit flow). You will retrieve all teams, where you are assigned as a contributor.
@@ -212,13 +212,13 @@ export interface TeamsApiInterface {
      * @throws {RequiredError}
      * @memberof TeamsApiInterface
      */
-    postTeamRaw(requestParameters: TeamsPostTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>>;
+    postTeamRaw(createTeamDto: CreateTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>>;
 
     /**
      * You can only create an team when you are authenticated as a user (OpenID implicit flow). You will be assigned as owner of the new team automatically.
      * Create a new team.
      */
-    postTeam(requestParameters: TeamsPostTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto>;
+    postTeam(createTeamDto: CreateTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto>;
 
     /**
      * 
@@ -229,12 +229,12 @@ export interface TeamsApiInterface {
      * @throws {RequiredError}
      * @memberof TeamsApiInterface
      */
-    putTeamRaw(requestParameters: TeamsPutTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>>;
+    putTeamRaw(team: string, updateTeamDto: UpdateTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>>;
 
     /**
      * Update the team.
      */
-    putTeam(requestParameters: TeamsPutTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto>;
+    putTeam(team: string, updateTeamDto: UpdateTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto>;
 
     /**
      * 
@@ -245,12 +245,12 @@ export interface TeamsApiInterface {
      * @throws {RequiredError}
      * @memberof TeamsApiInterface
      */
-    putTeamAuthRaw(requestParameters: TeamsPutTeamAuthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuthSchemeResponseDto>>;
+    putTeamAuthRaw(team: string, authSchemeValueDto: AuthSchemeValueDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuthSchemeResponseDto>>;
 
     /**
      * Update the team auth.
      */
-    putTeamAuth(requestParameters: TeamsPutTeamAuthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthSchemeResponseDto>;
+    putTeamAuth(team: string, authSchemeValueDto: AuthSchemeValueDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthSchemeResponseDto>;
 
 }
 
@@ -262,15 +262,18 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
     /**
      * Remove contributor.
      */
-    async deleteContributorRaw(requestParameters: TeamContributorsDeleteContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
-        if (requestParameters['team'] == null) {
+    async deleteContributorRaw(team: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
+        const _team = team;
+        const _id = id;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -282,7 +285,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors/{id}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/contributors/{id}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -294,16 +297,18 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
     /**
      * Remove contributor.
      */
-    async deleteContributor(requestParameters: TeamContributorsDeleteContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
-        const response = await this.deleteContributorRaw(requestParameters, initOverrides);
+    async deleteContributor(team: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
+        const response = await this.deleteContributorRaw(team, id, initOverrides);
         return await response.value();
     }
 
     /**
      * Remove yourself.
      */
-    async deleteMyselfRaw(requestParameters: TeamContributorsDeleteMyselfRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
-        if (requestParameters['team'] == null) {
+    async deleteMyselfRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
+        const _team = team;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
@@ -315,7 +320,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors/me`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/contributors/me`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -327,16 +332,18 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
     /**
      * Remove yourself.
      */
-    async deleteMyself(requestParameters: TeamContributorsDeleteMyselfRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
-        const response = await this.deleteMyselfRaw(requestParameters, initOverrides);
+    async deleteMyself(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
+        const response = await this.deleteMyselfRaw(team, initOverrides);
         return await response.value();
     }
 
     /**
      * Get team contributors.
      */
-    async getContributorsRaw(requestParameters: TeamContributorsGetContributorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
-        if (requestParameters['team'] == null) {
+    async getContributorsRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
+        const _team = team;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
@@ -348,7 +355,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -360,23 +367,26 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
     /**
      * Get team contributors.
      */
-    async getContributors(requestParameters: TeamContributorsGetContributorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
-        const response = await this.getContributorsRaw(requestParameters, initOverrides);
+    async getContributors(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
+        const response = await this.getContributorsRaw(team, initOverrides);
         return await response.value();
     }
 
     /**
      * Assign contributor to team.
      */
-    async postContributorRaw(requestParameters: TeamContributorsPostContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
-        if (requestParameters['team'] == null) {
+    async postContributorRaw(team: string, assignContributorDto: AssignContributorDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContributorsDto>> {
+        const _team = team;
+        const _assignContributorDto = assignContributorDto;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['assignContributorDto'] == null) {
+        if (_assignContributorDto == null) {
             throw new runtime.RequiredError(
                 'assignContributorDto',
                 'Required parameter "assignContributorDto" was null or undefined when calling ().'
@@ -390,11 +400,11 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AssignContributorDtoToJSON(requestParameters['assignContributorDto']),
+            body: AssignContributorDtoToJSON(_assignContributorDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContributorsDtoFromJSON(jsonValue));
@@ -403,16 +413,18 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
     /**
      * Assign contributor to team.
      */
-    async postContributor(requestParameters: TeamContributorsPostContributorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
-        const response = await this.postContributorRaw(requestParameters, initOverrides);
+    async postContributor(team: string, assignContributorDto: AssignContributorDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContributorsDto> {
+        const response = await this.postContributorRaw(team, assignContributorDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Delete the team.
      */
-    async deleteTeamRaw(requestParameters: TeamsDeleteTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['team'] == null) {
+    async deleteTeamRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _team = team;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
@@ -424,7 +436,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -436,15 +448,17 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
     /**
      * Delete the team.
      */
-    async deleteTeam(requestParameters: TeamsDeleteTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteTeamRaw(requestParameters, initOverrides);
+    async deleteTeam(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteTeamRaw(team, initOverrides);
     }
 
     /**
      * Get an team by ID.
      */
-    async getTeamRaw(requestParameters: TeamsGetTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>> {
-        if (requestParameters['team'] == null) {
+    async getTeamRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>> {
+        const _team = team;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
@@ -456,7 +470,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -468,16 +482,18 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
     /**
      * Get an team by ID.
      */
-    async getTeam(requestParameters: TeamsGetTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto> {
-        const response = await this.getTeamRaw(requestParameters, initOverrides);
+    async getTeam(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto> {
+        const response = await this.getTeamRaw(team, initOverrides);
         return await response.value();
     }
 
     /**
      * Get the team auth settings.
      */
-    async getTeamAuthRaw(requestParameters: TeamsGetTeamAuthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuthSchemeResponseDto>> {
-        if (requestParameters['team'] == null) {
+    async getTeamAuthRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuthSchemeResponseDto>> {
+        const _team = team;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
@@ -489,7 +505,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -501,8 +517,8 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
     /**
      * Get the team auth settings.
      */
-    async getTeamAuth(requestParameters: TeamsGetTeamAuthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthSchemeResponseDto> {
-        const response = await this.getTeamAuthRaw(requestParameters, initOverrides);
+    async getTeamAuth(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthSchemeResponseDto> {
+        const response = await this.getTeamAuthRaw(team, initOverrides);
         return await response.value();
     }
 
@@ -511,6 +527,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
      * Get your teams.
      */
     async getTeamsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TeamDto>>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -538,8 +555,10 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
      * You can only create an team when you are authenticated as a user (OpenID implicit flow). You will be assigned as owner of the new team automatically.
      * Create a new team.
      */
-    async postTeamRaw(requestParameters: TeamsPostTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>> {
-        if (requestParameters['createTeamDto'] == null) {
+    async postTeamRaw(createTeamDto: CreateTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>> {
+        const _createTeamDto = createTeamDto;
+
+        if (_createTeamDto == null) {
             throw new runtime.RequiredError(
                 'createTeamDto',
                 'Required parameter "createTeamDto" was null or undefined when calling ().'
@@ -557,7 +576,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateTeamDtoToJSON(requestParameters['createTeamDto']),
+            body: CreateTeamDtoToJSON(_createTeamDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TeamDtoFromJSON(jsonValue));
@@ -567,23 +586,26 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
      * You can only create an team when you are authenticated as a user (OpenID implicit flow). You will be assigned as owner of the new team automatically.
      * Create a new team.
      */
-    async postTeam(requestParameters: TeamsPostTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto> {
-        const response = await this.postTeamRaw(requestParameters, initOverrides);
+    async postTeam(createTeamDto: CreateTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto> {
+        const response = await this.postTeamRaw(createTeamDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update the team.
      */
-    async putTeamRaw(requestParameters: TeamsPutTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>> {
-        if (requestParameters['team'] == null) {
+    async putTeamRaw(team: string, updateTeamDto: UpdateTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamDto>> {
+        const _team = team;
+        const _updateTeamDto = updateTeamDto;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['updateTeamDto'] == null) {
+        if (_updateTeamDto == null) {
             throw new runtime.RequiredError(
                 'updateTeamDto',
                 'Required parameter "updateTeamDto" was null or undefined when calling ().'
@@ -597,11 +619,11 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateTeamDtoToJSON(requestParameters['updateTeamDto']),
+            body: UpdateTeamDtoToJSON(_updateTeamDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TeamDtoFromJSON(jsonValue));
@@ -610,23 +632,26 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
     /**
      * Update the team.
      */
-    async putTeam(requestParameters: TeamsPutTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto> {
-        const response = await this.putTeamRaw(requestParameters, initOverrides);
+    async putTeam(team: string, updateTeamDto: UpdateTeamDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamDto> {
+        const response = await this.putTeamRaw(team, updateTeamDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Update the team auth.
      */
-    async putTeamAuthRaw(requestParameters: TeamsPutTeamAuthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuthSchemeResponseDto>> {
-        if (requestParameters['team'] == null) {
+    async putTeamAuthRaw(team: string, authSchemeValueDto: AuthSchemeValueDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuthSchemeResponseDto>> {
+        const _team = team;
+        const _authSchemeValueDto = authSchemeValueDto;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['authSchemeValueDto'] == null) {
+        if (_authSchemeValueDto == null) {
             throw new runtime.RequiredError(
                 'authSchemeValueDto',
                 'Required parameter "authSchemeValueDto" was null or undefined when calling ().'
@@ -640,11 +665,11 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: AuthSchemeValueDtoToJSON(requestParameters['authSchemeValueDto']),
+            body: AuthSchemeValueDtoToJSON(_authSchemeValueDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AuthSchemeResponseDtoFromJSON(jsonValue));
@@ -653,8 +678,8 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
     /**
      * Update the team auth.
      */
-    async putTeamAuth(requestParameters: TeamsPutTeamAuthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthSchemeResponseDto> {
-        const response = await this.putTeamAuthRaw(requestParameters, initOverrides);
+    async putTeamAuth(team: string, authSchemeValueDto: AuthSchemeValueDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthSchemeResponseDto> {
+        const response = await this.putTeamAuthRaw(team, authSchemeValueDto, initOverrides);
         return await response.value();
     }
 

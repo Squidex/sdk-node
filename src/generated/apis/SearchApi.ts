@@ -23,6 +23,10 @@ export interface SearchGetSearchResultsRequest {
     query?: string | null;
 }
 
+export interface SearchGetSearchResultsRequestRaw {
+    query?: string | null;
+}
+
 /**
  * SearchApi - interface
  * 
@@ -38,12 +42,12 @@ export interface SearchApiInterface {
      * @throws {RequiredError}
      * @memberof SearchApiInterface
      */
-    getSearchResultsRaw(requestParameters: SearchGetSearchResultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SearchResultDto>>>;
+    getSearchResultsRaw(requestParameters?: SearchGetSearchResultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SearchResultDto>>>;
 
     /**
      * Get search results.
      */
-    getSearchResults(requestParameters: SearchGetSearchResultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SearchResultDto>>;
+    getSearchResults(requestParameters?: SearchGetSearchResultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SearchResultDto>>;
 
 }
 
@@ -56,10 +60,12 @@ export class SearchApi extends runtime.BaseAPI implements SearchApiInterface {
      * Get search results.
      */
     async getSearchResultsRaw(requestParameters: SearchGetSearchResultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SearchResultDto>>> {
+        const _query = requestParameters?.['query'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['query'] != null) {
-            queryParameters['query'] = requestParameters['query'];
+        if (_query != null) {
+            queryParameters['query'] = _query;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

@@ -31,27 +31,27 @@ import {
     UpdateRuleDtoToJSON,
 } from '../models/index';
 
-export interface RulesDeleteEventRequest {
+export interface RulesDeleteEventRequestRaw {
     id: string;
 }
 
-export interface RulesDeleteRuleRequest {
+export interface RulesDeleteRuleRequestRaw {
     id: string;
 }
 
-export interface RulesDeleteRuleEventsRequest {
+export interface RulesDeleteRuleEventsRequestRaw {
     id: string;
 }
 
-export interface RulesDisableRuleRequest {
+export interface RulesDisableRuleRequestRaw {
     id: string;
 }
 
-export interface RulesEnableRuleRequest {
+export interface RulesEnableRuleRequestRaw {
     id: string;
 }
 
-export interface RulesGetEventSchemaRequest {
+export interface RulesGetEventSchemaRequestRaw {
     type: string;
 }
 
@@ -61,33 +61,43 @@ export interface RulesGetEventsRequest {
     take?: number;
 }
 
-export interface RulesPostRuleRequest {
+export interface RulesGetEventsRequestRaw {
+    ruleId?: string | null;
+    skip?: number;
+    take?: number;
+}
+
+export interface RulesPostRuleRequestRaw {
     createRuleDto: CreateRuleDto;
 }
 
-export interface RulesPutEventRequest {
+export interface RulesPutEventRequestRaw {
     id: string;
 }
 
-export interface RulesPutRuleRequest {
+export interface RulesPutRuleRequestRaw {
     id: string;
     updateRuleDto: UpdateRuleDto;
 }
 
 export interface RulesPutRuleRunRequest {
+    fromSnapshots?: boolean;
+}
+
+export interface RulesPutRuleRunRequestRaw {
     id: string;
     fromSnapshots?: boolean;
 }
 
-export interface RulesSimulateGETRequest {
+export interface RulesSimulateGETRequestRaw {
     id: string;
 }
 
-export interface RulesSimulatePOSTRequest {
+export interface RulesSimulatePOSTRequestRaw {
     createRuleDto: CreateRuleDto;
 }
 
-export interface RulesTriggerRuleRequest {
+export interface RulesTriggerRuleRequestRaw {
     id: string;
 }
 
@@ -106,12 +116,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    deleteEventRaw(requestParameters: RulesDeleteEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteEventRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Cancels an event.
      */
-    deleteEvent(requestParameters: RulesDeleteEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteEvent(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -135,12 +145,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    deleteRuleRaw(requestParameters: RulesDeleteRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteRuleRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete a rule.
      */
-    deleteRule(requestParameters: RulesDeleteRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteRule(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -150,12 +160,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    deleteRuleEventsRaw(requestParameters: RulesDeleteRuleEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteRuleEventsRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Cancels all rule events.
      */
-    deleteRuleEvents(requestParameters: RulesDeleteRuleEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteRuleEvents(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -179,12 +189,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    disableRuleRaw(requestParameters: RulesDisableRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>>;
+    disableRuleRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>>;
 
     /**
      * Disable a rule.
      */
-    disableRule(requestParameters: RulesDisableRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto>;
+    disableRule(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto>;
 
     /**
      * 
@@ -194,12 +204,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    enableRuleRaw(requestParameters: RulesEnableRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>>;
+    enableRuleRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>>;
 
     /**
      * Enable a rule.
      */
-    enableRule(requestParameters: RulesEnableRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto>;
+    enableRule(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto>;
 
     /**
      * 
@@ -223,12 +233,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    getEventSchemaRaw(requestParameters: RulesGetEventSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>>;
+    getEventSchemaRaw(type: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>>;
 
     /**
      * Provide the json schema for the event with the specified name.
      */
-    getEventSchema(requestParameters: RulesGetEventSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any>;
+    getEventSchema(type: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any>;
 
     /**
      * 
@@ -254,12 +264,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    getEventsRaw(requestParameters: RulesGetEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleEventsDto>>;
+    getEventsRaw(requestParameters?: RulesGetEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleEventsDto>>;
 
     /**
      * Get rule events.
      */
-    getEvents(requestParameters: RulesGetEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleEventsDto>;
+    getEvents(requestParameters?: RulesGetEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleEventsDto>;
 
     /**
      * 
@@ -283,12 +293,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    postRuleRaw(requestParameters: RulesPostRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>>;
+    postRuleRaw(createRuleDto: CreateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>>;
 
     /**
      * Create a new rule.
      */
-    postRule(requestParameters: RulesPostRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto>;
+    postRule(createRuleDto: CreateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto>;
 
     /**
      * 
@@ -298,12 +308,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    putEventRaw(requestParameters: RulesPutEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    putEventRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Retry the event immediately.
      */
-    putEvent(requestParameters: RulesPutEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    putEvent(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -314,12 +324,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    putRuleRaw(requestParameters: RulesPutRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>>;
+    putRuleRaw(id: string, updateRuleDto: UpdateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>>;
 
     /**
      * Update a rule.
      */
-    putRule(requestParameters: RulesPutRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto>;
+    putRule(id: string, updateRuleDto: UpdateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto>;
 
     /**
      * 
@@ -330,12 +340,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    putRuleRunRaw(requestParameters: RulesPutRuleRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    putRuleRunRaw(id: string, requestParameters?: RulesPutRuleRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Run a rule.
      */
-    putRuleRun(requestParameters: RulesPutRuleRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    putRuleRun(id: string, requestParameters?: RulesPutRuleRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -345,12 +355,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    simulateGETRaw(requestParameters: RulesSimulateGETRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SimulatedRuleEventsDto>>;
+    simulateGETRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SimulatedRuleEventsDto>>;
 
     /**
      * Simulate a rule.
      */
-    simulateGET(requestParameters: RulesSimulateGETRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SimulatedRuleEventsDto>;
+    simulateGET(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SimulatedRuleEventsDto>;
 
     /**
      * 
@@ -360,12 +370,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    simulatePOSTRaw(requestParameters: RulesSimulatePOSTRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SimulatedRuleEventsDto>>;
+    simulatePOSTRaw(createRuleDto: CreateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SimulatedRuleEventsDto>>;
 
     /**
      * Simulate a rule.
      */
-    simulatePOST(requestParameters: RulesSimulatePOSTRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SimulatedRuleEventsDto>;
+    simulatePOST(createRuleDto: CreateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SimulatedRuleEventsDto>;
 
     /**
      * 
@@ -375,12 +385,12 @@ export interface RulesApiInterface {
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    triggerRuleRaw(requestParameters: RulesTriggerRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    triggerRuleRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Trigger a rule.
      */
-    triggerRule(requestParameters: RulesTriggerRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    triggerRule(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
 }
 
@@ -392,8 +402,10 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Cancels an event.
      */
-    async deleteEventRaw(requestParameters: RulesDeleteEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async deleteEventRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -405,7 +417,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/events/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/events/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -417,14 +429,15 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Cancels an event.
      */
-    async deleteEvent(requestParameters: RulesDeleteEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteEventRaw(requestParameters, initOverrides);
+    async deleteEvent(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteEventRaw(id, initOverrides);
     }
 
     /**
      * Cancels all events.
      */
     async deleteEventsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -449,8 +462,10 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Delete a rule.
      */
-    async deleteRuleRaw(requestParameters: RulesDeleteRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async deleteRuleRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -462,7 +477,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -474,15 +489,17 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Delete a rule.
      */
-    async deleteRule(requestParameters: RulesDeleteRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteRuleRaw(requestParameters, initOverrides);
+    async deleteRule(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteRuleRaw(id, initOverrides);
     }
 
     /**
      * Cancels all rule events.
      */
-    async deleteRuleEventsRaw(requestParameters: RulesDeleteRuleEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async deleteRuleEventsRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -494,7 +511,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/events`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/events`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -506,14 +523,15 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Cancels all rule events.
      */
-    async deleteRuleEvents(requestParameters: RulesDeleteRuleEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteRuleEventsRaw(requestParameters, initOverrides);
+    async deleteRuleEvents(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteRuleEventsRaw(id, initOverrides);
     }
 
     /**
      * Cancel the current run.
      */
     async deleteRuleRunRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -538,8 +556,10 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Disable a rule.
      */
-    async disableRuleRaw(requestParameters: RulesDisableRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>> {
-        if (requestParameters['id'] == null) {
+    async disableRuleRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -551,7 +571,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/disable`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/disable`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -563,16 +583,18 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Disable a rule.
      */
-    async disableRule(requestParameters: RulesDisableRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto> {
-        const response = await this.disableRuleRaw(requestParameters, initOverrides);
+    async disableRule(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto> {
+        const response = await this.disableRuleRaw(id, initOverrides);
         return await response.value();
     }
 
     /**
      * Enable a rule.
      */
-    async enableRuleRaw(requestParameters: RulesEnableRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>> {
-        if (requestParameters['id'] == null) {
+    async enableRuleRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -584,7 +606,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/enable`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/enable`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -596,8 +618,8 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Enable a rule.
      */
-    async enableRule(requestParameters: RulesEnableRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto> {
-        const response = await this.enableRuleRaw(requestParameters, initOverrides);
+    async enableRule(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto> {
+        const response = await this.enableRuleRaw(id, initOverrides);
         return await response.value();
     }
 
@@ -605,6 +627,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
      * Get supported rule actions.
      */
     async getActionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: RuleElementDto; }>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -630,8 +653,10 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Provide the json schema for the event with the specified name.
      */
-    async getEventSchemaRaw(requestParameters: RulesGetEventSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
-        if (requestParameters['type'] == null) {
+    async getEventSchemaRaw(type: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+        const _type = type;
+
+        if (_type == null) {
             throw new runtime.RequiredError(
                 'type',
                 'Required parameter "type" was null or undefined when calling ().'
@@ -643,7 +668,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/rules/eventtypes/{type}`.replace(`{${"type"}}`, encodeURIComponent(String((requestParameters as any)['type']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/rules/eventtypes/{type}`.replace(`{${"type"}}`, encodeURIComponent(String(_type))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -659,8 +684,8 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Provide the json schema for the event with the specified name.
      */
-    async getEventSchema(requestParameters: RulesGetEventSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.getEventSchemaRaw(requestParameters, initOverrides);
+    async getEventSchema(type: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.getEventSchemaRaw(type, initOverrides);
         return await response.value();
     }
 
@@ -668,6 +693,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
      * Provide a list of all event types that are used in rules.
      */
     async getEventTypesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -694,18 +720,22 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
      * Get rule events.
      */
     async getEventsRaw(requestParameters: RulesGetEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleEventsDto>> {
+        const _ruleId = requestParameters?.['ruleId'];
+        const _skip = requestParameters?.['skip'];
+        const _take = requestParameters?.['take'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['ruleId'] != null) {
-            queryParameters['ruleId'] = requestParameters['ruleId'];
+        if (_ruleId != null) {
+            queryParameters['ruleId'] = _ruleId;
         }
 
-        if (requestParameters['skip'] != null) {
-            queryParameters['skip'] = requestParameters['skip'];
+        if (_skip != null) {
+            queryParameters['skip'] = _skip;
         }
 
-        if (requestParameters['take'] != null) {
-            queryParameters['take'] = requestParameters['take'];
+        if (_take != null) {
+            queryParameters['take'] = _take;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -732,6 +762,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
      * Get rules.
      */
     async getRulesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulesDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -757,8 +788,10 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Create a new rule.
      */
-    async postRuleRaw(requestParameters: RulesPostRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>> {
-        if (requestParameters['createRuleDto'] == null) {
+    async postRuleRaw(createRuleDto: CreateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>> {
+        const _createRuleDto = createRuleDto;
+
+        if (_createRuleDto == null) {
             throw new runtime.RequiredError(
                 'createRuleDto',
                 'Required parameter "createRuleDto" was null or undefined when calling ().'
@@ -776,7 +809,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateRuleDtoToJSON(requestParameters['createRuleDto']),
+            body: CreateRuleDtoToJSON(_createRuleDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RuleDtoFromJSON(jsonValue));
@@ -785,16 +818,18 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Create a new rule.
      */
-    async postRule(requestParameters: RulesPostRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto> {
-        const response = await this.postRuleRaw(requestParameters, initOverrides);
+    async postRule(createRuleDto: CreateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto> {
+        const response = await this.postRuleRaw(createRuleDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Retry the event immediately.
      */
-    async putEventRaw(requestParameters: RulesPutEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async putEventRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -806,7 +841,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/events/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/events/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -818,22 +853,25 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Retry the event immediately.
      */
-    async putEvent(requestParameters: RulesPutEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.putEventRaw(requestParameters, initOverrides);
+    async putEvent(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.putEventRaw(id, initOverrides);
     }
 
     /**
      * Update a rule.
      */
-    async putRuleRaw(requestParameters: RulesPutRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>> {
-        if (requestParameters['id'] == null) {
+    async putRuleRaw(id: string, updateRuleDto: UpdateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RuleDto>> {
+        const _id = id;
+        const _updateRuleDto = updateRuleDto;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['updateRuleDto'] == null) {
+        if (_updateRuleDto == null) {
             throw new runtime.RequiredError(
                 'updateRuleDto',
                 'Required parameter "updateRuleDto" was null or undefined when calling ().'
@@ -847,11 +885,11 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateRuleDtoToJSON(requestParameters['updateRuleDto']),
+            body: UpdateRuleDtoToJSON(_updateRuleDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RuleDtoFromJSON(jsonValue));
@@ -860,16 +898,19 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Update a rule.
      */
-    async putRule(requestParameters: RulesPutRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto> {
-        const response = await this.putRuleRaw(requestParameters, initOverrides);
+    async putRule(id: string, updateRuleDto: UpdateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RuleDto> {
+        const response = await this.putRuleRaw(id, updateRuleDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Run a rule.
      */
-    async putRuleRunRaw(requestParameters: RulesPutRuleRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async putRuleRunRaw(id: string, requestParameters: RulesPutRuleRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+        const _fromSnapshots = requestParameters?.['fromSnapshots'];
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -878,14 +919,14 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
 
         const queryParameters: any = {};
 
-        if (requestParameters['fromSnapshots'] != null) {
-            queryParameters['fromSnapshots'] = requestParameters['fromSnapshots'];
+        if (_fromSnapshots != null) {
+            queryParameters['fromSnapshots'] = _fromSnapshots;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/run`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/run`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -897,15 +938,17 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Run a rule.
      */
-    async putRuleRun(requestParameters: RulesPutRuleRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.putRuleRunRaw(requestParameters, initOverrides);
+    async putRuleRun(id: string, requestParameters: RulesPutRuleRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.putRuleRunRaw(id, requestParameters, initOverrides);
     }
 
     /**
      * Simulate a rule.
      */
-    async simulateGETRaw(requestParameters: RulesSimulateGETRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SimulatedRuleEventsDto>> {
-        if (requestParameters['id'] == null) {
+    async simulateGETRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SimulatedRuleEventsDto>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -917,7 +960,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/simulate`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/simulate`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -929,16 +972,18 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Simulate a rule.
      */
-    async simulateGET(requestParameters: RulesSimulateGETRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SimulatedRuleEventsDto> {
-        const response = await this.simulateGETRaw(requestParameters, initOverrides);
+    async simulateGET(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SimulatedRuleEventsDto> {
+        const response = await this.simulateGETRaw(id, initOverrides);
         return await response.value();
     }
 
     /**
      * Simulate a rule.
      */
-    async simulatePOSTRaw(requestParameters: RulesSimulatePOSTRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SimulatedRuleEventsDto>> {
-        if (requestParameters['createRuleDto'] == null) {
+    async simulatePOSTRaw(createRuleDto: CreateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SimulatedRuleEventsDto>> {
+        const _createRuleDto = createRuleDto;
+
+        if (_createRuleDto == null) {
             throw new runtime.RequiredError(
                 'createRuleDto',
                 'Required parameter "createRuleDto" was null or undefined when calling ().'
@@ -956,7 +1001,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateRuleDtoToJSON(requestParameters['createRuleDto']),
+            body: CreateRuleDtoToJSON(_createRuleDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SimulatedRuleEventsDtoFromJSON(jsonValue));
@@ -965,16 +1010,18 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Simulate a rule.
      */
-    async simulatePOST(requestParameters: RulesSimulatePOSTRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SimulatedRuleEventsDto> {
-        const response = await this.simulatePOSTRaw(requestParameters, initOverrides);
+    async simulatePOST(createRuleDto: CreateRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SimulatedRuleEventsDto> {
+        const response = await this.simulatePOSTRaw(createRuleDto, initOverrides);
         return await response.value();
     }
 
     /**
      * Trigger a rule.
      */
-    async triggerRuleRaw(requestParameters: RulesTriggerRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
+    async triggerRuleRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _id = id;
+
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -986,7 +1033,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/trigger`.replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/trigger`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -998,8 +1045,8 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Trigger a rule.
      */
-    async triggerRule(requestParameters: RulesTriggerRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.triggerRuleRaw(requestParameters, initOverrides);
+    async triggerRule(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.triggerRuleRaw(id, initOverrides);
     }
 
 }

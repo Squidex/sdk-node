@@ -10658,10 +10658,10 @@
                     "type": "string",
                     "format": "binary"
                   },
-                  "fileUrl": {
+                  "url": {
                     "type": "string"
                   },
-                  "fileName": {
+                  "name": {
                     "type": "string"
                   }
                 }
@@ -10912,10 +10912,10 @@
                     "type": "string",
                     "format": "binary"
                   },
-                  "fileUrl": {
+                  "url": {
                     "type": "string"
                   },
-                  "fileName": {
+                  "name": {
                     "type": "string"
                   }
                 }
@@ -11224,10 +11224,10 @@
                     "type": "string",
                     "format": "binary"
                   },
-                  "fileUrl": {
+                  "url": {
                     "type": "string"
                   },
-                  "fileName": {
+                  "name": {
                     "type": "string"
                   }
                 }
@@ -11990,10 +11990,10 @@
                     "type": "string",
                     "format": "binary"
                   },
-                  "fileUrl": {
+                  "url": {
                     "type": "string"
                   },
-                  "fileName": {
+                  "name": {
                     "type": "string"
                   }
                 }

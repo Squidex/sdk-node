@@ -23,7 +23,15 @@ export interface HistoryGetAppHistoryRequest {
     channel?: string;
 }
 
+export interface HistoryGetAppHistoryRequestRaw {
+    channel?: string;
+}
+
 export interface HistoryGetTeamHistoryRequest {
+    channel?: string;
+}
+
+export interface HistoryGetTeamHistoryRequestRaw {
     team: string;
     channel?: string;
 }
@@ -43,12 +51,12 @@ export interface HistoryApiInterface {
      * @throws {RequiredError}
      * @memberof HistoryApiInterface
      */
-    getAppHistoryRaw(requestParameters: HistoryGetAppHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<HistoryEventDto>>>;
+    getAppHistoryRaw(requestParameters?: HistoryGetAppHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<HistoryEventDto>>>;
 
     /**
      * Get the app history.
      */
-    getAppHistory(requestParameters: HistoryGetAppHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<HistoryEventDto>>;
+    getAppHistory(requestParameters?: HistoryGetAppHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<HistoryEventDto>>;
 
     /**
      * 
@@ -59,12 +67,12 @@ export interface HistoryApiInterface {
      * @throws {RequiredError}
      * @memberof HistoryApiInterface
      */
-    getTeamHistoryRaw(requestParameters: HistoryGetTeamHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<HistoryEventDto>>>;
+    getTeamHistoryRaw(team: string, requestParameters?: HistoryGetTeamHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<HistoryEventDto>>>;
 
     /**
      * Get the team history.
      */
-    getTeamHistory(requestParameters: HistoryGetTeamHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<HistoryEventDto>>;
+    getTeamHistory(team: string, requestParameters?: HistoryGetTeamHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<HistoryEventDto>>;
 
 }
 
@@ -77,10 +85,12 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
      * Get the app history.
      */
     async getAppHistoryRaw(requestParameters: HistoryGetAppHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<HistoryEventDto>>> {
+        const _channel = requestParameters?.['channel'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['channel'] != null) {
-            queryParameters['channel'] = requestParameters['channel'];
+        if (_channel != null) {
+            queryParameters['channel'] = _channel;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -106,8 +116,11 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
     /**
      * Get the team history.
      */
-    async getTeamHistoryRaw(requestParameters: HistoryGetTeamHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<HistoryEventDto>>> {
-        if (requestParameters['team'] == null) {
+    async getTeamHistoryRaw(team: string, requestParameters: HistoryGetTeamHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<HistoryEventDto>>> {
+        const _team = team;
+        const _channel = requestParameters?.['channel'];
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
@@ -116,14 +129,14 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
 
         const queryParameters: any = {};
 
-        if (requestParameters['channel'] != null) {
-            queryParameters['channel'] = requestParameters['channel'];
+        if (_channel != null) {
+            queryParameters['channel'] = _channel;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/history`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/history`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -135,8 +148,8 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
     /**
      * Get the team history.
      */
-    async getTeamHistory(requestParameters: HistoryGetTeamHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<HistoryEventDto>> {
-        const response = await this.getTeamHistoryRaw(requestParameters, initOverrides);
+    async getTeamHistory(team: string, requestParameters: HistoryGetTeamHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<HistoryEventDto>> {
+        const response = await this.getTeamHistoryRaw(team, requestParameters, initOverrides);
         return await response.value();
     }
 

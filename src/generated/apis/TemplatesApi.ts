@@ -21,7 +21,7 @@ import {
     TemplatesDtoFromJSON,
 } from '../models/index';
 
-export interface TemplatesGetTemplateRequest {
+export interface TemplatesGetTemplateRequestRaw {
     name: string;
 }
 
@@ -40,12 +40,12 @@ export interface TemplatesApiInterface {
      * @throws {RequiredError}
      * @memberof TemplatesApiInterface
      */
-    getTemplateRaw(requestParameters: TemplatesGetTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TemplateDetailsDto>>;
+    getTemplateRaw(name: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TemplateDetailsDto>>;
 
     /**
      * Get template details.
      */
-    getTemplate(requestParameters: TemplatesGetTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TemplateDetailsDto>;
+    getTemplate(name: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TemplateDetailsDto>;
 
     /**
      * 
@@ -71,8 +71,10 @@ export class TemplatesApi extends runtime.BaseAPI implements TemplatesApiInterfa
     /**
      * Get template details.
      */
-    async getTemplateRaw(requestParameters: TemplatesGetTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TemplateDetailsDto>> {
-        if (requestParameters['name'] == null) {
+    async getTemplateRaw(name: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TemplateDetailsDto>> {
+        const _name = name;
+
+        if (_name == null) {
             throw new runtime.RequiredError(
                 'name',
                 'Required parameter "name" was null or undefined when calling ().'
@@ -84,7 +86,7 @@ export class TemplatesApi extends runtime.BaseAPI implements TemplatesApiInterfa
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/templates/{name}`.replace(`{${"name"}}`, encodeURIComponent(String((requestParameters as any)['name']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/templates/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(_name))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -96,8 +98,8 @@ export class TemplatesApi extends runtime.BaseAPI implements TemplatesApiInterfa
     /**
      * Get template details.
      */
-    async getTemplate(requestParameters: TemplatesGetTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TemplateDetailsDto> {
-        const response = await this.getTemplateRaw(requestParameters, initOverrides);
+    async getTemplate(name: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TemplateDetailsDto> {
+        const response = await this.getTemplateRaw(name, initOverrides);
         return await response.value();
     }
 
@@ -105,6 +107,7 @@ export class TemplatesApi extends runtime.BaseAPI implements TemplatesApiInterfa
      * Get all templates.
      */
     async getTemplatesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TemplatesDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};

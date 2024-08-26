@@ -7,15 +7,13 @@ describe("User management", () => {
         const email = `user${guid()}@email.com`;
 
         const createdUser = await client.userManagement.postUser({
-            createUserDto: {
-                email,
-                displayName: "Jane Smith",
-                password: "1q2w3e$R",
-                permissions: [],
-            },
+            email,
+            displayName: "Jane Smith",
+            password: "1q2w3e$R",
+            permissions: [],
         });
 
-        const user = await client.userManagement.getUser({ id: createdUser.id });
+        const user = await client.userManagement.getUser(createdUser.id);
         expect(user.email).toEqual(email);
         expect(user.displayName).toEqual("Jane Smith");
     });

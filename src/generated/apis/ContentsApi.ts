@@ -33,12 +33,17 @@ import {
     QueryDtoToJSON,
 } from '../models/index';
 
-export interface ContentsBulkUpdateContentsRequest {
+export interface ContentsBulkUpdateContentsRequestRaw {
     schema: string;
     bulkUpdateContentsDto: BulkUpdateContentsDto;
 }
 
 export interface ContentsCreateDraftRequest {
+    unpublished?: boolean;
+    languages?: string;
+}
+
+export interface ContentsCreateDraftRequestRaw {
     schema: string;
     id: string;
     unpublished?: boolean;
@@ -46,6 +51,11 @@ export interface ContentsCreateDraftRequest {
 }
 
 export interface ContentsDeleteContentRequest {
+    checkReferrers?: boolean;
+    permanent?: boolean;
+}
+
+export interface ContentsDeleteContentRequestRaw {
     schema: string;
     id: string;
     checkReferrers?: boolean;
@@ -53,6 +63,11 @@ export interface ContentsDeleteContentRequest {
 }
 
 export interface ContentsDeleteContentStatusRequest {
+    unpublished?: boolean;
+    languages?: string;
+}
+
+export interface ContentsDeleteContentStatusRequestRaw {
     schema: string;
     id: string;
     unpublished?: boolean;
@@ -60,6 +75,11 @@ export interface ContentsDeleteContentStatusRequest {
 }
 
 export interface ContentsDeleteVersionRequest {
+    unpublished?: boolean;
+    languages?: string;
+}
+
+export interface ContentsDeleteVersionRequestRaw {
     schema: string;
     id: string;
     unpublished?: boolean;
@@ -67,6 +87,14 @@ export interface ContentsDeleteVersionRequest {
 }
 
 export interface ContentsGetContentRequest {
+    version?: number;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    unpublished?: boolean;
+}
+
+export interface ContentsGetContentRequestRaw {
     schema: string;
     id: string;
     version?: number;
@@ -76,12 +104,17 @@ export interface ContentsGetContentRequest {
     unpublished?: boolean;
 }
 
-export interface ContentsGetContentValidityRequest {
+export interface ContentsGetContentValidityRequestRaw {
     schema: string;
     id: string;
 }
 
 export interface ContentsGetContentVersionRequest {
+    unpublished?: boolean;
+    languages?: string;
+}
+
+export interface ContentsGetContentVersionRequestRaw {
     schema: string;
     id: string;
     version: number;
@@ -90,6 +123,22 @@ export interface ContentsGetContentVersionRequest {
 }
 
 export interface ContentsGetContentsRequest {
+    ids?: string | null;
+    q?: string | null;
+    $search?: string;
+    $top?: number;
+    $skip?: number;
+    $orderby?: string;
+    $filter?: string;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
+    unpublished?: boolean;
+}
+
+export interface ContentsGetContentsRequestRaw {
     schema: string;
     ids?: string | null;
     q?: string | null;
@@ -107,6 +156,15 @@ export interface ContentsGetContentsRequest {
 }
 
 export interface ContentsGetContentsPostRequest {
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
+    unpublished?: boolean;
+}
+
+export interface ContentsGetContentsPostRequestRaw {
     schema: string;
     queryDto: QueryDto;
     fields?: string;
@@ -118,6 +176,16 @@ export interface ContentsGetContentsPostRequest {
 }
 
 export interface ContentsGetReferencesRequest {
+    q?: string | null;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    unpublished?: boolean;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
+}
+
+export interface ContentsGetReferencesRequestRaw {
     schema: string;
     id: string;
     q?: string | null;
@@ -130,6 +198,16 @@ export interface ContentsGetReferencesRequest {
 }
 
 export interface ContentsGetReferencingRequest {
+    q?: string | null;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    unpublished?: boolean;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
+}
+
+export interface ContentsGetReferencingRequestRaw {
     schema: string;
     id: string;
     q?: string | null;
@@ -142,6 +220,11 @@ export interface ContentsGetReferencingRequest {
 }
 
 export interface ContentsPatchContentRequest {
+    unpublished?: boolean;
+    languages?: string;
+}
+
+export interface ContentsPatchContentRequestRaw {
     schema: string;
     id: string;
     requestBody: { [key: string]: { [key: string]: any; }; };
@@ -150,6 +233,14 @@ export interface ContentsPatchContentRequest {
 }
 
 export interface ContentsPostContentRequest {
+    status?: string | null;
+    id?: string | null;
+    publish?: boolean;
+    unpublished?: boolean;
+    languages?: string;
+}
+
+export interface ContentsPostContentRequestRaw {
     schema: string;
     requestBody: { [key: string]: { [key: string]: any; }; };
     status?: string | null;
@@ -159,12 +250,21 @@ export interface ContentsPostContentRequest {
     languages?: string;
 }
 
-export interface ContentsPostContentsRequest {
+export interface ContentsPostContentsRequestRaw {
     schema: string;
     importContentsDto: ImportContentsDto;
 }
 
 export interface ContentsPostUpsertContentRequest {
+    status?: string | null;
+    patch?: boolean;
+    enrichDefaults?: boolean;
+    publish?: boolean;
+    unpublished?: boolean;
+    languages?: string;
+}
+
+export interface ContentsPostUpsertContentRequestRaw {
     schema: string;
     id: string;
     requestBody: { [key: string]: { [key: string]: any; }; };
@@ -177,6 +277,12 @@ export interface ContentsPostUpsertContentRequest {
 }
 
 export interface ContentsPutContentRequest {
+    enrichDefaults?: boolean;
+    unpublished?: boolean;
+    languages?: string;
+}
+
+export interface ContentsPutContentRequestRaw {
     schema: string;
     id: string;
     requestBody: { [key: string]: { [key: string]: any; }; };
@@ -186,6 +292,12 @@ export interface ContentsPutContentRequest {
 }
 
 export interface ContentsPutContentDefaultsRequest {
+    enrichRequiredFields?: boolean;
+    unpublished?: boolean;
+    languages?: string;
+}
+
+export interface ContentsPutContentDefaultsRequestRaw {
     schema: string;
     id: string;
     enrichRequiredFields?: boolean;
@@ -194,6 +306,11 @@ export interface ContentsPutContentDefaultsRequest {
 }
 
 export interface ContentsPutContentStatusRequest {
+    unpublished?: boolean;
+    languages?: string;
+}
+
+export interface ContentsPutContentStatusRequestRaw {
     schema: string;
     id: string;
     changeStatusDto: ChangeStatusDto;
@@ -202,6 +319,10 @@ export interface ContentsPutContentStatusRequest {
 }
 
 export interface ContentsSharedBulkUpdateAllContentsRequest {
+    schema?: string;
+}
+
+export interface ContentsSharedBulkUpdateAllContentsRequestRaw {
     bulkUpdateContentsDto: BulkUpdateContentsDto;
     schema?: string;
 }
@@ -221,7 +342,31 @@ export interface ContentsSharedGetAllContentsRequest {
     unpublished?: boolean;
 }
 
+export interface ContentsSharedGetAllContentsRequestRaw {
+    ids?: string | null;
+    scheduleFrom?: Date | null;
+    scheduleTo?: Date | null;
+    referencing?: string | null;
+    references?: string | null;
+    q?: string | null;
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
+    unpublished?: boolean;
+}
+
 export interface ContentsSharedGetAllContentsPostRequest {
+    fields?: string;
+    flatten?: boolean;
+    languages?: string;
+    noSlowTotal?: boolean;
+    noTotal?: boolean;
+    unpublished?: boolean;
+}
+
+export interface ContentsSharedGetAllContentsPostRequestRaw {
     allContentsByPostDto: AllContentsByPostDto;
     fields?: string;
     flatten?: boolean;
@@ -238,7 +383,21 @@ export interface ContentsSharedGetGraphQLRequest {
     unpublished?: boolean;
 }
 
+export interface ContentsSharedGetGraphQLRequestRaw {
+    theQueryString?: string;
+    variables?: string | null;
+    operationName?: string | null;
+    unpublished?: boolean;
+}
+
 export interface ContentsSharedGetGraphQLBatchRequest {
+    theQueryString?: string;
+    variables?: string | null;
+    operationName?: string | null;
+    unpublished?: boolean;
+}
+
+export interface ContentsSharedGetGraphQLBatchRequestRaw {
     theQueryString?: string;
     variables?: string | null;
     operationName?: string | null;
@@ -250,7 +409,17 @@ export interface ContentsSharedPostGraphQLRequest {
     body?: any | null;
 }
 
+export interface ContentsSharedPostGraphQLRequestRaw {
+    unpublished?: boolean;
+    body?: any | null;
+}
+
 export interface ContentsSharedPostGraphQLBatchRequest {
+    unpublished?: boolean;
+    body?: any | null;
+}
+
+export interface ContentsSharedPostGraphQLBatchRequestRaw {
     unpublished?: boolean;
     body?: any | null;
 }
@@ -271,13 +440,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    bulkUpdateContentsRaw(requestParameters: ContentsBulkUpdateContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>>;
+    bulkUpdateContentsRaw(schema: string, bulkUpdateContentsDto: BulkUpdateContentsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Bulk update content items.
      */
-    bulkUpdateContents(requestParameters: ContentsBulkUpdateContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>>;
+    bulkUpdateContents(schema: string, bulkUpdateContentsDto: BulkUpdateContentsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -290,13 +459,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    createDraftRaw(requestParameters: ContentsCreateDraftRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
+    createDraftRaw(schema: string, id: string, requestParameters?: ContentsCreateDraftRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Create a new draft version.
      */
-    createDraft(requestParameters: ContentsCreateDraftRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
+    createDraft(schema: string, id: string, requestParameters?: ContentsCreateDraftRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
 
     /**
      * You can create an generated documentation for your app at /api/content/{appName}/docs.
@@ -309,13 +478,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    deleteContentRaw(requestParameters: ContentsDeleteContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteContentRaw(schema: string, id: string, requestParameters?: ContentsDeleteContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * You can create an generated documentation for your app at /api/content/{appName}/docs.
      * Delete a content item.
      */
-    deleteContent(requestParameters: ContentsDeleteContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteContent(schema: string, id: string, requestParameters?: ContentsDeleteContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -328,13 +497,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    deleteContentStatusRaw(requestParameters: ContentsDeleteContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
+    deleteContentStatusRaw(schema: string, id: string, requestParameters?: ContentsDeleteContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Cancel status change of a content item.
      */
-    deleteContentStatus(requestParameters: ContentsDeleteContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
+    deleteContentStatus(schema: string, id: string, requestParameters?: ContentsDeleteContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -347,13 +516,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    deleteVersionRaw(requestParameters: ContentsDeleteVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
+    deleteVersionRaw(schema: string, id: string, requestParameters?: ContentsDeleteVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Delete the draft version.
      */
-    deleteVersion(requestParameters: ContentsDeleteVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
+    deleteVersion(schema: string, id: string, requestParameters?: ContentsDeleteVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -369,13 +538,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getContentRaw(requestParameters: ContentsGetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
+    getContentRaw(schema: string, id: string, requestParameters?: ContentsGetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get a content item.
      */
-    getContent(requestParameters: ContentsGetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
+    getContent(schema: string, id: string, requestParameters?: ContentsGetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -386,13 +555,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getContentValidityRaw(requestParameters: ContentsGetContentValidityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    getContentValidityRaw(schema: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get a content item validity.
      */
-    getContentValidity(requestParameters: ContentsGetContentValidityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    getContentValidity(schema: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -407,14 +576,14 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getContentVersionRaw(requestParameters: ContentsGetContentVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
+    getContentVersionRaw(schema: string, id: string, version: number, requestParameters?: ContentsGetContentVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get a content by version.
      * @deprecated
      */
-    getContentVersion(requestParameters: ContentsGetContentVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
+    getContentVersion(schema: string, id: string, version: number, requestParameters?: ContentsGetContentVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -437,13 +606,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getContentsRaw(requestParameters: ContentsGetContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
+    getContentsRaw(schema: string, requestParameters?: ContentsGetContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Queries contents.
      */
-    getContents(requestParameters: ContentsGetContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
+    getContents(schema: string, requestParameters?: ContentsGetContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -460,13 +629,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getContentsPostRaw(requestParameters: ContentsGetContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
+    getContentsPostRaw(schema: string, queryDto: QueryDto, requestParameters?: ContentsGetContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Queries contents.
      */
-    getContentsPost(requestParameters: ContentsGetContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
+    getContentsPost(schema: string, queryDto: QueryDto, requestParameters?: ContentsGetContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -484,13 +653,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getReferencesRaw(requestParameters: ContentsGetReferencesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
+    getReferencesRaw(schema: string, id: string, requestParameters?: ContentsGetReferencesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get all references of a content.
      */
-    getReferences(requestParameters: ContentsGetReferencesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
+    getReferences(schema: string, id: string, requestParameters?: ContentsGetReferencesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -508,13 +677,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getReferencingRaw(requestParameters: ContentsGetReferencingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
+    getReferencingRaw(schema: string, id: string, requestParameters?: ContentsGetReferencingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get a referencing contents of a content item.
      */
-    getReferencing(requestParameters: ContentsGetReferencingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
+    getReferencing(schema: string, id: string, requestParameters?: ContentsGetReferencingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -528,13 +697,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    patchContentRaw(requestParameters: ContentsPatchContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
+    patchContentRaw(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters?: ContentsPatchContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Patchs a content item.
      */
-    patchContent(requestParameters: ContentsPatchContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
+    patchContent(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters?: ContentsPatchContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -550,13 +719,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    postContentRaw(requestParameters: ContentsPostContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
+    postContentRaw(schema: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters?: ContentsPostContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Create a content item.
      */
-    postContent(requestParameters: ContentsPostContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
+    postContent(schema: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters?: ContentsPostContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -568,14 +737,14 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    postContentsRaw(requestParameters: ContentsPostContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>>;
+    postContentsRaw(schema: string, importContentsDto: ImportContentsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Import content items.
      * @deprecated
      */
-    postContents(requestParameters: ContentsPostContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>>;
+    postContents(schema: string, importContentsDto: ImportContentsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -593,13 +762,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    postUpsertContentRaw(requestParameters: ContentsPostUpsertContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
+    postUpsertContentRaw(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters?: ContentsPostUpsertContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Upsert a content item.
      */
-    postUpsertContent(requestParameters: ContentsPostUpsertContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
+    postUpsertContent(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters?: ContentsPostUpsertContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -614,13 +783,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    putContentRaw(requestParameters: ContentsPutContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
+    putContentRaw(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters?: ContentsPutContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Update a content item.
      */
-    putContent(requestParameters: ContentsPutContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
+    putContent(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters?: ContentsPutContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -634,13 +803,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    putContentDefaultsRaw(requestParameters: ContentsPutContentDefaultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
+    putContentDefaultsRaw(schema: string, id: string, requestParameters?: ContentsPutContentDefaultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Enrich a content item with defaults.
      */
-    putContentDefaults(requestParameters: ContentsPutContentDefaultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
+    putContentDefaults(schema: string, id: string, requestParameters?: ContentsPutContentDefaultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -654,13 +823,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    putContentStatusRaw(requestParameters: ContentsPutContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
+    putContentStatusRaw(schema: string, id: string, changeStatusDto: ChangeStatusDto, requestParameters?: ContentsPutContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Change status of a content item.
      */
-    putContentStatus(requestParameters: ContentsPutContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
+    putContentStatus(schema: string, id: string, changeStatusDto: ChangeStatusDto, requestParameters?: ContentsPutContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -671,13 +840,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    bulkUpdateAllContentsRaw(requestParameters: ContentsSharedBulkUpdateAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>>;
+    bulkUpdateAllContentsRaw(bulkUpdateContentsDto: BulkUpdateContentsDto, requestParameters?: ContentsSharedBulkUpdateAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Bulk update content items.
      */
-    bulkUpdateAllContents(requestParameters: ContentsSharedBulkUpdateAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>>;
+    bulkUpdateAllContents(bulkUpdateContentsDto: BulkUpdateContentsDto, requestParameters?: ContentsSharedBulkUpdateAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -698,13 +867,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getAllContentsRaw(requestParameters: ContentsSharedGetAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
+    getAllContentsRaw(requestParameters?: ContentsSharedGetAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Queries contents.
      */
-    getAllContents(requestParameters: ContentsSharedGetAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
+    getAllContents(requestParameters?: ContentsSharedGetAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -720,13 +889,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getAllContentsPostRaw(requestParameters: ContentsSharedGetAllContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
+    getAllContentsPostRaw(allContentsByPostDto: AllContentsByPostDto, requestParameters?: ContentsSharedGetAllContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Queries contents.
      */
-    getAllContentsPost(requestParameters: ContentsSharedGetAllContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
+    getAllContentsPost(allContentsByPostDto: AllContentsByPostDto, requestParameters?: ContentsSharedGetAllContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -739,13 +908,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getGraphQLRaw(requestParameters: ContentsSharedGetGraphQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>>;
+    getGraphQLRaw(requestParameters?: ContentsSharedGetGraphQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * GraphQL endpoint.
      */
-    getGraphQL(requestParameters: ContentsSharedGetGraphQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any>;
+    getGraphQL(requestParameters?: ContentsSharedGetGraphQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -758,13 +927,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    getGraphQLBatchRaw(requestParameters: ContentsSharedGetGraphQLBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>>;
+    getGraphQLBatchRaw(requestParameters?: ContentsSharedGetGraphQLBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * GraphQL batch endpoint.
      */
-    getGraphQLBatch(requestParameters: ContentsSharedGetGraphQLBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any>;
+    getGraphQLBatch(requestParameters?: ContentsSharedGetGraphQLBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -775,13 +944,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    postGraphQLRaw(requestParameters: ContentsSharedPostGraphQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>>;
+    postGraphQLRaw(requestParameters?: ContentsSharedPostGraphQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * GraphQL endpoint.
      */
-    postGraphQL(requestParameters: ContentsSharedPostGraphQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any>;
+    postGraphQL(requestParameters?: ContentsSharedPostGraphQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
@@ -792,13 +961,13 @@ export interface ContentsApiInterface {
      * @throws {RequiredError}
      * @memberof ContentsApiInterface
      */
-    postGraphQLBatchRaw(requestParameters: ContentsSharedPostGraphQLBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>>;
+    postGraphQLBatchRaw(requestParameters?: ContentsSharedPostGraphQLBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>>;
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * GraphQL batch endpoint.
      */
-    postGraphQLBatch(requestParameters: ContentsSharedPostGraphQLBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any>;
+    postGraphQLBatch(requestParameters?: ContentsSharedPostGraphQLBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any>;
 
 }
 
@@ -811,15 +980,18 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Bulk update content items.
      */
-    async bulkUpdateContentsRaw(requestParameters: ContentsBulkUpdateContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>> {
-        if (requestParameters['schema'] == null) {
+    async bulkUpdateContentsRaw(schema: string, bulkUpdateContentsDto: BulkUpdateContentsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>> {
+        const _schema = schema;
+        const _bulkUpdateContentsDto = bulkUpdateContentsDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['bulkUpdateContentsDto'] == null) {
+        if (_bulkUpdateContentsDto == null) {
             throw new runtime.RequiredError(
                 'bulkUpdateContentsDto',
                 'Required parameter "bulkUpdateContentsDto" was null or undefined when calling ().'
@@ -833,11 +1005,11 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/bulk`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/bulk`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: BulkUpdateContentsDtoToJSON(requestParameters['bulkUpdateContentsDto']),
+            body: BulkUpdateContentsDtoToJSON(_bulkUpdateContentsDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(BulkResultDtoFromJSON));
@@ -847,8 +1019,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Bulk update content items.
      */
-    async bulkUpdateContents(requestParameters: ContentsBulkUpdateContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>> {
-        const response = await this.bulkUpdateContentsRaw(requestParameters, initOverrides);
+    async bulkUpdateContents(schema: string, bulkUpdateContentsDto: BulkUpdateContentsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>> {
+        const response = await this.bulkUpdateContentsRaw(schema, bulkUpdateContentsDto, initOverrides);
         return await response.value();
     }
 
@@ -856,15 +1028,20 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Create a new draft version.
      */
-    async createDraftRaw(requestParameters: ContentsCreateDraftRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
-        if (requestParameters['schema'] == null) {
+    async createDraftRaw(schema: string, id: string, requestParameters: ContentsCreateDraftRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _unpublished = requestParameters?.['unpublished'];
+        const _languages = requestParameters?.['languages'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -875,16 +1052,16 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/draft`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/draft`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -897,8 +1074,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Create a new draft version.
      */
-    async createDraft(requestParameters: ContentsCreateDraftRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
-        const response = await this.createDraftRaw(requestParameters, initOverrides);
+    async createDraft(schema: string, id: string, requestParameters: ContentsCreateDraftRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
+        const response = await this.createDraftRaw(schema, id, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -906,15 +1083,20 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can create an generated documentation for your app at /api/content/{appName}/docs.
      * Delete a content item.
      */
-    async deleteContentRaw(requestParameters: ContentsDeleteContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['schema'] == null) {
+    async deleteContentRaw(schema: string, id: string, requestParameters: ContentsDeleteContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _schema = schema;
+        const _id = id;
+        const _checkReferrers = requestParameters?.['checkReferrers'];
+        const _permanent = requestParameters?.['permanent'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -923,18 +1105,18 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const queryParameters: any = {};
 
-        if (requestParameters['checkReferrers'] != null) {
-            queryParameters['checkReferrers'] = requestParameters['checkReferrers'];
+        if (_checkReferrers != null) {
+            queryParameters['checkReferrers'] = _checkReferrers;
         }
 
-        if (requestParameters['permanent'] != null) {
-            queryParameters['permanent'] = requestParameters['permanent'];
+        if (_permanent != null) {
+            queryParameters['permanent'] = _permanent;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -947,23 +1129,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can create an generated documentation for your app at /api/content/{appName}/docs.
      * Delete a content item.
      */
-    async deleteContent(requestParameters: ContentsDeleteContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteContentRaw(requestParameters, initOverrides);
+    async deleteContent(schema: string, id: string, requestParameters: ContentsDeleteContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteContentRaw(schema, id, requestParameters, initOverrides);
     }
 
     /**
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Cancel status change of a content item.
      */
-    async deleteContentStatusRaw(requestParameters: ContentsDeleteContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
-        if (requestParameters['schema'] == null) {
+    async deleteContentStatusRaw(schema: string, id: string, requestParameters: ContentsDeleteContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _unpublished = requestParameters?.['unpublished'];
+        const _languages = requestParameters?.['languages'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -974,16 +1161,16 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/status`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/status`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -996,8 +1183,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Cancel status change of a content item.
      */
-    async deleteContentStatus(requestParameters: ContentsDeleteContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
-        const response = await this.deleteContentStatusRaw(requestParameters, initOverrides);
+    async deleteContentStatus(schema: string, id: string, requestParameters: ContentsDeleteContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
+        const response = await this.deleteContentStatusRaw(schema, id, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1005,15 +1192,20 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Delete the draft version.
      */
-    async deleteVersionRaw(requestParameters: ContentsDeleteVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
-        if (requestParameters['schema'] == null) {
+    async deleteVersionRaw(schema: string, id: string, requestParameters: ContentsDeleteVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _unpublished = requestParameters?.['unpublished'];
+        const _languages = requestParameters?.['languages'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1024,16 +1216,16 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/draft`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/draft`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1046,8 +1238,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Delete the draft version.
      */
-    async deleteVersion(requestParameters: ContentsDeleteVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
-        const response = await this.deleteVersionRaw(requestParameters, initOverrides);
+    async deleteVersion(schema: string, id: string, requestParameters: ContentsDeleteVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
+        const response = await this.deleteVersionRaw(schema, id, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1055,15 +1247,23 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get a content item.
      */
-    async getContentRaw(requestParameters: ContentsGetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
-        if (requestParameters['schema'] == null) {
+    async getContentRaw(schema: string, id: string, requestParameters: ContentsGetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _version = requestParameters?.['version'];
+        const _fields = requestParameters?.['fields'];
+        const _flatten = requestParameters?.['flatten'];
+        const _languages = requestParameters?.['languages'];
+        const _unpublished = requestParameters?.['unpublished'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1072,30 +1272,30 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const queryParameters: any = {};
 
-        if (requestParameters['version'] != null) {
-            queryParameters['version'] = requestParameters['version'];
+        if (_version != null) {
+            queryParameters['version'] = _version;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['fields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['fields']);
+        if (_fields != null) {
+            headerParameters['X-Fields'] = String(_fields);
         }
 
-        if (requestParameters['flatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
+        if (_flatten != null) {
+            headerParameters['X-Flatten'] = String(_flatten);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1108,8 +1308,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get a content item.
      */
-    async getContent(requestParameters: ContentsGetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
-        const response = await this.getContentRaw(requestParameters, initOverrides);
+    async getContent(schema: string, id: string, requestParameters: ContentsGetContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
+        const response = await this.getContentRaw(schema, id, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1117,15 +1317,18 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get a content item validity.
      */
-    async getContentValidityRaw(requestParameters: ContentsGetContentValidityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['schema'] == null) {
+    async getContentValidityRaw(schema: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _schema = schema;
+        const _id = id;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1137,7 +1340,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/validity`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/validity`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1150,8 +1353,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get a content item validity.
      */
-    async getContentValidity(requestParameters: ContentsGetContentValidityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.getContentValidityRaw(requestParameters, initOverrides);
+    async getContentValidity(schema: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.getContentValidityRaw(schema, id, initOverrides);
     }
 
     /**
@@ -1159,22 +1362,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * Get a content by version.
      * @deprecated
      */
-    async getContentVersionRaw(requestParameters: ContentsGetContentVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters['schema'] == null) {
+    async getContentVersionRaw(schema: string, id: string, version: number, requestParameters: ContentsGetContentVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const _schema = schema;
+        const _id = id;
+        const _version = version;
+        const _unpublished = requestParameters?.['unpublished'];
+        const _languages = requestParameters?.['languages'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['version'] == null) {
+        if (_version == null) {
             throw new runtime.RequiredError(
                 'version',
                 'Required parameter "version" was null or undefined when calling ().'
@@ -1185,16 +1394,16 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/{version}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace(`{${"version"}}`, encodeURIComponent(String((requestParameters as any)['version']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/{version}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace(`{${"version"}}`, encodeURIComponent(String(_version))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1208,8 +1417,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * Get a content by version.
      * @deprecated
      */
-    async getContentVersion(requestParameters: ContentsGetContentVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
-        const response = await this.getContentVersionRaw(requestParameters, initOverrides);
+    async getContentVersion(schema: string, id: string, version: number, requestParameters: ContentsGetContentVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.getContentVersionRaw(schema, id, version, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1217,8 +1426,23 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Queries contents.
      */
-    async getContentsRaw(requestParameters: ContentsGetContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
-        if (requestParameters['schema'] == null) {
+    async getContentsRaw(schema: string, requestParameters: ContentsGetContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
+        const _schema = schema;
+        const _ids = requestParameters?.['ids'];
+        const _q = requestParameters?.['q'];
+        const _$search = requestParameters?.['$search'];
+        const _$top = requestParameters?.['$top'];
+        const _$skip = requestParameters?.['$skip'];
+        const _$orderby = requestParameters?.['$orderby'];
+        const _$filter = requestParameters?.['$filter'];
+        const _fields = requestParameters?.['fields'];
+        const _flatten = requestParameters?.['flatten'];
+        const _languages = requestParameters?.['languages'];
+        const _noSlowTotal = requestParameters?.['noSlowTotal'];
+        const _noTotal = requestParameters?.['noTotal'];
+        const _unpublished = requestParameters?.['unpublished'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
@@ -1227,62 +1451,62 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const queryParameters: any = {};
 
-        if (requestParameters['ids'] != null) {
-            queryParameters['ids'] = requestParameters['ids'];
+        if (_ids != null) {
+            queryParameters['ids'] = _ids;
         }
 
-        if (requestParameters['q'] != null) {
-            queryParameters['q'] = requestParameters['q'];
+        if (_q != null) {
+            queryParameters['q'] = _q;
         }
 
-        if (requestParameters['$search'] != null) {
-            queryParameters['$search'] = requestParameters['$search'];
+        if (_$search != null) {
+            queryParameters['$search'] = _$search;
         }
 
-        if (requestParameters['$top'] != null) {
-            queryParameters['$top'] = requestParameters['$top'];
+        if (_$top != null) {
+            queryParameters['$top'] = _$top;
         }
 
-        if (requestParameters['$skip'] != null) {
-            queryParameters['$skip'] = requestParameters['$skip'];
+        if (_$skip != null) {
+            queryParameters['$skip'] = _$skip;
         }
 
-        if (requestParameters['$orderby'] != null) {
-            queryParameters['$orderby'] = requestParameters['$orderby'];
+        if (_$orderby != null) {
+            queryParameters['$orderby'] = _$orderby;
         }
 
-        if (requestParameters['$filter'] != null) {
-            queryParameters['$filter'] = requestParameters['$filter'];
+        if (_$filter != null) {
+            queryParameters['$filter'] = _$filter;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['fields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['fields']);
+        if (_fields != null) {
+            headerParameters['X-Fields'] = String(_fields);
         }
 
-        if (requestParameters['flatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
+        if (_flatten != null) {
+            headerParameters['X-Flatten'] = String(_flatten);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
-        if (requestParameters['noSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
+        if (_noSlowTotal != null) {
+            headerParameters['X-NoSlowTotal'] = String(_noSlowTotal);
         }
 
-        if (requestParameters['noTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
+        if (_noTotal != null) {
+            headerParameters['X-NoTotal'] = String(_noTotal);
         }
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1295,8 +1519,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Queries contents.
      */
-    async getContents(requestParameters: ContentsGetContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto> {
-        const response = await this.getContentsRaw(requestParameters, initOverrides);
+    async getContents(schema: string, requestParameters: ContentsGetContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto> {
+        const response = await this.getContentsRaw(schema, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1304,15 +1528,24 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Queries contents.
      */
-    async getContentsPostRaw(requestParameters: ContentsGetContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
-        if (requestParameters['schema'] == null) {
+    async getContentsPostRaw(schema: string, queryDto: QueryDto, requestParameters: ContentsGetContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
+        const _schema = schema;
+        const _queryDto = queryDto;
+        const _fields = requestParameters?.['fields'];
+        const _flatten = requestParameters?.['flatten'];
+        const _languages = requestParameters?.['languages'];
+        const _noSlowTotal = requestParameters?.['noSlowTotal'];
+        const _noTotal = requestParameters?.['noTotal'];
+        const _unpublished = requestParameters?.['unpublished'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['queryDto'] == null) {
+        if (_queryDto == null) {
             throw new runtime.RequiredError(
                 'queryDto',
                 'Required parameter "queryDto" was null or undefined when calling ().'
@@ -1325,36 +1558,36 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['fields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['fields']);
+        if (_fields != null) {
+            headerParameters['X-Fields'] = String(_fields);
         }
 
-        if (requestParameters['flatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
+        if (_flatten != null) {
+            headerParameters['X-Flatten'] = String(_flatten);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
-        if (requestParameters['noSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
+        if (_noSlowTotal != null) {
+            headerParameters['X-NoSlowTotal'] = String(_noSlowTotal);
         }
 
-        if (requestParameters['noTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
+        if (_noTotal != null) {
+            headerParameters['X-NoTotal'] = String(_noTotal);
         }
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/query`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/query`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QueryDtoToJSON(requestParameters['queryDto']),
+            body: QueryDtoToJSON(_queryDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentsDtoFromJSON(jsonValue));
@@ -1364,8 +1597,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Queries contents.
      */
-    async getContentsPost(requestParameters: ContentsGetContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto> {
-        const response = await this.getContentsPostRaw(requestParameters, initOverrides);
+    async getContentsPost(schema: string, queryDto: QueryDto, requestParameters: ContentsGetContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto> {
+        const response = await this.getContentsPostRaw(schema, queryDto, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1373,15 +1606,25 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get all references of a content.
      */
-    async getReferencesRaw(requestParameters: ContentsGetReferencesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
-        if (requestParameters['schema'] == null) {
+    async getReferencesRaw(schema: string, id: string, requestParameters: ContentsGetReferencesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _q = requestParameters?.['q'];
+        const _fields = requestParameters?.['fields'];
+        const _flatten = requestParameters?.['flatten'];
+        const _languages = requestParameters?.['languages'];
+        const _unpublished = requestParameters?.['unpublished'];
+        const _noSlowTotal = requestParameters?.['noSlowTotal'];
+        const _noTotal = requestParameters?.['noTotal'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1390,38 +1633,38 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const queryParameters: any = {};
 
-        if (requestParameters['q'] != null) {
-            queryParameters['q'] = requestParameters['q'];
+        if (_q != null) {
+            queryParameters['q'] = _q;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['fields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['fields']);
+        if (_fields != null) {
+            headerParameters['X-Fields'] = String(_fields);
         }
 
-        if (requestParameters['flatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
+        if (_flatten != null) {
+            headerParameters['X-Flatten'] = String(_flatten);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['noSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
+        if (_noSlowTotal != null) {
+            headerParameters['X-NoSlowTotal'] = String(_noSlowTotal);
         }
 
-        if (requestParameters['noTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
+        if (_noTotal != null) {
+            headerParameters['X-NoTotal'] = String(_noTotal);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/references`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/references`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1434,8 +1677,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get all references of a content.
      */
-    async getReferences(requestParameters: ContentsGetReferencesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto> {
-        const response = await this.getReferencesRaw(requestParameters, initOverrides);
+    async getReferences(schema: string, id: string, requestParameters: ContentsGetReferencesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto> {
+        const response = await this.getReferencesRaw(schema, id, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1443,15 +1686,25 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get a referencing contents of a content item.
      */
-    async getReferencingRaw(requestParameters: ContentsGetReferencingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
-        if (requestParameters['schema'] == null) {
+    async getReferencingRaw(schema: string, id: string, requestParameters: ContentsGetReferencingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _q = requestParameters?.['q'];
+        const _fields = requestParameters?.['fields'];
+        const _flatten = requestParameters?.['flatten'];
+        const _languages = requestParameters?.['languages'];
+        const _unpublished = requestParameters?.['unpublished'];
+        const _noSlowTotal = requestParameters?.['noSlowTotal'];
+        const _noTotal = requestParameters?.['noTotal'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1460,38 +1713,38 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const queryParameters: any = {};
 
-        if (requestParameters['q'] != null) {
-            queryParameters['q'] = requestParameters['q'];
+        if (_q != null) {
+            queryParameters['q'] = _q;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['fields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['fields']);
+        if (_fields != null) {
+            headerParameters['X-Fields'] = String(_fields);
         }
 
-        if (requestParameters['flatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
+        if (_flatten != null) {
+            headerParameters['X-Flatten'] = String(_flatten);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['noSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
+        if (_noSlowTotal != null) {
+            headerParameters['X-NoSlowTotal'] = String(_noSlowTotal);
         }
 
-        if (requestParameters['noTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
+        if (_noTotal != null) {
+            headerParameters['X-NoTotal'] = String(_noTotal);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/referencing`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/referencing`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1504,8 +1757,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Get a referencing contents of a content item.
      */
-    async getReferencing(requestParameters: ContentsGetReferencingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto> {
-        const response = await this.getReferencingRaw(requestParameters, initOverrides);
+    async getReferencing(schema: string, id: string, requestParameters: ContentsGetReferencingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto> {
+        const response = await this.getReferencingRaw(schema, id, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1513,22 +1766,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Patchs a content item.
      */
-    async patchContentRaw(requestParameters: ContentsPatchContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
-        if (requestParameters['schema'] == null) {
+    async patchContentRaw(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters: ContentsPatchContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _requestBody = requestBody;
+        const _unpublished = requestParameters?.['unpublished'];
+        const _languages = requestParameters?.['languages'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['requestBody'] == null) {
+        if (_requestBody == null) {
             throw new runtime.RequiredError(
                 'requestBody',
                 'Required parameter "requestBody" was null or undefined when calling ().'
@@ -1541,20 +1800,20 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters['requestBody'],
+            body: _requestBody,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentDtoFromJSON(jsonValue));
@@ -1564,8 +1823,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Patchs a content item.
      */
-    async patchContent(requestParameters: ContentsPatchContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
-        const response = await this.patchContentRaw(requestParameters, initOverrides);
+    async patchContent(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters: ContentsPatchContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
+        const response = await this.patchContentRaw(schema, id, requestBody, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1573,15 +1832,23 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Create a content item.
      */
-    async postContentRaw(requestParameters: ContentsPostContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
-        if (requestParameters['schema'] == null) {
+    async postContentRaw(schema: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters: ContentsPostContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
+        const _schema = schema;
+        const _requestBody = requestBody;
+        const _status = requestParameters?.['status'];
+        const _id = requestParameters?.['id'];
+        const _publish = requestParameters?.['publish'];
+        const _unpublished = requestParameters?.['unpublished'];
+        const _languages = requestParameters?.['languages'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['requestBody'] == null) {
+        if (_requestBody == null) {
             throw new runtime.RequiredError(
                 'requestBody',
                 'Required parameter "requestBody" was null or undefined when calling ().'
@@ -1590,36 +1857,36 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const queryParameters: any = {};
 
-        if (requestParameters['status'] != null) {
-            queryParameters['status'] = requestParameters['status'];
+        if (_status != null) {
+            queryParameters['status'] = _status;
         }
 
-        if (requestParameters['id'] != null) {
-            queryParameters['id'] = requestParameters['id'];
+        if (_id != null) {
+            queryParameters['id'] = _id;
         }
 
-        if (requestParameters['publish'] != null) {
-            queryParameters['publish'] = requestParameters['publish'];
+        if (_publish != null) {
+            queryParameters['publish'] = _publish;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters['requestBody'],
+            body: _requestBody,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentDtoFromJSON(jsonValue));
@@ -1629,8 +1896,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Create a content item.
      */
-    async postContent(requestParameters: ContentsPostContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
-        const response = await this.postContentRaw(requestParameters, initOverrides);
+    async postContent(schema: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters: ContentsPostContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
+        const response = await this.postContentRaw(schema, requestBody, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1639,15 +1906,18 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * Import content items.
      * @deprecated
      */
-    async postContentsRaw(requestParameters: ContentsPostContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>> {
-        if (requestParameters['schema'] == null) {
+    async postContentsRaw(schema: string, importContentsDto: ImportContentsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>> {
+        const _schema = schema;
+        const _importContentsDto = importContentsDto;
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['importContentsDto'] == null) {
+        if (_importContentsDto == null) {
             throw new runtime.RequiredError(
                 'importContentsDto',
                 'Required parameter "importContentsDto" was null or undefined when calling ().'
@@ -1661,11 +1931,11 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/import`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/import`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ImportContentsDtoToJSON(requestParameters['importContentsDto']),
+            body: ImportContentsDtoToJSON(_importContentsDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(BulkResultDtoFromJSON));
@@ -1676,8 +1946,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * Import content items.
      * @deprecated
      */
-    async postContents(requestParameters: ContentsPostContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>> {
-        const response = await this.postContentsRaw(requestParameters, initOverrides);
+    async postContents(schema: string, importContentsDto: ImportContentsDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>> {
+        const response = await this.postContentsRaw(schema, importContentsDto, initOverrides);
         return await response.value();
     }
 
@@ -1685,22 +1955,32 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Upsert a content item.
      */
-    async postUpsertContentRaw(requestParameters: ContentsPostUpsertContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
-        if (requestParameters['schema'] == null) {
+    async postUpsertContentRaw(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters: ContentsPostUpsertContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _requestBody = requestBody;
+        const _status = requestParameters?.['status'];
+        const _patch = requestParameters?.['patch'];
+        const _enrichDefaults = requestParameters?.['enrichDefaults'];
+        const _publish = requestParameters?.['publish'];
+        const _unpublished = requestParameters?.['unpublished'];
+        const _languages = requestParameters?.['languages'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['requestBody'] == null) {
+        if (_requestBody == null) {
             throw new runtime.RequiredError(
                 'requestBody',
                 'Required parameter "requestBody" was null or undefined when calling ().'
@@ -1709,40 +1989,40 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const queryParameters: any = {};
 
-        if (requestParameters['status'] != null) {
-            queryParameters['status'] = requestParameters['status'];
+        if (_status != null) {
+            queryParameters['status'] = _status;
         }
 
-        if (requestParameters['patch'] != null) {
-            queryParameters['patch'] = requestParameters['patch'];
+        if (_patch != null) {
+            queryParameters['patch'] = _patch;
         }
 
-        if (requestParameters['enrichDefaults'] != null) {
-            queryParameters['enrichDefaults'] = requestParameters['enrichDefaults'];
+        if (_enrichDefaults != null) {
+            queryParameters['enrichDefaults'] = _enrichDefaults;
         }
 
-        if (requestParameters['publish'] != null) {
-            queryParameters['publish'] = requestParameters['publish'];
+        if (_publish != null) {
+            queryParameters['publish'] = _publish;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters['requestBody'],
+            body: _requestBody,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentDtoFromJSON(jsonValue));
@@ -1752,8 +2032,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Upsert a content item.
      */
-    async postUpsertContent(requestParameters: ContentsPostUpsertContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
-        const response = await this.postUpsertContentRaw(requestParameters, initOverrides);
+    async postUpsertContent(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters: ContentsPostUpsertContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
+        const response = await this.postUpsertContentRaw(schema, id, requestBody, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1761,22 +2041,29 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Update a content item.
      */
-    async putContentRaw(requestParameters: ContentsPutContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
-        if (requestParameters['schema'] == null) {
+    async putContentRaw(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters: ContentsPutContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _requestBody = requestBody;
+        const _enrichDefaults = requestParameters?.['enrichDefaults'];
+        const _unpublished = requestParameters?.['unpublished'];
+        const _languages = requestParameters?.['languages'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['requestBody'] == null) {
+        if (_requestBody == null) {
             throw new runtime.RequiredError(
                 'requestBody',
                 'Required parameter "requestBody" was null or undefined when calling ().'
@@ -1785,28 +2072,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const queryParameters: any = {};
 
-        if (requestParameters['enrichDefaults'] != null) {
-            queryParameters['enrichDefaults'] = requestParameters['enrichDefaults'];
+        if (_enrichDefaults != null) {
+            queryParameters['enrichDefaults'] = _enrichDefaults;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters['requestBody'],
+            body: _requestBody,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentDtoFromJSON(jsonValue));
@@ -1816,8 +2103,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Update a content item.
      */
-    async putContent(requestParameters: ContentsPutContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
-        const response = await this.putContentRaw(requestParameters, initOverrides);
+    async putContent(schema: string, id: string, requestBody: { [key: string]: { [key: string]: any; }; }, requestParameters: ContentsPutContentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
+        const response = await this.putContentRaw(schema, id, requestBody, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1825,15 +2112,21 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Enrich a content item with defaults.
      */
-    async putContentDefaultsRaw(requestParameters: ContentsPutContentDefaultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
-        if (requestParameters['schema'] == null) {
+    async putContentDefaultsRaw(schema: string, id: string, requestParameters: ContentsPutContentDefaultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _enrichRequiredFields = requestParameters?.['enrichRequiredFields'];
+        const _unpublished = requestParameters?.['unpublished'];
+        const _languages = requestParameters?.['languages'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
@@ -1842,22 +2135,22 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const queryParameters: any = {};
 
-        if (requestParameters['enrichRequiredFields'] != null) {
-            queryParameters['enrichRequiredFields'] = requestParameters['enrichRequiredFields'];
+        if (_enrichRequiredFields != null) {
+            queryParameters['enrichRequiredFields'] = _enrichRequiredFields;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/defaults`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/defaults`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1870,8 +2163,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Enrich a content item with defaults.
      */
-    async putContentDefaults(requestParameters: ContentsPutContentDefaultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
-        const response = await this.putContentDefaultsRaw(requestParameters, initOverrides);
+    async putContentDefaults(schema: string, id: string, requestParameters: ContentsPutContentDefaultsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
+        const response = await this.putContentDefaultsRaw(schema, id, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1879,22 +2172,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Change status of a content item.
      */
-    async putContentStatusRaw(requestParameters: ContentsPutContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
-        if (requestParameters['schema'] == null) {
+    async putContentStatusRaw(schema: string, id: string, changeStatusDto: ChangeStatusDto, requestParameters: ContentsPutContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentDto>> {
+        const _schema = schema;
+        const _id = id;
+        const _changeStatusDto = changeStatusDto;
+        const _unpublished = requestParameters?.['unpublished'];
+        const _languages = requestParameters?.['languages'];
+
+        if (_schema == null) {
             throw new runtime.RequiredError(
                 'schema',
                 'Required parameter "schema" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['id'] == null) {
+        if (_id == null) {
             throw new runtime.RequiredError(
                 'id',
                 'Required parameter "id" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['changeStatusDto'] == null) {
+        if (_changeStatusDto == null) {
             throw new runtime.RequiredError(
                 'changeStatusDto',
                 'Required parameter "changeStatusDto" was null or undefined when calling ().'
@@ -1907,20 +2206,20 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/status`.replace(`{${"schema"}}`, encodeURIComponent(String((requestParameters as any)['schema']))).replace(`{${"id"}}`, encodeURIComponent(String((requestParameters as any)['id']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/status`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: ChangeStatusDtoToJSON(requestParameters['changeStatusDto']),
+            body: ChangeStatusDtoToJSON(_changeStatusDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentDtoFromJSON(jsonValue));
@@ -1930,8 +2229,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Change status of a content item.
      */
-    async putContentStatus(requestParameters: ContentsPutContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
-        const response = await this.putContentStatusRaw(requestParameters, initOverrides);
+    async putContentStatus(schema: string, id: string, changeStatusDto: ChangeStatusDto, requestParameters: ContentsPutContentStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentDto> {
+        const response = await this.putContentStatusRaw(schema, id, changeStatusDto, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1939,8 +2238,11 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Bulk update content items.
      */
-    async bulkUpdateAllContentsRaw(requestParameters: ContentsSharedBulkUpdateAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>> {
-        if (requestParameters['bulkUpdateContentsDto'] == null) {
+    async bulkUpdateAllContentsRaw(bulkUpdateContentsDto: BulkUpdateContentsDto, requestParameters: ContentsSharedBulkUpdateAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BulkResultDto>>> {
+        const _bulkUpdateContentsDto = bulkUpdateContentsDto;
+        const _schema = requestParameters?.['schema'];
+
+        if (_bulkUpdateContentsDto == null) {
             throw new runtime.RequiredError(
                 'bulkUpdateContentsDto',
                 'Required parameter "bulkUpdateContentsDto" was null or undefined when calling ().'
@@ -1949,8 +2251,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         const queryParameters: any = {};
 
-        if (requestParameters['schema'] != null) {
-            queryParameters['schema'] = requestParameters['schema'];
+        if (_schema != null) {
+            queryParameters['schema'] = _schema;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1962,7 +2264,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: BulkUpdateContentsDtoToJSON(requestParameters['bulkUpdateContentsDto']),
+            body: BulkUpdateContentsDtoToJSON(_bulkUpdateContentsDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(BulkResultDtoFromJSON));
@@ -1972,8 +2274,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Bulk update content items.
      */
-    async bulkUpdateAllContents(requestParameters: ContentsSharedBulkUpdateAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>> {
-        const response = await this.bulkUpdateAllContentsRaw(requestParameters, initOverrides);
+    async bulkUpdateAllContents(bulkUpdateContentsDto: BulkUpdateContentsDto, requestParameters: ContentsSharedBulkUpdateAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BulkResultDto>> {
+        const response = await this.bulkUpdateAllContentsRaw(bulkUpdateContentsDto, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1982,56 +2284,69 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * Queries contents.
      */
     async getAllContentsRaw(requestParameters: ContentsSharedGetAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
+        const _ids = requestParameters?.['ids'];
+        const _scheduleFrom = requestParameters?.['scheduleFrom'];
+        const _scheduleTo = requestParameters?.['scheduleTo'];
+        const _referencing = requestParameters?.['referencing'];
+        const _references = requestParameters?.['references'];
+        const _q = requestParameters?.['q'];
+        const _fields = requestParameters?.['fields'];
+        const _flatten = requestParameters?.['flatten'];
+        const _languages = requestParameters?.['languages'];
+        const _noSlowTotal = requestParameters?.['noSlowTotal'];
+        const _noTotal = requestParameters?.['noTotal'];
+        const _unpublished = requestParameters?.['unpublished'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['ids'] != null) {
-            queryParameters['ids'] = requestParameters['ids'];
+        if (_ids != null) {
+            queryParameters['ids'] = _ids;
         }
 
-        if (requestParameters['scheduleFrom'] != null) {
-            queryParameters['scheduleFrom'] = (requestParameters['scheduleFrom'] as any).toISOString();
+        if (_scheduleFrom != null) {
+            queryParameters['scheduleFrom'] = (_scheduleFrom as any).toISOString();
         }
 
-        if (requestParameters['scheduleTo'] != null) {
-            queryParameters['scheduleTo'] = (requestParameters['scheduleTo'] as any).toISOString();
+        if (_scheduleTo != null) {
+            queryParameters['scheduleTo'] = (_scheduleTo as any).toISOString();
         }
 
-        if (requestParameters['referencing'] != null) {
-            queryParameters['referencing'] = requestParameters['referencing'];
+        if (_referencing != null) {
+            queryParameters['referencing'] = _referencing;
         }
 
-        if (requestParameters['references'] != null) {
-            queryParameters['references'] = requestParameters['references'];
+        if (_references != null) {
+            queryParameters['references'] = _references;
         }
 
-        if (requestParameters['q'] != null) {
-            queryParameters['q'] = requestParameters['q'];
+        if (_q != null) {
+            queryParameters['q'] = _q;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['fields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['fields']);
+        if (_fields != null) {
+            headerParameters['X-Fields'] = String(_fields);
         }
 
-        if (requestParameters['flatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
+        if (_flatten != null) {
+            headerParameters['X-Flatten'] = String(_flatten);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
-        if (requestParameters['noSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
+        if (_noSlowTotal != null) {
+            headerParameters['X-NoSlowTotal'] = String(_noSlowTotal);
         }
 
-        if (requestParameters['noTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
+        if (_noTotal != null) {
+            headerParameters['X-NoTotal'] = String(_noTotal);
         }
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
         const response = await this.request({
@@ -2057,8 +2372,16 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Queries contents.
      */
-    async getAllContentsPostRaw(requestParameters: ContentsSharedGetAllContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
-        if (requestParameters['allContentsByPostDto'] == null) {
+    async getAllContentsPostRaw(allContentsByPostDto: AllContentsByPostDto, requestParameters: ContentsSharedGetAllContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
+        const _allContentsByPostDto = allContentsByPostDto;
+        const _fields = requestParameters?.['fields'];
+        const _flatten = requestParameters?.['flatten'];
+        const _languages = requestParameters?.['languages'];
+        const _noSlowTotal = requestParameters?.['noSlowTotal'];
+        const _noTotal = requestParameters?.['noTotal'];
+        const _unpublished = requestParameters?.['unpublished'];
+
+        if (_allContentsByPostDto == null) {
             throw new runtime.RequiredError(
                 'allContentsByPostDto',
                 'Required parameter "allContentsByPostDto" was null or undefined when calling ().'
@@ -2071,28 +2394,28 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['fields'] != null) {
-            headerParameters['X-Fields'] = String(requestParameters['fields']);
+        if (_fields != null) {
+            headerParameters['X-Fields'] = String(_fields);
         }
 
-        if (requestParameters['flatten'] != null) {
-            headerParameters['X-Flatten'] = String(requestParameters['flatten']);
+        if (_flatten != null) {
+            headerParameters['X-Flatten'] = String(_flatten);
         }
 
-        if (requestParameters['languages'] != null) {
-            headerParameters['X-Languages'] = String(requestParameters['languages']);
+        if (_languages != null) {
+            headerParameters['X-Languages'] = String(_languages);
         }
 
-        if (requestParameters['noSlowTotal'] != null) {
-            headerParameters['X-NoSlowTotal'] = String(requestParameters['noSlowTotal']);
+        if (_noSlowTotal != null) {
+            headerParameters['X-NoSlowTotal'] = String(_noSlowTotal);
         }
 
-        if (requestParameters['noTotal'] != null) {
-            headerParameters['X-NoTotal'] = String(requestParameters['noTotal']);
+        if (_noTotal != null) {
+            headerParameters['X-NoTotal'] = String(_noTotal);
         }
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
         const response = await this.request({
@@ -2100,7 +2423,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AllContentsByPostDtoToJSON(requestParameters['allContentsByPostDto']),
+            body: AllContentsByPostDtoToJSON(_allContentsByPostDto),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentsDtoFromJSON(jsonValue));
@@ -2110,8 +2433,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * Queries contents.
      */
-    async getAllContentsPost(requestParameters: ContentsSharedGetAllContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto> {
-        const response = await this.getAllContentsPostRaw(requestParameters, initOverrides);
+    async getAllContentsPost(allContentsByPostDto: AllContentsByPostDto, requestParameters: ContentsSharedGetAllContentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentsDto> {
+        const response = await this.getAllContentsPostRaw(allContentsByPostDto, requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -2120,24 +2443,29 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * GraphQL endpoint.
      */
     async getGraphQLRaw(requestParameters: ContentsSharedGetGraphQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+        const _theQueryString = requestParameters?.['theQueryString'];
+        const _variables = requestParameters?.['variables'];
+        const _operationName = requestParameters?.['operationName'];
+        const _unpublished = requestParameters?.['unpublished'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['theQueryString'] != null) {
-            queryParameters['The query string'] = requestParameters['theQueryString'];
+        if (_theQueryString != null) {
+            queryParameters['The query string'] = _theQueryString;
         }
 
-        if (requestParameters['variables'] != null) {
-            queryParameters['variables'] = requestParameters['variables'];
+        if (_variables != null) {
+            queryParameters['variables'] = _variables;
         }
 
-        if (requestParameters['operationName'] != null) {
-            queryParameters['operationName'] = requestParameters['operationName'];
+        if (_operationName != null) {
+            queryParameters['operationName'] = _operationName;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
         const response = await this.request({
@@ -2168,24 +2496,29 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * GraphQL batch endpoint.
      */
     async getGraphQLBatchRaw(requestParameters: ContentsSharedGetGraphQLBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+        const _theQueryString = requestParameters?.['theQueryString'];
+        const _variables = requestParameters?.['variables'];
+        const _operationName = requestParameters?.['operationName'];
+        const _unpublished = requestParameters?.['unpublished'];
+
         const queryParameters: any = {};
 
-        if (requestParameters['theQueryString'] != null) {
-            queryParameters['The query string'] = requestParameters['theQueryString'];
+        if (_theQueryString != null) {
+            queryParameters['The query string'] = _theQueryString;
         }
 
-        if (requestParameters['variables'] != null) {
-            queryParameters['variables'] = requestParameters['variables'];
+        if (_variables != null) {
+            queryParameters['variables'] = _variables;
         }
 
-        if (requestParameters['operationName'] != null) {
-            queryParameters['operationName'] = requestParameters['operationName'];
+        if (_operationName != null) {
+            queryParameters['operationName'] = _operationName;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
         const response = await this.request({
@@ -2216,14 +2549,17 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * GraphQL endpoint.
      */
     async postGraphQLRaw(requestParameters: ContentsSharedPostGraphQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+        const _unpublished = requestParameters?.['unpublished'];
+        const _body = requestParameters?.['body'];
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
         const response = await this.request({
@@ -2231,7 +2567,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters['body'] as any,
+            body: _body as any,
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -2255,14 +2591,17 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      * GraphQL batch endpoint.
      */
     async postGraphQLBatchRaw(requestParameters: ContentsSharedPostGraphQLBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+        const _unpublished = requestParameters?.['unpublished'];
+        const _body = requestParameters?.['body'];
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (requestParameters['unpublished'] != null) {
-            headerParameters['X-Unpublished'] = String(requestParameters['unpublished']);
+        if (_unpublished != null) {
+            headerParameters['X-Unpublished'] = String(_unpublished);
         }
 
         const response = await this.request({
@@ -2270,7 +2609,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters['body'] as any,
+            body: _body as any,
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {

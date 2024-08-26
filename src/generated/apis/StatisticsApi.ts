@@ -25,27 +25,27 @@ import {
     StorageUsagePerDateDtoFromJSON,
 } from '../models/index';
 
-export interface UsagesGetStorageSizesRequest {
+export interface UsagesGetStorageSizesRequestRaw {
     fromDate: Date;
     toDate: Date;
 }
 
-export interface UsagesGetStorageSizesForTeamRequest {
+export interface UsagesGetStorageSizesForTeamRequestRaw {
     team: string;
     fromDate: Date;
     toDate: Date;
 }
 
-export interface UsagesGetTeamCurrentStorageSizeForTeamRequest {
+export interface UsagesGetTeamCurrentStorageSizeForTeamRequestRaw {
     team: string;
 }
 
-export interface UsagesGetUsagesRequest {
+export interface UsagesGetUsagesRequestRaw {
     fromDate: Date;
     toDate: Date;
 }
 
-export interface UsagesGetUsagesForTeamRequest {
+export interface UsagesGetUsagesForTeamRequestRaw {
     team: string;
     fromDate: Date;
     toDate: Date;
@@ -95,12 +95,12 @@ export interface StatisticsApiInterface {
      * @throws {RequiredError}
      * @memberof StatisticsApiInterface
      */
-    getStorageSizesRaw(requestParameters: UsagesGetStorageSizesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StorageUsagePerDateDto>>>;
+    getStorageSizesRaw(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StorageUsagePerDateDto>>>;
 
     /**
      * Get asset usage by date for app.
      */
-    getStorageSizes(requestParameters: UsagesGetStorageSizesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StorageUsagePerDateDto>>;
+    getStorageSizes(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StorageUsagePerDateDto>>;
 
     /**
      * 
@@ -112,12 +112,12 @@ export interface StatisticsApiInterface {
      * @throws {RequiredError}
      * @memberof StatisticsApiInterface
      */
-    getStorageSizesForTeamRaw(requestParameters: UsagesGetStorageSizesForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StorageUsagePerDateDto>>>;
+    getStorageSizesForTeamRaw(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StorageUsagePerDateDto>>>;
 
     /**
      * Get asset usage by date for team.
      */
-    getStorageSizesForTeam(requestParameters: UsagesGetStorageSizesForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StorageUsagePerDateDto>>;
+    getStorageSizesForTeam(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StorageUsagePerDateDto>>;
 
     /**
      * 
@@ -127,12 +127,12 @@ export interface StatisticsApiInterface {
      * @throws {RequiredError}
      * @memberof StatisticsApiInterface
      */
-    getTeamCurrentStorageSizeForTeamRaw(requestParameters: UsagesGetTeamCurrentStorageSizeForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CurrentStorageDto>>;
+    getTeamCurrentStorageSizeForTeamRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CurrentStorageDto>>;
 
     /**
      * Get total asset size for team.
      */
-    getTeamCurrentStorageSizeForTeam(requestParameters: UsagesGetTeamCurrentStorageSizeForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CurrentStorageDto>;
+    getTeamCurrentStorageSizeForTeam(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CurrentStorageDto>;
 
     /**
      * 
@@ -143,12 +143,12 @@ export interface StatisticsApiInterface {
      * @throws {RequiredError}
      * @memberof StatisticsApiInterface
      */
-    getUsagesRaw(requestParameters: UsagesGetUsagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>>;
+    getUsagesRaw(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>>;
 
     /**
      * Get api calls in date range for app.
      */
-    getUsages(requestParameters: UsagesGetUsagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto>;
+    getUsages(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto>;
 
     /**
      * 
@@ -160,12 +160,12 @@ export interface StatisticsApiInterface {
      * @throws {RequiredError}
      * @memberof StatisticsApiInterface
      */
-    getUsagesForTeamRaw(requestParameters: UsagesGetUsagesForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>>;
+    getUsagesForTeamRaw(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>>;
 
     /**
      * Get api calls in date range for team.
      */
-    getUsagesForTeam(requestParameters: UsagesGetUsagesForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto>;
+    getUsagesForTeam(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto>;
 
 }
 
@@ -178,6 +178,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
      * Get total asset size for app.
      */
     async getCurrentStorageSizeRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CurrentStorageDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -204,6 +205,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
      * Get api calls as log file.
      */
     async getLogRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LogDownloadDto>> {
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -229,15 +231,18 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get asset usage by date for app.
      */
-    async getStorageSizesRaw(requestParameters: UsagesGetStorageSizesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StorageUsagePerDateDto>>> {
-        if (requestParameters['fromDate'] == null) {
+    async getStorageSizesRaw(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StorageUsagePerDateDto>>> {
+        const _fromDate = fromDate;
+        const _toDate = toDate;
+
+        if (_fromDate == null) {
             throw new runtime.RequiredError(
                 'fromDate',
                 'Required parameter "fromDate" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['toDate'] == null) {
+        if (_toDate == null) {
             throw new runtime.RequiredError(
                 'toDate',
                 'Required parameter "toDate" was null or undefined when calling ().'
@@ -249,7 +254,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/usages/storage/{fromDate}/{toDate}`.replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/usages/storage/{fromDate}/{toDate}`.replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -261,30 +266,34 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get asset usage by date for app.
      */
-    async getStorageSizes(requestParameters: UsagesGetStorageSizesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StorageUsagePerDateDto>> {
-        const response = await this.getStorageSizesRaw(requestParameters, initOverrides);
+    async getStorageSizes(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StorageUsagePerDateDto>> {
+        const response = await this.getStorageSizesRaw(fromDate, toDate, initOverrides);
         return await response.value();
     }
 
     /**
      * Get asset usage by date for team.
      */
-    async getStorageSizesForTeamRaw(requestParameters: UsagesGetStorageSizesForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StorageUsagePerDateDto>>> {
-        if (requestParameters['team'] == null) {
+    async getStorageSizesForTeamRaw(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StorageUsagePerDateDto>>> {
+        const _team = team;
+        const _fromDate = fromDate;
+        const _toDate = toDate;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['fromDate'] == null) {
+        if (_fromDate == null) {
             throw new runtime.RequiredError(
                 'fromDate',
                 'Required parameter "fromDate" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['toDate'] == null) {
+        if (_toDate == null) {
             throw new runtime.RequiredError(
                 'toDate',
                 'Required parameter "toDate" was null or undefined when calling ().'
@@ -296,7 +305,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/usages/storage/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/usages/storage/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -308,16 +317,18 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get asset usage by date for team.
      */
-    async getStorageSizesForTeam(requestParameters: UsagesGetStorageSizesForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StorageUsagePerDateDto>> {
-        const response = await this.getStorageSizesForTeamRaw(requestParameters, initOverrides);
+    async getStorageSizesForTeam(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StorageUsagePerDateDto>> {
+        const response = await this.getStorageSizesForTeamRaw(team, fromDate, toDate, initOverrides);
         return await response.value();
     }
 
     /**
      * Get total asset size for team.
      */
-    async getTeamCurrentStorageSizeForTeamRaw(requestParameters: UsagesGetTeamCurrentStorageSizeForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CurrentStorageDto>> {
-        if (requestParameters['team'] == null) {
+    async getTeamCurrentStorageSizeForTeamRaw(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CurrentStorageDto>> {
+        const _team = team;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
@@ -329,7 +340,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/usages/storage/today`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/usages/storage/today`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -341,23 +352,26 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get total asset size for team.
      */
-    async getTeamCurrentStorageSizeForTeam(requestParameters: UsagesGetTeamCurrentStorageSizeForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CurrentStorageDto> {
-        const response = await this.getTeamCurrentStorageSizeForTeamRaw(requestParameters, initOverrides);
+    async getTeamCurrentStorageSizeForTeam(team: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CurrentStorageDto> {
+        const response = await this.getTeamCurrentStorageSizeForTeamRaw(team, initOverrides);
         return await response.value();
     }
 
     /**
      * Get api calls in date range for app.
      */
-    async getUsagesRaw(requestParameters: UsagesGetUsagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>> {
-        if (requestParameters['fromDate'] == null) {
+    async getUsagesRaw(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>> {
+        const _fromDate = fromDate;
+        const _toDate = toDate;
+
+        if (_fromDate == null) {
             throw new runtime.RequiredError(
                 'fromDate',
                 'Required parameter "fromDate" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['toDate'] == null) {
+        if (_toDate == null) {
             throw new runtime.RequiredError(
                 'toDate',
                 'Required parameter "toDate" was null or undefined when calling ().'
@@ -369,7 +383,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/usages/calls/{fromDate}/{toDate}`.replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/usages/calls/{fromDate}/{toDate}`.replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -381,30 +395,34 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get api calls in date range for app.
      */
-    async getUsages(requestParameters: UsagesGetUsagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto> {
-        const response = await this.getUsagesRaw(requestParameters, initOverrides);
+    async getUsages(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto> {
+        const response = await this.getUsagesRaw(fromDate, toDate, initOverrides);
         return await response.value();
     }
 
     /**
      * Get api calls in date range for team.
      */
-    async getUsagesForTeamRaw(requestParameters: UsagesGetUsagesForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>> {
-        if (requestParameters['team'] == null) {
+    async getUsagesForTeamRaw(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>> {
+        const _team = team;
+        const _fromDate = fromDate;
+        const _toDate = toDate;
+
+        if (_team == null) {
             throw new runtime.RequiredError(
                 'team',
                 'Required parameter "team" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['fromDate'] == null) {
+        if (_fromDate == null) {
             throw new runtime.RequiredError(
                 'fromDate',
                 'Required parameter "fromDate" was null or undefined when calling ().'
             );
         }
 
-        if (requestParameters['toDate'] == null) {
+        if (_toDate == null) {
             throw new runtime.RequiredError(
                 'toDate',
                 'Required parameter "toDate" was null or undefined when calling ().'
@@ -416,7 +434,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/usages/calls/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String((requestParameters as any)['team']))).replace(`{${"fromDate"}}`, encodeURIComponent(String((requestParameters as any)['fromDate']))).replace(`{${"toDate"}}`, encodeURIComponent(String((requestParameters as any)['toDate']))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/usages/calls/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))).replace("$app$", encodeURIComponent(this.appName)),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -428,8 +446,8 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get api calls in date range for team.
      */
-    async getUsagesForTeam(requestParameters: UsagesGetUsagesForTeamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto> {
-        const response = await this.getUsagesForTeamRaw(requestParameters, initOverrides);
+    async getUsagesForTeam(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto> {
+        const response = await this.getUsagesForTeamRaw(team, fromDate, toDate, initOverrides);
         return await response.value();
     }
 
