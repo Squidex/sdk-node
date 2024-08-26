@@ -368,7 +368,7 @@ export class SquidexClients {
 }
 
 function addOptions(init: RequestInit, clientOptions: SquidexClients.Options) {
-    if (clientOptions.timeout && typeof AbortSignal.timeout === 'function') {
+    if (clientOptions.timeout) {
         init.signal = AbortSignal.timeout(clientOptions.timeout);
     }
 

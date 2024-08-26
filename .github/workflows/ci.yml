@@ -11,30 +11,39 @@ jobs:
         uses: actions/checkout@v4.1.0
 
       - name: Set up node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4.0.3
 
-      - name: Compile
+      - name: Build - Install
+        run: npm i
+
+      - name: Build - Compile
         run: npm run build
-  
-  publish:
-    needs: [ compile ]
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4.1.0
 
-      - name: Set up node
-        uses: actions/setup-node@v3
+      - name: Test - Start Compose
+        run: docker compose up -d
+        working-directory: tests/docker
 
-      - name: Install dependencies
-        run: npm install
+      - name: Test - RUN
+        env:
+          CONFIG__WAIT=60
+          CONFIG__SERVER__URL=http://localhost:8080
+        run: |
+          npm test
+       
+      - name: Test - Dump docker logs on failure
+        if: failure()
+        uses: jwalton/gh-docker-logs@v2.2.1
+        with:
+         images: 'squidex,squidex/resizer'
+         tail: '100'
 
-      - name: Build
-        run: npm run build
+      - name: Test - Cleanup
+        if: always()
+        run: docker compose down
+        working-directory: tests/docker
 
       - name: Publish to npm
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
           npm publish --access public
