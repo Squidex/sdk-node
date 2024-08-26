@@ -12,6 +12,8 @@ jobs:
 
       - name: Set up node
         uses: actions/setup-node@v4.0.3
+        with:
+          node-version: 20
 
       - name: Build - Install
         run: npm i
