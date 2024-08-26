@@ -24,11 +24,10 @@ jobs:
         working-directory: tests/docker
 
       - name: Test - RUN
+        run: npm test
         env:
-          CONFIG__WAIT=60
-          CONFIG__SERVER__URL=http://localhost:8080
-        run: |
-          npm test
+          CONFIG__WAIT: 60
+          CONFIG__SERVER__URL: http://localhost:8080
        
       - name: Test - Dump docker logs on failure
         if: failure()
