@@ -1,17 +1,15 @@
-import fs from "fs";
-import os from "os";
-import path from "path";
-import * as StreamPromises from "stream/promises";
-import { getClient, guid } from "./_utils";
+import fs from "fs/promises";
+import { getClient } from "./_utils";
 
 describe("Assets", () => {
     const { client } = getClient();
 
     it("should upload and fetch asset", async () => {
-        const fileStream = fs.createReadStream("tests/assets/logo-wide.png");
-        const fileInfo = fs.statSync("tests/assets/logo-wide.png");
+        const fileStream = await fs.readFile("tests/assets/logo-wide.png");
+        const fileBlob = new File([fileStream], "logo-wide.png", { type: "image/png" });
+        const fileInfo = await fs.stat("tests/assets/logo-wide.png");
 
-        const createdAsset = await client.assets.postAsset(fileStream);
+        const createdAsset = await client.assets.postAsset({ file: fileBlob });
 
         const asset = await client.assets.getAsset(createdAsset.id);
         expect(asset.id).toEqual(createdAsset.id);
@@ -21,21 +19,29 @@ describe("Assets", () => {
     });
 
     it("should upload and download asset", async () => {
-        const fileStream = fs.createReadStream("tests/assets/logo-wide.png");
-        const fileInfo = fs.statSync("tests/assets/logo-wide.png");
+        const fileStream = await fs.readFile("tests/assets/logo-wide.png");
+        const fileBlob = new File([fileStream], "logo-wide.png", { type: "image/png" });
+        const fileInfo = await fs.stat("tests/assets/logo-wide.png");
 
-        const createdAsset = await client.assets.postAsset(fileStream);
+        const createdAsset = await client.assets.postAsset({ file: fileBlob });
 
-        const asset = await client.assets.getAssetContent(createdAsset.id);
-        const tempFolder = os.tmpdir();
-        const tempFile = path.join(tempFolder, guid());
-        const tempStream = fs.createWriteStream(tempFile);
-        await StreamPromises.pipeline(asset.data, tempStream);
+        const assetResponse = await client.assets.getAssetContentBySlugRaw(createdAsset.id);
+        const assetBlob = await assetResponse.value();
 
-        const downloadedFile = fs.statSync(tempFile);
-        
-        expect(asset.contentType).toEqual('image/png');
-        expect(asset.contentLengthInBytes).toEqual(fileInfo.size);
-        expect(downloadedFile.size).toEqual(fileInfo.size);
+        expect(assetResponse.raw.headers.get("Content-Type")).toEqual("image/png");
+        expect(assetBlob.size).toEqual(fileInfo.size);
+    });
+
+    it("should upload and fetch asset from url", async () => {
+        const fileName = "logo.png";
+        const fileUrl = "https://raw.githubusercontent.com/Squidex/squidex/master/media/logo-squared.png";
+
+        const createdAsset = await client.assets.postAsset({ name: fileName, url: fileUrl });
+
+        const asset = await client.assets.getAsset(createdAsset.id);
+        expect(asset.id).toEqual(createdAsset.id);
+        expect(asset.fileName).toEqual(fileName);
+        expect(asset.fileSize).toBeGreaterThan(100);
+        expect(asset.mimeType).toEqual("image/png");
     });
 });

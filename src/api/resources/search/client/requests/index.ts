@@ -1,1 +1,0 @@
-export { SearchGetSearchResultsRequest } from "./SearchGetSearchResultsRequest";

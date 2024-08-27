@@ -1,4 +1,5 @@
-import { getClient, guid } from "./_utils";
+import { WebhookRuleActionDto } from "../src";
+import { getClient } from "./_utils";
 
 const { client } = getClient();
 
@@ -10,19 +11,19 @@ describe("Rules", () => {
                 method: "POST",
                 payload: "payload",
                 payloadType: "text/plain",
-                url: "https://squidex.io"
-            },
+                url: "https://squidex.io",
+            } as WebhookRuleActionDto,
             trigger: {
-                triggerType: "Manual"
+                triggerType: "Manual",
             },
         });
 
-        const rules = await client.rules.getRules();
-        const rule = rules.items.find(x => x.id === createdRule.id);
+        const rules = await client.rules.getRules({});
+        const rule = rules.items.find((x) => x.id === createdRule.id);
         expect(rule?.name).toEqual(createdRule.name);
         expect(rule?.action).toBeDefined();
         expect(rule?.action.actionType).toEqual("Webhook");
         expect(rule?.trigger).toBeDefined();
         expect(rule?.trigger.triggerType).toEqual("Manual");
     });
-})
+});

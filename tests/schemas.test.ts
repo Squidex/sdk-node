@@ -6,12 +6,14 @@ describe("Schemas", () => {
     it("should create and fetch schema", async () => {
         const createdSchema = await client.schemas.postSchema({
             name: `schema-${guid()}`,
-            fields: [{
-                name: "field1",
-                properties: {
-                    fieldType: "String",
+            fields: [
+                {
+                    name: "field1",
+                    properties: {
+                        fieldType: "String",
+                    },
                 },
-            }],
+            ],
             isPublished: true,
         });
 
@@ -22,4 +24,4 @@ describe("Schemas", () => {
         expect(schema.type).toBe("Default");
         expect(schema.isPublished).toBeTruthy();
     });
-})
+});

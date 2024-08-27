@@ -1,1 +1,0 @@
-export { UpdateProfileDto } from "./UpdateProfileDto";

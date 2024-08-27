@@ -1,82 +1,225 @@
-import { SquidexClient as FernClient } from "../Client";
 import * as environments from "../environments";
-import * as core from "../core";
-import * as errors from "../errors";
-import urlJoin from "url-join";
-import { normalizeHeaders } from "./normalize-headers";
+import {
+    AppsApi,
+    AppsApiInterface,
+    AssetsApi,
+    AssetsApiInterface,
+    BackupsApi,
+    BackupsApiInterface,
+    Configuration,
+    ConfigurationParameters,
+    ContentsApi,
+    ContentsApiInterface,
+    DiagnosticsApi,
+    DiagnosticsApiInterface,
+    EventConsumersApi,
+    EventConsumersApiInterface,
+    FetchAPI,
+    HistoryApi,
+    HistoryApiInterface,
+    LanguagesApi,
+    LanguagesApiInterface,
+    Middleware,
+    NewsApi,
+    NewsApiInterface,
+    PingApi,
+    PingApiInterface,
+    PlansApi,
+    PlansApiInterface,
+    ResponseError,
+    RulesApi,
+    RulesApiInterface,
+    SchemasApi,
+    SchemasApiInterface,
+    SearchApi,
+    SearchApiInterface,
+    StatisticsApi,
+    StatisticsApiInterface,
+    TeamsApi,
+    TeamsApiInterface,
+    TemplatesApi,
+    TemplatesApiInterface,
+    TranslationsApi,
+    TranslationsApiInterface,
+    UserManagementApi,
+    UserManagementApiInterface,
+    UsersApi,
+    UsersApiInterface,
+} from "../generated";
+import { buildError, SquidexUnauthorizedError } from "./errors";
+import { addHeader, getHeader } from "./headers";
 
-export declare namespace SquidexClient {
-    interface Options {
-        /**
-         * The name of the app.
-         */
-        appName: string;
-        /**
-         * The secret of the client.
-         */
-        clientId: string;
-        /**
-         * The secret of the client.
-         */
-        clientSecret: string;
-        /**
-         * Custom headers to be added to each request.
-         */
-        customHeader?: Record<string, string>;
-        /**
-         * The URL to your Squidex installation (cloud by default).
-         */
-        environment?: environments.SquidexEnvironment | string;
-        /**
-         * A custom fetcher for normal requests.
-         */
-        fetcher?: core.FetchFunction;
-        /**
-         * A function to create a new fetcher based on the default fetcher.
-         */
-        fetcherInterceptor?: (next: core.FetchFunction) => core.FetchFunction;
-        /**
-         * A custom fetcher for streaming requests.
-         */
-        streamingFetcher?: core.StreamingFetchFunction;
-        /**
-         * A function to create a new stream fetcher based on the default fetcher.
-         */
-        streamingFetcherInterceptor?: (next: core.StreamingFetchFunction) => core.StreamingFetchFunction;
-        /**
-         * The timeout in milliseconds.
-         */
-        timeout?: number;
-        /**
-         * The store for tokens. By default it is in memory.
-         */
-        tokenStore?: TokenStore;
-    }
-    
-    export interface TokenStore {
-        get(): Token | undefined;
+export interface SquidexOptions {
+    /**
+     * The name of the app.
+     */
+    appName: string;
 
-        set(token: Token): void;
+    /**
+     * The secret of the client.
+     */
+    clientId: string;
 
-        clear(): void;
-    }
+    /**
+     * The secret of the client.
+     */
+    clientSecret: string;
 
-    export interface Token {
-        accessToken: string;
-        expiresIn: number;
-        expiresAt: number;
-    }
+    /**
+     * Custom headers to be added to each request.
+     */
+    customHeader?: Record<string, string>;
+
+    /**
+     * The URL to your Squidex installation (cloud by default).
+     */
+    environment?: environments.SquidexEnvironment | string;
+
+    /**
+     * A custom fetcher for normal requests.
+     */
+    fetcher?: FetchAPI;
+
+    /**
+     * A function to create a new fetcher based on the default fetcher.
+     */
+    middleware?: Middleware;
+
+    /**
+     * The timeout in milliseconds.
+     */
+    timeout?: number;
+
+    /**
+     * The store for tokens. By default it is in memory.
+     */
+    tokenStore?: TokenStore;
 }
 
-export class SquidexClient extends FernClient {
+export interface TokenStore {
+    get(): Token | undefined;
+
+    set(token: Token): void;
+
+    clear(): void;
+}
+
+export interface Token {
+    accessToken: string;
+    expiresIn: number;
+    expiresAt: number;
+}
+
+export class SquidexClients {
+    private readonly configuration: Configuration;
+    private readonly tokenStore: TokenStore;
     private tokenPromise?: Promise<string>;
-    private tokenStore?: SquidexClient.TokenStore;
+    private appsApi?: AppsApi;
+    private assetsApi?: AssetsApi;
+    private backupsApi?: BackupsApi;
+    private contentsApi?: ContentsApi;
+    private diagnosticsApi?: DiagnosticsApi;
+    private eventConsumersApi?: EventConsumersApi;
+    private historyApi?: HistoryApi;
+    private languagesApi?: LanguagesApi;
+    private newsApi?: NewsApi;
+    private pingApi?: PingApi;
+    private plansApi?: PlansApi;
+    private rulesApi?: RulesApi;
+    private schemasApi?: SchemasApi;
+    private searchApi?: SearchApi;
+    private statisticsApi?: StatisticsApi;
+    private teamsApi?: TeamsApi;
+    private templatesApi?: TemplatesApi;
+    private translationsApi?: TranslationsApi;
+    private usersApi?: UsersApi;
+    private userManagementApi?: UserManagementApi;
+
+    public get apps(): AppsApiInterface {
+        return (this.appsApi ??= new AppsApi(this.appName, this.configuration));
+    }
+
+    public get assets(): AssetsApiInterface {
+        return (this.assetsApi ??= new AssetsApi(this.appName, this.configuration));
+    }
+
+    public get backups(): BackupsApiInterface {
+        return (this.backupsApi ??= new BackupsApi(this.appName, this.configuration));
+    }
+
+    public get contents(): ContentsApiInterface {
+        return (this.contentsApi ??= new ContentsApi(this.appName, this.configuration));
+    }
+
+    public get diagnostics(): DiagnosticsApiInterface {
+        return (this.diagnosticsApi ??= new DiagnosticsApi(this.appName, this.configuration));
+    }
+
+    public get eventConsumers(): EventConsumersApiInterface {
+        return (this.eventConsumersApi ??= new EventConsumersApi(this.appName, this.configuration));
+    }
+
+    public get history(): HistoryApiInterface {
+        return (this.historyApi ??= new HistoryApi(this.appName, this.configuration));
+    }
+
+    public get languages(): LanguagesApiInterface {
+        return (this.languagesApi ??= new LanguagesApi(this.appName, this.configuration));
+    }
+
+    public get news(): NewsApiInterface {
+        return (this.newsApi ??= new NewsApi(this.appName, this.configuration));
+    }
+
+    public get ping(): PingApiInterface {
+        return (this.pingApi ??= new PingApi(this.appName, this.configuration));
+    }
+
+    public get plans(): PlansApiInterface {
+        return (this.plansApi ??= new PlansApi(this.appName, this.configuration));
+    }
+
+    public get rules(): RulesApiInterface {
+        return (this.rulesApi ??= new RulesApi(this.appName, this.configuration));
+    }
+
+    public get schemas(): SchemasApiInterface {
+        return (this.schemasApi ??= new SchemasApi(this.appName, this.configuration));
+    }
+
+    public get search(): SearchApiInterface {
+        return (this.searchApi ??= new SearchApi(this.appName, this.configuration));
+    }
+
+    public get statistics(): StatisticsApiInterface {
+        return (this.statisticsApi ??= new StatisticsApi(this.appName, this.configuration));
+    }
+
+    public get teams(): TeamsApiInterface {
+        return (this.teamsApi ??= new TeamsApi(this.appName, this.configuration));
+    }
+
+    public get templates(): TemplatesApiInterface {
+        return (this.templatesApi ??= new TemplatesApi(this.appName, this.configuration));
+    }
+
+    public get translations(): TranslationsApiInterface {
+        return (this.translationsApi ??= new TranslationsApi(this.appName, this.configuration));
+    }
+
+    public get users(): UsersApiInterface {
+        return (this.usersApi ??= new UsersApi(this.appName, this.configuration));
+    }
+
+    public get userManagement(): UserManagementApiInterface {
+        return (this.userManagementApi ??= new UserManagementApi(this.appName, this.configuration));
+    }
 
     /**
      * The current app name.
      */
     public get appName() {
-        return this._options.appName;
+        return this.clientOptions.appName;
     }
 
     /**
@@ -85,165 +228,132 @@ export class SquidexClient extends FernClient {
     public get clientId() {
         return this.clientOptions.clientId;
     }
-    
+
     /**
      * The current client secret.
      */
     public get clientSecret() {
         return this.clientOptions.clientSecret;
     }
-    
+
     /**
      * The current URL to the Squidex installation.
      */
     public get environment() {
         return this.clientOptions.environment || environments.SquidexEnvironment.Default;
     }
-    
-    private get actualTokenStore() {
-        return this.tokenStore ||= (this.clientOptions.tokenStore || new SquidexClient.InMemoryTokenStore());
-    }
 
-    constructor(readonly clientOptions: SquidexClient.Options) {
-        super({
-            appName: clientOptions.appName,
-            token: () => {
-                return this.getToken();
-            },
-            environment: clientOptions.environment,
-            fetcher: async args => {
-                let fetcher = clientOptions.fetcher ?? core.fetcher;
+    constructor(readonly clientOptions: SquidexOptions) {
+        if (!clientOptions.clientId) {
+            throw new Error("Configuration 'clientId' is required.");
+        }
 
-                // Allow custom fetcher function.
-                fetcher = clientOptions.fetcherInterceptor?.(fetcher) ?? fetcher;
+        if (!clientOptions.clientSecret) {
+            throw new Error("Configuration 'clientSecret' is required.");
+        }
 
-                addOptions(args, clientOptions);
-                try {
-                    return await fetcher(args);
-                } catch (ex) {
-                    const error = ex as core.Fetcher.Error;
+        if (!clientOptions.appName) {
+            throw new Error("Configuration 'appName' is required.");
+        }
 
-                    // Token has probably been expired.
-                    if (error.reason === 'status-code' && error.statusCode === 401) {
-                        this.clearToken();
-                        return await fetcher(args);
-                    }
+        this.tokenStore = this.clientOptions.tokenStore || new InMemoryTokenStore();
 
-                    throw ex;
-                }
-            },
-            streamingFetcher: async args => {
-                let fetcher = clientOptions.streamingFetcher ?? core.streamingFetcher;
+        const originalFetch = this.clientOptions.fetcher || fetch;
+        const fetchApi: FetchAPI = async (input, init) => {
+            init ||= {};
 
-                // Allow custom fetcher function.
-                fetcher = clientOptions.streamingFetcherInterceptor?.(fetcher) ?? fetcher;
+            addOptions(init, clientOptions);
 
-                addOptions(args, clientOptions);
-                try {
-                    const { headers, ...response } = await fetcher(args);
-                    
-                    return {
-                        ...response,
-                        // Headers might be in lowercase for some servers and http versions.
-                        headers: normalizeHeaders(headers)
-                    };
-                } catch (ex) {
-                    const error = ex as core.Fetcher.Error;
-
-                    // Token has probably been expired.
-                    if (error.reason === 'status-code' && error.statusCode === 401) {
-                        this.clearToken();
-                        return fetcher(args);
-                    }
-
-                    throw ex;
-                }
+            if (!getHeader(init, "X-AuthRequest")) {
+                addHeader(init, "Authorization", `Bearer ${await this.getToken()}`);
             }
-        });
+
+            let response: Response;
+            try {
+                response = await originalFetch(input, init);
+
+                if (response && response.status === 401 && !getHeader(init, "X-Retry")) {
+                    addHeader(init, "X-Retry", "1");
+                    this.clearToken();
+                    return await fetchApi(input, init);
+                }
+            } catch (error: unknown) {
+                throw await buildError(error);
+            }
+
+            if (response && response.status >= 200 && response.status < 300) {
+                return response;
+            }
+
+            const cause = new ResponseError(response, "Response returned an error code");
+            throw await buildError(cause);
+        };
+
+        const parameters: ConfigurationParameters = {
+            basePath: clientOptions.environment || "https://cloud.squidex.io",
+            fetchApi,
+        };
+
+        if (clientOptions.middleware) {
+            parameters.middleware = [clientOptions.middleware];
+        }
+
+        this.configuration = new Configuration(parameters);
     }
 
     /**
      * Clears the current token in case it has been expired.
      */
     clearToken() {
-        this.actualTokenStore.clear();
+        this.tokenStore.clear();
     }
 
     private async getToken() {
         const promise = (this.tokenPromise ||= (async () => {
             const now = new Date().getTime();
             try {
-                let token = this.actualTokenStore.get();
+                let token = this.tokenStore.get();
 
                 if (token != null && token.expiresAt > now) {
                     return token.accessToken;
                 }
 
-                const response = await core.fetcher({
-                    url: urlJoin(
-                        this.clientOptions.environment ?? environments.SquidexEnvironment.Default,
-                        "/identity-server/connect/token"
-                    ),
-                    contentType: "application/x-www-form-urlencoded",
-                    body: new URLSearchParams({
-                        grant_type: "client_credentials",
-                        client_id: this.clientOptions.clientId,
-                        client_secret: this.clientOptions.clientSecret,
-                        scope: "squidex-api",
-                    }),
-                    method: "POST",
-                });
-                
-                if (response.ok) {
-                    const accessToken = (response.body as any)?.["access_token"];
-                    if (typeof accessToken !== "string") {
-                        throw new errors.SquidexError({
-                            message: "Token is not a string",
-                        });
-                    }
+                const response = await this.configuration.fetchApi!(
+                    `${this.configuration.basePath}/identity-server/connect/token`,
+                    {
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "X-AuthRequest": "1",
+                        },
+                        body: new URLSearchParams({
+                            grant_type: "client_credentials",
+                            client_id: this.clientOptions.clientId,
+                            client_secret: this.clientOptions.clientSecret,
+                            scope: "squidex-api",
+                        }),
+                        method: "POST",
+                    },
+                );
 
-                    const expiresIn: number = (response.body as any)?.["expires_in"];
-                    if (typeof expiresIn !== "number") {
-                        throw new errors.SquidexError({
-                            message: "Token has no valid expiration",
-                        });
-                    }
-                    
-                    token = { 
-                        accessToken,
-                        expiresIn,
-                        expiresAt: now + expiresIn
-                    };
-                } else {
-                    switch (response.error.reason) {
-                        case "non-json":
-                            throw new errors.SquidexError({
-                                message: 'Token request does not return a valid JSON object.',
-                                statusCode: response.error.statusCode,
-                                body: response.error.rawBody,
-                            });
-                        case "status-code":
-                            throw new errors.SquidexError({
-                                message: `Token request returns invalid status code: ${response.error.statusCode}.`,
-                                statusCode: response.error.statusCode,
-                                body: response.error['body'],
-                            });
-                        case "unknown":
-                            throw new errors.SquidexError({
-                                message: response.error.errorMessage,
-                            });
-                        case "timeout":
-                            throw new errors.SquidexTimeoutError();
-                    }
+                const body = (await response.json()) as { access_token: string; expires_in: number };
+
+                if (typeof body.access_token !== "string") {
+                    throw new SquidexUnauthorizedError(undefined, undefined, "Token is not a string");
                 }
 
-                this.actualTokenStore.set(token);
-
-                if (token == null) {
-                    throw new errors.SquidexError({
-                        message: "Token is null despite trying to fetch",
-                    });
+                if (typeof body.expires_in !== "number") {
+                    throw new SquidexUnauthorizedError(undefined, undefined, "Token has no valid expiration");
                 }
+
+                const expiresIn = body.expires_in;
+
+                token = {
+                    accessToken: body.access_token,
+                    expiresIn,
+                    expiresAt: now + expiresIn,
+                };
+
+                this.tokenStore.set(token);
 
                 return token.accessToken;
             } finally {
@@ -252,59 +362,58 @@ export class SquidexClient extends FernClient {
         })());
 
         return promise;
-    };
+    }
 }
 
-function addOptions(args: core.Fetcher.Args | core.StreamingFetcher.Args, clientOptions: SquidexClient.Options) {
+function addOptions(init: RequestInit, clientOptions: SquidexOptions) {
     if (clientOptions.timeout) {
-        args.timeoutMs = clientOptions.timeout;
+        init.signal = AbortSignal.timeout(clientOptions.timeout);
     }
 
     if (clientOptions.customHeader) {
-        args.headers ??= {};
         for (const [key, value] of Object.entries(clientOptions.customHeader)) {
-            args.headers[key] = value;
+            addHeader(init, key, value);
         }
     }
 }
 
-export namespace SquidexClient {
-    export class InMemoryTokenStore implements TokenStore {
-        private token: Token | undefined;
-    
-        get(): Token | undefined {
-            return this.token;
-        }
-    
-        set(token: Token): void {
-            this.token = token;
-        }
-    
-        clear() {
-            this.token = undefined;
-        }
+export class InMemoryTokenStore implements TokenStore {
+    private token: Token | undefined;
+
+    get(): Token | undefined {
+        return this.token;
     }
 
-    export class StorageTokenStore implements TokenStore {
-        constructor(readonly store: Storage = localStorage, readonly key = 'SquidexToken') {
+    set(token: Token): void {
+        this.token = token;
+    }
+
+    clear() {
+        this.token = undefined;
+    }
+}
+
+export class StorageTokenStore implements TokenStore {
+    constructor(
+        readonly store: Storage = localStorage,
+        readonly key = "SquidexToken",
+    ) {}
+
+    get(): Token | undefined {
+        const value = this.store.getItem(this.key);
+
+        if (!value) {
+            return undefined;
         }
-    
-        get(): Token | undefined {
-            const value = this.store.getItem(this.key);
-    
-            if (!value) {
-                return undefined;
-            }
-    
-            return JSON.parse(value);
-        }
-    
-        set(token: Token): void {
-            this.store.setItem(this.key, JSON.stringify(token));
-        }
-    
-        clear() {
-            this.store.removeItem(this.key);
-        }
+
+        return JSON.parse(value);
+    }
+
+    set(token: Token): void {
+        this.store.setItem(this.key, JSON.stringify(token));
+    }
+
+    clear() {
+        this.store.removeItem(this.key);
     }
 }
