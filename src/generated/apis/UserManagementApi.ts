@@ -202,7 +202,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -236,7 +236,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -278,7 +278,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -313,7 +313,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}/lock`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management/{id}/lock`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -350,7 +350,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/user-management`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -396,7 +396,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -432,7 +432,7 @@ export class UserManagementApi extends runtime.BaseAPI implements UserManagement
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/user-management/{id}/unlock`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user-management/{id}/unlock`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

@@ -184,7 +184,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/usages/storage/today`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/usages/storage/today`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -211,7 +211,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/usages/log`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/usages/log`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -254,7 +254,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/usages/storage/{fromDate}/{toDate}`.replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/usages/storage/{fromDate}/{toDate}`.replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -305,7 +305,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/usages/storage/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/usages/storage/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -340,7 +340,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/usages/storage/today`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/usages/storage/today`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -383,7 +383,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/usages/calls/{fromDate}/{toDate}`.replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/usages/calls/{fromDate}/{toDate}`.replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -434,7 +434,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/usages/calls/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/usages/calls/{fromDate}/{toDate}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace(`{${"fromDate"}}`, encodeURIComponent(String(_fromDate))).replace(`{${"toDate"}}`, encodeURIComponent(String(_toDate))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

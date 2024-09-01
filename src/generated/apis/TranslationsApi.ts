@@ -74,7 +74,7 @@ export class TranslationsApi extends runtime.BaseAPI implements TranslationsApiI
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/translations`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/translations`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

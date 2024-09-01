@@ -46,8 +46,9 @@ import {
     UsersApi,
     UsersApiInterface,
 } from "../generated";
-import { buildError, SquidexUnauthorizedError } from "./errors";
+import { buildError } from "./errors";
 import { addHeader, getHeader } from "./headers";
+import { TokenAPI } from "./TokenAPI";
 
 export interface SquidexOptions {
     /**
@@ -113,7 +114,7 @@ export interface Token {
 export class SquidexClients {
     private readonly configuration: Configuration;
     private readonly tokenStore: TokenStore;
-    private tokenPromise?: Promise<string>;
+    private readonly tokenApi: TokenAPI;
     private appsApi?: AppsApi;
     private assetsApi?: AssetsApi;
     private backupsApi?: BackupsApi;
@@ -136,83 +137,83 @@ export class SquidexClients {
     private userManagementApi?: UserManagementApi;
 
     public get apps(): AppsApiInterface {
-        return (this.appsApi ??= new AppsApi(this.appName, this.configuration));
+        return (this.appsApi ??= new AppsApi(this.configuration));
     }
 
     public get assets(): AssetsApiInterface {
-        return (this.assetsApi ??= new AssetsApi(this.appName, this.configuration));
+        return (this.assetsApi ??= new AssetsApi(this.configuration));
     }
 
     public get backups(): BackupsApiInterface {
-        return (this.backupsApi ??= new BackupsApi(this.appName, this.configuration));
+        return (this.backupsApi ??= new BackupsApi(this.configuration));
     }
 
     public get contents(): ContentsApiInterface {
-        return (this.contentsApi ??= new ContentsApi(this.appName, this.configuration));
+        return (this.contentsApi ??= new ContentsApi(this.configuration));
     }
 
     public get diagnostics(): DiagnosticsApiInterface {
-        return (this.diagnosticsApi ??= new DiagnosticsApi(this.appName, this.configuration));
+        return (this.diagnosticsApi ??= new DiagnosticsApi(this.configuration));
     }
 
     public get eventConsumers(): EventConsumersApiInterface {
-        return (this.eventConsumersApi ??= new EventConsumersApi(this.appName, this.configuration));
+        return (this.eventConsumersApi ??= new EventConsumersApi(this.configuration));
     }
 
     public get history(): HistoryApiInterface {
-        return (this.historyApi ??= new HistoryApi(this.appName, this.configuration));
+        return (this.historyApi ??= new HistoryApi(this.configuration));
     }
 
     public get languages(): LanguagesApiInterface {
-        return (this.languagesApi ??= new LanguagesApi(this.appName, this.configuration));
+        return (this.languagesApi ??= new LanguagesApi(this.configuration));
     }
 
     public get news(): NewsApiInterface {
-        return (this.newsApi ??= new NewsApi(this.appName, this.configuration));
+        return (this.newsApi ??= new NewsApi(this.configuration));
     }
 
     public get ping(): PingApiInterface {
-        return (this.pingApi ??= new PingApi(this.appName, this.configuration));
+        return (this.pingApi ??= new PingApi(this.configuration));
     }
 
     public get plans(): PlansApiInterface {
-        return (this.plansApi ??= new PlansApi(this.appName, this.configuration));
+        return (this.plansApi ??= new PlansApi(this.configuration));
     }
 
     public get rules(): RulesApiInterface {
-        return (this.rulesApi ??= new RulesApi(this.appName, this.configuration));
+        return (this.rulesApi ??= new RulesApi(this.configuration));
     }
 
     public get schemas(): SchemasApiInterface {
-        return (this.schemasApi ??= new SchemasApi(this.appName, this.configuration));
+        return (this.schemasApi ??= new SchemasApi(this.configuration));
     }
 
     public get search(): SearchApiInterface {
-        return (this.searchApi ??= new SearchApi(this.appName, this.configuration));
+        return (this.searchApi ??= new SearchApi(this.configuration));
     }
 
     public get statistics(): StatisticsApiInterface {
-        return (this.statisticsApi ??= new StatisticsApi(this.appName, this.configuration));
+        return (this.statisticsApi ??= new StatisticsApi(this.configuration));
     }
 
     public get teams(): TeamsApiInterface {
-        return (this.teamsApi ??= new TeamsApi(this.appName, this.configuration));
+        return (this.teamsApi ??= new TeamsApi(this.configuration));
     }
 
     public get templates(): TemplatesApiInterface {
-        return (this.templatesApi ??= new TemplatesApi(this.appName, this.configuration));
+        return (this.templatesApi ??= new TemplatesApi(this.configuration));
     }
 
     public get translations(): TranslationsApiInterface {
-        return (this.translationsApi ??= new TranslationsApi(this.appName, this.configuration));
+        return (this.translationsApi ??= new TranslationsApi(this.configuration));
     }
 
     public get users(): UsersApiInterface {
-        return (this.usersApi ??= new UsersApi(this.appName, this.configuration));
+        return (this.usersApi ??= new UsersApi(this.configuration));
     }
 
     public get userManagement(): UserManagementApiInterface {
-        return (this.userManagementApi ??= new UserManagementApi(this.appName, this.configuration));
+        return (this.userManagementApi ??= new UserManagementApi(this.configuration));
     }
 
     /**
@@ -258,19 +259,31 @@ export class SquidexClients {
 
         this.tokenStore = this.clientOptions.tokenStore || new InMemoryTokenStore();
 
-        const originalFetch = this.clientOptions.fetcher || fetch;
+        const fetchCore = this.clientOptions.fetcher || fetch;
         const fetchApi: FetchAPI = async (input, init) => {
             init ||= {};
 
             addOptions(init, clientOptions);
 
             if (!getHeader(init, "X-AuthRequest")) {
-                addHeader(init, "Authorization", `Bearer ${await this.getToken()}`);
+                addHeader(init, "Authorization", `Bearer ${await this.tokenApi.getToken()}`);
             }
 
             let response: Response;
             try {
-                response = await originalFetch(input, init);
+                const updateURL = (source: string) => {
+                    return source.replace("$app$", this.appName);
+                };
+
+                if (typeof input === "string") {
+                    input = updateURL(input);
+                } else if (input instanceof URL) {
+                    input = updateURL(input.toString());
+                } else {
+                    input = { ...input, url: updateURL(input.url) };
+                }
+
+                response = await fetchCore(input, init);
 
                 if (response && response.status === 401 && !getHeader(init, "X-Retry")) {
                     addHeader(init, "X-Retry", "1");
@@ -299,6 +312,9 @@ export class SquidexClients {
         }
 
         this.configuration = new Configuration(parameters);
+
+        // Create an empty API object for the token.
+        this.tokenApi = new TokenAPI(this.tokenStore, clientOptions, this.configuration);
     }
 
     /**
@@ -306,62 +322,6 @@ export class SquidexClients {
      */
     clearToken() {
         this.tokenStore.clear();
-    }
-
-    private async getToken() {
-        const promise = (this.tokenPromise ||= (async () => {
-            const now = new Date().getTime();
-            try {
-                let token = this.tokenStore.get();
-
-                if (token != null && token.expiresAt > now) {
-                    return token.accessToken;
-                }
-
-                const response = await this.configuration.fetchApi!(
-                    `${this.configuration.basePath}/identity-server/connect/token`,
-                    {
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded",
-                            "X-AuthRequest": "1",
-                        },
-                        body: new URLSearchParams({
-                            grant_type: "client_credentials",
-                            client_id: this.clientOptions.clientId,
-                            client_secret: this.clientOptions.clientSecret,
-                            scope: "squidex-api",
-                        }),
-                        method: "POST",
-                    },
-                );
-
-                const body = (await response.json()) as { access_token: string; expires_in: number };
-
-                if (typeof body.access_token !== "string") {
-                    throw new SquidexUnauthorizedError(undefined, undefined, "Token is not a string");
-                }
-
-                if (typeof body.expires_in !== "number") {
-                    throw new SquidexUnauthorizedError(undefined, undefined, "Token has no valid expiration");
-                }
-
-                const expiresIn = body.expires_in;
-
-                token = {
-                    accessToken: body.access_token,
-                    expiresIn,
-                    expiresAt: now + expiresIn,
-                };
-
-                this.tokenStore.set(token);
-
-                return token.accessToken;
-            } finally {
-                this.tokenPromise = undefined;
-            }
-        })());
-
-        return promise;
     }
 }
 

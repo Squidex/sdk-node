@@ -285,7 +285,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors/{id}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/contributors/{id}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -320,7 +320,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors/me`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/contributors/me`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -355,7 +355,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -400,7 +400,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/contributors`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -436,7 +436,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -470,7 +470,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -505,7 +505,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -533,7 +533,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -572,7 +572,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -619,7 +619,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -665,7 +665,7 @@ export class TeamsApi extends runtime.BaseAPI implements TeamsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/auth`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

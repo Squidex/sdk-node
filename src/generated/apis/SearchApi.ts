@@ -71,7 +71,7 @@ export class SearchApi extends runtime.BaseAPI implements SearchApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/search`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/search`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

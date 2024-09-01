@@ -86,7 +86,7 @@ export class TemplatesApi extends runtime.BaseAPI implements TemplatesApiInterfa
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/templates/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(_name))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/templates/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(_name))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -113,7 +113,7 @@ export class TemplatesApi extends runtime.BaseAPI implements TemplatesApiInterfa
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/templates`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/templates`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

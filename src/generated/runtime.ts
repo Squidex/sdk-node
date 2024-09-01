@@ -94,7 +94,7 @@ export class BaseAPI {
     private static readonly jsonRegex = new RegExp('^(:?application\/json|[^;/ \t]+\/[^;/ \t]+[+]json)[ \t]*(:?;.*)?$', 'i');
     private middleware: Middleware[];
 
-    constructor(protected readonly appName: string, protected configuration = DefaultConfig) {
+    constructor(protected configuration = DefaultConfig) {
         this.middleware = configuration.middleware;
     }
 

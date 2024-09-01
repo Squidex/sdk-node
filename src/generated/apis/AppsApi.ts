@@ -705,7 +705,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/scripts`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/scripts`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -742,7 +742,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/scripts`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/scripts`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -779,7 +779,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/clients/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/clients/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -808,7 +808,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/clients`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/clients`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -847,7 +847,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/clients`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/clients`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -895,7 +895,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/clients/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/clients/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -932,7 +932,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/contributors/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/contributors/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -959,7 +959,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/contributors/me`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/contributors/me`,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -986,7 +986,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/contributors`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/contributors`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1023,7 +1023,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/contributors`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/contributors`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1051,7 +1051,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/image`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/image`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1086,7 +1086,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/languages/{language}`.replace(`{${"language"}}`, encodeURIComponent(String(_language))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/languages/{language}`.replace(`{${"language"}}`, encodeURIComponent(String(_language))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1113,7 +1113,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/languages`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/languages`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1150,7 +1150,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/languages`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/languages`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1196,7 +1196,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/languages/{language}`.replace(`{${"language"}}`, encodeURIComponent(String(_language))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/languages/{language}`.replace(`{${"language"}}`, encodeURIComponent(String(_language))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1232,7 +1232,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/roles/{roleName}`.replace(`{${"roleName"}}`, encodeURIComponent(String(_roleName))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/roles/{roleName}`.replace(`{${"roleName"}}`, encodeURIComponent(String(_roleName))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1259,7 +1259,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/roles/permissions`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/roles/permissions`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1286,7 +1286,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/roles`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/roles`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1323,7 +1323,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/roles`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/roles`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1369,7 +1369,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/roles/{roleName}`.replace(`{${"roleName"}}`, encodeURIComponent(String(_roleName))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/roles/{roleName}`.replace(`{${"roleName"}}`, encodeURIComponent(String(_roleName))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1397,7 +1397,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/settings`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/settings`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1434,7 +1434,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/settings`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/settings`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1470,7 +1470,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/workflows/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/workflows/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1497,7 +1497,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/workflows`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/workflows`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1534,7 +1534,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/workflows`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/workflows`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1580,7 +1580,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/workflows/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/workflows/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1608,7 +1608,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$`,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1634,7 +1634,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/image`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/image`,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1661,7 +1661,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1689,7 +1689,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1726,7 +1726,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/apps`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/apps`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1765,7 +1765,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1804,7 +1804,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1842,7 +1842,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/team`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/team`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1901,7 +1901,7 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
         }
 
         const response = await this.request({
-            path: `/api/apps/$app$/image`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/image`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

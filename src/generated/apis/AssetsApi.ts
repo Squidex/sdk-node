@@ -727,7 +727,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -838,7 +838,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/assets/$app$/{idOrSlug}/`.replace(`{${"idOrSlug"}}`, encodeURIComponent(String(_idOrSlug))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/assets/$app$/{idOrSlug}/`.replace(`{${"idOrSlug"}}`, encodeURIComponent(String(_idOrSlug))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -873,7 +873,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/folders/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/folders/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -910,7 +910,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/folders`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/folders`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -948,7 +948,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/folders`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/folders`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -994,7 +994,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/folders/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/folders/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1040,7 +1040,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/folders/{id}/parent`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/folders/{id}/parent`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1078,7 +1078,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/bulk`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/bulk`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1124,7 +1124,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1158,7 +1158,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1231,7 +1231,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         }
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1280,7 +1280,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         }
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/query`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/query`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1310,7 +1310,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/tags`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/tags`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1385,7 +1385,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         }
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1464,7 +1464,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         }
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1511,7 +1511,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1579,7 +1579,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         }
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}/content`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}/content`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1626,7 +1626,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/{id}/parent`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/{id}/parent`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -1672,7 +1672,7 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/assets/tags/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(_name))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/assets/tags/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(_name))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
