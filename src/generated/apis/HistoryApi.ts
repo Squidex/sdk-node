@@ -96,7 +96,7 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/history`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/history`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -136,7 +136,7 @@ export class HistoryApi extends runtime.BaseAPI implements HistoryApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/history`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/history`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

@@ -191,7 +191,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -238,7 +238,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -275,7 +275,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/backups/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -303,7 +303,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/backups`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/backups`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -331,7 +331,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/backups`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/backups`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -357,7 +357,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/restore`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/restore`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -394,7 +394,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/restore`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/restore`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

@@ -1,5 +1,5 @@
 {
-  "x-generator": "NSwag v14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))",
+  "x-generator": "NSwag v14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))",
   "openapi": "3.0.0",
   "info": {
     "title": "Squidex API",
@@ -79,13 +79,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.users.read"
-            ]
-          }
-        ],
         "x-method-name": "getUsers"
       },
       "post": {
@@ -139,13 +132,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.users.create"
-            ]
-          }
-        ],
         "x-method-name": "postUser"
       }
     },
@@ -193,13 +179,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.users.read"
-            ]
-          }
-        ],
         "x-method-name": "getUser"
       },
       "put": {
@@ -268,13 +247,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.users.update"
-            ]
-          }
-        ],
         "x-method-name": "putUser"
       },
       "delete": {
@@ -333,13 +305,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.users.unlock"
-            ]
-          }
-        ],
         "x-method-name": "deleteUser"
       }
     },
@@ -407,13 +372,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.users.lock"
-            ]
-          }
-        ],
         "x-method-name": "lockUser"
       }
     },
@@ -481,13 +439,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.users.unlock"
-            ]
-          }
-        ],
         "x-method-name": "unlockUser"
       }
     },
@@ -573,11 +524,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "postUser"
       }
     },
@@ -625,11 +571,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getUsers"
       }
     },
@@ -677,11 +618,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getUser"
       }
     },
@@ -785,13 +721,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.translate"
-            ]
-          }
-        ],
         "x-method-name": "postTranslation"
       }
     },
@@ -876,11 +805,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getTemplate"
       }
     },
@@ -928,13 +852,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.contributors.read"
-            ]
-          }
-        ],
         "x-method-name": "getContributors"
       },
       "post": {
@@ -1003,13 +920,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.contributors.assign"
-            ]
-          }
-        ],
         "x-method-name": "postContributor"
       }
     },
@@ -1067,11 +977,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "deleteMyself"
       }
     },
@@ -1139,13 +1044,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.contributors.revoke"
-            ]
-          }
-        ],
         "x-method-name": "deleteContributor"
       }
     },
@@ -1241,11 +1139,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "postTeam"
       }
     },
@@ -1293,11 +1186,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getTeam"
       },
       "put": {
@@ -1366,13 +1254,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.update"
-            ]
-          }
-        ],
         "x-method-name": "putTeam"
       },
       "delete": {
@@ -1421,13 +1302,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteTeam"
       }
     },
@@ -1475,13 +1349,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.auth.read"
-            ]
-          }
-        ],
         "x-method-name": "getTeamAuth"
       },
       "put": {
@@ -1550,13 +1417,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.auth.change"
-            ]
-          }
-        ],
         "x-method-name": "putTeamAuth"
       }
     },
@@ -1592,13 +1452,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.usage"
-            ]
-          }
-        ],
         "x-method-name": "getLog"
       }
     },
@@ -1658,13 +1511,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.usage"
-            ]
-          }
-        ],
         "x-method-name": "getUsages"
       }
     },
@@ -1734,13 +1580,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.usage"
-            ]
-          }
-        ],
         "x-method-name": "getUsagesForTeam"
       }
     },
@@ -1776,13 +1615,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.usage"
-            ]
-          }
-        ],
         "x-method-name": "getCurrentStorageSize"
       }
     },
@@ -1830,13 +1662,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.usage"
-            ]
-          }
-        ],
         "x-method-name": "getTeamCurrentStorageSizeForTeam"
       }
     },
@@ -1899,13 +1724,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.usage"
-            ]
-          }
-        ],
         "x-method-name": "getStorageSizes"
       }
     },
@@ -1978,13 +1796,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.usage"
-            ]
-          }
-        ],
         "x-method-name": "getStorageSizesForTeam"
       }
     },
@@ -2035,13 +1846,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.search"
-            ]
-          }
-        ],
         "x-method-name": "getSearchResults"
       }
     },
@@ -2122,13 +1926,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "postField"
       }
     },
@@ -2220,13 +2017,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "postNestedField"
       }
     },
@@ -2297,13 +2087,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "putSchemaUIFields"
       }
     },
@@ -2374,13 +2157,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "putSchemaFieldOrdering"
       }
     },
@@ -2462,13 +2238,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "putNestedFieldOrdering"
       }
     },
@@ -2550,13 +2319,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "putField"
       },
       "delete": {
@@ -2623,13 +2385,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "deleteField"
       }
     },
@@ -2722,13 +2477,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "putNestedField"
       },
       "delete": {
@@ -2806,13 +2554,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "deleteNestedField"
       }
     },
@@ -2882,13 +2623,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "lockField"
       }
     },
@@ -2969,13 +2703,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "lockNestedField"
       }
     },
@@ -3045,13 +2772,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "hideField"
       }
     },
@@ -3132,13 +2852,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "hideNestedField"
       }
     },
@@ -3208,13 +2921,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "showField"
       }
     },
@@ -3295,13 +3001,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "showNestedField"
       }
     },
@@ -3371,13 +3070,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "enableField"
       }
     },
@@ -3458,13 +3150,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "enableNestedField"
       }
     },
@@ -3534,13 +3219,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "disableField"
       }
     },
@@ -3621,13 +3299,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "disableNestedField"
       }
     },
@@ -3663,13 +3334,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.read"
-            ]
-          }
-        ],
         "x-method-name": "getSchemas"
       },
       "post": {
@@ -3733,13 +3397,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.create"
-            ]
-          }
-        ],
         "x-method-name": "postSchema"
       }
     },
@@ -3787,13 +3444,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.read"
-            ]
-          }
-        ],
         "x-method-name": "getSchema"
       },
       "put": {
@@ -3862,13 +3512,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "putSchema"
       },
       "delete": {
@@ -3917,13 +3560,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteSchema"
       }
     },
@@ -3994,13 +3630,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "putSchemaSync"
       }
     },
@@ -4071,13 +3700,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "putCategory"
       }
     },
@@ -4148,13 +3770,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "putPreviewUrls"
       }
     },
@@ -4225,13 +3840,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.scripts"
-            ]
-          }
-        ],
         "x-method-name": "putScripts"
       }
     },
@@ -4302,13 +3910,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.update"
-            ]
-          }
-        ],
         "x-method-name": "putRules"
       }
     },
@@ -4366,13 +3967,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.publish"
-            ]
-          }
-        ],
         "x-method-name": "publishSchema"
       }
     },
@@ -4430,13 +4024,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.schemas.{schema}.publish"
-            ]
-          }
-        ],
         "x-method-name": "unpublishSchema"
       }
     },
@@ -4512,13 +4099,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.read"
-            ]
-          }
-        ],
         "x-method-name": "getRules"
       },
       "post": {
@@ -4575,13 +4155,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.create"
-            ]
-          }
-        ],
         "x-method-name": "postRule"
       }
     },
@@ -4617,13 +4190,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.events.update"
-            ]
-          }
-        ],
         "x-method-name": "deleteRuleRun"
       }
     },
@@ -4694,13 +4260,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.update"
-            ]
-          }
-        ],
         "x-method-name": "putRule"
       },
       "delete": {
@@ -4749,13 +4308,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteRule"
       }
     },
@@ -4813,13 +4365,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.disable"
-            ]
-          }
-        ],
         "x-method-name": "enableRule"
       }
     },
@@ -4877,13 +4422,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.disable"
-            ]
-          }
-        ],
         "x-method-name": "disableRule"
       }
     },
@@ -4934,13 +4472,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.events.run"
-            ]
-          }
-        ],
         "x-method-name": "triggerRule"
       }
     },
@@ -4998,13 +4529,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.events.run"
-            ]
-          }
-        ],
         "x-method-name": "putRuleRun"
       }
     },
@@ -5052,13 +4576,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.events.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteRuleEvents"
       }
     },
@@ -5117,13 +4634,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.events.read"
-            ]
-          }
-        ],
         "x-method-name": "simulatePOST"
       }
     },
@@ -5171,13 +4681,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.events.read"
-            ]
-          }
-        ],
         "x-method-name": "simulateGET"
       }
     },
@@ -5247,13 +4750,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.events.read"
-            ]
-          }
-        ],
         "x-method-name": "getEvents"
       },
       "delete": {
@@ -5287,13 +4783,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.events.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteEvents"
       }
     },
@@ -5344,13 +4833,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.events.update"
-            ]
-          }
-        ],
         "x-method-name": "putEvent"
       },
       "delete": {
@@ -5399,13 +4881,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.rules.events.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteEvent"
       }
     },
@@ -5521,13 +4996,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.plans.read"
-            ]
-          }
-        ],
         "x-method-name": "getPlans"
       }
     },
@@ -5586,13 +5054,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.plans.change"
-            ]
-          }
-        ],
         "x-method-name": "putPlan"
       }
     },
@@ -5640,13 +5101,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.plans.read"
-            ]
-          }
-        ],
         "x-method-name": "getTeamPlans"
       }
     },
@@ -5717,13 +5171,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.plans.change"
-            ]
-          }
-        ],
         "x-method-name": "putTeamPlan"
       }
     },
@@ -5808,13 +5255,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.ping"
-            ]
-          }
-        ],
         "x-method-name": "getAppPing"
       }
     },
@@ -5860,11 +5300,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getNews"
       }
     },
@@ -5998,13 +5433,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.jobs.read"
-            ]
-          }
-        ],
         "x-method-name": "getJobs"
       }
     },
@@ -6055,13 +5483,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.jobs.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteJob"
       }
     },
@@ -6111,13 +5532,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.history"
-            ]
-          }
-        ],
         "x-method-name": "getAppHistory"
       }
     },
@@ -6177,13 +5591,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.teams.{team}.history"
-            ]
-          }
-        ],
         "x-method-name": "getTeamHistory"
       }
     },
@@ -6280,13 +5687,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.events.manage"
-            ]
-          }
-        ],
         "x-method-name": "startEventConsumer"
       }
     },
@@ -6344,13 +5744,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.events.manage"
-            ]
-          }
-        ],
         "x-method-name": "stopEventConsumer"
       }
     },
@@ -6408,13 +5801,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.events.manage"
-            ]
-          }
-        ],
         "x-method-name": "resetEventConsumer"
       }
     },
@@ -6672,11 +6058,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getContents"
       },
       "post": {
@@ -6795,13 +6176,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.create"
-            ]
-          }
-        ],
         "x-method-name": "postContent"
       }
     },
@@ -6933,11 +6307,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getContentsPost"
       }
     },
@@ -7047,11 +6416,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getContent"
       },
       "post": {
@@ -7188,13 +6552,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.upsert"
-            ]
-          }
-        ],
         "x-method-name": "postUpsertContent"
       },
       "put": {
@@ -7303,13 +6660,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.update.own"
-            ]
-          }
-        ],
         "x-method-name": "putContent"
       },
       "patch": {
@@ -7409,13 +6759,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.update.own"
-            ]
-          }
-        ],
         "x-method-name": "patchContent"
       },
       "delete": {
@@ -7493,13 +6836,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.delete.own"
-            ]
-          }
-        ],
         "x-method-name": "deleteContent"
       }
     },
@@ -7561,11 +6897,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getContentValidity"
       }
     },
@@ -7694,11 +7025,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getReferences"
       }
     },
@@ -7827,11 +7153,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getReferencing"
       }
     },
@@ -7923,13 +7244,6 @@
           }
         },
         "deprecated": true,
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.read.own"
-            ]
-          }
-        ],
         "x-method-name": "getContentVersion"
       }
     },
@@ -8005,13 +7319,6 @@
           }
         },
         "deprecated": true,
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.create"
-            ]
-          }
-        ],
         "x-method-name": "postContents"
       }
     },
@@ -8086,13 +7393,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.read.own"
-            ]
-          }
-        ],
         "x-method-name": "bulkUpdateContents"
       }
     },
@@ -8190,13 +7490,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.update.own"
-            ]
-          }
-        ],
         "x-method-name": "putContentDefaults"
       }
     },
@@ -8298,13 +7591,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.changestatus.own"
-            ]
-          }
-        ],
         "x-method-name": "putContentStatus"
       },
       "delete": {
@@ -8391,13 +7677,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.changestatus.own"
-            ]
-          }
-        ],
         "x-method-name": "deleteContentStatus"
       }
     },
@@ -8486,13 +7765,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.version.create.own"
-            ]
-          }
-        ],
         "x-method-name": "createDraft"
       },
       "delete": {
@@ -8579,13 +7851,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.version.delete.own"
-            ]
-          }
-        ],
         "x-method-name": "deleteVersion"
       }
     },
@@ -8661,11 +7926,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getGraphQL"
       },
       "post": {
@@ -8730,11 +7990,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "postGraphQL"
       }
     },
@@ -8810,11 +8065,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getGraphQLBatch"
       },
       "post": {
@@ -8879,11 +8129,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "postGraphQLBatch"
       }
     },
@@ -9044,11 +8289,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getAllContents"
       },
       "post": {
@@ -9168,11 +8408,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getAllContentsPost"
       }
     },
@@ -9246,13 +8481,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contents.{schema}.read.own"
-            ]
-          }
-        ],
         "x-method-name": "bulkUpdateAllContents"
       }
     },
@@ -9351,13 +8579,6 @@
           }
         },
         "deprecated": true,
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.jobs.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteBackup"
       }
     },
@@ -9462,13 +8683,6 @@
           }
         },
         "deprecated": true,
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.jobs.read"
-            ]
-          }
-        ],
         "x-method-name": "getBackups"
       },
       "post": {
@@ -9505,13 +8719,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.jobs.create"
-            ]
-          }
-        ],
         "x-method-name": "postBackup"
       }
     },
@@ -9597,13 +8804,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.admin.restore"
-            ]
-          }
-        ],
         "x-method-name": "postRestoreJob"
       }
     },
@@ -9803,11 +9003,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getAssetContentBySlug"
       }
     },
@@ -10008,11 +9203,6 @@
           }
         },
         "deprecated": true,
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getAssetContent"
       }
     },
@@ -10071,13 +9261,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.read"
-            ]
-          }
-        ],
         "x-method-name": "getAssetFolders"
       },
       "post": {
@@ -10134,13 +9317,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.folders.create"
-            ]
-          }
-        ],
         "x-method-name": "postAssetFolder"
       }
     },
@@ -10211,13 +9387,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.folders.update"
-            ]
-          }
-        ],
         "x-method-name": "putAssetFolder"
       },
       "delete": {
@@ -10266,13 +9435,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.folders.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteAssetFolder"
       }
     },
@@ -10343,13 +9505,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.folders.update"
-            ]
-          }
-        ],
         "x-method-name": "putAssetFolderParent"
       }
     },
@@ -10390,13 +9545,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.read"
-            ]
-          }
-        ],
         "x-method-name": "getTags"
       }
     },
@@ -10471,13 +9619,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.update"
-            ]
-          }
-        ],
         "x-method-name": "putTag"
       }
     },
@@ -10602,13 +9743,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.read"
-            ]
-          }
-        ],
         "x-method-name": "getAssets"
       },
       "post": {
@@ -10714,13 +9848,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.create"
-            ]
-          }
-        ],
         "x-method-name": "postAsset"
       }
     },
@@ -10802,13 +9929,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.read"
-            ]
-          }
-        ],
         "x-method-name": "getAssetsPost"
       }
     },
@@ -10856,13 +9976,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.read"
-            ]
-          }
-        ],
         "x-method-name": "getAsset"
       },
       "post": {
@@ -10968,13 +10081,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.create"
-            ]
-          }
-        ],
         "x-method-name": "postUpsertAsset"
       },
       "put": {
@@ -11043,13 +10149,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.update"
-            ]
-          }
-        ],
         "x-method-name": "putAsset"
       },
       "delete": {
@@ -11116,13 +10215,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteAsset"
       }
     },
@@ -11184,13 +10276,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.read"
-            ]
-          }
-        ],
         "x-method-name": "bulkUpdateAssets"
       }
     },
@@ -11280,13 +10365,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.upload"
-            ]
-          }
-        ],
         "x-method-name": "putAssetContent"
       }
     },
@@ -11357,13 +10435,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.assets.update"
-            ]
-          }
-        ],
         "x-method-name": "putAssetParent"
       }
     },
@@ -11399,13 +10470,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.asset-scripts.read"
-            ]
-          }
-        ],
         "x-method-name": "getAssetScripts"
       },
       "put": {
@@ -11462,13 +10526,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.asset-scripts.update"
-            ]
-          }
-        ],
         "x-method-name": "putAssetScripts"
       }
     },
@@ -11505,13 +10562,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.clients.read"
-            ]
-          }
-        ],
         "x-method-name": "getClients"
       },
       "post": {
@@ -11569,13 +10619,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.clients.create"
-            ]
-          }
-        ],
         "x-method-name": "postClient"
       }
     },
@@ -11647,13 +10690,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.clients.update"
-            ]
-          }
-        ],
         "x-method-name": "putClient"
       },
       "delete": {
@@ -11710,13 +10746,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.clients.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteClient"
       }
     },
@@ -11752,13 +10781,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contributors.read"
-            ]
-          }
-        ],
         "x-method-name": "getContributors"
       },
       "post": {
@@ -11815,13 +10837,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contributors.assign"
-            ]
-          }
-        ],
         "x-method-name": "postContributor"
       }
     },
@@ -11867,11 +10882,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "deleteMyself"
       }
     },
@@ -11929,13 +10939,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.contributors.revoke"
-            ]
-          }
-        ],
         "x-method-name": "deleteContributor"
       }
     },
@@ -12036,13 +11039,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.image"
-            ]
-          }
-        ],
         "x-method-name": "uploadImage"
       },
       "delete": {
@@ -12086,13 +11082,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.image"
-            ]
-          }
-        ],
         "x-method-name": "deleteImage"
       }
     },
@@ -12128,13 +11117,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.languages.read"
-            ]
-          }
-        ],
         "x-method-name": "getLanguages"
       },
       "post": {
@@ -12191,13 +11173,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.languages.create"
-            ]
-          }
-        ],
         "x-method-name": "postLanguage"
       }
     },
@@ -12268,13 +11243,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.languages.update"
-            ]
-          }
-        ],
         "x-method-name": "putLanguage"
       },
       "delete": {
@@ -12330,13 +11298,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.languages.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteLanguage"
       }
     },
@@ -12372,13 +11333,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.roles.read"
-            ]
-          }
-        ],
         "x-method-name": "getRoles"
       },
       "post": {
@@ -12435,13 +11389,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.roles.create"
-            ]
-          }
-        ],
         "x-method-name": "postRole"
       }
     },
@@ -12480,13 +11427,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.roles.read"
-            ]
-          }
-        ],
         "x-method-name": "getPermissions"
       }
     },
@@ -12557,13 +11497,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.roles.update"
-            ]
-          }
-        ],
         "x-method-name": "putRole"
       },
       "delete": {
@@ -12619,13 +11552,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.roles.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteRole"
       }
     },
@@ -12731,11 +11657,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "postApp"
       }
     },
@@ -12784,11 +11705,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getTeamApps"
       }
     },
@@ -12824,11 +11740,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getApp"
       },
       "put": {
@@ -12885,13 +11796,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.update"
-            ]
-          }
-        ],
         "x-method-name": "putApp"
       },
       "delete": {
@@ -12928,13 +11832,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.delete"
-            ]
-          }
-        ],
         "x-method-name": "deleteApp"
       }
     },
@@ -12993,13 +11890,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.transfer"
-            ]
-          }
-        ],
         "x-method-name": "putAppTeam"
       }
     },
@@ -13035,11 +11925,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getSettings"
       },
       "put": {
@@ -13096,13 +11981,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.settings"
-            ]
-          }
-        ],
         "x-method-name": "putSettings"
       }
     },
@@ -13138,13 +12016,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.workflows.read"
-            ]
-          }
-        ],
         "x-method-name": "getWorkflows"
       },
       "post": {
@@ -13201,13 +12072,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.workflows.update"
-            ]
-          }
-        ],
         "x-method-name": "postWorkflow"
       }
     },
@@ -13278,13 +12142,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.workflows.update"
-            ]
-          }
-        ],
         "x-method-name": "putWorkflow"
       },
       "delete": {
@@ -13340,13 +12197,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": [
-              "squidex.apps.{app}.workflows.update"
-            ]
-          }
-        ],
         "x-method-name": "deleteWorkflow"
       }
     }
@@ -20194,22 +19044,8 @@
           }
         }
       }
-    },
-    "securitySchemes": {
-      "squidex-oauth-auth": {
-        "type": "openIdConnect",
-        "description": "Squidex uses OpenId Connect (OIDC) with the Client Credentials Flow (defined in OAuth 2.0 RFC 6749, section 4.4).\r\n\r\nThe OpenId Connect Client Credentials flow can be used for machine to machine authentication. In this grant a specific user is not authorized but rather the credentials are verified and a generic `access_token` is returned.\r\n\r\nThe `access_token` is a signed JSON Web Token (JWT) which contains expiry information. \r\n\r\nTo retrieve an access token you must pass the Client ID and Client Secret to the token endpoint to authenticate yourself and get a token:\r\n\r\n    $ curl\r\n        -X POST 'https://cloud.squidex.io/identity-server/connect/token' \r\n        -H 'Content-Type: application/x-www-form-urlencoded' \r\n        -d 'grant_type=client_credentials&\r\n            client_id=[CLIENT_ID]&\r\n            client_secret=[CLIENT_SECRET]&\r\n\t\t\tscope=squidex-api'\r\n\r\nPass this token to all consecutiv requests to the API via the `Authorization` header:\r\n\r\n     Authorization: Bearer <token>",
-        "openIdConnectUrl": "https://cloud.squidex.io/identity-server/.well-known/openid-configuration"
-      }
     }
   },
-  "security": [
-    {
-      "squidex-oauth-auth": [
-        "squidex-api"
-      ]
-    }
-  ],
   "externalDocs": {
     "url": "https://docs.squidex.io"
   }

@@ -71,7 +71,7 @@ export class NewsApi extends runtime.BaseAPI implements NewsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/news/features`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/news/features`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

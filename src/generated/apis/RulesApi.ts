@@ -417,7 +417,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/events/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/events/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -443,7 +443,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/events`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/events`,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -477,7 +477,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -511,7 +511,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/events`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/events`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -537,7 +537,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/run`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/run`,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -571,7 +571,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/disable`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/disable`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -606,7 +606,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/enable`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/enable`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -633,7 +633,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/rules/actions`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/rules/actions`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -668,7 +668,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/rules/eventtypes/{type}`.replace(`{${"type"}}`, encodeURIComponent(String(_type))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/rules/eventtypes/{type}`.replace(`{${"type"}}`, encodeURIComponent(String(_type))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -699,7 +699,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/rules/eventtypes`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/rules/eventtypes`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -741,7 +741,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/events`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/events`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -768,7 +768,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -805,7 +805,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -841,7 +841,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/events/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/events/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -885,7 +885,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -926,7 +926,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/run`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/run`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -960,7 +960,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/simulate`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/simulate`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -997,7 +997,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/simulate`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/simulate`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1033,7 +1033,7 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/rules/{id}/trigger`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/rules/{id}/trigger`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

@@ -150,7 +150,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -185,7 +185,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/users/{id}/picture`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/users/{id}/picture`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -212,7 +212,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -245,7 +245,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/users`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/users`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -283,7 +283,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/user`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/user`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

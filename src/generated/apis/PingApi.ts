@@ -86,7 +86,7 @@ export class PingApi extends runtime.BaseAPI implements PingApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/ping/$app$`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/ping/$app$`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -113,7 +113,7 @@ export class PingApi extends runtime.BaseAPI implements PingApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/info`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/info`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -141,7 +141,7 @@ export class PingApi extends runtime.BaseAPI implements PingApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/ping`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/ping`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

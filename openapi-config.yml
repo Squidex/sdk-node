@@ -7,3 +7,11 @@ globalProperties:
 additionalProperties:
     withInterfaces: true
     useSingleRequestParameter: true
+
+nameMappings:
+  xFields: fields
+  X-Flatten: flatten
+  X-Languages: languages
+  X-NoSlowTotal: noSlowTotal
+  X-NoTotal: noTotal
+  X-Unpublished: unpublished

@@ -116,7 +116,7 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/event-consumers`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -151,7 +151,7 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers/{consumerName}/reset`.replace(`{${"consumerName"}}`, encodeURIComponent(String(_consumerName))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/event-consumers/{consumerName}/reset`.replace(`{${"consumerName"}}`, encodeURIComponent(String(_consumerName))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -186,7 +186,7 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers/{consumerName}/start`.replace(`{${"consumerName"}}`, encodeURIComponent(String(_consumerName))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/event-consumers/{consumerName}/start`.replace(`{${"consumerName"}}`, encodeURIComponent(String(_consumerName))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -221,7 +221,7 @@ export class EventConsumersApi extends runtime.BaseAPI implements EventConsumers
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/event-consumers/{consumerName}/stop`.replace(`{${"consumerName"}}`, encodeURIComponent(String(_consumerName))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/event-consumers/{consumerName}/stop`.replace(`{${"consumerName"}}`, encodeURIComponent(String(_consumerName))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

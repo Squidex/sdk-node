@@ -114,7 +114,7 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -149,7 +149,7 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -175,7 +175,7 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/jobs`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/jobs`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

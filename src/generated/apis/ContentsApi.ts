@@ -1005,7 +1005,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/bulk`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/bulk`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1061,7 +1061,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/draft`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/draft`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1116,7 +1116,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1170,7 +1170,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/status`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/status`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1225,7 +1225,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/draft`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/draft`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -1295,7 +1295,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1340,7 +1340,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/validity`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/validity`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1403,7 +1403,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/{version}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace(`{${"version"}}`, encodeURIComponent(String(_version))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/{version}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace(`{${"version"}}`, encodeURIComponent(String(_version))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1506,7 +1506,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1583,7 +1583,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/query`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/query`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1664,7 +1664,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/references`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/references`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1744,7 +1744,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/referencing`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/referencing`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1809,7 +1809,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
@@ -1882,7 +1882,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1931,7 +1931,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/import`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/import`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -2018,7 +2018,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -2089,7 +2089,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -2150,7 +2150,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/defaults`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/defaults`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -2215,7 +2215,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/{schema}/{id}/status`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/{schema}/{id}/status`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -2260,7 +2260,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/content/$app$/bulk`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/bulk`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -2350,7 +2350,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -2419,7 +2419,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -2469,7 +2469,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/graphql`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/graphql`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -2522,7 +2522,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/graphql/batch`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/graphql/batch`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -2563,7 +2563,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/graphql`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/graphql`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -2605,7 +2605,7 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
         }
 
         const response = await this.request({
-            path: `/api/content/$app$/graphql/batch`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/content/$app$/graphql/batch`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

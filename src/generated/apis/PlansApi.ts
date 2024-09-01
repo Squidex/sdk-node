@@ -120,7 +120,7 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/apps/$app$/plans`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/plans`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -157,7 +157,7 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/apps/$app$/plan`.replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/apps/$app$/plan`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -193,7 +193,7 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/teams/{team}/plans`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/plans`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -238,7 +238,7 @@ export class PlansApi extends runtime.BaseAPI implements PlansApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/teams/{team}/plan`.replace(`{${"team"}}`, encodeURIComponent(String(_team))).replace("$app$", encodeURIComponent(this.appName)),
+            path: `/api/teams/{team}/plan`.replace(`{${"team"}}`, encodeURIComponent(String(_team))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

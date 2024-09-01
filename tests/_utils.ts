@@ -1,5 +1,6 @@
 import { SquidexClient } from "../src";
-import { Agent, setGlobalDispatcher } from "undici";
+import { Agent } from "undici";
+import { SquidexOptions } from "../src/wrapper/SquidexClient";
 
 let singleClient: { client: SquidexClient; create: (app: string) => SquidexClient };
 
@@ -8,24 +9,31 @@ export function getClient() {
         return singleClient;
     }
 
+    // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
     const appName = getEnvironment("CONFIG__APP__NAME", "integrations-tests");
     const clientId = getEnvironment("CONFIG__CLIENT__ID", "root");
     const clientSecret = getEnvironment("CONFIG__CLIENT__SECRET", "xeLd6jFxqbXJrfmNLlO2j1apagGGGSyZJhFnIuHp4I0=");
-    const environment = getEnvironment("CONFIG__SERVER__URL", "http://localhost:8080");
+    const environment = getEnvironment("CONFIG__SERVER__URL", "https://localhost:5001");
 
-    const httpsAgent = new Agent({
-        connect: {
-            rejectUnauthorized: false,
+    const middleware: SquidexOptions["middleware"] = {
+        pre: async (params) => {
+            (params.init as any).dispatcher = new Agent({
+                connect: {
+                    rejectUnauthorized: false,
+                },
+            });
+
+            return params;
         },
-    });
-
-    setGlobalDispatcher(httpsAgent);
+    };
 
     const client = new SquidexClient({
         appName,
         clientId,
         clientSecret,
         environment,
+        middleware,
     });
 
     const create = (app: string) => {
@@ -34,6 +42,7 @@ export function getClient() {
             clientId,
             clientSecret,
             environment,
+            middleware,
         });
     };
 

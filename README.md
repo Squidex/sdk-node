@@ -96,6 +96,38 @@ To ensure maximum compatability, the Squidex Node SDK is transpiled to CJS JavaS
 }
 ```
 
+## Custom Templates
+
+### `api.mustache`
+
+* Use `vendorExtensions.x-method-name` for the actual method name.
+* Use `vendorExtensions.f-field-name` for the actual header name.
+
+### `models.mustache`
+
+* Remove tslint rule.
+* Remove eslint rule.
+
+### `modelGeneric.mustache`
+
+* Add methods to test for inherited type using discriminators.
+
+### `modelEnum.mustache`
+
+* Add underscore to unused variable `ignoreDiscriminator` to make compiler happy.
+
+### `runtime.mustache`
+
+* Remove exception handling and just forward exception.
+
+## Major changes in 2.0
+
+This SDK is mainly based on code generation, based on the OpenAPI specification from the Squidex API.
+
+The initial version was built with fern: https://www.buildwithfern.com/. The main reason was the overall code quality and the support for discriminators. When the 1.0 version was released fern has not defined the pricing yet and unfortunately the current pricing is too expensive.
+
+Therefore the SDK code generation was moved to OpenAPI Generator: (https://openapi-generator.tech/). The goal was to be as close to the previous version as possible without doing too much changes to the code generation templates. It was not possible to provide the same method signatures.
+
 ## Contributing
 
 While we value open-source contributions to this SDK, this library is generated programmatically. Additions made directly to this library would have to be moved over to our generation code, otherwise they would be overwritten upon the next generated release. Feel free to open a PR as a proof of concept, but know that we will not be able to merge it as-is. We suggest opening an issue first to discuss with us!
