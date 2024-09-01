@@ -1,4 +1,3 @@
-import * as environments from "../environments";
 import {
     AppsApi,
     AppsApiInterface,
@@ -69,12 +68,12 @@ export interface SquidexOptions {
     /**
      * Custom headers to be added to each request.
      */
-    customHeader?: Record<string, string>;
+    customHeaders?: Record<string, string>;
 
     /**
      * The URL to your Squidex installation (cloud by default).
      */
-    environment?: environments.SquidexEnvironment | string;
+    url?: string;
 
     /**
      * A custom fetcher for normal requests.
@@ -240,8 +239,8 @@ export class SquidexClients {
     /**
      * The current URL to the Squidex installation.
      */
-    public get environment() {
-        return this.clientOptions.environment || environments.SquidexEnvironment.Default;
+    public get url() {
+        return this.clientOptions.url!;
     }
 
     constructor(readonly clientOptions: SquidexOptions) {
@@ -256,6 +255,10 @@ export class SquidexClients {
         if (!clientOptions.appName) {
             throw new Error("Configuration 'appName' is required.");
         }
+
+        clientOptions.url ||= 'https://cloud.squidex.io';
+
+        Object.freeze(clientOptions);
 
         this.tokenStore = this.clientOptions.tokenStore || new InMemoryTokenStore();
 
@@ -303,7 +306,7 @@ export class SquidexClients {
         };
 
         const parameters: ConfigurationParameters = {
-            basePath: clientOptions.environment || "https://cloud.squidex.io",
+            basePath: clientOptions.url || "https://cloud.squidex.io",
             fetchApi,
         };
 
@@ -330,8 +333,8 @@ function addOptions(init: RequestInit, clientOptions: SquidexOptions) {
         init.signal = AbortSignal.timeout(clientOptions.timeout);
     }
 
-    if (clientOptions.customHeader) {
-        for (const [key, value] of Object.entries(clientOptions.customHeader)) {
+    if (clientOptions.customHeaders) {
+        for (const [key, value] of Object.entries(clientOptions.customHeaders)) {
             addHeader(init, key, value);
         }
     }
