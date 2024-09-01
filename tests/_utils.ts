@@ -14,7 +14,7 @@ export function getClient() {
     const appName = getEnvironment("CONFIG__APP__NAME", "integrations-tests");
     const clientId = getEnvironment("CONFIG__CLIENT__ID", "root");
     const clientSecret = getEnvironment("CONFIG__CLIENT__SECRET", "xeLd6jFxqbXJrfmNLlO2j1apagGGGSyZJhFnIuHp4I0=");
-    const environment = getEnvironment("CONFIG__SERVER__URL", "https://localhost:5001");
+    const url = getEnvironment("CONFIG__SERVER__URL", "https://localhost:5001");
 
     const middleware: SquidexOptions["middleware"] = {
         pre: async (params) => {
@@ -32,7 +32,7 @@ export function getClient() {
         appName,
         clientId,
         clientSecret,
-        environment,
+        url,
         middleware,
     });
 
@@ -41,7 +41,7 @@ export function getClient() {
             appName: app,
             clientId,
             clientSecret,
-            environment,
+            url,
             middleware,
         });
     };
