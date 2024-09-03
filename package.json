@@ -9,8 +9,8 @@
         "build": "tsc",
         "format:tests": "prettier --write tests/**/*.ts",
         "format:source": "prettier --write src/wrapper/**/*.ts && eslint --fix src/**/*.ts",
-        "generate:help": "cross-env-shell docker run --rm -v $INIT_CWD:/local squidex/openapi-generator-cli config-help -g typescript-fetch",
-        "generate:run": "cross-env-shell docker run --rm -v $INIT_CWD:/local squidex/openapi-generator-cli generate -i /local/openapi.json -g typescript-fetch --template-dir  /local/templates -o /local/src/generated -c /local/openapi-config.yml",
+        "generate:help": "cross-env-shell docker run --rm -v $INIT_CWD:/local openapitools/openapi-generator-cli config-help -g typescript-fetch",
+        "generate:run": "cross-env-shell docker run --rm -v $INIT_CWD:/local openapitools/openapi-generator-cli generate -i /local/openapi.json -g typescript-fetch --template-dir  /local/templates -o /local/src/generated -c /local/openapi-config.yml",
         "generate": "npm run generate:run && npm run format:source && npm run format:tests",
         "prepack": "cp -rv dist/. .",
         "test": "jest tests"
