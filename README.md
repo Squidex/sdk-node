@@ -31,7 +31,7 @@ const client = new SquidexClient({
     clientId: "client-id",
     clientSecret: "client-secret",
     appName: "my-app",
-    // environment: "https://your.squidex-deployment",
+    // url: "https://your.squidex-deployment",
     // tokenStore: new SquidexInMemoryTokenStore(),
     // tokenStore: new SquidexStorageTokenStore() // Keep the tokens in the local store.
     // tokenStore: new SquidexStorageTokenStore(sessionStorage, "CustomKey")
