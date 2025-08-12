@@ -731,6 +731,17 @@
         ],
         "summary": "Get all templates.",
         "operationId": "Templates_GetTemplates",
+        "parameters": [
+          {
+            "name": "includeDetails",
+            "in": "query",
+            "description": "Also include the details.",
+            "schema": {
+              "type": "boolean"
+            },
+            "x-position": 1
+          }
+        ],
         "responses": {
           "200": {
             "description": "Templates returned.",
@@ -753,11 +764,6 @@
             }
           }
         },
-        "security": [
-          {
-            "squidex-oauth-auth": []
-          }
-        ],
         "x-method-name": "getTemplates"
       }
     },
@@ -1492,7 +1498,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CallsUsageDtoDto"
+                  "$ref": "#/components/schemas/CallsUsageDto"
                 }
               }
             }
@@ -1561,7 +1567,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CallsUsageDtoDto"
+                  "$ref": "#/components/schemas/CallsUsageDto"
                 }
               }
             }
@@ -3302,6 +3308,174 @@
         "x-method-name": "disableNestedField"
       }
     },
+    "/api/apps/$app$/schemas/{schema}/indexes": {
+      "get": {
+        "tags": [
+          "Schemas"
+        ],
+        "summary": "Gets the schema indexes.",
+        "operationId": "SchemaIndexes_GetIndexes",
+        "parameters": [
+          {
+            "name": "schema",
+            "in": "path",
+            "required": true,
+            "description": "The name of the schema.",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Schema indexes returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndexesDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schema or app not found."
+          },
+          "500": {
+            "description": "Operation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "x-method-name": "getIndexes"
+      },
+      "post": {
+        "tags": [
+          "Schemas"
+        ],
+        "summary": "Create a schema indexes.",
+        "operationId": "SchemaIndexes_PostIndex",
+        "parameters": [
+          {
+            "name": "schema",
+            "in": "path",
+            "required": true,
+            "description": "The name of the schema.",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "request",
+          "description": "The request object that represents an index.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateIndexDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 3
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "Schema or app not found."
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Operation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "x-method-name": "postIndex"
+      }
+    },
+    "/api/apps/$app$/schemas/{schema}/indexes/{name}": {
+      "delete": {
+        "tags": [
+          "Schemas"
+        ],
+        "summary": "Create a schema indexes.",
+        "operationId": "SchemaIndexes_DeleteIndex",
+        "parameters": [
+          {
+            "name": "schema",
+            "in": "path",
+            "required": true,
+            "description": "The name of the schema.",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "description": "The name of the index.",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Schema index deletion added to job queue."
+          },
+          "404": {
+            "description": "Schema or app not found."
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Operation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "x-method-name": "deleteIndex"
+      }
+    },
     "/api/apps/$app$/schemas": {
       "get": {
         "tags": [
@@ -3530,6 +3704,15 @@
               "type": "string"
             },
             "x-position": 2
+          },
+          {
+            "name": "permanent",
+            "in": "query",
+            "description": "True to delete the schema and the contents permanently.",
+            "schema": {
+              "type": "boolean"
+            },
+            "x-position": 3
           }
         ],
         "responses": {
@@ -3561,6 +3744,71 @@
           }
         },
         "x-method-name": "deleteSchema"
+      }
+    },
+    "/api/apps/$app$/schemas/generate": {
+      "post": {
+        "tags": [
+          "Schemas"
+        ],
+        "summary": "Generate a new schema.",
+        "operationId": "Schemas_PostSchemaGenerate",
+        "requestBody": {
+          "x-name": "request",
+          "description": "The schema object that needs to be added to the app.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateSchemaDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "201": {
+            "description": "Schema created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateSchemaResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Schema request not valid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Schema name already in use.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Operation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "x-method-name": "postSchemaGenerate"
       }
     },
     "/api/apps/$app$/schemas/{schema}/sync": {
@@ -4027,13 +4275,13 @@
         "x-method-name": "unpublishSchema"
       }
     },
-    "/api/rules/actions": {
+    "/api/rules/steps": {
       "get": {
         "tags": [
           "Rules"
         ],
-        "summary": "Get supported rule actions.",
-        "operationId": "Rules_GetActions",
+        "summary": "Get supported rule steps.",
+        "operationId": "Rules_GetSteps",
         "responses": {
           "200": {
             "description": "Rule actions returned.",
@@ -4064,7 +4312,7 @@
             "squidex-oauth-auth": []
           }
         ],
-        "x-method-name": "getActions"
+        "x-method-name": "getSteps"
       }
     },
     "/api/apps/$app$/rules": {
@@ -4444,6 +4692,19 @@
             "x-position": 2
           }
         ],
+        "requestBody": {
+          "x-name": "request",
+          "description": "The arguments for the rule flow.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TriggerRuleDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 3
+        },
         "responses": {
           "204": {
             "description": "Rule triggered."
@@ -4577,6 +4838,108 @@
           }
         },
         "x-method-name": "deleteRuleEvents"
+      }
+    },
+    "/api/apps/$app$/rules/validate/trigger": {
+      "post": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "Validates a rule trigger.",
+        "operationId": "Rules_ValidateTrigger",
+        "requestBody": {
+          "x-name": "request",
+          "description": "The rule trigger that needs to be validate.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuleTriggerDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": "Rule trigger validated."
+          },
+          "400": {
+            "description": "Rule trigger not valid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Rule or app not found."
+          },
+          "500": {
+            "description": "Operation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "x-method-name": "validateTrigger"
+      }
+    },
+    "/api/apps/$app$/rules/validate/step": {
+      "post": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "Validates a rule step.",
+        "operationId": "Rules_ValidateStep",
+        "requestBody": {
+          "x-name": "request",
+          "description": "The rule step that needs to be validate.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlowStepDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": "Rule step validated."
+          },
+          "400": {
+            "description": "Rule step not valid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Rule or app not found."
+          },
+          "500": {
+            "description": "Operation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "x-method-name": "validateStep"
       }
     },
     "/api/apps/$app$/rules/simulate": {
@@ -4800,7 +5163,8 @@
             "required": true,
             "description": "The event to enqueue.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "guid"
             },
             "x-position": 2
           }
@@ -4848,7 +5212,8 @@
             "required": true,
             "description": "The event to cancel.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "guid"
             },
             "x-position": 2
           }
@@ -7428,7 +7793,7 @@
           {
             "name": "enrichRequiredFields",
             "in": "query",
-            "description": "True, to also enrich required fields. Default: false.\n            ",
+            "description": "True, to also enrich required fields. Default: false.",
             "schema": {
               "type": "boolean"
             },
@@ -8975,6 +9340,35 @@
               "$ref": "#/components/schemas/ImageFormat"
             },
             "x-position": 17
+          },
+          {
+            "name": "watermarkUrl",
+            "in": "query",
+            "description": "Adds the image with the given URL on to of your image. If the watermark cannot be loaded or found, the watermark is just ignored.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 18
+          },
+          {
+            "name": "watermarkOpacity",
+            "in": "query",
+            "description": "The opacity of the watermark image.",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            },
+            "x-position": 19
+          },
+          {
+            "name": "watermarkAnchor",
+            "in": "query",
+            "description": "The anchor where the watermark should be placed.",
+            "schema": {
+              "$ref": "#/components/schemas/WatermarkAnchor"
+            },
+            "x-position": 20
           }
         ],
         "responses": {
@@ -9174,6 +9568,35 @@
               "$ref": "#/components/schemas/ImageFormat"
             },
             "x-position": 16
+          },
+          {
+            "name": "watermarkUrl",
+            "in": "query",
+            "description": "Adds the image with the given URL on to of your image. If the watermark cannot be loaded or found, the watermark is just ignored.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 17
+          },
+          {
+            "name": "watermarkOpacity",
+            "in": "query",
+            "description": "The opacity of the watermark image.",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            },
+            "x-position": 18
+          },
+          {
+            "name": "watermarkAnchor",
+            "in": "query",
+            "description": "The anchor where the watermark should be placed.",
+            "schema": {
+              "$ref": "#/components/schemas/WatermarkAnchor"
+            },
+            "x-position": 19
           }
         ],
         "responses": {
@@ -11804,6 +12227,17 @@
         ],
         "summary": "Delete the app.",
         "operationId": "Apps_DeleteApp",
+        "parameters": [
+          {
+            "name": "permanent",
+            "in": "query",
+            "description": "True to delete the app permanently.",
+            "schema": {
+              "type": "boolean"
+            },
+            "x-position": 2
+          }
+        ],
         "responses": {
           "204": {
             "description": "App deleted."
@@ -12586,6 +13020,7 @@
               "name",
               "title",
               "description",
+              "details",
               "isStarter"
             ],
             "properties": {
@@ -12601,9 +13036,18 @@
                 "type": "string",
                 "description": "The description of the template."
               },
+              "details": {
+                "type": "string",
+                "description": "The details of the template."
+              },
               "isStarter": {
                 "type": "boolean",
                 "description": "True, if the template is a starter."
+              },
+              "logo": {
+                "type": "string",
+                "description": "The optional logo.",
+                "nullable": true
               }
             }
           }
@@ -12893,7 +13337,7 @@
           }
         }
       },
-      "CallsUsageDtoDto": {
+      "CallsUsageDto": {
         "type": "object",
         "additionalProperties": false,
         "required": [
@@ -13484,6 +13928,10 @@
           "isHalfWidth": {
             "type": "boolean",
             "description": "Indicates if the field should be rendered with half width only."
+          },
+          "isCreateOnly": {
+            "type": "boolean",
+            "description": "Indicates if the field can only be created and not modified."
           },
           "editorUrl": {
             "type": "string",
@@ -14595,6 +15043,105 @@
           }
         }
       },
+      "IndexesDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "items"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "description": "The indexes.",
+                "items": {
+                  "$ref": "#/components/schemas/IndexDto"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "IndexDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "fields"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the index.",
+                "minLength": 1
+              },
+              "fields": {
+                "type": "array",
+                "description": "The index fields.",
+                "items": {
+                  "$ref": "#/components/schemas/IndexFieldDto"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "IndexFieldDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "order"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the field.",
+            "minLength": 1
+          },
+          "order": {
+            "description": "The sort order of the field.",
+            "$ref": "#/components/schemas/SortOrder"
+          }
+        }
+      },
+      "SortOrder": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "Ascending",
+          "Descending"
+        ],
+        "enum": [
+          "Ascending",
+          "Descending"
+        ]
+      },
+      "CreateIndexDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fields"
+        ],
+        "properties": {
+          "fields": {
+            "type": "array",
+            "description": "The index fields.",
+            "items": {
+              "$ref": "#/components/schemas/IndexFieldDto"
+            }
+          }
+        }
+      },
       "SchemasDto": {
         "allOf": [
           {
@@ -14793,6 +15340,52 @@
           }
         }
       },
+      "GenerateSchemaResponseDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "log"
+        ],
+        "properties": {
+          "log": {
+            "type": "array",
+            "description": "The status log.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "schemaName": {
+            "type": "string",
+            "description": "The name of the created schema.",
+            "nullable": true
+          }
+        }
+      },
+      "GenerateSchemaDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "prompt",
+          "execute",
+          "numberOfContentItems"
+        ],
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "The prompt to generate.",
+            "minLength": 1
+          },
+          "execute": {
+            "type": "boolean",
+            "description": "Indicates if the schema should actually be generated."
+          },
+          "numberOfContentItems": {
+            "type": "integer",
+            "description": "The number of content items to generate.",
+            "format": "int32"
+          }
+        }
+      },
       "UpdateSchemaDto": {
         "type": "object",
         "additionalProperties": false,
@@ -14950,8 +15543,8 @@
         ],
         "properties": {
           "editor": {
-            "description": "The html editor.",
-            "$ref": "#/components/schemas/RuleFieldEditor"
+            "type": "string",
+            "description": "The html editor."
           },
           "name": {
             "type": "string",
@@ -14983,32 +15576,6 @@
             "description": "Indicates if the property is required."
           }
         }
-      },
-      "RuleFieldEditor": {
-        "type": "string",
-        "description": "",
-        "x-enumNames": [
-          "Checkbox",
-          "Dropdown",
-          "Email",
-          "Javascript",
-          "Number",
-          "Password",
-          "Text",
-          "TextArea",
-          "Url"
-        ],
-        "enum": [
-          "Checkbox",
-          "Dropdown",
-          "Email",
-          "Javascript",
-          "Number",
-          "Password",
-          "Text",
-          "TextArea",
-          "Url"
-        ]
       },
       "RulesDto": {
         "allOf": [
@@ -15055,6 +15622,7 @@
               "version",
               "isEnabled",
               "trigger",
+              "flow",
               "action",
               "numSucceeded",
               "numFailed"
@@ -15100,8 +15668,14 @@
                 "description": "The trigger properties.",
                 "$ref": "#/components/schemas/RuleTriggerDto"
               },
+              "flow": {
+                "description": "The flow to describe the sequence of actions to perform.",
+                "$ref": "#/components/schemas/FlowDefinitionDto"
+              },
               "action": {
                 "description": "The action properties.",
+                "deprecated": true,
+                "x-deprecatedMessage": "Use the new 'Flow' property to define actions. Can be null if the flow cannot be converted.",
                 "$ref": "#/components/schemas/RuleActionDto"
               },
               "numSucceeded": {
@@ -15134,6 +15708,7 @@
             "AssetChanged": "#/components/schemas/AssetChangedRuleTriggerDto",
             "Comment": "#/components/schemas/CommentRuleTriggerDto",
             "ContentChanged": "#/components/schemas/ContentChangedRuleTriggerDto",
+            "CronJob": "#/components/schemas/CronJobRuleTriggerDto",
             "Manual": "#/components/schemas/ManualRuleTriggerDto",
             "SchemaChanged": "#/components/schemas/SchemaChangedRuleTriggerDto",
             "Usage": "#/components/schemas/UsageRuleTriggerDto"
@@ -15238,6 +15813,36 @@
           }
         }
       },
+      "CronJobRuleTriggerDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleTriggerDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "cronExpression",
+              "value"
+            ],
+            "properties": {
+              "cronExpression": {
+                "type": "string",
+                "description": "The cron expression that defines the interval.",
+                "minLength": 1
+              },
+              "cronTimezone": {
+                "type": "string",
+                "description": "The optional timezone.",
+                "nullable": true
+              },
+              "value": {
+                "description": "The value sent to the flow."
+              }
+            }
+          }
+        ]
+      },
       "ManualRuleTriggerDto": {
         "allOf": [
           {
@@ -15296,46 +15901,99 @@
           }
         ]
       },
-      "RuleActionDto": {
+      "FlowDefinitionDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "initialStepId",
+          "steps"
+        ],
+        "properties": {
+          "initialStepId": {
+            "type": "string",
+            "description": "The ID of the initial step.",
+            "format": "guid",
+            "minLength": 1
+          },
+          "steps": {
+            "type": "object",
+            "description": "The steps.",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/FlowStepDefinitionDto"
+            }
+          }
+        }
+      },
+      "FlowStepDefinitionDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step"
+        ],
+        "properties": {
+          "step": {
+            "description": "The actual step.",
+            "$ref": "#/components/schemas/FlowStepDto"
+          },
+          "name": {
+            "type": "string",
+            "description": "The optional descriptive name.",
+            "nullable": true
+          },
+          "nextStepId": {
+            "type": "string",
+            "description": "The next step.",
+            "format": "guid",
+            "nullable": true
+          },
+          "ignoreError": {
+            "type": "boolean",
+            "description": "Indicates if errors should be ignored."
+          }
+        }
+      },
+      "FlowStepDto": {
         "type": "object",
         "discriminator": {
-          "propertyName": "actionType",
+          "propertyName": "stepType",
           "mapping": {
-            "Algolia": "#/components/schemas/AlgoliaRuleActionDto",
-            "AzureQueue": "#/components/schemas/AzureQueueRuleActionDto",
-            "Comment": "#/components/schemas/CommentRuleActionDto",
-            "CreateContent": "#/components/schemas/CreateContentRuleActionDto",
-            "Discourse": "#/components/schemas/DiscourseRuleActionDto",
-            "ElasticSearch": "#/components/schemas/ElasticSearchRuleActionDto",
-            "Email": "#/components/schemas/EmailRuleActionDto",
-            "Fastly": "#/components/schemas/FastlyRuleActionDto",
-            "Medium": "#/components/schemas/MediumRuleActionDto",
-            "Notification": "#/components/schemas/NotificationRuleActionDto",
-            "OpenSearch": "#/components/schemas/OpenSearchRuleActionDto",
-            "Prerender": "#/components/schemas/PrerenderRuleActionDto",
-            "Script": "#/components/schemas/ScriptRuleActionDto",
-            "SignalR": "#/components/schemas/SignalRRuleActionDto",
-            "Slack": "#/components/schemas/SlackRuleActionDto",
-            "Tweet": "#/components/schemas/TweetRuleActionDto",
-            "Typesense": "#/components/schemas/TypesenseRuleActionDto",
-            "Webhook": "#/components/schemas/WebhookRuleActionDto"
+            "Algolia": "#/components/schemas/AlgoliaFlowStepDto",
+            "AzureQueue": "#/components/schemas/AzureQueueFlowStepDto",
+            "Comment": "#/components/schemas/CommentFlowStepDto",
+            "CreateContent": "#/components/schemas/CreateContentFlowStepDto",
+            "Delay": "#/components/schemas/DelayFlowStepDto",
+            "Discourse": "#/components/schemas/DiscourseFlowStepDto",
+            "ElasticSearch": "#/components/schemas/ElasticSearchFlowStepDto",
+            "Email": "#/components/schemas/EmailFlowStepDto",
+            "Fastly": "#/components/schemas/FastlyFlowStepDto",
+            "If": "#/components/schemas/IfFlowStepDto",
+            "Medium": "#/components/schemas/MediumFlowStepDto",
+            "Notification": "#/components/schemas/NotificationFlowStepDto",
+            "OpenSearch": "#/components/schemas/OpenSearchFlowStepDto",
+            "Prerender": "#/components/schemas/PrerenderFlowStepDto",
+            "Script": "#/components/schemas/ScriptFlowStepDto",
+            "SignalR": "#/components/schemas/SignalRFlowStepDto",
+            "Slack": "#/components/schemas/SlackFlowStepDto",
+            "Tweet": "#/components/schemas/TweetFlowStepDto",
+            "Typesense": "#/components/schemas/TypesenseFlowStepDto",
+            "Webhook": "#/components/schemas/WebhookFlowStepDto"
           }
         },
         "x-abstract": true,
         "additionalProperties": false,
         "required": [
-          "actionType"
+          "stepType"
         ],
         "properties": {
-          "actionType": {
+          "stepType": {
             "type": "string"
           }
         }
       },
-      "AlgoliaRuleActionDto": {
+      "AlgoliaFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15380,10 +16038,10 @@
           }
         ]
       },
-      "AzureQueueRuleActionDto": {
+      "AzureQueueFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15415,10 +16073,10 @@
           }
         ]
       },
-      "CommentRuleActionDto": {
+      "CommentFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15443,10 +16101,10 @@
           }
         ]
       },
-      "CreateContentRuleActionDto": {
+      "CreateContentFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15454,7 +16112,6 @@
             "required": [
               "data",
               "schema",
-              "client",
               "publish"
             ],
             "properties": {
@@ -15473,7 +16130,8 @@
               "client": {
                 "title": "Client",
                 "type": "string",
-                "description": "An optional client name."
+                "description": "An optional client name.",
+                "nullable": true
               },
               "publish": {
                 "title": "Publish",
@@ -15484,10 +16142,32 @@
           }
         ]
       },
-      "DiscourseRuleActionDto": {
+      "DelayFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "delayInSec"
+            ],
+            "properties": {
+              "delayInSec": {
+                "title": "Delay",
+                "type": "integer",
+                "description": "The delay in seconds.",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "DiscourseFlowStepDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15548,10 +16228,10 @@
           }
         ]
       },
-      "ElasticSearchRuleActionDto": {
+      "ElasticSearchFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15602,10 +16282,10 @@
           }
         ]
       },
-      "EmailRuleActionDto": {
+      "EmailFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15671,10 +16351,10 @@
           }
         ]
       },
-      "FastlyRuleActionDto": {
+      "FastlyFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15700,10 +16380,52 @@
           }
         ]
       },
-      "MediumRuleActionDto": {
+      "IfFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "branches": {
+                "title": "Branches",
+                "type": "array",
+                "description": "The delay in seconds.",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/IfFlowBranch"
+                }
+              },
+              "elseStepId": {
+                "type": "string",
+                "format": "guid",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "IfFlowBranch": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "condition": {
+            "type": "string",
+            "nullable": true
+          },
+          "nextStepId": {
+            "type": "string",
+            "format": "guid",
+            "nullable": true
+          }
+        }
+      },
+      "MediumFlowStepDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15760,10 +16482,10 @@
           }
         ]
       },
-      "NotificationRuleActionDto": {
+      "NotificationFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15801,10 +16523,10 @@
           }
         ]
       },
-      "OpenSearchRuleActionDto": {
+      "OpenSearchFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15855,10 +16577,10 @@
           }
         ]
       },
-      "PrerenderRuleActionDto": {
+      "PrerenderFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15884,32 +16606,29 @@
           }
         ]
       },
-      "ScriptRuleActionDto": {
+      "ScriptFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "script"
-            ],
             "properties": {
               "script": {
                 "title": "Script",
                 "type": "string",
-                "description": "The script to render.",
-                "minLength": 1
+                "description": "The script to execute.",
+                "nullable": true
               }
             }
           }
         ]
       },
-      "SignalRRuleActionDto": {
+      "SignalRFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -15935,7 +16654,7 @@
               "action": {
                 "title": "Action",
                 "description": "* Broadcast = send to all users.\n * User = send to all target users(s).\n * Group = send to all target group(s).",
-                "$ref": "#/components/schemas/ActionTypeEnum"
+                "$ref": "#/components/schemas/SignalRActionType"
               },
               "methodName": {
                 "title": "Methode Name",
@@ -15959,7 +16678,7 @@
           }
         ]
       },
-      "ActionTypeEnum": {
+      "SignalRActionType": {
         "type": "string",
         "description": "",
         "x-enumNames": [
@@ -15973,10 +16692,10 @@
           "Group"
         ]
       },
-      "SlackRuleActionDto": {
+      "SlackFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -16003,10 +16722,10 @@
           }
         ]
       },
-      "TweetRuleActionDto": {
+      "TweetFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -16039,10 +16758,10 @@
           }
         ]
       },
-      "TypesenseRuleActionDto": {
+      "TypesenseFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
@@ -16088,30 +16807,29 @@
           }
         ]
       },
-      "WebhookRuleActionDto": {
+      "WebhookFlowStepDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/RuleActionDto"
+            "$ref": "#/components/schemas/FlowStepDto"
           },
           {
             "type": "object",
             "additionalProperties": false,
             "required": [
-              "url",
-              "method"
+              "method",
+              "url"
             ],
             "properties": {
-              "url": {
-                "title": "Url",
-                "type": "string",
-                "description": "The url to the webhook.",
-                "format": "uri",
-                "minLength": 1
-              },
               "method": {
                 "title": "Method",
                 "description": "The type of the request.",
                 "$ref": "#/components/schemas/WebhookMethod"
+              },
+              "url": {
+                "title": "Url",
+                "type": "string",
+                "description": "The URL to the webhook.",
+                "minLength": 1
               },
               "payload": {
                 "title": "Payload (Optional)",
@@ -16119,16 +16837,16 @@
                 "description": "Leave it empty to use the full event as body.",
                 "nullable": true
               },
-              "payloadType": {
-                "title": "Payload Type",
-                "type": "string",
-                "description": "The mime type of the payload.",
-                "nullable": true
-              },
               "headers": {
                 "title": "Headers (Optional)",
                 "type": "string",
                 "description": "The message headers in the format '[Key]=[Value]', one entry per line.",
+                "nullable": true
+              },
+              "payloadType": {
+                "title": "Payload Type",
+                "type": "string",
+                "description": "The mime type of the payload.",
                 "nullable": true
               },
               "sharedSecret": {
@@ -16159,21 +16877,784 @@
           "PATCH"
         ]
       },
+      "RuleActionDto": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "actionType",
+          "mapping": {
+            "Algolia": "#/components/schemas/AlgoliaRuleActionDto",
+            "AzureQueue": "#/components/schemas/AzureQueueRuleActionDto",
+            "Comment": "#/components/schemas/CommentRuleActionDto",
+            "CreateContent": "#/components/schemas/CreateContentRuleActionDto",
+            "Discourse": "#/components/schemas/DiscourseRuleActionDto",
+            "ElasticSearch": "#/components/schemas/ElasticSearchRuleActionDto",
+            "Email": "#/components/schemas/EmailRuleActionDto",
+            "Fastly": "#/components/schemas/FastlyRuleActionDto",
+            "Medium": "#/components/schemas/MediumRuleActionDto",
+            "Notification": "#/components/schemas/NotificationRuleActionDto",
+            "OpenSearch": "#/components/schemas/OpenSearchRuleActionDto",
+            "Prerender": "#/components/schemas/PrerenderRuleActionDto",
+            "Script": "#/components/schemas/ScriptRuleActionDto",
+            "SignalR": "#/components/schemas/SignalRRuleActionDto",
+            "Slack": "#/components/schemas/SlackRuleActionDto",
+            "Tweet": "#/components/schemas/TweetRuleActionDto",
+            "Typesense": "#/components/schemas/TypesenseRuleActionDto",
+            "Webhook": "#/components/schemas/WebhookRuleActionDto"
+          }
+        },
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "required": [
+          "actionType"
+        ],
+        "properties": {
+          "actionType": {
+            "type": "string"
+          }
+        }
+      },
+      "AlgoliaRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "appId",
+              "apiKey",
+              "indexName"
+            ],
+            "properties": {
+              "appId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "apiKey": {
+                "type": "string",
+                "minLength": 1
+              },
+              "indexName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "document": {
+                "type": "string",
+                "nullable": true
+              },
+              "delete": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "AzureQueueRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "connectionString",
+              "queue"
+            ],
+            "properties": {
+              "connectionString": {
+                "type": "string",
+                "minLength": 1
+              },
+              "queue": {
+                "type": "string",
+                "minLength": 1
+              },
+              "payload": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "CommentRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "text"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "client": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "CreateContentRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "data",
+              "schema",
+              "publish"
+            ],
+            "properties": {
+              "data": {
+                "type": "string",
+                "minLength": 1
+              },
+              "schema": {
+                "type": "string",
+                "minLength": 1
+              },
+              "client": {
+                "type": "string",
+                "nullable": true
+              },
+              "publish": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      },
+      "DiscourseRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "url",
+              "apiKey",
+              "apiUsername",
+              "text"
+            ],
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "minLength": 1
+              },
+              "apiKey": {
+                "type": "string",
+                "minLength": 1
+              },
+              "apiUsername": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "nullable": true
+              },
+              "topic": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "category": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "ElasticSearchRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "host",
+              "indexName"
+            ],
+            "properties": {
+              "host": {
+                "type": "string",
+                "format": "uri",
+                "minLength": 1
+              },
+              "indexName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "username": {
+                "type": "string",
+                "nullable": true
+              },
+              "password": {
+                "type": "string",
+                "nullable": true
+              },
+              "document": {
+                "type": "string",
+                "nullable": true
+              },
+              "delete": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "EmailRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "serverHost",
+              "serverPort",
+              "messageFrom",
+              "messageTo",
+              "messageSubject",
+              "messageBody",
+              "serverUsername",
+              "serverPassword"
+            ],
+            "properties": {
+              "serverHost": {
+                "type": "string",
+                "minLength": 1
+              },
+              "serverPort": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "messageFrom": {
+                "type": "string",
+                "minLength": 1
+              },
+              "messageTo": {
+                "type": "string",
+                "minLength": 1
+              },
+              "messageSubject": {
+                "type": "string",
+                "minLength": 1
+              },
+              "messageBody": {
+                "type": "string",
+                "minLength": 1
+              },
+              "serverUsername": {
+                "type": "string"
+              },
+              "serverPassword": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "FastlyRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "apiKey",
+              "serviceId"
+            ],
+            "properties": {
+              "apiKey": {
+                "type": "string",
+                "minLength": 1
+              },
+              "serviceId": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ]
+      },
+      "MediumRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "accessToken",
+              "title",
+              "content",
+              "isHtml"
+            ],
+            "properties": {
+              "accessToken": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "content": {
+                "type": "string",
+                "minLength": 1
+              },
+              "canonicalUrl": {
+                "type": "string",
+                "nullable": true
+              },
+              "tags": {
+                "type": "string",
+                "nullable": true
+              },
+              "publicationId": {
+                "type": "string",
+                "nullable": true
+              },
+              "isHtml": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      },
+      "NotificationRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "user",
+              "text"
+            ],
+            "properties": {
+              "user": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": "string",
+                "nullable": true
+              },
+              "client": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "OpenSearchRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "host",
+              "indexName"
+            ],
+            "properties": {
+              "host": {
+                "type": "string",
+                "format": "uri",
+                "minLength": 1
+              },
+              "indexName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "username": {
+                "type": "string",
+                "nullable": true
+              },
+              "password": {
+                "type": "string",
+                "nullable": true
+              },
+              "document": {
+                "type": "string",
+                "nullable": true
+              },
+              "delete": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "PrerenderRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "token",
+              "url"
+            ],
+            "properties": {
+              "token": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ]
+      },
+      "ScriptRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "script"
+            ],
+            "properties": {
+              "script": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ]
+      },
+      "SignalRRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "connectionString",
+              "hubName",
+              "action"
+            ],
+            "properties": {
+              "connectionString": {
+                "type": "string",
+                "minLength": 1
+              },
+              "hubName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "action": {
+                "$ref": "#/components/schemas/SignalRActionType"
+              },
+              "methodName": {
+                "type": "string",
+                "nullable": true
+              },
+              "target": {
+                "type": "string",
+                "nullable": true
+              },
+              "payload": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "SlackRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "webhookUrl",
+              "text"
+            ],
+            "properties": {
+              "webhookUrl": {
+                "type": "string",
+                "format": "uri",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ]
+      },
+      "TweetRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "accessToken",
+              "accessSecret",
+              "text"
+            ],
+            "properties": {
+              "accessToken": {
+                "type": "string",
+                "minLength": 1
+              },
+              "accessSecret": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ]
+      },
+      "TypesenseRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "host",
+              "indexName",
+              "apiKey"
+            ],
+            "properties": {
+              "host": {
+                "type": "string",
+                "format": "uri",
+                "minLength": 1
+              },
+              "indexName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "apiKey": {
+                "type": "string"
+              },
+              "document": {
+                "type": "string",
+                "nullable": true
+              },
+              "delete": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "WebhookRuleActionDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Has been replaced by flows.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RuleActionDto"
+          },
+          {
+            "type": "object",
+            "deprecated": true,
+            "x-deprecatedMessage": "Has been replaced by flows.",
+            "additionalProperties": false,
+            "required": [
+              "url",
+              "method"
+            ],
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "minLength": 1
+              },
+              "method": {
+                "$ref": "#/components/schemas/WebhookMethod"
+              },
+              "payload": {
+                "type": "string",
+                "nullable": true
+              },
+              "payloadType": {
+                "type": "string",
+                "nullable": true
+              },
+              "headers": {
+                "type": "string",
+                "nullable": true
+              },
+              "sharedSecret": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
       "CreateRuleDto": {
         "type": "object",
         "additionalProperties": false,
         "required": [
           "trigger",
-          "action"
+          "flow"
         ],
         "properties": {
+          "name": {
+            "type": "string",
+            "description": "Optional rule name.",
+            "nullable": true
+          },
           "trigger": {
             "description": "The trigger properties.",
             "$ref": "#/components/schemas/RuleTriggerDto"
           },
           "action": {
             "description": "The action properties.",
+            "deprecated": true,
+            "x-deprecatedMessage": "Use the new 'Flow' property to define actions",
+            "nullable": true,
             "$ref": "#/components/schemas/RuleActionDto"
+          },
+          "flow": {
+            "description": "The flow to describe the sequence of actions to perform.",
+            "$ref": "#/components/schemas/FlowDefinitionDto"
+          },
+          "isEnabled": {
+            "type": "boolean",
+            "description": "Enable or disable the rule.",
+            "nullable": true
           }
         }
       },
@@ -16192,14 +17673,30 @@
             "$ref": "#/components/schemas/RuleTriggerDto"
           },
           "action": {
-            "description": "The action properties.",
+            "description": "The flow to describe the sequence of actions to perform.",
+            "deprecated": true,
+            "x-deprecatedMessage": "Use the new 'Flow' property to define actions",
             "nullable": true,
             "$ref": "#/components/schemas/RuleActionDto"
+          },
+          "flow": {
+            "description": "The flow.",
+            "nullable": true,
+            "$ref": "#/components/schemas/FlowDefinitionDto"
           },
           "isEnabled": {
             "type": "boolean",
             "description": "Enable or disable the rule.",
             "nullable": true
+          }
+        }
+      },
+      "TriggerRuleDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "description": "The optional value to send to the flow."
           }
         }
       },
@@ -16246,18 +17743,15 @@
           "eventId": {
             "type": "string",
             "description": "The unique event id.",
-            "format": "guid",
-            "minLength": 1
+            "format": "guid"
           },
           "uniqueId": {
             "type": "string",
-            "description": "The the unique id of the simulated event.",
-            "minLength": 1
+            "description": "The the unique id of the simulated event."
           },
           "eventName": {
             "type": "string",
-            "description": "The name of the event.",
-            "minLength": 1
+            "description": "The name of the event."
           },
           "event": {
             "description": "The source event."
@@ -16266,20 +17760,10 @@
             "description": "The enriched event.",
             "nullable": true
           },
-          "actionName": {
-            "type": "string",
-            "description": "The data for the action.",
-            "nullable": true
-          },
-          "actionData": {
-            "type": "string",
-            "description": "The name of the action.",
-            "nullable": true
-          },
-          "error": {
-            "type": "string",
-            "description": "The name of the event.",
-            "nullable": true
+          "flowState": {
+            "description": "The flow state.",
+            "nullable": true,
+            "$ref": "#/components/schemas/FlowExecutionStateDto"
           },
           "skipReasons": {
             "type": "array",
@@ -16287,6 +17771,163 @@
             "items": {
               "$ref": "#/components/schemas/SkipReason"
             }
+          }
+        }
+      },
+      "FlowExecutionStateDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "definition",
+          "context",
+          "description",
+          "steps",
+          "nextStepId",
+          "created",
+          "completed",
+          "status"
+        ],
+        "properties": {
+          "definition": {
+            "description": "The actual definition of the the steps to be executed.",
+            "$ref": "#/components/schemas/FlowDefinitionDto"
+          },
+          "context": {
+            "description": "The context."
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the execution state (usually the event name)."
+          },
+          "steps": {
+            "type": "object",
+            "description": "The state of each step.",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/FlowExecutionStepStateDto"
+            }
+          },
+          "nextStepId": {
+            "type": "string",
+            "description": "The next step to be executed.",
+            "format": "guid"
+          },
+          "nextRun": {
+            "type": "string",
+            "description": "THe time when the next step will be executed.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "created": {
+            "type": "string",
+            "description": "The creation time.",
+            "format": "date-time"
+          },
+          "completed": {
+            "type": "string",
+            "description": "The completion time.",
+            "format": "date-time"
+          },
+          "status": {
+            "description": "The overall status.",
+            "$ref": "#/components/schemas/FlowExecutionStatus"
+          }
+        }
+      },
+      "FlowExecutionStepStateDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "attempts"
+        ],
+        "properties": {
+          "status": {
+            "description": "The status of this step.",
+            "$ref": "#/components/schemas/FlowExecutionStatus"
+          },
+          "attempts": {
+            "type": "array",
+            "description": "The different attempts.",
+            "items": {
+              "$ref": "#/components/schemas/FlowExecutionStepAttemptDto"
+            }
+          }
+        }
+      },
+      "FlowExecutionStatus": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "Pending",
+          "Scheduled",
+          "Completed",
+          "Failed",
+          "Running",
+          "Cancelled"
+        ],
+        "enum": [
+          "Pending",
+          "Scheduled",
+          "Completed",
+          "Failed",
+          "Running",
+          "Cancelled"
+        ]
+      },
+      "FlowExecutionStepAttemptDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "log",
+          "started",
+          "completed"
+        ],
+        "properties": {
+          "log": {
+            "type": "array",
+            "description": "The log messages.",
+            "items": {
+              "$ref": "#/components/schemas/FlowExecutionStepLogEntryDto"
+            }
+          },
+          "started": {
+            "type": "string",
+            "description": "The time when the attempt has been started.",
+            "format": "date-time"
+          },
+          "completed": {
+            "type": "string",
+            "description": "The time when the attempt has been completed.",
+            "format": "date-time"
+          },
+          "error": {
+            "type": "string",
+            "description": "The error, if there is any.",
+            "nullable": true
+          }
+        }
+      },
+      "FlowExecutionStepLogEntryDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "timestamp",
+          "message"
+        ],
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "description": "The timestamp.",
+            "format": "date-time"
+          },
+          "message": {
+            "type": "string",
+            "description": "The log message."
+          },
+          "dump": {
+            "type": "string",
+            "description": "A detailed dump.",
+            "nullable": true
           }
         }
       },
@@ -16301,7 +17942,6 @@
           "Disabled",
           "Failed",
           "FromRule",
-          "NoAction",
           "NoTrigger",
           "TooOld",
           "WrongEvent",
@@ -16314,7 +17954,6 @@
           "Disabled",
           "Failed",
           "FromRule",
-          "NoAction",
           "NoTrigger",
           "TooOld",
           "WrongEvent",
@@ -16360,91 +17999,20 @@
             "additionalProperties": false,
             "required": [
               "id",
-              "created",
-              "description",
-              "eventName",
-              "numCalls",
-              "result",
-              "jobResult"
+              "flowState"
             ],
             "properties": {
               "id": {
                 "type": "string",
-                "description": "The ID of the event."
+                "description": "The ID of the event.",
+                "format": "guid"
               },
-              "created": {
-                "type": "string",
-                "description": "The time when the event has been created.",
-                "format": "date-time"
-              },
-              "description": {
-                "type": "string",
-                "description": "The description."
-              },
-              "eventName": {
-                "type": "string",
-                "description": "The name of the event."
-              },
-              "lastDump": {
-                "type": "string",
-                "description": "The last dump.",
-                "nullable": true
-              },
-              "numCalls": {
-                "type": "integer",
-                "description": "The number of calls.",
-                "format": "int32"
-              },
-              "nextAttempt": {
-                "type": "string",
-                "description": "The next attempt.",
-                "format": "date-time",
-                "nullable": true
-              },
-              "result": {
-                "description": "The result of the event.",
-                "$ref": "#/components/schemas/RuleResult"
-              },
-              "jobResult": {
-                "description": "The result of the job.",
-                "$ref": "#/components/schemas/RuleJobResult"
+              "flowState": {
+                "description": "The flow state.",
+                "$ref": "#/components/schemas/FlowExecutionStateDto"
               }
             }
           }
-        ]
-      },
-      "RuleResult": {
-        "type": "string",
-        "description": "",
-        "x-enumNames": [
-          "Pending",
-          "Success",
-          "Failed",
-          "Timeout"
-        ],
-        "enum": [
-          "Pending",
-          "Success",
-          "Failed",
-          "Timeout"
-        ]
-      },
-      "RuleJobResult": {
-        "type": "string",
-        "description": "",
-        "x-enumNames": [
-          "Pending",
-          "Success",
-          "Retry",
-          "Failed",
-          "Cancelled"
-        ],
-        "enum": [
-          "Pending",
-          "Success",
-          "Retry",
-          "Failed",
-          "Cancelled"
         ]
       },
       "PlansDto": {
@@ -17254,7 +18822,7 @@
           },
           "enrichRequiredFields": {
             "type": "boolean",
-            "description": "True, to also enrich required fields. Default: false.\n            "
+            "description": "True, to also enrich required fields. Default: false."
           },
           "doNotValidate": {
             "type": "boolean",
@@ -17354,6 +18922,10 @@
             "type": "string",
             "nullable": true
           },
+          "collation": {
+            "type": "string",
+            "nullable": true
+          },
           "skip": {
             "type": "integer",
             "format": "int64"
@@ -17394,18 +18966,6 @@
             "$ref": "#/components/schemas/SortOrder"
           }
         }
-      },
-      "SortOrder": {
-        "type": "string",
-        "description": "",
-        "x-enumNames": [
-          "Ascending",
-          "Descending"
-        ],
-        "enum": [
-          "Ascending",
-          "Descending"
-        ]
       },
       "BulkUpdateContentType": {
         "type": "string",
@@ -17500,6 +19060,8 @@
         }
       },
       "BackupJobsDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Use Jobs endpoint.",
         "allOf": [
           {
             "$ref": "#/components/schemas/Resource"
@@ -17525,6 +19087,8 @@
         ]
       },
       "BackupJobDto": {
+        "deprecated": true,
+        "x-deprecatedMessage": "Use Jobs endpoint.",
         "allOf": [
           {
             "$ref": "#/components/schemas/Resource"
@@ -17679,6 +19243,24 @@
           "TGA",
           "TIFF",
           "WEBP"
+        ]
+      },
+      "WatermarkAnchor": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "TopLeft",
+          "TopRight",
+          "BottomLeft",
+          "BottomRight",
+          "Center"
+        ],
+        "enum": [
+          "TopLeft",
+          "TopRight",
+          "BottomLeft",
+          "BottomRight",
+          "Center"
         ]
       },
       "AssetFoldersDto": {
@@ -19041,6 +20623,743 @@
           "initial": {
             "type": "string",
             "description": "The initial step."
+          }
+        }
+      },
+      "EnrichedEventDto": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "$type",
+          "mapping": {
+            "EnrichedAssetEvent": "#/components/schemas/EnrichedAssetEventDto",
+            "EnrichedCommentEvent": "#/components/schemas/EnrichedCommentEventDto",
+            "EnrichedContentEvent": "#/components/schemas/EnrichedContentEventDto",
+            "EnrichedCronJobEvent": "#/components/schemas/EnrichedCronJobEventDto",
+            "EnrichedManualEvent": "#/components/schemas/EnrichedManualEventDto",
+            "EnrichedSchemaEvent": "#/components/schemas/EnrichedSchemaEventDto",
+            "EnrichedUsageExceededEvent": "#/components/schemas/EnrichedUsageExceededEventDto"
+          }
+        },
+        "x-abstract": true,
+        "additionalProperties": false,
+        "required": [
+          "$type",
+          "appId",
+          "timestamp",
+          "name",
+          "version",
+          "partition"
+        ],
+        "properties": {
+          "appId": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "partition": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "$type": {
+            "type": "string"
+          }
+        }
+      },
+      "EnrichedAssetEventDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnrichedUserEventBaseEventDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "id",
+              "created",
+              "lastModified",
+              "createdBy",
+              "lastModifiedBy",
+              "parentId",
+              "mimeType",
+              "fileName",
+              "fileHash",
+              "slug",
+              "fileVersion",
+              "fileSize",
+              "isProtected",
+              "assetType",
+              "metadata",
+              "isImage",
+              "partition"
+            ],
+            "properties": {
+              "type": {
+                "$ref": "#/components/schemas/EnrichedAssetEventType"
+              },
+              "id": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "lastModified": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "type": "string"
+              },
+              "lastModifiedBy": {
+                "type": "string"
+              },
+              "parentId": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "fileName": {
+                "type": "string"
+              },
+              "fileHash": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "fileVersion": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "fileSize": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "isProtected": {
+                "type": "boolean"
+              },
+              "pixelWidth": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "pixelHeight": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "assetType": {
+                "$ref": "#/components/schemas/AssetType"
+              },
+              "metadata": {
+                "type": "object",
+                "additionalProperties": {
+                  "description": "Any"
+                }
+              },
+              "isImage": {
+                "type": "boolean"
+              },
+              "partition": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "EnrichedAssetEventType": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "Created",
+          "Deleted",
+          "Annotated",
+          "Updated"
+        ],
+        "enum": [
+          "Created",
+          "Deleted",
+          "Annotated",
+          "Updated"
+        ]
+      },
+      "EnrichedUserEventBaseEventDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnrichedEventDto"
+          },
+          {
+            "type": "object",
+            "x-abstract": true,
+            "additionalProperties": false,
+            "required": [
+              "actor"
+            ],
+            "properties": {
+              "actor": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "EnrichedCommentEventDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnrichedUserEventBaseEventDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text"
+            ],
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "EnrichedContentEventDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnrichedSchemaEventBaseEventDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "id",
+              "created",
+              "lastModified",
+              "createdBy",
+              "lastModifiedBy",
+              "data",
+              "status",
+              "partition"
+            ],
+            "properties": {
+              "type": {
+                "$ref": "#/components/schemas/EnrichedContentEventType"
+              },
+              "id": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "lastModified": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "type": "string"
+              },
+              "lastModifiedBy": {
+                "type": "string"
+              },
+              "data": {
+                "$ref": "#/components/schemas/ContentData"
+              },
+              "dataOld": {
+                "nullable": true,
+                "$ref": "#/components/schemas/ContentData"
+              },
+              "status": {
+                "type": "string"
+              },
+              "newStatus": {
+                "type": "string",
+                "nullable": true
+              },
+              "partition": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "EnrichedContentEventType": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "Created",
+          "Deleted",
+          "Published",
+          "StatusChanged",
+          "Updated",
+          "Unpublished",
+          "ReferenceUpdated"
+        ],
+        "enum": [
+          "Created",
+          "Deleted",
+          "Published",
+          "StatusChanged",
+          "Updated",
+          "Unpublished",
+          "ReferenceUpdated"
+        ]
+      },
+      "EnrichedSchemaEventBaseEventDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnrichedUserEventBaseEventDto"
+          },
+          {
+            "type": "object",
+            "x-abstract": true,
+            "additionalProperties": false,
+            "required": [
+              "schemaId"
+            ],
+            "properties": {
+              "schemaId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "EnrichedCronJobEventDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnrichedUserEventBaseEventDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "partition"
+            ],
+            "properties": {
+              "value": {},
+              "partition": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "EnrichedManualEventDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnrichedUserEventBaseEventDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "partition"
+            ],
+            "properties": {
+              "value": {},
+              "partition": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "EnrichedSchemaEventDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnrichedSchemaEventBaseEventDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "id",
+              "partition"
+            ],
+            "properties": {
+              "type": {
+                "$ref": "#/components/schemas/EnrichedSchemaEventType"
+              },
+              "id": {
+                "type": "string"
+              },
+              "partition": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "EnrichedSchemaEventType": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "Created",
+          "Deleted",
+          "Published",
+          "Unpublished",
+          "Updated"
+        ],
+        "enum": [
+          "Created",
+          "Deleted",
+          "Published",
+          "Unpublished",
+          "Updated"
+        ]
+      },
+      "EnrichedUsageExceededEventDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnrichedEventDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "callsCurrent",
+              "callsLimit",
+              "partition"
+            ],
+            "properties": {
+              "callsCurrent": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "callsLimit": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "partition": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "DynamicCreateRuleDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "trigger",
+          "flow"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Optional rule name.",
+            "nullable": true
+          },
+          "trigger": {
+            "description": "The trigger properties.",
+            "$ref": "#/components/schemas/RuleTriggerDto"
+          },
+          "action": {
+            "type": "object",
+            "description": "The action properties.",
+            "deprecated": true,
+            "x-deprecatedMessage": "Use the new 'Flow' property to define actions",
+            "nullable": true,
+            "additionalProperties": {}
+          },
+          "flow": {
+            "description": "The flow to describe the sequence of actions to perform.",
+            "$ref": "#/components/schemas/DynamicFlowDefinitionDto"
+          },
+          "isEnabled": {
+            "type": "boolean",
+            "description": "Enable or disable the rule.",
+            "nullable": true
+          }
+        }
+      },
+      "DynamicFlowDefinitionDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "initialStepId",
+          "steps"
+        ],
+        "properties": {
+          "initialStepId": {
+            "type": "string",
+            "description": "The ID of the initial step.",
+            "format": "guid",
+            "minLength": 1
+          },
+          "steps": {
+            "type": "object",
+            "description": "The steps.",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/DynamicFlowStepDefinitionDto"
+            }
+          }
+        }
+      },
+      "DynamicFlowStepDefinitionDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step"
+        ],
+        "properties": {
+          "step": {
+            "type": "object",
+            "description": "The actual step.",
+            "additionalProperties": {}
+          },
+          "name": {
+            "type": "string",
+            "description": "The optional descriptive name.",
+            "nullable": true
+          },
+          "nextStepId": {
+            "type": "string",
+            "description": "The next step.",
+            "format": "guid",
+            "nullable": true
+          },
+          "ignoreError": {
+            "type": "boolean",
+            "description": "Indicates if errors should be ignored."
+          }
+        }
+      },
+      "DynamicFlowExecutionStateDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "definition",
+          "context",
+          "steps",
+          "nextStepId",
+          "created",
+          "completed",
+          "status"
+        ],
+        "properties": {
+          "definition": {
+            "description": "The actual definition of the the steps to be executed.",
+            "$ref": "#/components/schemas/DynamicFlowDefinitionDto"
+          },
+          "context": {
+            "description": "The context."
+          },
+          "steps": {
+            "type": "object",
+            "description": "The state of each step.",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/FlowExecutionStepStateDto"
+            }
+          },
+          "nextStepId": {
+            "type": "string",
+            "description": "The next step to be executed.",
+            "format": "guid"
+          },
+          "nextRun": {
+            "type": "string",
+            "description": "THe time when the next step will be executed.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "created": {
+            "type": "string",
+            "description": "The creation time.",
+            "format": "date-time"
+          },
+          "completed": {
+            "type": "string",
+            "description": "The completion time.",
+            "format": "date-time"
+          },
+          "status": {
+            "description": "The overall status.",
+            "$ref": "#/components/schemas/FlowExecutionStatus"
+          }
+        }
+      },
+      "DynamicRulesDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "items"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "description": "The rules.",
+                "items": {
+                  "$ref": "#/components/schemas/DynamicRuleDto"
+                }
+              },
+              "runningRuleId": {
+                "type": "string",
+                "description": "The ID of the rule that is currently rerunning.",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "DynamicRuleDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "createdBy",
+              "lastModifiedBy",
+              "created",
+              "lastModified",
+              "version",
+              "isEnabled",
+              "trigger",
+              "flow",
+              "action",
+              "numSucceeded",
+              "numFailed"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The ID of the rule."
+              },
+              "createdBy": {
+                "type": "string",
+                "description": "The user that has created the rule."
+              },
+              "lastModifiedBy": {
+                "type": "string",
+                "description": "The user that has updated the rule."
+              },
+              "created": {
+                "type": "string",
+                "description": "The date and time when the rule has been created.",
+                "format": "date-time"
+              },
+              "lastModified": {
+                "type": "string",
+                "description": "The date and time when the rule has been modified last.",
+                "format": "date-time"
+              },
+              "version": {
+                "type": "integer",
+                "description": "The version of the rule.",
+                "format": "int64"
+              },
+              "isEnabled": {
+                "type": "boolean",
+                "description": "Determines if the rule is enabled."
+              },
+              "name": {
+                "type": "string",
+                "description": "Optional rule name.",
+                "nullable": true
+              },
+              "trigger": {
+                "description": "The trigger properties.",
+                "$ref": "#/components/schemas/RuleTriggerDto"
+              },
+              "flow": {
+                "description": "The flow to describe the sequence of actions to perform.",
+                "$ref": "#/components/schemas/DynamicFlowDefinitionDto"
+              },
+              "action": {
+                "type": "object",
+                "description": "The action properties.",
+                "deprecated": true,
+                "x-deprecatedMessage": "Use the new 'Flow' property to define actions. Can be null if the flow cannot be converted.",
+                "additionalProperties": {}
+              },
+              "numSucceeded": {
+                "type": "integer",
+                "description": "The number of completed executions.",
+                "format": "int64"
+              },
+              "numFailed": {
+                "type": "integer",
+                "description": "The number of failed executions.",
+                "format": "int64"
+              },
+              "lastExecuted": {
+                "type": "string",
+                "description": "The date and time when the rule was executed the last time.",
+                "format": "date-time",
+                "deprecated": true,
+                "x-deprecatedMessage": "Removed when migrated to new rule statistics.",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "DynamicUpdateRuleDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Optional rule name.",
+            "nullable": true
+          },
+          "trigger": {
+            "description": "The trigger properties.",
+            "nullable": true,
+            "$ref": "#/components/schemas/RuleTriggerDto"
+          },
+          "action": {
+            "type": "object",
+            "description": "The action properties.",
+            "deprecated": true,
+            "x-deprecatedMessage": "Use the new 'Flow' property to define actions",
+            "nullable": true,
+            "additionalProperties": {}
+          },
+          "flow": {
+            "description": "The flow to describe the sequence of actions to perform.",
+            "nullable": true,
+            "$ref": "#/components/schemas/DynamicFlowDefinitionDto"
+          },
+          "isEnabled": {
+            "type": "boolean",
+            "description": "Enable or disable the rule.",
+            "nullable": true
           }
         }
       }

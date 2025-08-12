@@ -9,7 +9,7 @@ export async function setup() {
     console.log(`Using <appName>=<${client.appName}>`);
     console.log(`Using <clientId>=<${client.clientId}>`);
     console.log(`Using <clientSecret>=<${client.clientSecret}>`);
-    console.log(`Using <environment>=<${client.environment}>`);
+    console.log(`Using <url>=<${client.url}>`);
 
     const waitForServer = async () => {
         const waitTime = parseInt(getEnvironment("CONFIG__WAIT", "0"), 10);
