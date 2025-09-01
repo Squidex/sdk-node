@@ -326,6 +326,13 @@ export class SquidexClients {
     clearToken() {
         this.tokenStore.clear();
     }
+
+    /**
+     * Get an access token from the token store. If it doesn't exist, request it and save it to the token store
+     */
+    getToken() {
+        return this.tokenApi.getToken();
+    }
 }
 
 function addOptions(init: RequestInit, clientOptions: SquidexOptions) {
