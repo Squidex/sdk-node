@@ -3,6 +3,8 @@ import { SquidexOptions, TokenStore } from "./SquidexClient";
 import { SquidexUnauthorizedError } from "./errors";
 
 export class TokenAPI extends BaseAPI {
+    private tokenPromise?: Promise<string>;
+
     constructor(
         private readonly tokenStore: TokenStore,
         private readonly clientOptions: SquidexOptions,
@@ -12,52 +14,57 @@ export class TokenAPI extends BaseAPI {
     }
 
     public async getToken() {
-        const token = this.tokenStore.get();
+        const now = new Date().getTime();
+        let token = this.tokenStore.get();
 
-        if (token != null && token.expiresAt > new Date().getTime()) {
+        if (token != null && token.expiresAt > now) {
             return token.accessToken;
         }
 
-        return this.requestNewToken();
-    }
+        const promise = (this.tokenPromise ||= (async () => {
+            try {
+                const response = await this.request({
+                    path: "/identity-server/connect/token",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-AuthRequest": "1",
+                        "X-AuthSource": "Client",
+                    },
+                    body: new URLSearchParams({
+                        grant_type: "client_credentials",
+                        client_id: this.clientOptions.clientId,
+                        client_secret: this.clientOptions.clientSecret,
+                        scope: "squidex-api",
+                    }),
+                    method: "POST",
+                });
 
-    private async requestNewToken() {
-        const response = await this.request({
-            path: "/identity-server/connect/token",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "X-AuthRequest": "1",
-                "X-AuthSource": "Client",
-            },
-            body: new URLSearchParams({
-                grant_type: "client_credentials",
-                client_id: this.clientOptions.clientId,
-                client_secret: this.clientOptions.clientSecret,
-                scope: "squidex-api",
-            }),
-            method: "POST",
-        });
+                const body = (await response.json()) as { access_token: string; expires_in: number };
 
-        const body = (await response.json()) as { access_token: string; expires_in: number };
+                if (typeof body.access_token !== "string") {
+                    throw new SquidexUnauthorizedError(undefined, undefined, "Token is not a string");
+                }
 
-        if (typeof body.access_token !== "string") {
-            throw new SquidexUnauthorizedError(undefined, undefined, "Token is not a string");
-        }
+                if (typeof body.expires_in !== "number") {
+                    throw new SquidexUnauthorizedError(undefined, undefined, "Token has no valid expiration");
+                }
 
-        if (typeof body.expires_in !== "number") {
-            throw new SquidexUnauthorizedError(undefined, undefined, "Token has no valid expiration");
-        }
+                const expiresIn = body.expires_in;
 
-        const expiresIn = body.expires_in;
+                token = {
+                    accessToken: body.access_token,
+                    expiresIn,
+                    expiresAt: now + expiresIn,
+                };
 
-        const token = {
-            accessToken: body.access_token,
-            expiresIn,
-            expiresAt: new Date().getTime() + expiresIn,
-        };
+                this.tokenStore.set(token);
 
-        this.tokenStore.set(token);
+                return token.accessToken;
+            } finally {
+                this.tokenPromise = undefined;
+            }
+        })());
 
-        return token.accessToken;
+        return promise;
     }
 }
