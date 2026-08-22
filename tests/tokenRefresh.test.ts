@@ -2,11 +2,16 @@ import { SquidexClient } from "../src";
 
 describe("Token refresh", () => {
     it("shares a token request between concurrent API requests", async () => {
-        let tokenRequests = 0;
-        let resolveTokenRequest: (response: Response) => void;
+        let tokenRequestCount = 0;
+        let resolveTokenRequestStarted: () => void;
+        let resolvePendingTokenResponse: (response: Response) => void;
 
-        const tokenResponse = new Promise<Response>((resolve) => {
-            resolveTokenRequest = resolve;
+        const tokenRequestStarted = new Promise<void>((resolve) => {
+            resolveTokenRequestStarted = resolve;
+        });
+
+        const pendingTokenResponse = new Promise<Response>((resolve) => {
+            resolvePendingTokenResponse = resolve;
         });
 
         const client = new SquidexClient({
@@ -16,33 +21,86 @@ describe("Token refresh", () => {
             url: "https://squidex.example",
             fetcher: async (input) => {
                 if (input.toString().endsWith("/identity-server/connect/token")) {
-                    tokenRequests++;
-                    return tokenResponse;
+                    tokenRequestCount++;
+
+                    if (tokenRequestCount === 1) {
+                        resolveTokenRequestStarted!();
+                    }
+
+                    return pendingTokenResponse;
                 }
 
                 return new Response(JSON.stringify([]));
             },
         });
 
-        const requests = [
+        const concurrentApiRequests = [
             client.languages.getLanguages(),
             client.languages.getLanguages(),
             client.languages.getLanguages(),
         ];
 
-        await new Promise((resolve) => setTimeout(resolve, 0));
+        await tokenRequestStarted;
 
-        expect(tokenRequests).toBe(1);
+        expect(tokenRequestCount).toBe(1);
 
-        resolveTokenRequest!(new Response(JSON.stringify({ access_token: "token-1", expires_in: 60_000 })));
+        resolvePendingTokenResponse!(new Response(JSON.stringify({ access_token: "token-1", expires_in: 60_000 })));
 
-        await Promise.all(requests);
+        await Promise.all(concurrentApiRequests);
+    });
+
+    it("does not discard a refreshed token after a delayed 401 response", async () => {
+        let tokenRequestCount = 0;
+        const tokenOneResponseResolvers: Array<(response: Response) => void> = [];
+        let resolveInitialApiRequestsReceived: () => void;
+
+        const initialApiRequestsReceived = new Promise<void>((resolve) => {
+            resolveInitialApiRequestsReceived = resolve;
+        });
+
+        const client = new SquidexClient({
+            appName: "my-app",
+            clientId: "client-id",
+            clientSecret: "client-secret",
+            url: "https://squidex.example",
+            fetcher: async (input, init) => {
+                if (input.toString().endsWith("/identity-server/connect/token")) {
+                    tokenRequestCount++;
+                    return new Response(JSON.stringify({ access_token: `token-${tokenRequestCount}`, expires_in: 60_000 }));
+                }
+
+                if (new Headers(init?.headers).get("Authorization") === "Bearer token-1") {
+                    return new Promise<Response>((resolve) => {
+                        tokenOneResponseResolvers.push(resolve);
+
+                        if (tokenOneResponseResolvers.length === 2) {
+                            resolveInitialApiRequestsReceived!();
+                        }
+                    });
+                }
+
+                return new Response(JSON.stringify([]));
+            },
+        });
+
+        const firstApiRequest = client.languages.getLanguages();
+        const secondApiRequest = client.languages.getLanguages();
+
+        await initialApiRequestsReceived;
+
+        tokenOneResponseResolvers[0](new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 }));
+        await firstApiRequest;
+
+        tokenOneResponseResolvers[1](new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 }));
+        await secondApiRequest;
+
+        expect(tokenRequestCount).toBe(2);
     });
 
     it("refreshes a cached token after a 401", async () => {
-        let tokenRequests = 0;
-        let rejectFirstToken = false;
-        let firstTokenRejected = false;
+        let tokenRequestCount = 0;
+        let rejectTokenOne = false;
+        let tokenOneWasRejected = false;
 
         const client = new SquidexClient({
             appName: "my-app",
@@ -54,15 +112,15 @@ describe("Token refresh", () => {
                 const headers = new Headers(init?.headers);
 
                 if (url.endsWith("/identity-server/connect/token")) {
-                    tokenRequests++;
+                    tokenRequestCount++;
 
-                    return new Response(JSON.stringify({ access_token: `token-${tokenRequests}`, expires_in: 60_000 }));
+                    return new Response(JSON.stringify({ access_token: `token-${tokenRequestCount}`, expires_in: 60_000 }));
                 }
 
                 const authorization = headers.get("Authorization");
 
-                if (rejectFirstToken && authorization === "Bearer token-1") {
-                    firstTokenRejected = true;
+                if (rejectTokenOne && authorization === "Bearer token-1") {
+                    tokenOneWasRejected = true;
                     return new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 });
                 }
 
@@ -72,10 +130,10 @@ describe("Token refresh", () => {
 
         await client.languages.getLanguages();
 
-        rejectFirstToken = true;
+        rejectTokenOne = true;
         await client.languages.getLanguages();
 
-        expect(tokenRequests).toBe(2);
-        expect(firstTokenRejected).toBe(true);
+        expect(tokenRequestCount).toBe(2);
+        expect(tokenOneWasRejected).toBe(true);
     });
 });
