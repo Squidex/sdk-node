@@ -36,7 +36,6 @@ export interface UpdateLanguageDto {
     fallback?: Array<string> | null;
 }
 
-
 /**
  * Check if a given object implements the UpdateLanguageDto interface.
  */

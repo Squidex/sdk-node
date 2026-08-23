@@ -47,7 +47,6 @@ export interface ContentChangedRuleTriggerDto extends RuleTriggerDto {
     handleAll: boolean;
 }
 
-
 /**
  * Check if a given object implements the ContentChangedRuleTriggerDto interface.
  */

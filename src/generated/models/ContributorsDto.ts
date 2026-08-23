@@ -59,7 +59,6 @@ export interface ContributorsDto {
     meta?: ContributorsMetadata;
 }
 
-
 /**
  * Check if a given object implements the ContributorsDto interface.
  */

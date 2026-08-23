@@ -55,7 +55,6 @@ export interface ContributorDto {
     role?: string | null;
 }
 
-
 /**
  * Check if a given object implements the ContributorDto interface.
  */

@@ -36,7 +36,6 @@ export interface FeaturesDto {
     version: number;
 }
 
-
 /**
  * Check if a given object implements the FeaturesDto interface.
  */

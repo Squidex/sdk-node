@@ -23,19 +23,18 @@ import {
  */
 export interface CommentRuleActionDto extends RuleActionDto {
     /**
-     * The comment text.
+     * 
      * @type {string}
      * @memberof CommentRuleActionDto
      */
     text: string;
     /**
-     * An optional client name.
+     * 
      * @type {string}
      * @memberof CommentRuleActionDto
      */
     client?: string | null;
 }
-
 
 /**
  * Check if a given object implements the CommentRuleActionDto interface.

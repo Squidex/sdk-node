@@ -79,7 +79,6 @@ export interface AssetScriptsDto {
     version: number;
 }
 
-
 /**
  * Check if a given object implements the AssetScriptsDto interface.
  */

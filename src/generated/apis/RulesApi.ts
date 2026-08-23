@@ -14,20 +14,26 @@
 import * as runtime from '../runtime';
 import type {
   CreateRuleDto,
+  FlowStepDto,
   RuleDto,
   RuleElementDto,
   RuleEventsDto,
+  RuleTriggerDto,
   RulesDto,
   SimulatedRuleEventsDto,
+  TriggerRuleDto,
   UpdateRuleDto,
 } from '../models/index';
 import {
     CreateRuleDtoToJSON,
+    FlowStepDtoToJSON,
     RuleDtoFromJSON,
     RuleElementDtoFromJSON,
     RuleEventsDtoFromJSON,
+    RuleTriggerDtoToJSON,
     RulesDtoFromJSON,
     SimulatedRuleEventsDtoFromJSON,
+    TriggerRuleDtoToJSON,
     UpdateRuleDtoToJSON,
 } from '../models/index';
 
@@ -99,6 +105,15 @@ export interface RulesSimulatePOSTRequestRaw {
 
 export interface RulesTriggerRuleRequestRaw {
     id: string;
+    triggerRuleDto: TriggerRuleDto;
+}
+
+export interface RulesValidateStepRequestRaw {
+    flowStepDto: FlowStepDto;
+}
+
+export interface RulesValidateTriggerRequestRaw {
+    ruleTriggerDto: RuleTriggerDto;
 }
 
 /**
@@ -213,20 +228,6 @@ export interface RulesApiInterface {
 
     /**
      * 
-     * @summary Get supported rule actions.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof RulesApiInterface
-     */
-    getActionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: RuleElementDto; }>>;
-
-    /**
-     * Get supported rule actions.
-     */
-    getActions(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: RuleElementDto; }>;
-
-    /**
-     * 
      * @summary Provide the json schema for the event with the specified name.
      * @param {string} type The type name of the event.
      * @param {*} [options] Override http request option.
@@ -284,6 +285,20 @@ export interface RulesApiInterface {
      * Get rules.
      */
     getRules(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RulesDto>;
+
+    /**
+     * 
+     * @summary Get supported rule steps.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RulesApiInterface
+     */
+    getStepsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: RuleElementDto; }>>;
+
+    /**
+     * Get supported rule steps.
+     */
+    getSteps(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: RuleElementDto; }>;
 
     /**
      * 
@@ -381,16 +396,47 @@ export interface RulesApiInterface {
      * 
      * @summary Trigger a rule.
      * @param {string} id The ID of the rule to disable.
+     * @param {TriggerRuleDto} triggerRuleDto The arguments for the rule flow.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RulesApiInterface
      */
-    triggerRuleRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    triggerRuleRaw(id: string, triggerRuleDto: TriggerRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Trigger a rule.
      */
-    triggerRule(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    triggerRule(id: string, triggerRuleDto: TriggerRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
+     * 
+     * @summary Validates a rule step.
+     * @param {FlowStepDto} flowStepDto The rule step that needs to be validate.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RulesApiInterface
+     */
+    validateStepRaw(flowStepDto: FlowStepDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Validates a rule step.
+     */
+    validateStep(flowStepDto: FlowStepDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
+     * 
+     * @summary Validates a rule trigger.
+     * @param {RuleTriggerDto} ruleTriggerDto The rule trigger that needs to be validate.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RulesApiInterface
+     */
+    validateTriggerRaw(ruleTriggerDto: RuleTriggerDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Validates a rule trigger.
+     */
+    validateTrigger(ruleTriggerDto: RuleTriggerDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
 }
 
@@ -624,33 +670,6 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     }
 
     /**
-     * Get supported rule actions.
-     */
-    async getActionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: RuleElementDto; }>> {
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/api/rules/actions`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => runtime.mapValues(jsonValue, RuleElementDtoFromJSON));
-    }
-
-    /**
-     * Get supported rule actions.
-     */
-    async getActions(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: RuleElementDto; }> {
-        const response = await this.getActionsRaw(initOverrides);
-        return await response.value();
-    }
-
-    /**
      * Provide the json schema for the event with the specified name.
      */
     async getEventSchemaRaw(type: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
@@ -782,6 +801,33 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
      */
     async getRules(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RulesDto> {
         const response = await this.getRulesRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get supported rule steps.
+     */
+    async getStepsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: RuleElementDto; }>> {
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/rules/steps`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => runtime.mapValues(jsonValue, RuleElementDtoFromJSON));
+    }
+
+    /**
+     * Get supported rule steps.
+     */
+    async getSteps(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: RuleElementDto; }> {
+        const response = await this.getStepsRaw(initOverrides);
         return await response.value();
     }
 
@@ -1018,8 +1064,9 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Trigger a rule.
      */
-    async triggerRuleRaw(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async triggerRuleRaw(id: string, triggerRuleDto: TriggerRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const _id = id;
+        const _triggerRuleDto = triggerRuleDto;
 
         if (_id == null) {
             throw new runtime.RequiredError(
@@ -1028,15 +1075,25 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
             );
         }
 
+        if (_triggerRuleDto == null) {
+            throw new runtime.RequiredError(
+                'triggerRuleDto',
+                'Required parameter "triggerRuleDto" was null or undefined when calling ().'
+            );
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/api/apps/$app$/rules/{id}/trigger`.replace(`{${"id"}}`, encodeURIComponent(String(_id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
+            body: TriggerRuleDtoToJSON(_triggerRuleDto),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -1045,8 +1102,82 @@ export class RulesApi extends runtime.BaseAPI implements RulesApiInterface {
     /**
      * Trigger a rule.
      */
-    async triggerRule(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.triggerRuleRaw(id, initOverrides);
+    async triggerRule(id: string, triggerRuleDto: TriggerRuleDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.triggerRuleRaw(id, triggerRuleDto, initOverrides);
+    }
+
+    /**
+     * Validates a rule step.
+     */
+    async validateStepRaw(flowStepDto: FlowStepDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _flowStepDto = flowStepDto;
+
+        if (_flowStepDto == null) {
+            throw new runtime.RequiredError(
+                'flowStepDto',
+                'Required parameter "flowStepDto" was null or undefined when calling ().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/apps/$app$/rules/validate/step`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: FlowStepDtoToJSON(_flowStepDto),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Validates a rule step.
+     */
+    async validateStep(flowStepDto: FlowStepDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.validateStepRaw(flowStepDto, initOverrides);
+    }
+
+    /**
+     * Validates a rule trigger.
+     */
+    async validateTriggerRaw(ruleTriggerDto: RuleTriggerDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _ruleTriggerDto = ruleTriggerDto;
+
+        if (_ruleTriggerDto == null) {
+            throw new runtime.RequiredError(
+                'ruleTriggerDto',
+                'Required parameter "ruleTriggerDto" was null or undefined when calling ().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/apps/$app$/rules/validate/trigger`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: RuleTriggerDtoToJSON(_ruleTriggerDto),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Validates a rule trigger.
+     */
+    async validateTrigger(ruleTriggerDto: RuleTriggerDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.validateTriggerRaw(ruleTriggerDto, initOverrides);
     }
 
 }

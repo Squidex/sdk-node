@@ -22,7 +22,6 @@ export const SkipReason = {
     Disabled: 'Disabled',
     Failed: 'Failed',
     FromRule: 'FromRule',
-    NoAction: 'NoAction',
     NoTrigger: 'NoTrigger',
     TooOld: 'TooOld',
     WrongEvent: 'WrongEvent',

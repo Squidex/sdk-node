@@ -73,7 +73,6 @@ export interface TagsFieldPropertiesDto extends FieldPropertiesDto {
 
 
 
-
 /**
  * Check if a given object implements the TagsFieldPropertiesDto interface.
  */

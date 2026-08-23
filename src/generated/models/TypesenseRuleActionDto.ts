@@ -23,37 +23,36 @@ import {
  */
 export interface TypesenseRuleActionDto extends RuleActionDto {
     /**
-     * The url to the instance or cluster.
+     * 
      * @type {string}
      * @memberof TypesenseRuleActionDto
      */
     host: string;
     /**
-     * The name of the index.
+     * 
      * @type {string}
      * @memberof TypesenseRuleActionDto
      */
     indexName: string;
     /**
-     * The api key.
+     * 
      * @type {string}
      * @memberof TypesenseRuleActionDto
      */
     apiKey: string;
     /**
-     * The optional custom document.
+     * 
      * @type {string}
      * @memberof TypesenseRuleActionDto
      */
     document?: string | null;
     /**
-     * The condition when to delete the document.
+     * 
      * @type {string}
      * @memberof TypesenseRuleActionDto
      */
     _delete?: string | null;
 }
-
 
 /**
  * Check if a given object implements the TypesenseRuleActionDto interface.

@@ -30,7 +30,6 @@ export interface ConfigureFieldRulesDto {
     fieldRules?: Array<FieldRuleDto> | null;
 }
 
-
 /**
  * Check if a given object implements the ConfigureFieldRulesDto interface.
  */

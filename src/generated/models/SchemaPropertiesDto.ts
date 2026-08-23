@@ -65,13 +65,18 @@ export interface SchemaPropertiesDto {
      */
     validateOnPublish: boolean;
     /**
+     * The fields for automation processes.
+     * @type {Array<string>}
+     * @memberof SchemaPropertiesDto
+     */
+    searchFields?: Array<string> | null;
+    /**
      * Tags for automation processes.
      * @type {Array<string>}
      * @memberof SchemaPropertiesDto
      */
     tags?: Array<string> | null;
 }
-
 
 /**
  * Check if a given object implements the SchemaPropertiesDto interface.
@@ -102,6 +107,7 @@ export function SchemaPropertiesDtoFromJSONTyped(json: any, _ignoreDiscriminator
         'contentsEditorUrl': json['contentsEditorUrl'] == null ? undefined : json['contentsEditorUrl'],
         'contentsListUrl': json['contentsListUrl'] == null ? undefined : json['contentsListUrl'],
         'validateOnPublish': json['validateOnPublish'],
+        'searchFields': json['searchFields'] == null ? undefined : json['searchFields'],
         'tags': json['tags'] == null ? undefined : json['tags'],
     };
 }
@@ -120,6 +126,7 @@ export function SchemaPropertiesDtoToJSON(value?: SchemaPropertiesDto | null, _i
         'contentsEditorUrl': value['contentsEditorUrl'],
         'contentsListUrl': value['contentsListUrl'],
         'validateOnPublish': value['validateOnPublish'],
+        'searchFields': value['searchFields'],
         'tags': value['tags'],
     };
 }

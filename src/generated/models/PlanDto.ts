@@ -84,7 +84,6 @@ export interface PlanDto {
     maxContributors: number;
 }
 
-
 /**
  * Check if a given object implements the PlanDto interface.
  */

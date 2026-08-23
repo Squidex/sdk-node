@@ -30,7 +30,6 @@ export interface SchemaCondition {
     condition?: string | null;
 }
 
-
 /**
  * Check if a given object implements the SchemaCondition interface.
  */

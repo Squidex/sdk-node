@@ -10,6 +10,11 @@
  * Do not edit the class manually.
  */
 
+import type { FlowDefinitionDto } from './FlowDefinitionDto';
+import {
+    FlowDefinitionDtoFromJSON,
+    FlowDefinitionDtoToJSON,
+} from './FlowDefinitionDto';
 import type { RuleActionDto } from './RuleActionDto';
 import {
     RuleActionDtoFromJSON,
@@ -43,8 +48,15 @@ export interface UpdateRuleDto {
      * 
      * @type {RuleActionDto}
      * @memberof UpdateRuleDto
+     * @deprecated
      */
     action?: RuleActionDto;
+    /**
+     * 
+     * @type {FlowDefinitionDto}
+     * @memberof UpdateRuleDto
+     */
+    flow?: FlowDefinitionDto;
     /**
      * Enable or disable the rule.
      * @type {boolean}
@@ -52,7 +64,6 @@ export interface UpdateRuleDto {
      */
     isEnabled?: boolean | null;
 }
-
 
 /**
  * Check if a given object implements the UpdateRuleDto interface.
@@ -77,6 +88,7 @@ export function UpdateRuleDtoFromJSONTyped(json: any, _ignoreDiscriminator: bool
         'name': json['name'] == null ? undefined : json['name'],
         'trigger': json['trigger'] == null ? undefined : RuleTriggerDtoFromJSON(json['trigger']),
         'action': json['action'] == null ? undefined : RuleActionDtoFromJSON(json['action']),
+        'flow': json['flow'] == null ? undefined : FlowDefinitionDtoFromJSON(json['flow']),
         'isEnabled': json['isEnabled'] == null ? undefined : json['isEnabled'],
     };
 }
@@ -90,6 +102,7 @@ export function UpdateRuleDtoToJSON(value?: UpdateRuleDto | null, _ignoreDiscrim
         'name': value['name'],
         'trigger': RuleTriggerDtoToJSON(value['trigger']),
         'action': RuleActionDtoToJSON(value['action']),
+        'flow': FlowDefinitionDtoToJSON(value['flow']),
         'isEnabled': value['isEnabled'],
     };
 }

@@ -42,7 +42,6 @@ export interface UpdateUserDto {
     permissions: Array<string>;
 }
 
-
 /**
  * Check if a given object implements the UpdateUserDto interface.
  */

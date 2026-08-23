@@ -25,6 +25,14 @@ export interface TemplatesGetTemplateRequestRaw {
     name: string;
 }
 
+export interface TemplatesGetTemplatesRequest {
+    includeDetails?: boolean;
+}
+
+export interface TemplatesGetTemplatesRequestRaw {
+    includeDetails?: boolean;
+}
+
 /**
  * TemplatesApi - interface
  * 
@@ -50,16 +58,17 @@ export interface TemplatesApiInterface {
     /**
      * 
      * @summary Get all templates.
+     * @param {boolean} [includeDetails] Also include the details.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TemplatesApiInterface
      */
-    getTemplatesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TemplatesDto>>;
+    getTemplatesRaw(requestParameters?: TemplatesGetTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TemplatesDto>>;
 
     /**
      * Get all templates.
      */
-    getTemplates(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TemplatesDto>;
+    getTemplates(requestParameters?: TemplatesGetTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TemplatesDto>;
 
 }
 
@@ -106,9 +115,14 @@ export class TemplatesApi extends runtime.BaseAPI implements TemplatesApiInterfa
     /**
      * Get all templates.
      */
-    async getTemplatesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TemplatesDto>> {
+    async getTemplatesRaw(requestParameters: TemplatesGetTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TemplatesDto>> {
+        const _includeDetails = requestParameters?.['includeDetails'];
 
         const queryParameters: any = {};
+
+        if (_includeDetails != null) {
+            queryParameters['includeDetails'] = _includeDetails;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -125,8 +139,8 @@ export class TemplatesApi extends runtime.BaseAPI implements TemplatesApiInterfa
     /**
      * Get all templates.
      */
-    async getTemplates(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TemplatesDto> {
-        const response = await this.getTemplatesRaw(initOverrides);
+    async getTemplates(requestParameters: TemplatesGetTemplatesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TemplatesDto> {
+        const response = await this.getTemplatesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

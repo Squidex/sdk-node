@@ -43,7 +43,6 @@ export interface ImportContentsDto {
     optimizeValidation?: boolean;
 }
 
-
 /**
  * Check if a given object implements the ImportContentsDto interface.
  */

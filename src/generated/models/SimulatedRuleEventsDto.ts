@@ -48,7 +48,6 @@ export interface SimulatedRuleEventsDto {
     items: Array<SimulatedRuleEventDto>;
 }
 
-
 /**
  * Check if a given object implements the SimulatedRuleEventsDto interface.
  */

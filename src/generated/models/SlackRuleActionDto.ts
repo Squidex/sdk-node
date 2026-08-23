@@ -23,19 +23,18 @@ import {
  */
 export interface SlackRuleActionDto extends RuleActionDto {
     /**
-     * The slack webhook url.
+     * 
      * @type {string}
      * @memberof SlackRuleActionDto
      */
     webhookUrl: string;
     /**
-     * The text that is sent as message to slack.
+     * 
      * @type {string}
      * @memberof SlackRuleActionDto
      */
     text: string;
 }
-
 
 /**
  * Check if a given object implements the SlackRuleActionDto interface.

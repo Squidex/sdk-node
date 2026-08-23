@@ -38,7 +38,6 @@ export interface SortNode {
 
 
 
-
 /**
  * Check if a given object implements the SortNode interface.
  */

@@ -48,7 +48,6 @@ export interface RuleEventsDto {
     items: Array<RuleEventDto>;
 }
 
-
 /**
  * Check if a given object implements the RuleEventsDto interface.
  */

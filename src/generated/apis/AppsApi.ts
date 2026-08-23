@@ -129,6 +129,14 @@ export interface AppWorkflowsPutWorkflowRequestRaw {
     updateWorkflowDto: UpdateWorkflowDto;
 }
 
+export interface AppsDeleteAppRequest {
+    permanent?: boolean;
+}
+
+export interface AppsDeleteAppRequestRaw {
+    permanent?: boolean;
+}
+
 export interface AppsGetTeamAppsRequestRaw {
     team: string;
 }
@@ -555,16 +563,17 @@ export interface AppsApiInterface {
     /**
      * 
      * @summary Delete the app.
+     * @param {boolean} [permanent] True to delete the app permanently.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AppsApiInterface
      */
-    deleteAppRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteAppRaw(requestParameters?: AppsDeleteAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete the app.
      */
-    deleteApp(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteApp(requestParameters?: AppsDeleteAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -1601,9 +1610,14 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Delete the app.
      */
-    async deleteAppRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async deleteAppRaw(requestParameters: AppsDeleteAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _permanent = requestParameters?.['permanent'];
 
         const queryParameters: any = {};
+
+        if (_permanent != null) {
+            queryParameters['permanent'] = _permanent;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -1620,8 +1634,8 @@ export class AppsApi extends runtime.BaseAPI implements AppsApiInterface {
     /**
      * Delete the app.
      */
-    async deleteApp(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteAppRaw(initOverrides);
+    async deleteApp(requestParameters: AppsDeleteAppRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteAppRaw(requestParameters, initOverrides);
     }
 
     /**

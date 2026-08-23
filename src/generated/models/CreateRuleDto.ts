@@ -10,6 +10,11 @@
  * Do not edit the class manually.
  */
 
+import type { FlowDefinitionDto } from './FlowDefinitionDto';
+import {
+    FlowDefinitionDtoFromJSON,
+    FlowDefinitionDtoToJSON,
+} from './FlowDefinitionDto';
 import type { RuleActionDto } from './RuleActionDto';
 import {
     RuleActionDtoFromJSON,
@@ -28,6 +33,12 @@ import {
  */
 export interface CreateRuleDto {
     /**
+     * Optional rule name.
+     * @type {string}
+     * @memberof CreateRuleDto
+     */
+    name?: string | null;
+    /**
      * 
      * @type {RuleTriggerDto}
      * @memberof CreateRuleDto
@@ -37,10 +48,22 @@ export interface CreateRuleDto {
      * 
      * @type {RuleActionDto}
      * @memberof CreateRuleDto
+     * @deprecated
      */
-    action: RuleActionDto;
+    action?: RuleActionDto;
+    /**
+     * 
+     * @type {FlowDefinitionDto}
+     * @memberof CreateRuleDto
+     */
+    flow: FlowDefinitionDto;
+    /**
+     * Enable or disable the rule.
+     * @type {boolean}
+     * @memberof CreateRuleDto
+     */
+    isEnabled?: boolean | null;
 }
-
 
 /**
  * Check if a given object implements the CreateRuleDto interface.
@@ -50,7 +73,7 @@ export function instanceOfCreateRuleDto(value: any): value is CreateRuleDto {
         return false;
     }
     if (!('trigger' in value) || value['trigger'] === undefined) return false;
-    if (!('action' in value) || value['action'] === undefined) return false;
+    if (!('flow' in value) || value['flow'] === undefined) return false;
     return true;
 }
 
@@ -64,8 +87,11 @@ export function CreateRuleDtoFromJSONTyped(json: any, _ignoreDiscriminator: bool
     }
     return {
         
+        'name': json['name'] == null ? undefined : json['name'],
         'trigger': RuleTriggerDtoFromJSON(json['trigger']),
-        'action': RuleActionDtoFromJSON(json['action']),
+        'action': json['action'] == null ? undefined : RuleActionDtoFromJSON(json['action']),
+        'flow': FlowDefinitionDtoFromJSON(json['flow']),
+        'isEnabled': json['isEnabled'] == null ? undefined : json['isEnabled'],
     };
 }
 
@@ -75,7 +101,10 @@ export function CreateRuleDtoToJSON(value?: CreateRuleDto | null, _ignoreDiscrim
     }
     return {
         
+        'name': value['name'],
         'trigger': RuleTriggerDtoToJSON(value['trigger']),
         'action': RuleActionDtoToJSON(value['action']),
+        'flow': FlowDefinitionDtoToJSON(value['flow']),
+        'isEnabled': value['isEnabled'],
     };
 }

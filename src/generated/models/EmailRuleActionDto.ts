@@ -23,55 +23,54 @@ import {
  */
 export interface EmailRuleActionDto extends RuleActionDto {
     /**
-     * The IP address or host to the SMTP server.
+     * 
      * @type {string}
      * @memberof EmailRuleActionDto
      */
     serverHost: string;
     /**
-     * The port to the SMTP server.
+     * 
      * @type {number}
      * @memberof EmailRuleActionDto
      */
     serverPort: number;
     /**
-     * The username for the SMTP server.
-     * @type {string}
-     * @memberof EmailRuleActionDto
-     */
-    serverUsername: string;
-    /**
-     * The password for the SMTP server.
-     * @type {string}
-     * @memberof EmailRuleActionDto
-     */
-    serverPassword: string;
-    /**
-     * The email sending address.
+     * 
      * @type {string}
      * @memberof EmailRuleActionDto
      */
     messageFrom: string;
     /**
-     * The email message will be sent to.
+     * 
      * @type {string}
      * @memberof EmailRuleActionDto
      */
     messageTo: string;
     /**
-     * The subject line for this email message.
+     * 
      * @type {string}
      * @memberof EmailRuleActionDto
      */
     messageSubject: string;
     /**
-     * The message body.
+     * 
      * @type {string}
      * @memberof EmailRuleActionDto
      */
     messageBody: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailRuleActionDto
+     */
+    serverUsername: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailRuleActionDto
+     */
+    serverPassword: string;
 }
-
 
 /**
  * Check if a given object implements the EmailRuleActionDto interface.
@@ -82,12 +81,12 @@ export function instanceOfEmailRuleActionDto(value: any): value is EmailRuleActi
     }
     if (!('serverHost' in value) || value['serverHost'] === undefined) return false;
     if (!('serverPort' in value) || value['serverPort'] === undefined) return false;
-    if (!('serverUsername' in value) || value['serverUsername'] === undefined) return false;
-    if (!('serverPassword' in value) || value['serverPassword'] === undefined) return false;
     if (!('messageFrom' in value) || value['messageFrom'] === undefined) return false;
     if (!('messageTo' in value) || value['messageTo'] === undefined) return false;
     if (!('messageSubject' in value) || value['messageSubject'] === undefined) return false;
     if (!('messageBody' in value) || value['messageBody'] === undefined) return false;
+    if (!('serverUsername' in value) || value['serverUsername'] === undefined) return false;
+    if (!('serverPassword' in value) || value['serverPassword'] === undefined) return false;
     return true;
 }
 
@@ -103,12 +102,12 @@ export function EmailRuleActionDtoFromJSONTyped(json: any, _ignoreDiscriminator:
         ...RuleActionDtoFromJSONTyped(json, _ignoreDiscriminator),
         'serverHost': json['serverHost'],
         'serverPort': json['serverPort'],
-        'serverUsername': json['serverUsername'],
-        'serverPassword': json['serverPassword'],
         'messageFrom': json['messageFrom'],
         'messageTo': json['messageTo'],
         'messageSubject': json['messageSubject'],
         'messageBody': json['messageBody'],
+        'serverUsername': json['serverUsername'],
+        'serverPassword': json['serverPassword'],
     };
 }
 
@@ -120,11 +119,11 @@ export function EmailRuleActionDtoToJSON(value?: EmailRuleActionDto | null, _ign
         ...RuleActionDtoToJSON(value, true),
         'serverHost': value['serverHost'],
         'serverPort': value['serverPort'],
-        'serverUsername': value['serverUsername'],
-        'serverPassword': value['serverPassword'],
         'messageFrom': value['messageFrom'],
         'messageTo': value['messageTo'],
         'messageSubject': value['messageSubject'],
         'messageBody': value['messageBody'],
+        'serverUsername': value['serverUsername'],
+        'serverPassword': value['serverPassword'],
     };
 }

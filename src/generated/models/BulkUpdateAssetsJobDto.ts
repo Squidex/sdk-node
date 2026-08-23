@@ -86,7 +86,6 @@ export interface BulkUpdateAssetsJobDto {
 
 
 
-
 /**
  * Check if a given object implements the BulkUpdateAssetsJobDto interface.
  */

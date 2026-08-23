@@ -55,7 +55,6 @@ export interface AssetFolderDto {
     version: number;
 }
 
-
 /**
  * Check if a given object implements the AssetFolderDto interface.
  */

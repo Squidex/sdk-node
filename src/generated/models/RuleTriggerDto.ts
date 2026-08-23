@@ -13,6 +13,7 @@
 import { AssetChangedRuleTriggerDto, AssetChangedRuleTriggerDtoFromJSONTyped, AssetChangedRuleTriggerDtoToJSON } from './AssetChangedRuleTriggerDto';
 import { CommentRuleTriggerDto, CommentRuleTriggerDtoFromJSONTyped, CommentRuleTriggerDtoToJSON } from './CommentRuleTriggerDto';
 import { ContentChangedRuleTriggerDto, ContentChangedRuleTriggerDtoFromJSONTyped, ContentChangedRuleTriggerDtoToJSON } from './ContentChangedRuleTriggerDto';
+import { CronJobRuleTriggerDto, CronJobRuleTriggerDtoFromJSONTyped, CronJobRuleTriggerDtoToJSON } from './CronJobRuleTriggerDto';
 import { ManualRuleTriggerDto, ManualRuleTriggerDtoFromJSONTyped, ManualRuleTriggerDtoToJSON } from './ManualRuleTriggerDto';
 import { SchemaChangedRuleTriggerDto, SchemaChangedRuleTriggerDtoFromJSONTyped, SchemaChangedRuleTriggerDtoToJSON } from './SchemaChangedRuleTriggerDto';
 import { UsageRuleTriggerDto, UsageRuleTriggerDtoFromJSONTyped, UsageRuleTriggerDtoToJSON } from './UsageRuleTriggerDto';
@@ -29,7 +30,6 @@ export interface RuleTriggerDto {
      */
     triggerType: string;
 }
-
 export function isAssetChangedRuleTriggerDto(value: RuleTriggerDto): value is AssetChangedRuleTriggerDto {
     return value['triggerType'] === 'AssetChanged';
 }
@@ -40,6 +40,10 @@ export function isCommentRuleTriggerDto(value: RuleTriggerDto): value is Comment
 
 export function isContentChangedRuleTriggerDto(value: RuleTriggerDto): value is ContentChangedRuleTriggerDto {
     return value['triggerType'] === 'ContentChanged';
+}
+
+export function isCronJobRuleTriggerDto(value: RuleTriggerDto): value is CronJobRuleTriggerDto {
+    return value['triggerType'] === 'CronJob';
 }
 
 export function isManualRuleTriggerDto(value: RuleTriggerDto): value is ManualRuleTriggerDto {
@@ -84,6 +88,9 @@ export function RuleTriggerDtoFromJSONTyped(json: any, _ignoreDiscriminator: boo
         if (json['triggerType'] === 'ContentChanged') {
             return ContentChangedRuleTriggerDtoFromJSONTyped(json, true);
         }
+        if (json['triggerType'] === 'CronJob') {
+            return CronJobRuleTriggerDtoFromJSONTyped(json, true);
+        }
         if (json['triggerType'] === 'Manual') {
             return ManualRuleTriggerDtoFromJSONTyped(json, true);
         }
@@ -113,6 +120,9 @@ export function RuleTriggerDtoToJSON(value?: RuleTriggerDto | null, _ignoreDiscr
         }
         if (value['triggerType'] === 'ContentChanged') {
             return ContentChangedRuleTriggerDtoToJSON(value as ContentChangedRuleTriggerDto, true);
+        }
+        if (value['triggerType'] === 'CronJob') {
+            return CronJobRuleTriggerDtoToJSON(value as CronJobRuleTriggerDto, true);
         }
         if (value['triggerType'] === 'Manual') {
             return ManualRuleTriggerDtoToJSON(value as ManualRuleTriggerDto, true);

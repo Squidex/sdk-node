@@ -42,7 +42,6 @@ export interface ClientsDto {
     items: Array<ClientDto>;
 }
 
-
 /**
  * Check if a given object implements the ClientsDto interface.
  */

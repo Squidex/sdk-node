@@ -79,7 +79,6 @@ export interface NumberFieldPropertiesDto extends FieldPropertiesDto {
 
 
 
-
 /**
  * Check if a given object implements the NumberFieldPropertiesDto interface.
  */

@@ -23,25 +23,24 @@ import {
  */
 export interface TweetRuleActionDto extends RuleActionDto {
     /**
-     *  The generated access token.
+     * 
      * @type {string}
      * @memberof TweetRuleActionDto
      */
     accessToken: string;
     /**
-     *  The generated access secret.
+     * 
      * @type {string}
      * @memberof TweetRuleActionDto
      */
     accessSecret: string;
     /**
-     * The text that is sent as tweet to twitter.
+     * 
      * @type {string}
      * @memberof TweetRuleActionDto
      */
     text: string;
 }
-
 
 /**
  * Check if a given object implements the TweetRuleActionDto interface.

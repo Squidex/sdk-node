@@ -30,7 +30,6 @@ export interface CurrentStorageDto {
     maxAllowed: number;
 }
 
-
 /**
  * Check if a given object implements the CurrentStorageDto interface.
  */

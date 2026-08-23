@@ -23,13 +23,12 @@ import {
  */
 export interface ScriptRuleActionDto extends RuleActionDto {
     /**
-     * The script to render.
+     * 
      * @type {string}
      * @memberof ScriptRuleActionDto
      */
     script: string;
 }
-
 
 /**
  * Check if a given object implements the ScriptRuleActionDto interface.

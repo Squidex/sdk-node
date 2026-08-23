@@ -72,7 +72,6 @@ export interface PlansDto {
 
 
 
-
 /**
  * Check if a given object implements the PlansDto interface.
  */

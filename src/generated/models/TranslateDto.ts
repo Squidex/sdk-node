@@ -36,7 +36,6 @@ export interface TranslateDto {
     sourceLanguage?: string;
 }
 
-
 /**
  * Check if a given object implements the TranslateDto interface.
  */

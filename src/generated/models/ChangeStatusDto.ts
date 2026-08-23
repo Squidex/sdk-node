@@ -36,7 +36,6 @@ export interface ChangeStatusDto {
     checkReferrers?: boolean;
 }
 
-
 /**
  * Check if a given object implements the ChangeStatusDto interface.
  */

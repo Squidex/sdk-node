@@ -156,7 +156,6 @@ export interface StringFieldPropertiesDto extends FieldPropertiesDto {
 
 
 
-
 /**
  * Check if a given object implements the StringFieldPropertiesDto interface.
  */

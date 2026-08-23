@@ -23,25 +23,24 @@ import {
  */
 export interface AzureQueueRuleActionDto extends RuleActionDto {
     /**
-     * The connection string to the storage account.
+     * 
      * @type {string}
      * @memberof AzureQueueRuleActionDto
      */
     connectionString: string;
     /**
-     * The name of the queue.
+     * 
      * @type {string}
      * @memberof AzureQueueRuleActionDto
      */
     queue: string;
     /**
-     * Leave it empty to use the full event as body.
+     * 
      * @type {string}
      * @memberof AzureQueueRuleActionDto
      */
     payload?: string | null;
 }
-
 
 /**
  * Check if a given object implements the AzureQueueRuleActionDto interface.

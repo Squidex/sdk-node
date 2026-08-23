@@ -24,7 +24,6 @@ export interface UpdateSettingDto {
     value: any | null;
 }
 
-
 /**
  * Check if a given object implements the UpdateSettingDto interface.
  */

@@ -30,7 +30,6 @@ export interface StatusInfoDto {
     color: string;
 }
 
-
 /**
  * Check if a given object implements the StatusInfoDto interface.
  */

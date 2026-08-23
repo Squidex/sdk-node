@@ -78,7 +78,6 @@ export interface RichTextFieldPropertiesDto extends FieldPropertiesDto {
     schemaIds?: Array<string> | null;
 }
 
-
 /**
  * Check if a given object implements the RichTextFieldPropertiesDto interface.
  */

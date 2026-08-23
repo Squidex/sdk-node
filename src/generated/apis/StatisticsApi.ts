@@ -13,13 +13,13 @@
 
 import * as runtime from '../runtime';
 import type {
-  CallsUsageDtoDto,
+  CallsUsageDto,
   CurrentStorageDto,
   LogDownloadDto,
   StorageUsagePerDateDto,
 } from '../models/index';
 import {
-    CallsUsageDtoDtoFromJSON,
+    CallsUsageDtoFromJSON,
     CurrentStorageDtoFromJSON,
     LogDownloadDtoFromJSON,
     StorageUsagePerDateDtoFromJSON,
@@ -143,12 +143,12 @@ export interface StatisticsApiInterface {
      * @throws {RequiredError}
      * @memberof StatisticsApiInterface
      */
-    getUsagesRaw(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>>;
+    getUsagesRaw(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDto>>;
 
     /**
      * Get api calls in date range for app.
      */
-    getUsages(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto>;
+    getUsages(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDto>;
 
     /**
      * 
@@ -160,12 +160,12 @@ export interface StatisticsApiInterface {
      * @throws {RequiredError}
      * @memberof StatisticsApiInterface
      */
-    getUsagesForTeamRaw(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>>;
+    getUsagesForTeamRaw(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDto>>;
 
     /**
      * Get api calls in date range for team.
      */
-    getUsagesForTeam(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto>;
+    getUsagesForTeam(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDto>;
 
 }
 
@@ -360,7 +360,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get api calls in date range for app.
      */
-    async getUsagesRaw(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>> {
+    async getUsagesRaw(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDto>> {
         const _fromDate = fromDate;
         const _toDate = toDate;
 
@@ -389,13 +389,13 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CallsUsageDtoDtoFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CallsUsageDtoFromJSON(jsonValue));
     }
 
     /**
      * Get api calls in date range for app.
      */
-    async getUsages(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto> {
+    async getUsages(fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDto> {
         const response = await this.getUsagesRaw(fromDate, toDate, initOverrides);
         return await response.value();
     }
@@ -403,7 +403,7 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
     /**
      * Get api calls in date range for team.
      */
-    async getUsagesForTeamRaw(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDtoDto>> {
+    async getUsagesForTeamRaw(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallsUsageDto>> {
         const _team = team;
         const _fromDate = fromDate;
         const _toDate = toDate;
@@ -440,13 +440,13 @@ export class StatisticsApi extends runtime.BaseAPI implements StatisticsApiInter
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CallsUsageDtoDtoFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CallsUsageDtoFromJSON(jsonValue));
     }
 
     /**
      * Get api calls in date range for team.
      */
-    async getUsagesForTeam(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDtoDto> {
+    async getUsagesForTeam(team: string, fromDate: Date, toDate: Date, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallsUsageDto> {
         const response = await this.getUsagesForTeamRaw(team, fromDate, toDate, initOverrides);
         return await response.value();
     }

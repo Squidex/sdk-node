@@ -43,7 +43,6 @@ export interface BulkUpdateContentsDto {
     doNotScript?: boolean;
     /**
      * True, to also enrich required fields. Default: false.
-     *             
      * @type {boolean}
      * @memberof BulkUpdateContentsDto
      */
@@ -73,7 +72,6 @@ export interface BulkUpdateContentsDto {
      */
     optimizeValidation?: boolean;
 }
-
 
 /**
  * Check if a given object implements the BulkUpdateContentsDto interface.

@@ -28,7 +28,7 @@ import {
  */
 export interface WebhookRuleActionDto extends RuleActionDto {
     /**
-     * The url to the webhook.
+     * 
      * @type {string}
      * @memberof WebhookRuleActionDto
      */
@@ -40,31 +40,30 @@ export interface WebhookRuleActionDto extends RuleActionDto {
      */
     method: WebhookMethod;
     /**
-     * Leave it empty to use the full event as body.
+     * 
      * @type {string}
      * @memberof WebhookRuleActionDto
      */
     payload?: string | null;
     /**
-     * The mime type of the payload.
+     * 
      * @type {string}
      * @memberof WebhookRuleActionDto
      */
     payloadType?: string | null;
     /**
-     * The message headers in the format '[Key]=[Value]', one entry per line.
+     * 
      * @type {string}
      * @memberof WebhookRuleActionDto
      */
     headers?: string | null;
     /**
-     * The shared secret that is used to calculate the payload signature.
+     * 
      * @type {string}
      * @memberof WebhookRuleActionDto
      */
     sharedSecret?: string | null;
 }
-
 
 
 

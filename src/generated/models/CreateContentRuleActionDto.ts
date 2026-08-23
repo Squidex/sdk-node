@@ -23,31 +23,30 @@ import {
  */
 export interface CreateContentRuleActionDto extends RuleActionDto {
     /**
-     * The content data.
+     * 
      * @type {string}
      * @memberof CreateContentRuleActionDto
      */
     data: string;
     /**
-     * The name of the schema.
+     * 
      * @type {string}
      * @memberof CreateContentRuleActionDto
      */
     schema: string;
     /**
-     * An optional client name.
+     * 
      * @type {string}
      * @memberof CreateContentRuleActionDto
      */
-    client: string;
+    client?: string | null;
     /**
-     * Publish the content.
+     * 
      * @type {boolean}
      * @memberof CreateContentRuleActionDto
      */
     publish: boolean;
 }
-
 
 /**
  * Check if a given object implements the CreateContentRuleActionDto interface.
@@ -58,7 +57,6 @@ export function instanceOfCreateContentRuleActionDto(value: any): value is Creat
     }
     if (!('data' in value) || value['data'] === undefined) return false;
     if (!('schema' in value) || value['schema'] === undefined) return false;
-    if (!('client' in value) || value['client'] === undefined) return false;
     if (!('publish' in value) || value['publish'] === undefined) return false;
     return true;
 }
@@ -75,7 +73,7 @@ export function CreateContentRuleActionDtoFromJSONTyped(json: any, _ignoreDiscri
         ...RuleActionDtoFromJSONTyped(json, _ignoreDiscriminator),
         'data': json['data'],
         'schema': json['schema'],
-        'client': json['client'],
+        'client': json['client'] == null ? undefined : json['client'],
         'publish': json['publish'],
     };
 }

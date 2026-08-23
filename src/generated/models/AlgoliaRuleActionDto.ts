@@ -23,37 +23,36 @@ import {
  */
 export interface AlgoliaRuleActionDto extends RuleActionDto {
     /**
-     * The application ID.
+     * 
      * @type {string}
      * @memberof AlgoliaRuleActionDto
      */
     appId: string;
     /**
-     * The API key to grant access to Squidex.
+     * 
      * @type {string}
      * @memberof AlgoliaRuleActionDto
      */
     apiKey: string;
     /**
-     * The name of the index.
+     * 
      * @type {string}
      * @memberof AlgoliaRuleActionDto
      */
     indexName: string;
     /**
-     * The optional custom document.
+     * 
      * @type {string}
      * @memberof AlgoliaRuleActionDto
      */
     document?: string | null;
     /**
-     * The condition when to delete the entry.
+     * 
      * @type {string}
      * @memberof AlgoliaRuleActionDto
      */
     _delete?: string | null;
 }
-
 
 /**
  * Check if a given object implements the AlgoliaRuleActionDto interface.

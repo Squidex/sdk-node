@@ -24,7 +24,6 @@ export interface ChangePlanDto {
     planId: string;
 }
 
-
 /**
  * Check if a given object implements the ChangePlanDto interface.
  */

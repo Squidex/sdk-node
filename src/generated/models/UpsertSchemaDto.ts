@@ -93,7 +93,6 @@ export interface UpsertSchemaDto {
     isPublished?: boolean;
 }
 
-
 /**
  * Check if a given object implements the UpsertSchemaDto interface.
  */

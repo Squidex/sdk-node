@@ -36,7 +36,6 @@ export interface PatternDto {
     message?: string | null;
 }
 
-
 /**
  * Check if a given object implements the PatternDto interface.
  */

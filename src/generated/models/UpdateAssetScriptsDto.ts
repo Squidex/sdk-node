@@ -60,7 +60,6 @@ export interface UpdateAssetScriptsDto {
     _delete?: string | null;
 }
 
-
 /**
  * Check if a given object implements the UpdateAssetScriptsDto interface.
  */

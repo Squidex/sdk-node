@@ -37,7 +37,6 @@ export interface GeolocationFieldPropertiesDto extends FieldPropertiesDto {
 
 
 
-
 /**
  * Check if a given object implements the GeolocationFieldPropertiesDto interface.
  */

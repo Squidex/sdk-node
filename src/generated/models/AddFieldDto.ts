@@ -42,7 +42,6 @@ export interface AddFieldDto {
     properties: FieldPropertiesDto;
 }
 
-
 /**
  * Check if a given object implements the AddFieldDto interface.
  */

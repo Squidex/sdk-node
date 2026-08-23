@@ -42,7 +42,6 @@ export interface EventConsumersDto {
     items: Array<EventConsumerDto>;
 }
 
-
 /**
  * Check if a given object implements the EventConsumersDto interface.
  */

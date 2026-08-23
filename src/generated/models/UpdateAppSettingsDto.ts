@@ -53,7 +53,6 @@ export interface UpdateAppSettingsDto {
     hideDateTimeModeButton?: boolean;
 }
 
-
 /**
  * Check if a given object implements the UpdateAppSettingsDto interface.
  */

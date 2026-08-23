@@ -10,12 +10,6 @@
  * Do not edit the class manually.
  */
 
-import type { RuleFieldEditor } from './RuleFieldEditor';
-import {
-    RuleFieldEditorFromJSON,
-    RuleFieldEditorToJSON,
-} from './RuleFieldEditor';
-
 /**
  * 
  * @export
@@ -23,11 +17,11 @@ import {
  */
 export interface RuleElementPropertyDto {
     /**
-     * 
-     * @type {RuleFieldEditor}
+     * The html editor.
+     * @type {string}
      * @memberof RuleElementPropertyDto
      */
-    editor: RuleFieldEditor;
+    editor: string;
     /**
      * The name of the editor.
      * @type {string}
@@ -66,9 +60,6 @@ export interface RuleElementPropertyDto {
     isRequired: boolean;
 }
 
-
-
-
 /**
  * Check if a given object implements the RuleElementPropertyDto interface.
  */
@@ -94,7 +85,7 @@ export function RuleElementPropertyDtoFromJSONTyped(json: any, _ignoreDiscrimina
     }
     return {
         
-        'editor': RuleFieldEditorFromJSON(json['editor']),
+        'editor': json['editor'],
         'name': json['name'],
         'display': json['display'],
         'options': json['options'] == null ? undefined : json['options'],
@@ -110,7 +101,7 @@ export function RuleElementPropertyDtoToJSON(value?: RuleElementPropertyDto | nu
     }
     return {
         
-        'editor': RuleFieldEditorToJSON(value['editor']),
+        'editor': value['editor'],
         'name': value['name'],
         'display': value['display'],
         'options': value['options'],

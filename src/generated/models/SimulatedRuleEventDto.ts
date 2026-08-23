@@ -10,6 +10,11 @@
  * Do not edit the class manually.
  */
 
+import type { FlowExecutionStateDto } from './FlowExecutionStateDto';
+import {
+    FlowExecutionStateDtoFromJSON,
+    FlowExecutionStateDtoToJSON,
+} from './FlowExecutionStateDto';
 import type { SkipReason } from './SkipReason';
 import {
     SkipReasonFromJSON,
@@ -53,23 +58,11 @@ export interface SimulatedRuleEventDto {
      */
     enrichedEvent?: any | null;
     /**
-     * The data for the action.
-     * @type {string}
+     * 
+     * @type {FlowExecutionStateDto}
      * @memberof SimulatedRuleEventDto
      */
-    actionName?: string | null;
-    /**
-     * The name of the action.
-     * @type {string}
-     * @memberof SimulatedRuleEventDto
-     */
-    actionData?: string | null;
-    /**
-     * The name of the event.
-     * @type {string}
-     * @memberof SimulatedRuleEventDto
-     */
-    error?: string | null;
+    flowState?: FlowExecutionStateDto;
     /**
      * The reason why the event has been skipped.
      * @type {Array<SkipReason>}
@@ -77,7 +70,6 @@ export interface SimulatedRuleEventDto {
      */
     skipReasons: Array<SkipReason>;
 }
-
 
 /**
  * Check if a given object implements the SimulatedRuleEventDto interface.
@@ -109,9 +101,7 @@ export function SimulatedRuleEventDtoFromJSONTyped(json: any, _ignoreDiscriminat
         'eventName': json['eventName'],
         'event': json['event'],
         'enrichedEvent': json['enrichedEvent'] == null ? undefined : json['enrichedEvent'],
-        'actionName': json['actionName'] == null ? undefined : json['actionName'],
-        'actionData': json['actionData'] == null ? undefined : json['actionData'],
-        'error': json['error'] == null ? undefined : json['error'],
+        'flowState': json['flowState'] == null ? undefined : FlowExecutionStateDtoFromJSON(json['flowState']),
         'skipReasons': ((json['skipReasons'] as Array<any>).map(SkipReasonFromJSON)),
     };
 }
@@ -127,9 +117,7 @@ export function SimulatedRuleEventDtoToJSON(value?: SimulatedRuleEventDto | null
         'eventName': value['eventName'],
         'event': value['event'],
         'enrichedEvent': value['enrichedEvent'],
-        'actionName': value['actionName'],
-        'actionData': value['actionData'],
-        'error': value['error'],
+        'flowState': FlowExecutionStateDtoToJSON(value['flowState']),
         'skipReasons': ((value['skipReasons'] as Array<any>).map(x => SkipReasonToJSON(x))),
     };
 }
