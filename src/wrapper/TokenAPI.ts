@@ -1,7 +1,7 @@
 import { BaseAPI, Configuration } from "../generated";
 import { SquidexOptions } from "./SquidexClient";
+import { Token } from "./Token";
 import { SquidexUnauthorizedError } from "./errors";
-import { Token } from "./token";
 
 export class TokenAPI extends BaseAPI {
     private tokenPromise?: Promise<Token>;
