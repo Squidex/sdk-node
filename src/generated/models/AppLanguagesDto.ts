@@ -42,7 +42,6 @@ export interface AppLanguagesDto {
     items: Array<AppLanguageDto>;
 }
 
-
 /**
  * Check if a given object implements the AppLanguagesDto interface.
  */

@@ -53,13 +53,18 @@ export interface UpdateSchemaDto {
      */
     validateOnPublish?: boolean;
     /**
+     * The fields for automation processes.
+     * @type {Array<string>}
+     * @memberof UpdateSchemaDto
+     */
+    searchFields?: Array<string> | null;
+    /**
      * Tags for automation processes.
      * @type {Array<string>}
      * @memberof UpdateSchemaDto
      */
     tags?: Array<string> | null;
 }
-
 
 /**
  * Check if a given object implements the UpdateSchemaDto interface.
@@ -87,6 +92,7 @@ export function UpdateSchemaDtoFromJSONTyped(json: any, _ignoreDiscriminator: bo
         'contentSidebarUrl': json['contentSidebarUrl'] == null ? undefined : json['contentSidebarUrl'],
         'contentsListUrl': json['contentsListUrl'] == null ? undefined : json['contentsListUrl'],
         'validateOnPublish': json['validateOnPublish'] == null ? undefined : json['validateOnPublish'],
+        'searchFields': json['searchFields'] == null ? undefined : json['searchFields'],
         'tags': json['tags'] == null ? undefined : json['tags'],
     };
 }
@@ -103,6 +109,7 @@ export function UpdateSchemaDtoToJSON(value?: UpdateSchemaDto | null, _ignoreDis
         'contentSidebarUrl': value['contentSidebarUrl'],
         'contentsListUrl': value['contentsListUrl'],
         'validateOnPublish': value['validateOnPublish'],
+        'searchFields': value['searchFields'],
         'tags': value['tags'],
     };
 }

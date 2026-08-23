@@ -10,16 +10,16 @@
  * Do not edit the class manually.
  */
 
-import type { ActionTypeEnum } from './ActionTypeEnum';
-import {
-    ActionTypeEnumFromJSON,
-    ActionTypeEnumToJSON,
-} from './ActionTypeEnum';
 import type { RuleActionDto } from './RuleActionDto';
 import {
     RuleActionDtoFromJSONTyped,
     RuleActionDtoToJSON,
 } from './RuleActionDto';
+import type { SignalRActionType } from './SignalRActionType';
+import {
+    SignalRActionTypeFromJSON,
+    SignalRActionTypeToJSON,
+} from './SignalRActionType';
 
 /**
  * 
@@ -28,43 +28,42 @@ import {
  */
 export interface SignalRRuleActionDto extends RuleActionDto {
     /**
-     * The connection string to the Azure SignalR.
+     * 
      * @type {string}
      * @memberof SignalRRuleActionDto
      */
     connectionString: string;
     /**
-     * The name of the hub.
+     * 
      * @type {string}
      * @memberof SignalRRuleActionDto
      */
     hubName: string;
     /**
      * 
-     * @type {ActionTypeEnum}
+     * @type {SignalRActionType}
      * @memberof SignalRRuleActionDto
      */
-    action: ActionTypeEnum;
+    action: SignalRActionType;
     /**
-     * Set the Name of the hub method received by the customer.
+     * 
      * @type {string}
      * @memberof SignalRRuleActionDto
      */
     methodName?: string | null;
     /**
-     * Define target users or groups by id or name. One item per line. Not needed for Broadcast action.
+     * 
      * @type {string}
      * @memberof SignalRRuleActionDto
      */
     target?: string | null;
     /**
-     * Leave it empty to use the full event as body.
+     * 
      * @type {string}
      * @memberof SignalRRuleActionDto
      */
     payload?: string | null;
 }
-
 
 
 
@@ -93,7 +92,7 @@ export function SignalRRuleActionDtoFromJSONTyped(json: any, _ignoreDiscriminato
         ...RuleActionDtoFromJSONTyped(json, _ignoreDiscriminator),
         'connectionString': json['connectionString'],
         'hubName': json['hubName'],
-        'action': ActionTypeEnumFromJSON(json['action']),
+        'action': SignalRActionTypeFromJSON(json['action']),
         'methodName': json['methodName'] == null ? undefined : json['methodName'],
         'target': json['target'] == null ? undefined : json['target'],
         'payload': json['payload'] == null ? undefined : json['payload'],
@@ -108,7 +107,7 @@ export function SignalRRuleActionDtoToJSON(value?: SignalRRuleActionDto | null, 
         ...RuleActionDtoToJSON(value, true),
         'connectionString': value['connectionString'],
         'hubName': value['hubName'],
-        'action': ActionTypeEnumToJSON(value['action']),
+        'action': SignalRActionTypeToJSON(value['action']),
         'methodName': value['methodName'],
         'target': value['target'],
         'payload': value['payload'],

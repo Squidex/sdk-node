@@ -23,13 +23,13 @@ export interface AllContentsByPostDto {
      */
     ids?: Array<string> | null;
     /**
-     * The start of the schedule.
+     * The start time of the scheduled content period (see scheduledTo).
      * @type {Date}
      * @memberof AllContentsByPostDto
      */
     scheduledFrom?: Date | null;
     /**
-     * The end of the schedule.
+     * The end time of the scheduled content period (see scheduledFrom).
      * @type {Date}
      * @memberof AllContentsByPostDto
      */
@@ -59,7 +59,6 @@ export interface AllContentsByPostDto {
      */
     q?: any | null;
 }
-
 
 /**
  * Check if a given object implements the AllContentsByPostDto interface.

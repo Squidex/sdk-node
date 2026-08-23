@@ -56,7 +56,6 @@ export interface RestoreJobDto {
 
 
 
-
 /**
  * Check if a given object implements the RestoreJobDto interface.
  */

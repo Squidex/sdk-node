@@ -23,19 +23,18 @@ import {
  */
 export interface PrerenderRuleActionDto extends RuleActionDto {
     /**
-     * The prerender token from your account.
+     * 
      * @type {string}
      * @memberof PrerenderRuleActionDto
      */
     token: string;
     /**
-     * The url to recache.
+     * 
      * @type {string}
      * @memberof PrerenderRuleActionDto
      */
     url: string;
 }
-
 
 /**
  * Check if a given object implements the PrerenderRuleActionDto interface.

@@ -23,43 +23,42 @@ import {
  */
 export interface ElasticSearchRuleActionDto extends RuleActionDto {
     /**
-     * The url to the instance or cluster.
+     * 
      * @type {string}
      * @memberof ElasticSearchRuleActionDto
      */
     host: string;
     /**
-     * The name of the index.
+     * 
      * @type {string}
      * @memberof ElasticSearchRuleActionDto
      */
     indexName: string;
     /**
-     * The optional username.
+     * 
      * @type {string}
      * @memberof ElasticSearchRuleActionDto
      */
     username?: string | null;
     /**
-     * The optional password.
+     * 
      * @type {string}
      * @memberof ElasticSearchRuleActionDto
      */
     password?: string | null;
     /**
-     * The optional custom document.
+     * 
      * @type {string}
      * @memberof ElasticSearchRuleActionDto
      */
     document?: string | null;
     /**
-     * The condition when to delete the document.
+     * 
      * @type {string}
      * @memberof ElasticSearchRuleActionDto
      */
     _delete?: string | null;
 }
-
 
 /**
  * Check if a given object implements the ElasticSearchRuleActionDto interface.

@@ -78,7 +78,6 @@ export interface DateTimeFieldPropertiesDto extends FieldPropertiesDto {
 
 
 
-
 /**
  * Check if a given object implements the DateTimeFieldPropertiesDto interface.
  */

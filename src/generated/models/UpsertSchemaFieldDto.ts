@@ -71,7 +71,6 @@ export interface UpsertSchemaFieldDto {
     nested?: Array<UpsertSchemaNestedFieldDto> | null;
 }
 
-
 /**
  * Check if a given object implements the UpsertSchemaFieldDto interface.
  */

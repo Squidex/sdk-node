@@ -1,12 +1,12 @@
 import { BaseAPI, Configuration } from "../generated";
-import { SquidexOptions, TokenStore } from "./SquidexClient";
+import { SquidexOptions } from "./SquidexClient";
 import { SquidexUnauthorizedError } from "./errors";
+import { Token } from "./token";
 
 export class TokenAPI extends BaseAPI {
-    private tokenPromise?: Promise<string>;
+    private tokenPromise?: Promise<Token>;
 
     constructor(
-        private readonly tokenStore: TokenStore,
         private readonly clientOptions: SquidexOptions,
         configuration: Configuration,
     ) {
@@ -15,11 +15,6 @@ export class TokenAPI extends BaseAPI {
 
     public async getToken() {
         const now = new Date().getTime();
-        let token = this.tokenStore.get();
-
-        if (token != null && token.expiresAt > now) {
-            return token.accessToken;
-        }
 
         const promise = (this.tokenPromise ||= (async () => {
             try {
@@ -51,15 +46,13 @@ export class TokenAPI extends BaseAPI {
 
                 const expiresIn = body.expires_in;
 
-                token = {
+                const token = {
                     accessToken: body.access_token,
                     expiresIn,
                     expiresAt: now + expiresIn,
                 };
 
-                this.tokenStore.set(token);
-
-                return token.accessToken;
+                return token;
             } finally {
                 this.tokenPromise = undefined;
             }

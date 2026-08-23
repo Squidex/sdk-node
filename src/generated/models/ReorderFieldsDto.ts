@@ -24,7 +24,6 @@ export interface ReorderFieldsDto {
     fieldIds: Array<number>;
 }
 
-
 /**
  * Check if a given object implements the ReorderFieldsDto interface.
  */

@@ -24,7 +24,6 @@ export interface UpdateProfileDto {
     answers?: { [key: string]: string | null; } | null;
 }
 
-
 /**
  * Check if a given object implements the UpdateProfileDto interface.
  */

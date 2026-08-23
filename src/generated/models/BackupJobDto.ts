@@ -74,7 +74,6 @@ export interface BackupJobDto {
 
 
 
-
 /**
  * Check if a given object implements the BackupJobDto interface.
  */

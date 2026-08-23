@@ -30,7 +30,6 @@ export interface RestoreRequestDto {
     url: string;
 }
 
-
 /**
  * Check if a given object implements the RestoreRequestDto interface.
  */

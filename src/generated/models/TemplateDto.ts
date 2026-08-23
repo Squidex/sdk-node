@@ -48,13 +48,24 @@ export interface TemplateDto {
      */
     description: string;
     /**
+     * The details of the template.
+     * @type {string}
+     * @memberof TemplateDto
+     */
+    details: string;
+    /**
      * True, if the template is a starter.
      * @type {boolean}
      * @memberof TemplateDto
      */
     isStarter: boolean;
+    /**
+     * The optional logo.
+     * @type {string}
+     * @memberof TemplateDto
+     */
+    logo?: string | null;
 }
-
 
 /**
  * Check if a given object implements the TemplateDto interface.
@@ -67,6 +78,7 @@ export function instanceOfTemplateDto(value: any): value is TemplateDto {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('title' in value) || value['title'] === undefined) return false;
     if (!('description' in value) || value['description'] === undefined) return false;
+    if (!('details' in value) || value['details'] === undefined) return false;
     if (!('isStarter' in value) || value['isStarter'] === undefined) return false;
     return true;
 }
@@ -85,7 +97,9 @@ export function TemplateDtoFromJSONTyped(json: any, _ignoreDiscriminator: boolea
         'name': json['name'],
         'title': json['title'],
         'description': json['description'],
+        'details': json['details'],
         'isStarter': json['isStarter'],
+        'logo': json['logo'] == null ? undefined : json['logo'],
     };
 }
 
@@ -99,6 +113,8 @@ export function TemplateDtoToJSON(value?: TemplateDto | null, _ignoreDiscriminat
         'name': value['name'],
         'title': value['title'],
         'description': value['description'],
+        'details': value['details'],
         'isStarter': value['isStarter'],
+        'logo': value['logo'],
     };
 }

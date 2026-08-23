@@ -30,7 +30,6 @@ export interface AssetChangedRuleTriggerDto extends RuleTriggerDto {
     condition?: string | null;
 }
 
-
 /**
  * Check if a given object implements the AssetChangedRuleTriggerDto interface.
  */

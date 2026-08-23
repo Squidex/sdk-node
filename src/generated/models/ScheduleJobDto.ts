@@ -48,7 +48,6 @@ export interface ScheduleJobDto {
     scheduledBy: string;
 }
 
-
 /**
  * Check if a given object implements the ScheduleJobDto interface.
  */

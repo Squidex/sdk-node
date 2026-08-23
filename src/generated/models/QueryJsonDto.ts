@@ -36,6 +36,12 @@ export interface QueryJsonDto {
     fullText?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof QueryJsonDto
+     */
+    collation?: string | null;
+    /**
+     * 
      * @type {number}
      * @memberof QueryJsonDto
      */
@@ -66,7 +72,6 @@ export interface QueryJsonDto {
     sort?: Array<SortNode> | null;
 }
 
-
 /**
  * Check if a given object implements the QueryJsonDto interface.
  */
@@ -93,6 +98,7 @@ export function QueryJsonDtoFromJSONTyped(json: any, _ignoreDiscriminator: boole
         
         'filter': json['filter'] == null ? undefined : json['filter'],
         'fullText': json['fullText'] == null ? undefined : json['fullText'],
+        'collation': json['collation'] == null ? undefined : json['collation'],
         'skip': json['skip'],
         'take': json['take'],
         'random': json['random'],
@@ -109,6 +115,7 @@ export function QueryJsonDtoToJSON(value?: QueryJsonDto | null, _ignoreDiscrimin
         
         'filter': value['filter'],
         'fullText': value['fullText'],
+        'collation': value['collation'],
         'skip': value['skip'],
         'take': value['take'],
         'random': value['random'],

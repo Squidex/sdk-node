@@ -48,6 +48,7 @@ import {
 import { buildError } from "./errors";
 import { addHeader, getHeader } from "./headers";
 import { TokenAPI } from "./TokenAPI";
+import { InMemoryTokenStore, TokenStore } from "./TokenStore";
 
 export interface SquidexOptions {
     /**
@@ -94,20 +95,6 @@ export interface SquidexOptions {
      * The store for tokens. By default it is in memory.
      */
     tokenStore?: TokenStore;
-}
-
-export interface TokenStore {
-    get(): Token | undefined;
-
-    set(token: Token): void;
-
-    clear(): void;
-}
-
-export interface Token {
-    accessToken: string;
-    expiresIn: number;
-    expiresAt: number;
 }
 
 export class SquidexClients {
@@ -256,7 +243,7 @@ export class SquidexClients {
             throw new Error("Configuration 'appName' is required.");
         }
 
-        clientOptions.url ||= 'https://cloud.squidex.io';
+        clientOptions.url ||= "https://cloud.squidex.io";
 
         Object.freeze(clientOptions);
 
@@ -270,7 +257,7 @@ export class SquidexClients {
             addOptions(init, clientOptions);
 
             if (!getHeader(init, "X-AuthRequest")) {
-                accessToken = await this.tokenApi.getToken();
+                accessToken = await this.getToken();
                 addHeader(init, "Authorization", `Bearer ${accessToken}`);
             }
 
@@ -319,13 +306,13 @@ export class SquidexClients {
         this.configuration = new Configuration(parameters);
 
         // Create an empty API object for the token.
-        this.tokenApi = new TokenAPI(this.tokenStore, clientOptions, this.configuration);
+        this.tokenApi = new TokenAPI(clientOptions, this.configuration);
     }
 
     /**
      * Clears the current token in case it has been expired.
      */
-    clearToken(accessToken?: string) {
+    private clearToken(accessToken?: string) {
         const token = this.tokenStore.get();
 
         if (accessToken === undefined || token?.accessToken === accessToken) {
@@ -336,8 +323,16 @@ export class SquidexClients {
     /**
      * Get an access token from the token store. If it doesn't exist, request it and save it to the token store
      */
-    getToken() {
-        return this.tokenApi.getToken();
+    async getToken() {
+        const now = new Date().getTime();
+        let token = this.tokenStore.get();
+        if (token != null && token.expiresAt > now) {
+            return token.accessToken;
+        }
+
+        token = await this.tokenApi.getToken();
+        this.tokenStore.set(token);
+        return token.accessToken;
     }
 }
 
@@ -347,49 +342,8 @@ function addOptions(init: RequestInit, clientOptions: SquidexOptions) {
     }
 
     if (clientOptions.customHeaders) {
-        for (const [key, value] of Object.entries(clientOptions.customHeaders)) {
-            addHeader(init, key, value);
+        for (const key of Object.keys(clientOptions.customHeaders)) {
+            addHeader(init, key, clientOptions.customHeaders[key]);
         }
-    }
-}
-
-export class InMemoryTokenStore implements TokenStore {
-    private token: Token | undefined;
-
-    get(): Token | undefined {
-        return this.token;
-    }
-
-    set(token: Token): void {
-        this.token = token;
-    }
-
-    clear() {
-        this.token = undefined;
-    }
-}
-
-export class StorageTokenStore implements TokenStore {
-    constructor(
-        readonly store: Storage = localStorage,
-        readonly key = "SquidexToken",
-    ) {}
-
-    get(): Token | undefined {
-        const value = this.store.getItem(this.key);
-
-        if (!value) {
-            return undefined;
-        }
-
-        return JSON.parse(value);
-    }
-
-    set(token: Token): void {
-        this.store.setItem(this.key, JSON.stringify(token));
-    }
-
-    clear() {
-        this.store.removeItem(this.key);
     }
 }

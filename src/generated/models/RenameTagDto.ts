@@ -24,7 +24,6 @@ export interface RenameTagDto {
     tagName: string;
 }
 
-
 /**
  * Check if a given object implements the RenameTagDto interface.
  */

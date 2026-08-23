@@ -24,7 +24,6 @@ export interface AssetMeta {
     isDuplicate: string;
 }
 
-
 /**
  * Check if a given object implements the AssetMeta interface.
  */

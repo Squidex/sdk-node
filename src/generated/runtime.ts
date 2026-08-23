@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 export const BASE_PATH = "https://cloud.squidex.io".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {

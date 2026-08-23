@@ -56,7 +56,6 @@ export interface SearchResultDto {
 
 
 
-
 /**
  * Check if a given object implements the SearchResultDto interface.
  */

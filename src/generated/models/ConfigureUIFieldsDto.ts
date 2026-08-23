@@ -30,7 +30,6 @@ export interface ConfigureUIFieldsDto {
     fieldsInReferences?: Array<string> | null;
 }
 
-
 /**
  * Check if a given object implements the ConfigureUIFieldsDto interface.
  */

@@ -48,7 +48,6 @@ export interface UsersDto {
     items: Array<UserDto>;
 }
 
-
 /**
  * Check if a given object implements the UsersDto interface.
  */

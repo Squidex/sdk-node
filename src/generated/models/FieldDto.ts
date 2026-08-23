@@ -89,7 +89,6 @@ export interface FieldDto {
     nested?: Array<NestedFieldDto> | null;
 }
 
-
 /**
  * Check if a given object implements the FieldDto interface.
  */

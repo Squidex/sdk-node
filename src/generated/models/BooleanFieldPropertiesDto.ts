@@ -55,7 +55,6 @@ export interface BooleanFieldPropertiesDto extends FieldPropertiesDto {
 
 
 
-
 /**
  * Check if a given object implements the BooleanFieldPropertiesDto interface.
  */

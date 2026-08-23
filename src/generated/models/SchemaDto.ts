@@ -167,7 +167,6 @@ export interface SchemaDto {
 
 
 
-
 /**
  * Check if a given object implements the SchemaDto interface.
  */

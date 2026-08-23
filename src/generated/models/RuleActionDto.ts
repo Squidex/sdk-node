@@ -41,7 +41,6 @@ export interface RuleActionDto {
      */
     actionType: string;
 }
-
 export function isAlgoliaRuleActionDto(value: RuleActionDto): value is AlgoliaRuleActionDto {
     return value['actionType'] === 'Algolia';
 }

@@ -23,19 +23,18 @@ import {
  */
 export interface FastlyRuleActionDto extends RuleActionDto {
     /**
-     * The API key to grant access to Squidex.
+     * 
      * @type {string}
      * @memberof FastlyRuleActionDto
      */
     apiKey: string;
     /**
-     * The ID of the fastly service.
+     * 
      * @type {string}
      * @memberof FastlyRuleActionDto
      */
     serviceId: string;
 }
-
 
 /**
  * Check if a given object implements the FastlyRuleActionDto interface.

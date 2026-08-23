@@ -23,31 +23,30 @@ import {
  */
 export interface NotificationRuleActionDto extends RuleActionDto {
     /**
-     * The user id or email.
+     * 
      * @type {string}
      * @memberof NotificationRuleActionDto
      */
     user: string;
     /**
-     * The text to send.
+     * 
      * @type {string}
      * @memberof NotificationRuleActionDto
      */
     text: string;
     /**
-     * The optional url to attach to the notification.
+     * 
      * @type {string}
      * @memberof NotificationRuleActionDto
      */
     url?: string | null;
     /**
-     * An optional client name.
+     * 
      * @type {string}
      * @memberof NotificationRuleActionDto
      */
     client?: string | null;
 }
-
 
 /**
  * Check if a given object implements the NotificationRuleActionDto interface.

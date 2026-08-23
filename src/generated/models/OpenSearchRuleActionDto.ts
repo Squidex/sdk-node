@@ -23,43 +23,42 @@ import {
  */
 export interface OpenSearchRuleActionDto extends RuleActionDto {
     /**
-     * The url to the instance or cluster.
+     * 
      * @type {string}
      * @memberof OpenSearchRuleActionDto
      */
     host: string;
     /**
-     * The name of the index.
+     * 
      * @type {string}
      * @memberof OpenSearchRuleActionDto
      */
     indexName: string;
     /**
-     * The optional username.
+     * 
      * @type {string}
      * @memberof OpenSearchRuleActionDto
      */
     username?: string | null;
     /**
-     * The optional password.
+     * 
      * @type {string}
      * @memberof OpenSearchRuleActionDto
      */
     password?: string | null;
     /**
-     * The optional custom document.
+     * 
      * @type {string}
      * @memberof OpenSearchRuleActionDto
      */
     document?: string | null;
     /**
-     * The condition when to delete the document.
+     * 
      * @type {string}
      * @memberof OpenSearchRuleActionDto
      */
     _delete?: string | null;
 }
-
 
 /**
  * Check if a given object implements the OpenSearchRuleActionDto interface.

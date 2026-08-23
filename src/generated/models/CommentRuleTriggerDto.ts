@@ -30,7 +30,6 @@ export interface CommentRuleTriggerDto extends RuleTriggerDto {
     condition?: string | null;
 }
 
-
 /**
  * Check if a given object implements the CommentRuleTriggerDto interface.
  */

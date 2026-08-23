@@ -24,6 +24,7 @@ import { RichTextFieldPropertiesDto, RichTextFieldPropertiesDtoFromJSONTyped, Ri
 import { StringFieldPropertiesDto, StringFieldPropertiesDtoFromJSONTyped, StringFieldPropertiesDtoToJSON } from './StringFieldPropertiesDto';
 import { TagsFieldPropertiesDto, TagsFieldPropertiesDtoFromJSONTyped, TagsFieldPropertiesDtoToJSON } from './TagsFieldPropertiesDto';
 import { UIFieldPropertiesDto, UIFieldPropertiesDtoFromJSONTyped, UIFieldPropertiesDtoToJSON } from './UIFieldPropertiesDto';
+import { UserInfoFieldPropertiesDto, UserInfoFieldPropertiesDtoFromJSONTyped, UserInfoFieldPropertiesDtoToJSON } from './UserInfoFieldPropertiesDto';
 /**
  * 
  * @export
@@ -67,6 +68,12 @@ export interface FieldPropertiesDto {
      */
     isHalfWidth?: boolean;
     /**
+     * Indicates if the field can only be created and not modified.
+     * @type {boolean}
+     * @memberof FieldPropertiesDto
+     */
+    isCreateOnly?: boolean;
+    /**
      * Optional url to the editor.
      * @type {string}
      * @memberof FieldPropertiesDto
@@ -85,7 +92,6 @@ export interface FieldPropertiesDto {
      */
     fieldType: string;
 }
-
 export function isArrayFieldPropertiesDto(value: FieldPropertiesDto): value is ArrayFieldPropertiesDto {
     return value['fieldType'] === 'Array';
 }
@@ -140,6 +146,10 @@ export function isTagsFieldPropertiesDto(value: FieldPropertiesDto): value is Ta
 
 export function isUIFieldPropertiesDto(value: FieldPropertiesDto): value is UIFieldPropertiesDto {
     return value['fieldType'] === 'UI';
+}
+
+export function isUserInfoFieldPropertiesDto(value: FieldPropertiesDto): value is UserInfoFieldPropertiesDto {
+    return value['fieldType'] === 'UserInfo';
 }
 
 
@@ -205,6 +215,9 @@ export function FieldPropertiesDtoFromJSONTyped(json: any, _ignoreDiscriminator:
         if (json['fieldType'] === 'UI') {
             return UIFieldPropertiesDtoFromJSONTyped(json, true);
         }
+        if (json['fieldType'] === 'UserInfo') {
+            return UserInfoFieldPropertiesDtoFromJSONTyped(json, true);
+        }
     }
     return {
         
@@ -214,6 +227,7 @@ export function FieldPropertiesDtoFromJSONTyped(json: any, _ignoreDiscriminator:
         'isRequired': json['isRequired'] == null ? undefined : json['isRequired'],
         'isRequiredOnPublish': json['isRequiredOnPublish'] == null ? undefined : json['isRequiredOnPublish'],
         'isHalfWidth': json['isHalfWidth'] == null ? undefined : json['isHalfWidth'],
+        'isCreateOnly': json['isCreateOnly'] == null ? undefined : json['isCreateOnly'],
         'editorUrl': json['editorUrl'] == null ? undefined : json['editorUrl'],
         'tags': json['tags'] == null ? undefined : json['tags'],
         'fieldType': json['fieldType'],
@@ -267,6 +281,9 @@ export function FieldPropertiesDtoToJSON(value?: FieldPropertiesDto | null, _ign
         if (value['fieldType'] === 'UI') {
             return UIFieldPropertiesDtoToJSON(value as UIFieldPropertiesDto, true);
         }
+        if (value['fieldType'] === 'UserInfo') {
+            return UserInfoFieldPropertiesDtoToJSON(value as UserInfoFieldPropertiesDto, true);
+        }
     }
     return {
         
@@ -276,6 +293,7 @@ export function FieldPropertiesDtoToJSON(value?: FieldPropertiesDto | null, _ign
         'isRequired': value['isRequired'],
         'isRequiredOnPublish': value['isRequiredOnPublish'],
         'isHalfWidth': value['isHalfWidth'],
+        'isCreateOnly': value['isCreateOnly'],
         'editorUrl': value['editorUrl'],
         'tags': value['tags'],
         'fieldType': value['fieldType'],

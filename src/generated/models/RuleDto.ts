@@ -11,6 +11,11 @@
  */
 
 import { mapValues } from '../runtime';
+import type { FlowDefinitionDto } from './FlowDefinitionDto';
+import {
+    FlowDefinitionDtoFromJSON,
+    FlowDefinitionDtoToJSON,
+} from './FlowDefinitionDto';
 import type { ResourceLink } from './ResourceLink';
 import {
     ResourceLinkFromJSON,
@@ -95,8 +100,15 @@ export interface RuleDto {
     trigger: RuleTriggerDto;
     /**
      * 
+     * @type {FlowDefinitionDto}
+     * @memberof RuleDto
+     */
+    flow: FlowDefinitionDto;
+    /**
+     * 
      * @type {RuleActionDto}
      * @memberof RuleDto
+     * @deprecated
      */
     action: RuleActionDto;
     /**
@@ -120,7 +132,6 @@ export interface RuleDto {
     lastExecuted?: Date | null;
 }
 
-
 /**
  * Check if a given object implements the RuleDto interface.
  */
@@ -137,6 +148,7 @@ export function instanceOfRuleDto(value: any): value is RuleDto {
     if (!('version' in value) || value['version'] === undefined) return false;
     if (!('isEnabled' in value) || value['isEnabled'] === undefined) return false;
     if (!('trigger' in value) || value['trigger'] === undefined) return false;
+    if (!('flow' in value) || value['flow'] === undefined) return false;
     if (!('action' in value) || value['action'] === undefined) return false;
     if (!('numSucceeded' in value) || value['numSucceeded'] === undefined) return false;
     if (!('numFailed' in value) || value['numFailed'] === undefined) return false;
@@ -163,6 +175,7 @@ export function RuleDtoFromJSONTyped(json: any, _ignoreDiscriminator: boolean): 
         'isEnabled': json['isEnabled'],
         'name': json['name'] == null ? undefined : json['name'],
         'trigger': RuleTriggerDtoFromJSON(json['trigger']),
+        'flow': FlowDefinitionDtoFromJSON(json['flow']),
         'action': RuleActionDtoFromJSON(json['action']),
         'numSucceeded': json['numSucceeded'],
         'numFailed': json['numFailed'],
@@ -186,6 +199,7 @@ export function RuleDtoToJSON(value?: RuleDto | null, _ignoreDiscriminator = fal
         'isEnabled': value['isEnabled'],
         'name': value['name'],
         'trigger': RuleTriggerDtoToJSON(value['trigger']),
+        'flow': FlowDefinitionDtoToJSON(value['flow']),
         'action': RuleActionDtoToJSON(value['action']),
         'numSucceeded': value['numSucceeded'],
         'numFailed': value['numFailed'],

@@ -23,49 +23,48 @@ import {
  */
 export interface DiscourseRuleActionDto extends RuleActionDto {
     /**
-     * The url to the discourse server.
+     * 
      * @type {string}
      * @memberof DiscourseRuleActionDto
      */
     url: string;
     /**
-     * The api key to authenticate to your discourse server.
+     * 
      * @type {string}
      * @memberof DiscourseRuleActionDto
      */
     apiKey: string;
     /**
-     * The api username to authenticate to your discourse server.
+     * 
      * @type {string}
      * @memberof DiscourseRuleActionDto
      */
     apiUsername: string;
     /**
-     * The text as markdown.
+     * 
      * @type {string}
      * @memberof DiscourseRuleActionDto
      */
     text: string;
     /**
-     * The optional title when creating new topics.
+     * 
      * @type {string}
      * @memberof DiscourseRuleActionDto
      */
     title?: string | null;
     /**
-     * The optional topic id.
+     * 
      * @type {number}
      * @memberof DiscourseRuleActionDto
      */
     topic?: number | null;
     /**
-     * The optional category id.
+     * 
      * @type {number}
      * @memberof DiscourseRuleActionDto
      */
     category?: number | null;
 }
-
 
 /**
  * Check if a given object implements the DiscourseRuleActionDto interface.

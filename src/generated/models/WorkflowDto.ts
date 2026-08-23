@@ -66,7 +66,6 @@ export interface WorkflowDto {
     initial: string;
 }
 
-
 /**
  * Check if a given object implements the WorkflowDto interface.
  */

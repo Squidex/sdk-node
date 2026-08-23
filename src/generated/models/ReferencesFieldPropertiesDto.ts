@@ -91,7 +91,6 @@ export interface ReferencesFieldPropertiesDto extends FieldPropertiesDto {
 
 
 
-
 /**
  * Check if a given object implements the ReferencesFieldPropertiesDto interface.
  */

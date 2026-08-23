@@ -329,8 +329,8 @@ export interface ContentsSharedBulkUpdateAllContentsRequestRaw {
 
 export interface ContentsSharedGetAllContentsRequest {
     ids?: string | null;
-    scheduleFrom?: Date | null;
-    scheduleTo?: Date | null;
+    scheduledFrom?: Date | null;
+    scheduledTo?: Date | null;
     referencing?: string | null;
     references?: string | null;
     q?: string | null;
@@ -344,8 +344,8 @@ export interface ContentsSharedGetAllContentsRequest {
 
 export interface ContentsSharedGetAllContentsRequestRaw {
     ids?: string | null;
-    scheduleFrom?: Date | null;
-    scheduleTo?: Date | null;
+    scheduledFrom?: Date | null;
+    scheduledTo?: Date | null;
     referencing?: string | null;
     references?: string | null;
     q?: string | null;
@@ -796,7 +796,7 @@ export interface ContentsApiInterface {
      * @summary Enrich a content item with defaults.
      * @param {string} schema The name of the schema.
      * @param {string} id The ID of the content item to update.
-     * @param {boolean} [enrichRequiredFields] True, to also enrich required fields. Default: false.             
+     * @param {boolean} [enrichRequiredFields] True, to also enrich required fields. Default: false.
      * @param {boolean} [unpublished] Return unpublished content items.
      * @param {string} [languages] The list of languages to resolve (comma-separated).
      * @param {*} [options] Override http request option.
@@ -852,8 +852,8 @@ export interface ContentsApiInterface {
      * You can read the generated documentation for your app at /api/content/{appName}/docs.
      * @summary Queries contents.
      * @param {string} [ids] The list of ids to query.
-     * @param {Date} [scheduleFrom] The start of the schedule.
-     * @param {Date} [scheduleTo] The end of the schedule.
+     * @param {Date} [scheduledFrom] The start time of the scheduled content period (see scheduledTo).
+     * @param {Date} [scheduledTo] The end time of the scheduled content period (see scheduledFrom).
      * @param {string} [referencing] The ID of the referencing content item.
      * @param {string} [references] The ID of the reference content item.
      * @param {string} [q] The optional json query.
@@ -2285,8 +2285,8 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
      */
     async getAllContentsRaw(requestParameters: ContentsSharedGetAllContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ContentsDto>> {
         const _ids = requestParameters?.['ids'];
-        const _scheduleFrom = requestParameters?.['scheduleFrom'];
-        const _scheduleTo = requestParameters?.['scheduleTo'];
+        const _scheduledFrom = requestParameters?.['scheduledFrom'];
+        const _scheduledTo = requestParameters?.['scheduledTo'];
         const _referencing = requestParameters?.['referencing'];
         const _references = requestParameters?.['references'];
         const _q = requestParameters?.['q'];
@@ -2303,12 +2303,12 @@ export class ContentsApi extends runtime.BaseAPI implements ContentsApiInterface
             queryParameters['ids'] = _ids;
         }
 
-        if (_scheduleFrom != null) {
-            queryParameters['scheduleFrom'] = (_scheduleFrom as any).toISOString();
+        if (_scheduledFrom != null) {
+            queryParameters['scheduledFrom'] = (_scheduledFrom as any).toISOString();
         }
 
-        if (_scheduleTo != null) {
-            queryParameters['scheduleTo'] = (_scheduleTo as any).toISOString();
+        if (_scheduledTo != null) {
+            queryParameters['scheduledTo'] = (_scheduledTo as any).toISOString();
         }
 
         if (_referencing != null) {

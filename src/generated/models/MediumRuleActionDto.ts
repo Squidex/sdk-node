@@ -23,49 +23,48 @@ import {
  */
 export interface MediumRuleActionDto extends RuleActionDto {
     /**
-     * The self issued access token.
+     * 
      * @type {string}
      * @memberof MediumRuleActionDto
      */
     accessToken: string;
     /**
-     * The title, used for the url.
+     * 
      * @type {string}
      * @memberof MediumRuleActionDto
      */
     title: string;
     /**
-     * The content, either html or markdown.
+     * 
      * @type {string}
      * @memberof MediumRuleActionDto
      */
     content: string;
     /**
-     * The original home of this content, if it was originally published elsewhere.
+     * 
      * @type {string}
      * @memberof MediumRuleActionDto
      */
     canonicalUrl?: string | null;
     /**
-     * The optional comma separated list of tags.
+     * 
      * @type {string}
      * @memberof MediumRuleActionDto
      */
     tags?: string | null;
     /**
-     * Optional publication id.
+     * 
      * @type {string}
      * @memberof MediumRuleActionDto
      */
     publicationId?: string | null;
     /**
-     * Indicates whether the content is markdown or html.
+     * 
      * @type {boolean}
      * @memberof MediumRuleActionDto
      */
     isHtml: boolean;
 }
-
 
 /**
  * Check if a given object implements the MediumRuleActionDto interface.

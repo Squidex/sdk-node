@@ -24,7 +24,6 @@ export interface MoveAssetFolderDto {
     parentId?: string;
 }
 
-
 /**
  * Check if a given object implements the MoveAssetFolderDto interface.
  */

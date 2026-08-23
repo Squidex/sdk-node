@@ -37,7 +37,6 @@ export interface UIFieldPropertiesDto extends FieldPropertiesDto {
 
 
 
-
 /**
  * Check if a given object implements the UIFieldPropertiesDto interface.
  */

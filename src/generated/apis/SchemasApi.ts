@@ -17,7 +17,11 @@ import type {
   ChangeCategoryDto,
   ConfigureFieldRulesDto,
   ConfigureUIFieldsDto,
+  CreateIndexDto,
   CreateSchemaDto,
+  GenerateSchemaDto,
+  GenerateSchemaResponseDto,
+  IndexesDto,
   ReorderFieldsDto,
   SchemaDto,
   SchemaScriptsDto,
@@ -31,7 +35,11 @@ import {
     ChangeCategoryDtoToJSON,
     ConfigureFieldRulesDtoToJSON,
     ConfigureUIFieldsDtoToJSON,
+    CreateIndexDtoToJSON,
     CreateSchemaDtoToJSON,
+    GenerateSchemaDtoToJSON,
+    GenerateSchemaResponseDtoFromJSON,
+    IndexesDtoFromJSON,
     ReorderFieldsDtoToJSON,
     SchemaDtoFromJSON,
     SchemaScriptsDtoToJSON,
@@ -147,8 +155,27 @@ export interface SchemaFieldsShowNestedFieldRequestRaw {
     id: number;
 }
 
+export interface SchemaIndexesDeleteIndexRequestRaw {
+    schema: string;
+    name: string;
+}
+
+export interface SchemaIndexesGetIndexesRequestRaw {
+    schema: string;
+}
+
+export interface SchemaIndexesPostIndexRequestRaw {
+    schema: string;
+    createIndexDto: CreateIndexDto;
+}
+
+export interface SchemasDeleteSchemaRequest {
+    permanent?: boolean;
+}
+
 export interface SchemasDeleteSchemaRequestRaw {
     schema: string;
+    permanent?: boolean;
 }
 
 export interface SchemasGetSchemaRequestRaw {
@@ -157,6 +184,10 @@ export interface SchemasGetSchemaRequestRaw {
 
 export interface SchemasPostSchemaRequestRaw {
     createSchemaDto: CreateSchemaDto;
+}
+
+export interface SchemasPostSchemaGenerateRequestRaw {
+    generateSchemaDto: GenerateSchemaDto;
 }
 
 export interface SchemasPublishSchemaRequestRaw {
@@ -531,18 +562,66 @@ export interface SchemasApiInterface {
 
     /**
      * 
-     * @summary Delete a schema.
-     * @param {string} schema The name of the schema to delete.
+     * @summary Create a schema indexes.
+     * @param {string} schema The name of the schema.
+     * @param {string} name The name of the index.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SchemasApiInterface
      */
-    deleteSchemaRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    deleteIndexRaw(schema: string, name: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Create a schema indexes.
+     */
+    deleteIndex(schema: string, name: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
+     * 
+     * @summary Gets the schema indexes.
+     * @param {string} schema The name of the schema.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchemasApiInterface
+     */
+    getIndexesRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IndexesDto>>;
+
+    /**
+     * Gets the schema indexes.
+     */
+    getIndexes(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IndexesDto>;
+
+    /**
+     * 
+     * @summary Create a schema indexes.
+     * @param {string} schema The name of the schema.
+     * @param {CreateIndexDto} createIndexDto The request object that represents an index.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchemasApiInterface
+     */
+    postIndexRaw(schema: string, createIndexDto: CreateIndexDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Create a schema indexes.
+     */
+    postIndex(schema: string, createIndexDto: CreateIndexDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
+     * 
+     * @summary Delete a schema.
+     * @param {string} schema The name of the schema to delete.
+     * @param {boolean} [permanent] True to delete the schema and the contents permanently.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchemasApiInterface
+     */
+    deleteSchemaRaw(schema: string, requestParameters?: SchemasDeleteSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      * Delete a schema.
      */
-    deleteSchema(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    deleteSchema(schema: string, requestParameters?: SchemasDeleteSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -587,6 +666,21 @@ export interface SchemasApiInterface {
      * Create a new schema.
      */
     postSchema(createSchemaDto: CreateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto>;
+
+    /**
+     * 
+     * @summary Generate a new schema.
+     * @param {GenerateSchemaDto} generateSchemaDto The schema object that needs to be added to the app.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchemasApiInterface
+     */
+    postSchemaGenerateRaw(generateSchemaDto: GenerateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GenerateSchemaResponseDto>>;
+
+    /**
+     * Generate a new schema.
+     */
+    postSchemaGenerate(generateSchemaDto: GenerateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GenerateSchemaResponseDto>;
 
     /**
      * 
@@ -1668,9 +1762,51 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     }
 
     /**
-     * Delete a schema.
+     * Create a schema indexes.
      */
-    async deleteSchemaRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async deleteIndexRaw(schema: string, name: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _schema = schema;
+        const _name = name;
+
+        if (_schema == null) {
+            throw new runtime.RequiredError(
+                'schema',
+                'Required parameter "schema" was null or undefined when calling ().'
+            );
+        }
+
+        if (_name == null) {
+            throw new runtime.RequiredError(
+                'name',
+                'Required parameter "name" was null or undefined when calling ().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/apps/$app$/schemas/{schema}/indexes/{name}`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))).replace(`{${"name"}}`, encodeURIComponent(String(_name))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Create a schema indexes.
+     */
+    async deleteIndex(schema: string, name: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteIndexRaw(schema, name, initOverrides);
+    }
+
+    /**
+     * Gets the schema indexes.
+     */
+    async getIndexesRaw(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IndexesDto>> {
         const _schema = schema;
 
         if (_schema == null) {
@@ -1681,6 +1817,91 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
         }
 
         const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/apps/$app$/schemas/{schema}/indexes`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => IndexesDtoFromJSON(jsonValue));
+    }
+
+    /**
+     * Gets the schema indexes.
+     */
+    async getIndexes(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IndexesDto> {
+        const response = await this.getIndexesRaw(schema, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Create a schema indexes.
+     */
+    async postIndexRaw(schema: string, createIndexDto: CreateIndexDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _schema = schema;
+        const _createIndexDto = createIndexDto;
+
+        if (_schema == null) {
+            throw new runtime.RequiredError(
+                'schema',
+                'Required parameter "schema" was null or undefined when calling ().'
+            );
+        }
+
+        if (_createIndexDto == null) {
+            throw new runtime.RequiredError(
+                'createIndexDto',
+                'Required parameter "createIndexDto" was null or undefined when calling ().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/apps/$app$/schemas/{schema}/indexes`.replace(`{${"schema"}}`, encodeURIComponent(String(_schema))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateIndexDtoToJSON(_createIndexDto),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Create a schema indexes.
+     */
+    async postIndex(schema: string, createIndexDto: CreateIndexDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.postIndexRaw(schema, createIndexDto, initOverrides);
+    }
+
+    /**
+     * Delete a schema.
+     */
+    async deleteSchemaRaw(schema: string, requestParameters: SchemasDeleteSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const _schema = schema;
+        const _permanent = requestParameters?.['permanent'];
+
+        if (_schema == null) {
+            throw new runtime.RequiredError(
+                'schema',
+                'Required parameter "schema" was null or undefined when calling ().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (_permanent != null) {
+            queryParameters['permanent'] = _permanent;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -1697,8 +1918,8 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
     /**
      * Delete a schema.
      */
-    async deleteSchema(schema: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteSchemaRaw(schema, initOverrides);
+    async deleteSchema(schema: string, requestParameters: SchemasDeleteSchemaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSchemaRaw(schema, requestParameters, initOverrides);
     }
 
     /**
@@ -1798,6 +2019,44 @@ export class SchemasApi extends runtime.BaseAPI implements SchemasApiInterface {
      */
     async postSchema(createSchemaDto: CreateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchemaDto> {
         const response = await this.postSchemaRaw(createSchemaDto, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Generate a new schema.
+     */
+    async postSchemaGenerateRaw(generateSchemaDto: GenerateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GenerateSchemaResponseDto>> {
+        const _generateSchemaDto = generateSchemaDto;
+
+        if (_generateSchemaDto == null) {
+            throw new runtime.RequiredError(
+                'generateSchemaDto',
+                'Required parameter "generateSchemaDto" was null or undefined when calling ().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/apps/$app$/schemas/generate`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: GenerateSchemaDtoToJSON(_generateSchemaDto),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GenerateSchemaResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     * Generate a new schema.
+     */
+    async postSchemaGenerate(generateSchemaDto: GenerateSchemaDto, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GenerateSchemaResponseDto> {
+        const response = await this.postSchemaGenerateRaw(generateSchemaDto, initOverrides);
         return await response.value();
     }
 

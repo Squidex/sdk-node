@@ -11,21 +11,16 @@
  */
 
 import { mapValues } from '../runtime';
-import type { RuleJobResult } from './RuleJobResult';
-import {
-    RuleJobResultFromJSON,
-    RuleJobResultToJSON,
-} from './RuleJobResult';
 import type { ResourceLink } from './ResourceLink';
 import {
     ResourceLinkFromJSON,
     ResourceLinkToJSON,
 } from './ResourceLink';
-import type { RuleResult } from './RuleResult';
+import type { FlowExecutionStateDto } from './FlowExecutionStateDto';
 import {
-    RuleResultFromJSON,
-    RuleResultToJSON,
-} from './RuleResult';
+    FlowExecutionStateDtoFromJSON,
+    FlowExecutionStateDtoToJSON,
+} from './FlowExecutionStateDto';
 
 /**
  * 
@@ -46,57 +41,12 @@ export interface RuleEventDto {
      */
     id: string;
     /**
-     * The time when the event has been created.
-     * @type {Date}
-     * @memberof RuleEventDto
-     */
-    created: Date;
-    /**
-     * The description.
-     * @type {string}
-     * @memberof RuleEventDto
-     */
-    description: string;
-    /**
-     * The name of the event.
-     * @type {string}
-     * @memberof RuleEventDto
-     */
-    eventName: string;
-    /**
-     * The last dump.
-     * @type {string}
-     * @memberof RuleEventDto
-     */
-    lastDump?: string | null;
-    /**
-     * The number of calls.
-     * @type {number}
-     * @memberof RuleEventDto
-     */
-    numCalls: number;
-    /**
-     * The next attempt.
-     * @type {Date}
-     * @memberof RuleEventDto
-     */
-    nextAttempt?: Date | null;
-    /**
      * 
-     * @type {RuleResult}
+     * @type {FlowExecutionStateDto}
      * @memberof RuleEventDto
      */
-    result: RuleResult;
-    /**
-     * 
-     * @type {RuleJobResult}
-     * @memberof RuleEventDto
-     */
-    jobResult: RuleJobResult;
+    flowState: FlowExecutionStateDto;
 }
-
-
-
 
 /**
  * Check if a given object implements the RuleEventDto interface.
@@ -107,12 +57,7 @@ export function instanceOfRuleEventDto(value: any): value is RuleEventDto {
     }
     if (!('links' in value) || value['links'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('created' in value) || value['created'] === undefined) return false;
-    if (!('description' in value) || value['description'] === undefined) return false;
-    if (!('eventName' in value) || value['eventName'] === undefined) return false;
-    if (!('numCalls' in value) || value['numCalls'] === undefined) return false;
-    if (!('result' in value) || value['result'] === undefined) return false;
-    if (!('jobResult' in value) || value['jobResult'] === undefined) return false;
+    if (!('flowState' in value) || value['flowState'] === undefined) return false;
     return true;
 }
 
@@ -128,14 +73,7 @@ export function RuleEventDtoFromJSONTyped(json: any, _ignoreDiscriminator: boole
         
         'links': (mapValues(json['_links'], ResourceLinkFromJSON)),
         'id': json['id'],
-        'created': (new Date(json['created'])),
-        'description': json['description'],
-        'eventName': json['eventName'],
-        'lastDump': json['lastDump'] == null ? undefined : json['lastDump'],
-        'numCalls': json['numCalls'],
-        'nextAttempt': json['nextAttempt'] == null ? undefined : (new Date(json['nextAttempt'])),
-        'result': RuleResultFromJSON(json['result']),
-        'jobResult': RuleJobResultFromJSON(json['jobResult']),
+        'flowState': FlowExecutionStateDtoFromJSON(json['flowState']),
     };
 }
 
@@ -147,13 +85,6 @@ export function RuleEventDtoToJSON(value?: RuleEventDto | null, _ignoreDiscrimin
         
         '_links': (mapValues(value['links'], x => ResourceLinkToJSON(x))),
         'id': value['id'],
-        'created': ((value['created']).toISOString()),
-        'description': value['description'],
-        'eventName': value['eventName'],
-        'lastDump': value['lastDump'],
-        'numCalls': value['numCalls'],
-        'nextAttempt': value['nextAttempt'] == null ? undefined : ((value['nextAttempt'] as any).toISOString()),
-        'result': RuleResultToJSON(value['result']),
-        'jobResult': RuleJobResultToJSON(value['jobResult']),
+        'flowState': FlowExecutionStateDtoToJSON(value['flowState']),
     };
 }

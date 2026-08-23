@@ -103,7 +103,6 @@ export interface BulkUpdateContentsJobDto {
 
 
 
-
 /**
  * Check if a given object implements the BulkUpdateContentsJobDto interface.
  */

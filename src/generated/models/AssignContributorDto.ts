@@ -36,7 +36,6 @@ export interface AssignContributorDto {
     invite?: boolean;
 }
 
-
 /**
  * Check if a given object implements the AssignContributorDto interface.
  */

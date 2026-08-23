@@ -42,7 +42,6 @@ export interface AuthSchemeResponseDto {
     scheme?: AuthSchemeDto;
 }
 
-
 /**
  * Check if a given object implements the AuthSchemeResponseDto interface.
  */

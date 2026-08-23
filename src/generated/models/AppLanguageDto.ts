@@ -61,7 +61,6 @@ export interface AppLanguageDto {
     isOptional: boolean;
 }
 
-
 /**
  * Check if a given object implements the AppLanguageDto interface.
  */

@@ -1,5 +1,5 @@
 {
-  "x-generator": "NSwag v14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))",
+  "x-generator": "NSwag v14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))",
   "openapi": "3.0.0",
   "info": {
     "title": "Squidex API",
@@ -8517,9 +8517,9 @@
             "x-position": 1
           },
           {
-            "name": "scheduleFrom",
+            "name": "scheduledFrom",
             "in": "query",
-            "description": "The start of the schedule.",
+            "description": "The start time of the scheduled content period (see scheduledTo).",
             "schema": {
               "type": "string",
               "format": "date-time",
@@ -8528,9 +8528,9 @@
             "x-position": 2
           },
           {
-            "name": "scheduleTo",
+            "name": "scheduledTo",
             "in": "query",
-            "description": "The end of the schedule.",
+            "description": "The end time of the scheduled content period (see scheduledFrom).",
             "schema": {
               "type": "string",
               "format": "date-time",
@@ -13723,6 +13723,14 @@
             "type": "boolean",
             "description": "True to validate the content items on publish."
           },
+          "searchFields": {
+            "type": "array",
+            "description": "The fields for automation processes.",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
           "tags": {
             "type": "array",
             "description": "Tags for automation processes.",
@@ -13887,7 +13895,8 @@
             "RichText": "#/components/schemas/RichTextFieldPropertiesDto",
             "String": "#/components/schemas/StringFieldPropertiesDto",
             "Tags": "#/components/schemas/TagsFieldPropertiesDto",
-            "UI": "#/components/schemas/UIFieldPropertiesDto"
+            "UI": "#/components/schemas/UIFieldPropertiesDto",
+            "UserInfo": "#/components/schemas/UserInfoFieldPropertiesDto"
           }
         },
         "x-abstract": true,
@@ -14918,6 +14927,24 @@
           "Separator"
         ]
       },
+      "UserInfoFieldPropertiesDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FieldPropertiesDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "defaultRole": {
+                "type": "string",
+                "description": "The role to create a default value.",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
       "NestedFieldDto": {
         "allOf": [
           {
@@ -15422,6 +15449,14 @@
           "validateOnPublish": {
             "type": "boolean",
             "description": "True to validate the content items on publish."
+          },
+          "searchFields": {
+            "type": "array",
+            "description": "The fields for automation processes.",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
           },
           "tags": {
             "type": "array",
@@ -19028,13 +19063,13 @@
           },
           "scheduledFrom": {
             "type": "string",
-            "description": "The start of the schedule.",
+            "description": "The start time of the scheduled content period (see scheduledTo).",
             "format": "date-time",
             "nullable": true
           },
           "scheduledTo": {
             "type": "string",
-            "description": "The end of the schedule.",
+            "description": "The end time of the scheduled content period (see scheduledFrom).",
             "format": "date-time",
             "nullable": true
           },

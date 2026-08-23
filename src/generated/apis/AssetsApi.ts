@@ -29,6 +29,7 @@ import type {
   RenameAssetFolderDto,
   RenameTagDto,
   ResizeMode,
+  WatermarkAnchor,
 } from '../models/index';
 import {
     AnnotateAssetDtoToJSON,
@@ -62,6 +63,9 @@ export interface AssetContentGetAssetContentRequest {
     force?: boolean;
     deleted?: boolean;
     format?: ImageFormat;
+    watermarkUrl?: string | null;
+    watermarkOpacity?: number;
+    watermarkAnchor?: WatermarkAnchor;
 }
 
 export interface AssetContentGetAssetContentRequestRaw {
@@ -81,6 +85,9 @@ export interface AssetContentGetAssetContentRequestRaw {
     force?: boolean;
     deleted?: boolean;
     format?: ImageFormat;
+    watermarkUrl?: string | null;
+    watermarkOpacity?: number;
+    watermarkAnchor?: WatermarkAnchor;
 }
 
 export interface AssetContentGetAssetContentBySlugRequest {
@@ -99,6 +106,9 @@ export interface AssetContentGetAssetContentBySlugRequest {
     force?: boolean;
     deleted?: boolean;
     format?: ImageFormat;
+    watermarkUrl?: string | null;
+    watermarkOpacity?: number;
+    watermarkAnchor?: WatermarkAnchor;
 }
 
 export interface AssetContentGetAssetContentBySlugRequestRaw {
@@ -118,6 +128,9 @@ export interface AssetContentGetAssetContentBySlugRequestRaw {
     force?: boolean;
     deleted?: boolean;
     format?: ImageFormat;
+    watermarkUrl?: string | null;
+    watermarkOpacity?: number;
+    watermarkAnchor?: WatermarkAnchor;
 }
 
 export interface AssetFoldersDeleteAssetFolderRequestRaw {
@@ -291,6 +304,9 @@ export interface AssetsApiInterface {
      * @param {boolean} [force] True to force a new resize even if it already stored.
      * @param {boolean} [deleted] Also return deleted content items.
      * @param {ImageFormat} [format] True to force a new resize even if it already stored.
+     * @param {string} [watermarkUrl] Adds the image with the given URL on to of your image. If the watermark cannot be loaded or found, the watermark is just ignored.
+     * @param {number} [watermarkOpacity] The opacity of the watermark image.
+     * @param {WatermarkAnchor} [watermarkAnchor] The anchor where the watermark should be placed.
      * @param {*} [options] Override http request option.
      * @deprecated
      * @throws {RequiredError}
@@ -323,6 +339,9 @@ export interface AssetsApiInterface {
      * @param {boolean} [force] True to force a new resize even if it already stored.
      * @param {boolean} [deleted] Also return deleted content items.
      * @param {ImageFormat} [format] True to force a new resize even if it already stored.
+     * @param {string} [watermarkUrl] Adds the image with the given URL on to of your image. If the watermark cannot be loaded or found, the watermark is just ignored.
+     * @param {number} [watermarkOpacity] The opacity of the watermark image.
+     * @param {WatermarkAnchor} [watermarkAnchor] The anchor where the watermark should be placed.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AssetsApiInterface
@@ -654,6 +673,9 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const _force = requestParameters?.['force'];
         const _deleted = requestParameters?.['deleted'];
         const _format = requestParameters?.['format'];
+        const _watermarkUrl = requestParameters?.['watermarkUrl'];
+        const _watermarkOpacity = requestParameters?.['watermarkOpacity'];
+        const _watermarkAnchor = requestParameters?.['watermarkAnchor'];
 
         if (_id == null) {
             throw new runtime.RequiredError(
@@ -724,6 +746,18 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
             queryParameters['format'] = _format;
         }
 
+        if (_watermarkUrl != null) {
+            queryParameters['watermarkUrl'] = _watermarkUrl;
+        }
+
+        if (_watermarkOpacity != null) {
+            queryParameters['watermarkOpacity'] = _watermarkOpacity;
+        }
+
+        if (_watermarkAnchor != null) {
+            queryParameters['watermarkAnchor'] = _watermarkAnchor;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
@@ -765,6 +799,9 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
         const _force = requestParameters?.['force'];
         const _deleted = requestParameters?.['deleted'];
         const _format = requestParameters?.['format'];
+        const _watermarkUrl = requestParameters?.['watermarkUrl'];
+        const _watermarkOpacity = requestParameters?.['watermarkOpacity'];
+        const _watermarkAnchor = requestParameters?.['watermarkAnchor'];
 
         if (_idOrSlug == null) {
             throw new runtime.RequiredError(
@@ -833,6 +870,18 @@ export class AssetsApi extends runtime.BaseAPI implements AssetsApiInterface {
 
         if (_format != null) {
             queryParameters['format'] = _format;
+        }
+
+        if (_watermarkUrl != null) {
+            queryParameters['watermarkUrl'] = _watermarkUrl;
+        }
+
+        if (_watermarkOpacity != null) {
+            queryParameters['watermarkOpacity'] = _watermarkOpacity;
+        }
+
+        if (_watermarkAnchor != null) {
+            queryParameters['watermarkAnchor'] = _watermarkAnchor;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

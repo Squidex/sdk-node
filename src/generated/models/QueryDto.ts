@@ -42,7 +42,6 @@ export interface QueryDto {
     parentId?: string | null;
 }
 
-
 /**
  * Check if a given object implements the QueryDto interface.
  */

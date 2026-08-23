@@ -155,7 +155,6 @@ export interface ContentDto {
     version: number;
 }
 
-
 /**
  * Check if a given object implements the ContentDto interface.
  */

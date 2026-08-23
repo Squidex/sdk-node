@@ -66,7 +66,9 @@ describe("Token refresh", () => {
             fetcher: async (input, init) => {
                 if (input.toString().endsWith("/identity-server/connect/token")) {
                     tokenRequestCount++;
-                    return new Response(JSON.stringify({ access_token: `token-${tokenRequestCount}`, expires_in: 60_000 }));
+                    return new Response(
+                        JSON.stringify({ access_token: `token-${tokenRequestCount}`, expires_in: 60_000 }),
+                    );
                 }
 
                 if (new Headers(init?.headers).get("Authorization") === "Bearer token-1") {
@@ -114,7 +116,9 @@ describe("Token refresh", () => {
                 if (url.endsWith("/identity-server/connect/token")) {
                     tokenRequestCount++;
 
-                    return new Response(JSON.stringify({ access_token: `token-${tokenRequestCount}`, expires_in: 60_000 }));
+                    return new Response(
+                        JSON.stringify({ access_token: `token-${tokenRequestCount}`, expires_in: 60_000 }),
+                    );
                 }
 
                 const authorization = headers.get("Authorization");
