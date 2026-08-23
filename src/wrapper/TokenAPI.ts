@@ -14,15 +14,15 @@ export class TokenAPI extends BaseAPI {
     }
 
     public async getToken() {
+        const now = new Date().getTime();
+        let token = this.tokenStore.get();
+
+        if (token != null && token.expiresAt > now) {
+            return token.accessToken;
+        }
+
         const promise = (this.tokenPromise ||= (async () => {
-            const now = new Date().getTime();
             try {
-                let token = this.tokenStore.get();
-
-                if (token != null && token.expiresAt > now) {
-                    return token.accessToken;
-                }
-
                 const response = await this.request({
                     path: "/identity-server/connect/token",
                     headers: {

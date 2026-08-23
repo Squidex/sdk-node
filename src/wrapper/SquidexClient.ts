@@ -265,11 +265,13 @@ export class SquidexClients {
         const fetchCore = this.clientOptions.fetcher || fetch;
         const fetchApi: FetchAPI = async (input, init) => {
             init ||= {};
+            let accessToken: string | undefined;
 
             addOptions(init, clientOptions);
 
             if (!getHeader(init, "X-AuthRequest")) {
-                addHeader(init, "Authorization", `Bearer ${await this.tokenApi.getToken()}`);
+                accessToken = await this.tokenApi.getToken();
+                addHeader(init, "Authorization", `Bearer ${accessToken}`);
             }
 
             let response: Response;
@@ -290,7 +292,7 @@ export class SquidexClients {
 
                 if (response && response.status === 401 && !getHeader(init, "X-Retry")) {
                     addHeader(init, "X-Retry", "1");
-                    this.clearToken();
+                    this.clearToken(accessToken);
                     return await fetchApi(input, init);
                 }
             } catch (error: unknown) {
@@ -323,8 +325,12 @@ export class SquidexClients {
     /**
      * Clears the current token in case it has been expired.
      */
-    clearToken() {
-        this.tokenStore.clear();
+    clearToken(accessToken?: string) {
+        const token = this.tokenStore.get();
+
+        if (accessToken === undefined || token?.accessToken === accessToken) {
+            this.tokenStore.clear();
+        }
     }
 
     /**
