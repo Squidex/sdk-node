@@ -2,7 +2,10 @@
     "name": "@squidex/squidex",
     "version": "2.1.0",
     "private": false,
-    "repository": "https://github.com/squidex/sdk-node",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Squidex/sdk-node.git"
+    },
     "main": "./index.js",
     "types": "./index.d.ts",
     "scripts": {
